@@ -5,6 +5,8 @@
 *.DS_Store
 Podfile.lock
 Pods/
+.svn/
+svn-commit.tmp
 MADVCamera.framework/MADVCamera
 MADVPano.framework/MADVPano
 
