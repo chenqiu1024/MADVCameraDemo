@@ -14,6 +14,12 @@ extern NSString* kNotificationRefreshMVMedia;
 
 @class MVMedia;
 
+@protocol MovieSegmentsMerger
+
+-(void) mergeVideoSegments:(NSArray<NSString* >*)segmentPaths intoFile:(NSString*)filePath progressHandler:(void(^)(int))progressHandler completionHandler:(void(^)())completionHandler;
+
+@end
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
