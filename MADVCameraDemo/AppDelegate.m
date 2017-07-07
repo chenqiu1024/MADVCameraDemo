@@ -319,28 +319,31 @@ static AppDelegate* s_singleton = nil;
         _indexPathsOfMedia = [[NSMutableDictionary alloc] init];
         NSMutableArray<NSString* >* keys = [[NSMutableArray alloc] init];
         NSMutableArray<NSArray<MVMedia* >* >* values = [[NSMutableArray alloc] init];
-        int section = 0, row = 0;
+        int section = 0, row;
         for (NSString* key in _dataSet.keyEnumerator)
         {
             [keys addObject:key];
-            NSMutableArray<MVMedia* >* valuesOfKey = [_dataSet objectForKey:key];
             row = 0;
-            BOOL allDownloaded = [_filledGroups containsObject:key];
+            
+            NSMutableArray<MVMedia* >* valuesOfKey = [_dataSet objectForKey:key];
+            MVMedia* lastMedia = [valuesOfKey lastObject];
+            BOOL allJustDownloaded = [_filledGroups containsObject:key] && ![lastMedia.cameraUUID isEqualToString:FORGED_MEDIA_TAG];
+            
             for (MVMedia* media in valuesOfKey)
             {
-                if (0 == media.size || media.downloadedSize < media.size)
+                if (allJustDownloaded && (0 == media.size || media.downloadedSize < media.size))
                 {
-                    allDownloaded = NO;
+                    allJustDownloaded = NO;
                 }
                 
                 NSIndexPath* indexPath = [NSIndexPath indexPathForRow:row++ inSection:section];
                 [_indexPathsOfMedia setObject:indexPath forKey:media.remotePath];
             }
             // Check if any group has all its medias completely downloaded, if so, append a stub MVMedia object representing the merging product:
-            if (allDownloaded || (knownCompletedGroupNames && [knownCompletedGroupNames containsObject:key]))
+            if (allJustDownloaded || (knownCompletedGroupNames && [knownCompletedGroupNames containsObject:key]))
             {
                 ///!!!For Debug
-                NSLog(@"#Merging# Check group completion passed. allDownloaded = %d, key='%@', knownCompletedGroupNames=%@\n#Merging# All medias in group:\n#Merging# {", allDownloaded, key, knownCompletedGroupNames);
+                NSLog(@"#Merging# Check group completion passed. allJustDownloaded = %d, key='%@', knownCompletedGroupNames=%@\n#Merging# All medias in group:\n#Merging# {", allJustDownloaded, key, knownCompletedGroupNames);
                 for (MVMedia* media in valuesOfKey)
                 {
                     NSLog(@"#Merging# media: %@", media);
