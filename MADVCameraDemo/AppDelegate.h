@@ -12,6 +12,8 @@ extern NSString* kNotificationAddNewMVMedia;
 
 extern NSString* kNotificationRefreshMVMedia;
 
+extern NSString* kNotificationMergingMVMedia;
+
 @class MVMedia;
 
 @protocol MovieSegmentsMerger
@@ -23,6 +25,8 @@ extern NSString* kNotificationRefreshMVMedia;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (nonatomic, strong) id<MovieSegmentsMerger> movieMerger;
 
 + (instancetype) sharedApplication;
 

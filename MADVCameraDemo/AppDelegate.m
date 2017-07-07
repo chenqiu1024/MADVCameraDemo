@@ -14,7 +14,11 @@ NSString* kNotificationAddNewMVMedia = @"kNotificationAddNewMVMedia";
 
 NSString* kNotificationRefreshMVMedia = @"kNotificationRefreshMVMedia";
 
-@interface AppDelegate () <MVCameraClientObserver, MVMediaDataSourceObserver, MVMediaDownloadStatusObserver>
+NSString* kNotificationMergingMVMedia = @"kNotificationMergingMVMedia";
+
+NSString* FORGED_MEDIA_TAG = @"[FORGED]";
+
+@interface AppDelegate () <MVCameraClientObserver, MVMediaDataSourceObserver, MVMediaDownloadStatusObserver, MovieSegmentsMerger/*For Unit Test*/>
 {
     NSMutableDictionary<NSString*, NSMutableArray<MVMedia* >* >* _dataSet;
     
@@ -23,18 +27,28 @@ NSString* kNotificationRefreshMVMedia = @"kNotificationRefreshMVMedia";
     NSMutableDictionary<NSString*, NSIndexPath* >* _indexPathsOfMedia;
     
     NSString* _currentGroupName;
-    BOOL _groupFinished;
+    BOOL _groupFull;
+    NSMutableSet<NSString* >* _filledGroups;
 }
 
 - (NSMutableArray<MVMedia*> *) obtainMediaArrayOfGroup:(NSString*)groupName;
 
-- (void) copyDataSet;
+- (void) copyDataSet:(NSSet<NSString* >*)knownCompletedGroupNames;
+
+- (NSString*) checkIfGroupCompletelyDownloadedByIndexPath:(NSIndexPath*)indexPath;
+- (NSString*) checkIfGroupCompletelyDownloaded:(MVMedia*)segmentMedia;
 
 @end
 
 static AppDelegate* s_singleton = nil;
 
 @implementation AppDelegate
+
+#pragma mark    MovieSegmentsMerger
+
+-(void) mergeVideoSegments:(NSArray<NSString *> *)segmentPaths intoFile:(NSString *)filePath progressHandler:(void (^)(int))progressHandler completionHandler:(void (^)())completionHandler {
+    
+}
 
 #pragma mark    MVCameraClientObserver
 
@@ -45,7 +59,7 @@ static AppDelegate* s_singleton = nil;
 - (void) willStopCapturing:(id)param {
     if (param && [param intValue] == 1)
     {
-        _groupFinished = YES;
+        _groupFull = YES;
     }
 }
 
@@ -69,20 +83,22 @@ static AppDelegate* s_singleton = nil;
         NSMutableArray<MVMedia*>* mediaArray = [self obtainMediaArrayOfGroup:_currentGroupName];
         [mediaArray addObject:medias[0]];
         
-        if (_groupFinished)
+        if (_groupFull)
         {
+            [_filledGroups addObject:_currentGroupName];
             _currentGroupName = nil;
-            _groupFinished = NO;
+            _groupFull = NO;
         }
         
         [[MVMediaManager sharedInstance] addDownloading:medias[0]];
         
+        [self copyDataSet:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAddNewMVMedia object:medias];
     }
 }
 
 -(void)didFetchThumbnailImage:(UIImage *)image ofMedia:(MVMedia*)media error:(int)error {
-    [self reloadCellOfMedia:media];
+    [self reloadCellOfMedia:media checkIfGroupDownloaded:NO];
 }
 
 /**
@@ -90,7 +106,7 @@ static AppDelegate* s_singleton = nil;
  * @param media 获取到媒体信息的媒体对象，可以从其中用get方法读取视频时长等信息
  */
 -(void)didFetchMediaInfo:(MVMedia *)media error:(int)error {
-    [self reloadCellOfMedia:media];
+    [self reloadCellOfMedia:media checkIfGroupDownloaded:NO];
 }
 
 /** 异步获取到最近拍摄的一个媒体文件的缩略图
@@ -104,21 +120,21 @@ static AppDelegate* s_singleton = nil;
 #pragma mark    MVMediaDownloadStatusObserver
 
 - (void) didDownloadStatusChange:(int)downloadStatus errorCode:(int)errorCode ofMedia:(MVMedia*)media {
-    [self reloadCellOfMedia:media];
+    [self reloadCellOfMedia:media checkIfGroupDownloaded:YES];
 }
 
 /** 多项媒体文件的下载状态发生批量变化（发生在下载管理页面用户批量操作时）
  *
  */
 - (void) didBatchDownloadStatusChange:(int)downloadStatus ofMedias:(NSArray<MVMedia *>*)medias {
-    [self reloadCellOfMedias:medias];
+    [self reloadCellOfMedias:medias checkIfGroupDownloaded:YES];
 }
 
 /** 下载进度通知回调
  * media: 发生下载进度变化的媒体对象
  */
 - (void) didDownloadProgressChange:(NSInteger)downloadedBytes totalBytes:(NSInteger)totalBytes ofMedia:(MVMedia*)media {
-    [self reloadCellOfMedia:media];
+    [self reloadCellOfMedia:media checkIfGroupDownloaded:NO];
 }
 
 #pragma mark    Public
@@ -139,7 +155,6 @@ static AppDelegate* s_singleton = nil;
 }
 
 - (NSInteger) numberOfSections {
-    [self copyDataSet];
     return _dataSetKeysCopy ? _dataSetKeysCopy.count : 0;
 }
 
@@ -166,19 +181,30 @@ static AppDelegate* s_singleton = nil;
     return mediaArray;
 }
 
-- (void) reloadCellOfMedia:(MVMedia*)media {
+- (void) reloadCellOfMedia:(MVMedia*)media checkIfGroupDownloaded:(BOOL)checkIfGroupDownloaded {
     if (_indexPathsOfMedia)
     {
         NSIndexPath* indexPath = [_indexPathsOfMedia objectForKey:media.remotePath];
         if (indexPath)
         {
-//            [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+            if (checkIfGroupDownloaded)
+            {
+                NSString* completedGroupName = [self checkIfGroupCompletelyDownloadedByIndexPath:indexPath];
+                if (completedGroupName)
+                {
+                    NSSet* knownCompletedGroupNames = [NSSet setWithObjects:completedGroupName, nil];
+                    [self copyDataSet:knownCompletedGroupNames];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationMergingMVMedia object:knownCompletedGroupNames];
+                    return;
+                }
+            }
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRefreshMVMedia object:@[indexPath]];
         }
     }
 }
 
-- (void) reloadCellOfMedias:(NSArray<MVMedia* >*)medias {
+- (void) reloadCellOfMedias:(NSArray<MVMedia* >*)medias checkIfGroupDownloaded:(BOOL)checkIfGroupDownloaded {
     if (_indexPathsOfMedia)
     {
         NSMutableArray<NSString* >* keys = [[NSMutableArray alloc] init];
@@ -189,13 +215,66 @@ static AppDelegate* s_singleton = nil;
         NSArray<NSIndexPath* >* indexPaths = [_indexPathsOfMedia objectsForKeys:keys notFoundMarker:[NSIndexPath indexPathForRow:NSNotFound inSection:NSNotFound]];
         if (indexPaths)
         {
-//            [self.collectionView reloadItemsAtIndexPaths:indexPaths];
+            if (checkIfGroupDownloaded)
+            {
+                NSMutableSet<NSString* >* knownCompletedGroupNames = [[NSMutableSet alloc] init];
+                for (NSIndexPath* indexPath in indexPaths)
+                {
+                    NSString* completedGroupName = [self checkIfGroupCompletelyDownloadedByIndexPath:indexPath];
+                    if (completedGroupName)
+                    {
+                        [knownCompletedGroupNames addObject:completedGroupName];
+                    }
+                }
+                if (knownCompletedGroupNames.count > 0)
+                {
+                    [self copyDataSet:knownCompletedGroupNames];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationMergingMVMedia object:knownCompletedGroupNames];
+                    return;
+                }
+            }
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationRefreshMVMedia object:indexPaths];
         }
     }
 }
 
-- (void) copyDataSet {
+- (NSString*) checkIfGroupCompletelyDownloadedByIndexPath:(NSIndexPath*)indexPath {
+    if (indexPath)
+    {
+        NSString* groupName = [_dataSetKeysCopy objectAtIndex:indexPath.section];
+        if (![_filledGroups containsObject:groupName])
+            return nil;
+        
+        NSArray<MVMedia* >* mediasOfGroup = [_dataSetValuesCopy objectAtIndex:indexPath.section];
+        if (!mediasOfGroup || 0 == mediasOfGroup.count)
+            return nil;
+        
+        MVMedia* lastMedia = [mediasOfGroup lastObject];
+        if ([lastMedia.cameraUUID isEqualToString:FORGED_MEDIA_TAG])
+            return nil;
+        
+        for (MVMedia* media in mediasOfGroup)
+        {
+            if (0 == media.size || media.downloadedSize < media.size)
+                return nil;
+        }
+        
+        return groupName;
+    }
+    return nil;
+}
+
+- (NSString*) checkIfGroupCompletelyDownloaded:(MVMedia*)segmentMedia {
+    if (_indexPathsOfMedia)
+    {
+        NSIndexPath* indexPath = [_indexPathsOfMedia objectForKey:segmentMedia.remotePath];
+        return [self checkIfGroupCompletelyDownloadedByIndexPath:indexPath];
+    }
+    return nil;
+}
+
+- (void) copyDataSet:(NSSet<NSString* >*)knownCompletedGroupNames {
     if (!_dataSet || 0 == _dataSet.count)
     {
         _dataSetValuesCopy = nil;
@@ -212,14 +291,32 @@ static AppDelegate* s_singleton = nil;
         {
             [keys addObject:key];
             NSMutableArray<MVMedia* >* valuesOfKey = [_dataSet objectForKey:key];
-            [values addObject:[NSArray arrayWithArray:valuesOfKey]];
-            
             row = 0;
+            BOOL allDownloaded = [_filledGroups containsObject:key];
             for (MVMedia* media in valuesOfKey)
             {
+                if (0 == media.size || media.downloadedSize < media.size)
+                {
+                    allDownloaded = NO;
+                }
+                
                 NSIndexPath* indexPath = [NSIndexPath indexPathForRow:row++ inSection:section];
                 [_indexPathsOfMedia setObject:indexPath forKey:media.remotePath];
             }
+            // Check if any group has all its medias completely downloaded, if so, append a stub MVMedia object representing the merging product:
+            if (allDownloaded || (knownCompletedGroupNames && [knownCompletedGroupNames containsObject:key]))
+            {
+                MVMedia* mergedMedia = [MVMedia createWithCameraUUID:FORGED_MEDIA_TAG remoteFullPath:key];
+                mergedMedia.localPath = key;///Should format filename?
+                mergedMedia.size = 100;
+                mergedMedia.downloadedSize = 0;//Percent of merging
+                
+                [valuesOfKey addObject:mergedMedia];
+                NSIndexPath* indexPath = [NSIndexPath indexPathForRow:row++ inSection:section];
+                [_indexPathsOfMedia setObject:indexPath forKey:mergedMedia.remotePath];
+            }
+            
+            [values addObject:[NSArray arrayWithArray:valuesOfKey]];
             section++;
         }
         _dataSetKeysCopy = keys;
@@ -232,7 +329,8 @@ static AppDelegate* s_singleton = nil;
     s_singleton = self;
     
     _currentGroupName = nil;
-    _groupFinished = NO;
+    _groupFull = NO;
+    _filledGroups = [[NSMutableSet alloc] init];
     
     _dataSet = [[NSMutableDictionary alloc] init];
     _dataSetValuesCopy = nil;

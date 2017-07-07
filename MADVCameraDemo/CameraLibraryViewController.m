@@ -115,7 +115,13 @@ static NSString* MVMediaHeaderIdentifier = @"MVMediaHeaderIdentifier";
 
 - (void) onRefreshMVMedia:(NSNotification*)notification {
     NSArray<NSIndexPath* >* indexPaths = notification.object;
-    [self.collectionView reloadItemsAtIndexPaths:indexPaths];
+    NSMutableArray<NSIndexPath* >* validIndexPaths = [indexPaths mutableCopy];
+    [validIndexPaths removeObjectIdenticalTo:[NSIndexPath indexPathForRow:NSNotFound inSection:NSNotFound]];
+    [self.collectionView reloadItemsAtIndexPaths:validIndexPaths];
+}
+
+- (void) onMergingMVMedia:(NSNotification*)notification {
+    [self.collectionView reloadData];
 }
 
 #pragma mark    Ctor & Dtor
@@ -133,6 +139,7 @@ static NSString* MVMediaHeaderIdentifier = @"MVMediaHeaderIdentifier";
     NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
     [nc addObserver:self selector:@selector(onAddNewMVMedia:) name:kNotificationAddNewMVMedia object:nil];
     [nc addObserver:self selector:@selector(onRefreshMVMedia:) name:kNotificationRefreshMVMedia object:nil];
+    [nc addObserver:self selector:@selector(onMergingMVMedia:) name:kNotificationMergingMVMedia object:nil];
     
     [self.collectionView reloadData];
 }
