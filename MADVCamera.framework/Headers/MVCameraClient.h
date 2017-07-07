@@ -88,8 +88,6 @@ extern "C" {
 /** 相机客户端监听者。定义了相机各种状态变化的回调 */
 @protocol MVCameraClientObserver <NSObject>
 
-@required
-
 /** 即将连接 */
 - (void) willConnect;
 

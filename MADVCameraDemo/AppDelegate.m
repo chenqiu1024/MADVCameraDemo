@@ -106,11 +106,9 @@ static AppDelegate* s_singleton = nil;
     {
         if (!_currentGroupName)
         {
-            _currentGroupName = [[NSDate date] description];
-            _currentGroupName = [_currentGroupName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-            _currentGroupName = [_currentGroupName stringByReplacingOccurrencesOfString:@":" withString:@"_"];
-            _currentGroupName = [_currentGroupName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-            _currentGroupName = [_currentGroupName stringByReplacingOccurrencesOfString:@"\\" withString:@"_"];
+            NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+            dateFormatter.dateFormat = @"yyyyMMdd_hhmmss";
+            _currentGroupName = [dateFormatter stringFromDate:[NSDate date]];
         }
         
         NSMutableArray<MVMedia*>* mediaArray = [self obtainMediaArrayOfGroup:_currentGroupName];
@@ -372,7 +370,7 @@ static AppDelegate* s_singleton = nil;
                 {
                     NSString* docDirPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
                     NSMutableArray<NSString* >* segmentFilePaths = [[NSMutableArray alloc] init];
-                    for (NSInteger i=valuesOfKey.count-2; i>=0; --i)
+                    for (NSInteger i=0; i<valuesOfKey.count-1; ++i)
                     {
                         MVMedia* segmentMedia = [valuesOfKey objectAtIndex:i];
                         NSString* segmentFilePath = [docDirPath stringByAppendingPathComponent:segmentMedia.localPath];
