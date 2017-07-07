@@ -74,7 +74,7 @@ static AppDelegate* s_singleton = nil;
 #pragma mark    MVCameraClientObserver
 
 -(void) didConnectSuccess:(MVCameraDevice*) device {
-    [[MVMediaManager sharedInstance] cameraMedias:YES];
+    ///!!![[MVMediaManager sharedInstance] cameraMedias:YES];
 }
 
 - (void) willStopCapturing:(id)param {
@@ -85,7 +85,7 @@ static AppDelegate* s_singleton = nil;
 }
 
 -(void) didEndShooting:(NSString *)remoteFilePath error:(int)error errMsg:(NSString *)errMsg {
-    //TODO:
+
 }
 
 - (void)didStopShooting:(int)error {
