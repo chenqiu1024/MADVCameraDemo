@@ -303,9 +303,7 @@
         [_audioSourceURLs addObject:[NSURL fileURLWithPath:path]];
     }
     
-//    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
-//    int32_t intTime = (int32_t)time;
-    seed48((unsigned short*) (long)self);
+    srand48((long) [[NSDate date] timeIntervalSince1970]);
 
     [self resetAudioPlayer:[self randomSelectAudioSource]];
 }
