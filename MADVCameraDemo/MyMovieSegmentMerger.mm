@@ -42,7 +42,9 @@
 {
     AVMutableComposition* mixComposition = [AVMutableComposition composition];
     AVMutableCompositionTrack *a_compositionVideoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
-    Float64 tmpDuration =0.0f;
+    AVMutableCompositionTrack *b_compositionAudioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
+    Float64 video_tmpDuration =0.0f;
+    Float64 audio_tmpDuration =0.0f;
     
     for (NSInteger i=0; i<array.count; i++)
     {
@@ -61,8 +63,18 @@
          */
         NSError *error;
         NSArray* videoTracks = [videoAsset tracksWithMediaType:AVMediaTypeVideo];
-        BOOL tbool = [a_compositionVideoTrack insertTimeRange:video_timeRange ofTrack:[videoTracks objectAtIndex:0] atTime:CMTimeMakeWithSeconds(tmpDuration, 0) error:&error];
+        BOOL tbool = [a_compositionVideoTrack insertTimeRange:video_timeRange ofTrack:[videoTracks objectAtIndex:0] atTime:kCMTimeInvalid error:&error];//CMTimeMakeWithSeconds(video_tmpDuration, 0) error:&error];
+   
+        video_tmpDuration += CMTimeGetSeconds(video_timeRange.duration);
         
+        NSURL* audio_inputFileUrl = [NSURL fileURLWithPath:array[i]];
+
+        AVURLAsset* audioAsset = [[AVURLAsset alloc]initWithURL:audio_inputFileUrl options:nil];
+        CMTimeRange audio_timeRange = CMTimeRangeMake(kCMTimeZero, audioAsset.duration);
+
+        [b_compositionAudioTrack insertTimeRange:audio_timeRange ofTrack:[[audioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeInvalid error:&error];//]CMTimeMakeWithSeconds(video_tmpDuration, 0) error:nil];
+        
+        audio_tmpDuration += CMTimeGetSeconds(audio_timeRange.duration);
     }
     return mixComposition;
 }
@@ -89,6 +101,8 @@
     storePath = [storePath stringByAppendingPathComponent:realName];
     NSURL *outputFileUrl = [NSURL fileURLWithPath:storePath];
     return outputFileUrl;
+    
+
 }
 /**
  *  存储合成的视频
@@ -101,9 +115,8 @@
 -(void)storeAVMutableComposition:(AVMutableComposition*)mixComposition withStoreUrl:(NSURL *)storeUrl andVideoUrl:(NSURL *)videoUrl WihtName:(NSString *)aName andIf3D:(BOOL)tbool success:(void (^)(void))successBlock failure:(void (^)(void))failureBlcok
 {
     __weak typeof(self) welf = self;
-    AVAssetExportSession* _assetExport = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
-    _assetExport.outputFileType = @"com.apple.quicktime-movie";
-    //    _assetExport.outputFileType = @"public.mpeg-4";
+    AVAssetExportSession* _assetExport = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetPassthrough];
+    _assetExport.outputFileType = AVFileTypeQuickTimeMovie;
     _assetExport.outputURL = storeUrl;
     [_assetExport exportAsynchronouslyWithCompletionHandler:^{
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
