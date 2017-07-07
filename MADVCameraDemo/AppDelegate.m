@@ -145,6 +145,7 @@ static AppDelegate* s_singleton = nil;
 #pragma mark    MVMediaDownloadStatusObserver
 
 - (void) didDownloadStatusChange:(int)downloadStatus errorCode:(int)errorCode ofMedia:(MVMedia*)media {
+    NSLog(@"#Merging# didDownloadStatusChange:%d errorCode:%d ofMedia:%@", downloadStatus, errorCode, media);
     [self reloadCellOfMedia:media checkIfGroupDownloaded:YES];
 }
 
@@ -284,6 +285,13 @@ static AppDelegate* s_singleton = nil;
             if (0 == media.size || media.downloadedSize < media.size)
                 return nil;
         }
+        ///!!!For Debug:
+        NSLog(@"#Merging# checkIfGroupCompletelyDownloadedByIndexPath passed. All medias in group:\n#Merging# {");
+        for (MVMedia* media in mediasOfGroup)
+        {
+            NSLog(@"#Merging# media: %@", media);
+        }
+        NSLog(@"#Merging# }");
         
         return groupName;
     }
@@ -331,6 +339,14 @@ static AppDelegate* s_singleton = nil;
             // Check if any group has all its medias completely downloaded, if so, append a stub MVMedia object representing the merging product:
             if (allDownloaded || (knownCompletedGroupNames && [knownCompletedGroupNames containsObject:key]))
             {
+                ///!!!For Debug
+                NSLog(@"#Merging# Check group completion passed. allDownloaded = %d, key='%@', knownCompletedGroupNames=%@\n#Merging# All medias in group:\n#Merging# {", allDownloaded, key, knownCompletedGroupNames);
+                for (MVMedia* media in valuesOfKey)
+                {
+                    NSLog(@"#Merging# media: %@", media);
+                }
+                NSLog(@"#Merging# }");
+                
                 MVMedia* mergedMedia = [MVMedia createWithCameraUUID:FORGED_MEDIA_TAG remoteFullPath:key];
                 mergedMedia.localPath = key;
                 mergedMedia.size = 100;

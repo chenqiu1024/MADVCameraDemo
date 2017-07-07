@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -99,16 +99,14 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                                     <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19p-ka-b8n">
-                                                    <rect key="frame" x="36" y="69" width="54" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19p-ka-b8n">
+                                                    <rect key="frame" x="30.5" y="55.5" width="47.5" height="22.5"/>
                                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="??%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k1m-0P-beN">
-                                                    <rect key="frame" x="0.0" y="35" width="90" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="??%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k1m-0P-beN">
+                                                    <rect key="frame" x="29.5" y="34.5" width="31" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -119,9 +117,17 @@
                                         </view>
                                         <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstItem="k1m-0P-beN" firstAttribute="centerX" secondItem="1lZ-ng-AqN" secondAttribute="centerX" id="4ab-A6-Jkk"/>
                                             <constraint firstAttribute="trailing" secondItem="CnZ-Qn-e70" secondAttribute="trailing" id="CMz-hZ-C6s"/>
+                                            <constraint firstItem="CnZ-Qn-e70" firstAttribute="leading" secondItem="1lZ-ng-AqN" secondAttribute="leading" id="Ezm-Gy-RaT"/>
+                                            <constraint firstAttribute="trailing" secondItem="CnZ-Qn-e70" secondAttribute="trailing" id="Llv-xI-4Vf"/>
                                             <constraint firstAttribute="bottom" secondItem="CnZ-Qn-e70" secondAttribute="bottom" id="NMb-9Y-Psk"/>
+                                            <constraint firstItem="CnZ-Qn-e70" firstAttribute="top" secondItem="1lZ-ng-AqN" secondAttribute="top" id="U1I-fW-z0Q"/>
                                             <constraint firstItem="CnZ-Qn-e70" firstAttribute="leading" secondItem="1lZ-ng-AqN" secondAttribute="leading" id="V2A-2j-NmN"/>
+                                            <constraint firstItem="k1m-0P-beN" firstAttribute="centerY" secondItem="1lZ-ng-AqN" secondAttribute="centerY" id="bwL-wY-Nn4"/>
+                                            <constraint firstAttribute="bottom" secondItem="CnZ-Qn-e70" secondAttribute="bottom" id="eYm-mQ-GoT"/>
+                                            <constraint firstAttribute="trailing" secondItem="19p-ka-b8n" secondAttribute="trailing" constant="12" id="f1u-Iv-ttR"/>
+                                            <constraint firstAttribute="bottom" secondItem="19p-ka-b8n" secondAttribute="bottom" constant="12" id="jTx-AY-9E2"/>
                                             <constraint firstItem="CnZ-Qn-e70" firstAttribute="top" secondItem="1lZ-ng-AqN" secondAttribute="top" id="vIT-g6-OoB"/>
                                         </constraints>
                                         <connections>

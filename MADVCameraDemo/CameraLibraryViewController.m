@@ -75,25 +75,26 @@ static NSString* MVMediaHeaderIdentifier = @"MVMediaHeaderIdentifier";
             if (thummary.isMediaInfoAvailable)
             {
                 cell.durationLabel.text = [[@(media.videoDuration) stringValue] stringByAppendingString:@"s"];
-                if (media.size > 0)
-                {
-                    if (media.downloadedSize >= media.size)
-                    {
-                        cell.downloadProgressLabel.text = @"OK";
-                    }
-                    else
-                    {
-                        cell.downloadProgressLabel.text = [NSString stringWithFormat:@"%d%%", (int)(media.downloadedSize * 100 / media.size)];
-                    }
-                }
-                else
-                {
-                    cell.downloadProgressLabel.text = @"??%%";
-                }
             }
             if (thummary.thumbnail)
             {
                 cell.imageView.image = thummary.thumbnail;
+            }
+            
+            if (media.size > 0)
+            {
+                if (media.downloadedSize >= media.size || MVMediaDownloadStatusFinished == media.downloadStatus)
+                {
+                    cell.downloadProgressLabel.text = @"OK";
+                }
+                else
+                {
+                    cell.downloadProgressLabel.text = [NSString stringWithFormat:@"%d%%", (int)(media.downloadedSize * 100 / media.size)];
+                }
+            }
+            else
+            {
+                cell.downloadProgressLabel.text = @"??";
             }
         }
     }
