@@ -378,7 +378,7 @@ static AppDelegate* s_singleton = nil;
                         NSString* segmentFilePath = [docDirPath stringByAppendingPathComponent:segmentMedia.localPath];
                         [segmentFilePaths addObject:segmentFilePath];
                     }
-                    NSString* mergedFilePath = [docDirPath stringByAppendingPathComponent:key];
+                    NSString* mergedFilePath = [[docDirPath stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"mp4"];
                     [self.movieMerger mergeVideoSegments:segmentFilePaths intoFile:mergedFilePath progressHandler:^(int percent) {
                         NSLog(@"#Merging# In progressHandler : %d", percent);
                         mergedMedia.downloadedSize = percent;
