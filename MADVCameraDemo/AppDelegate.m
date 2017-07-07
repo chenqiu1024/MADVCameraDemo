@@ -357,7 +357,8 @@ static AppDelegate* s_singleton = nil;
                 NSLog(@"#Merging# }");
                 
                 MVMedia* mergedMedia = [MVMedia createWithCameraUUID:FORGED_MEDIA_TAG remoteFullPath:key];
-                mergedMedia.localPath = key;
+                mergedMedia.mediaType = MVMediaTypeVideo;
+                mergedMedia.localPath = [key stringByAppendingPathExtension:@"mp4"];
                 mergedMedia.size = 100;
                 mergedMedia.downloadedSize = 0;//Percent of merging
                 
@@ -376,7 +377,7 @@ static AppDelegate* s_singleton = nil;
                         NSString* segmentFilePath = [docDirPath stringByAppendingPathComponent:segmentMedia.localPath];
                         [segmentFilePaths addObject:segmentFilePath];
                     }
-                    NSString* mergedFilePath = [[docDirPath stringByAppendingPathComponent:key] stringByAppendingPathExtension:@"mp4"];
+                    NSString* mergedFilePath = [docDirPath stringByAppendingPathComponent:mergedMedia.localPath];
                     [self.movieMerger mergeVideoSegments:segmentFilePaths intoFile:mergedFilePath progressHandler:^(int percent) {
                         NSLog(@"#Merging# In progressHandler : %d", percent);
                         mergedMedia.downloadedSize = percent;

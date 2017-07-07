@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -47,6 +47,18 @@
                                     <action selector="shootButtonTouchUp:" destination="9pv-A4-QxB" eventType="touchUpInside" id="dEW-iQ-gfh"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015-10-11" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ekt-4P-ehF">
+                                <rect key="frame" x="144" y="110" width="87" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20:36:45.17" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HaG-X1-VAB">
+                                <rect key="frame" x="103" y="139" width="169.5" height="37"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="32"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -54,17 +66,23 @@
                             <constraint firstItem="bZ3-2m-b8i" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="7hS-6l-KHC"/>
                             <constraint firstItem="DoC-KP-L6c" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="HT8-S5-JfH"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="DoC-KP-L6c" secondAttribute="bottom" constant="78" id="RRt-75-iMc"/>
+                            <constraint firstItem="Ekt-4P-ehF" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="90" id="cm7-aK-cFW"/>
+                            <constraint firstItem="HaG-X1-VAB" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="g3l-jj-1Cb"/>
+                            <constraint firstItem="HaG-X1-VAB" firstAttribute="top" secondItem="Ekt-4P-ehF" secondAttribute="bottom" constant="8" id="jnL-Ji-SbQ"/>
+                            <constraint firstItem="Ekt-4P-ehF" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="vD5-tW-MhT"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
                     <connections>
                         <outlet property="connectButton" destination="bZ3-2m-b8i" id="0fz-Wi-JJQ"/>
+                        <outlet property="dateLabel" destination="Ekt-4P-ehF" id="29E-lz-CAd"/>
                         <outlet property="shootButton" destination="DoC-KP-L6c" id="FrJ-Sw-cR0"/>
+                        <outlet property="timerLabel" destination="HaG-X1-VAB" id="YSj-dE-1At"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="750" y="-320"/>
+            <point key="canvasLocation" x="749.60000000000002" y="-320.68965517241384"/>
         </scene>
         <!--Second-->
         <scene sceneID="wg7-f3-ORb">
@@ -149,7 +167,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <connections>
                                         <outlet property="titleLabel" destination="kKF-tE-biD" id="xYi-I8-bPe"/>
                                     </connections>

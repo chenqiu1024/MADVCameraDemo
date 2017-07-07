@@ -21,5 +21,9 @@
 
 @property (nonatomic, strong) IBOutlet UIButton* shootButton;
 
+@property (nonatomic, strong) IBOutlet UILabel* timerLabel;
+
+@property (nonatomic, strong) IBOutlet UILabel* dateLabel;
+
 @end
 
