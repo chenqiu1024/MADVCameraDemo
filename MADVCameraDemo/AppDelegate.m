@@ -16,6 +16,10 @@ NSString* kNotificationRefreshMVMedia = @"kNotificationRefreshMVMedia";
 
 NSString* kNotificationMergingMVMedia = @"kNotificationMergingMVMedia";
 
+NSString* kNotificationMergingMVMediaProgress = @"kNotificationMergingMVMediaProgress";
+
+NSString* kNotificationMergingMVMediaCompleted = @"kNotificationMergingMVMediaCompleted";
+
 NSString* FORGED_MEDIA_TAG = @"[FORGED]";
 
 @interface AppDelegate () <MVCameraClientObserver, MVMediaDataSourceObserver, MVMediaDownloadStatusObserver, MovieSegmentsMerger/*For Unit Test*/>
@@ -47,7 +51,24 @@ static AppDelegate* s_singleton = nil;
 #pragma mark    MovieSegmentsMerger
 
 -(void) mergeVideoSegments:(NSArray<NSString *> *)segmentPaths intoFile:(NSString *)filePath progressHandler:(void (^)(int))progressHandler completionHandler:(void (^)())completionHandler {
-    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for (int i=0; i<100; ++i)
+        {
+            NSLog(@"#Merging# Call progressHandler %d", i);
+            if (progressHandler)
+            {
+                progressHandler(i);
+            }
+            
+            [NSThread sleepForTimeInterval:0.1f];
+        }
+        
+        NSLog(@"#Merging# Call completionHandler");
+        if (completionHandler)
+        {
+            completionHandler();
+        }
+    });
 }
 
 #pragma mark    MVCameraClientObserver
@@ -78,6 +99,10 @@ static AppDelegate* s_singleton = nil;
         if (!_currentGroupName)
         {
             _currentGroupName = [[NSDate date] description];
+            _currentGroupName = [_currentGroupName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+            _currentGroupName = [_currentGroupName stringByReplacingOccurrencesOfString:@":" withString:@"_"];
+            _currentGroupName = [_currentGroupName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+            _currentGroupName = [_currentGroupName stringByReplacingOccurrencesOfString:@"\\" withString:@"_"];
         }
         
         NSMutableArray<MVMedia*>* mediaArray = [self obtainMediaArrayOfGroup:_currentGroupName];
@@ -307,13 +332,42 @@ static AppDelegate* s_singleton = nil;
             if (allDownloaded || (knownCompletedGroupNames && [knownCompletedGroupNames containsObject:key]))
             {
                 MVMedia* mergedMedia = [MVMedia createWithCameraUUID:FORGED_MEDIA_TAG remoteFullPath:key];
-                mergedMedia.localPath = key;///Should format filename?
+                mergedMedia.localPath = key;
                 mergedMedia.size = 100;
                 mergedMedia.downloadedSize = 0;//Percent of merging
                 
                 [valuesOfKey addObject:mergedMedia];
+                
                 NSIndexPath* indexPath = [NSIndexPath indexPathForRow:row++ inSection:section];
                 [_indexPathsOfMedia setObject:indexPath forKey:mergedMedia.remotePath];
+                
+                if (self.movieMerger)
+                {
+                    NSString* docDirPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+                    NSMutableArray<NSString* >* segmentFilePaths = [[NSMutableArray alloc] init];
+                    for (NSInteger i=valuesOfKey.count-2; i>=0; --i)
+                    {
+                        MVMedia* segmentMedia = [valuesOfKey objectAtIndex:i];
+                        NSString* segmentFilePath = [docDirPath stringByAppendingPathComponent:segmentMedia.localPath];
+                        [segmentFilePaths addObject:segmentFilePath];
+                    }
+                    NSString* mergedFilePath = [docDirPath stringByAppendingPathComponent:key];
+                    [self.movieMerger mergeVideoSegments:segmentFilePaths intoFile:mergedFilePath progressHandler:^(int percent) {
+                        NSLog(@"#Merging# In progressHandler : %d", percent);
+                        mergedMedia.downloadedSize = percent;
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationMergingMVMediaProgress object:indexPath];
+                        });
+                    } completionHandler:^{
+                        NSLog(@"#Merging# In completionHandler");
+                        mergedMedia.downloadedSize = 100;
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationMergingMVMediaCompleted object:indexPath];
+                        });
+                    }];
+                }
             }
             
             [values addObject:[NSArray arrayWithArray:valuesOfKey]];
@@ -344,6 +398,9 @@ static AppDelegate* s_singleton = nil;
     [[MVCameraClient sharedInstance] addObserver:self];
     [[MVMediaManager sharedInstance] addMediaDataSourceObserver:self];
     [[MVMediaManager sharedInstance] addMediaDownloadStatusObserver:self];
+    
+    //For Unit Test Only:
+    self.movieMerger = self;
     
     return YES;
 }

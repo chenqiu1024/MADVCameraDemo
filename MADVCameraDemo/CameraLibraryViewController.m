@@ -57,29 +57,44 @@ static NSString* MVMediaHeaderIdentifier = @"MVMediaHeaderIdentifier";
     MVMedia* media = [[AppDelegate sharedApplication] mvMediaOfIndexPath:indexPath];
     if (media)
     {
-        MediaThummaryResult* thummary = [[MVMediaManager sharedInstance] getMediaThummary:media];
-        if (thummary.isMediaInfoAvailable)
+        if ([media.cameraUUID isEqualToString:FORGED_MEDIA_TAG])
         {
-            cell.durationLabel.text = [[@(media.videoDuration) stringValue] stringByAppendingString:@"s"];
-            if (media.size > 0)
+            cell.imageView.image = nil;
+            if (100 == media.downloadedSize)
             {
-                if (media.downloadedSize >= media.size)
-                {
-                    cell.downloadProgressLabel.text = @"OK";
-                }
-                else
-                {
-                    cell.downloadProgressLabel.text = [NSString stringWithFormat:@"%d%%", (int)(media.downloadedSize * 100 / media.size)];
-                }
+                cell.downloadProgressLabel.text = @"Merged";
             }
             else
             {
-                cell.downloadProgressLabel.text = @"??%%";
+                cell.downloadProgressLabel.text = [NSString stringWithFormat:@"%d%%", (int)(media.downloadedSize)];
             }
         }
-        if (thummary.thumbnail)
+        else
         {
-            cell.imageView.image = thummary.thumbnail;
+            MediaThummaryResult* thummary = [[MVMediaManager sharedInstance] getMediaThummary:media];
+            if (thummary.isMediaInfoAvailable)
+            {
+                cell.durationLabel.text = [[@(media.videoDuration) stringValue] stringByAppendingString:@"s"];
+                if (media.size > 0)
+                {
+                    if (media.downloadedSize >= media.size)
+                    {
+                        cell.downloadProgressLabel.text = @"OK";
+                    }
+                    else
+                    {
+                        cell.downloadProgressLabel.text = [NSString stringWithFormat:@"%d%%", (int)(media.downloadedSize * 100 / media.size)];
+                    }
+                }
+                else
+                {
+                    cell.downloadProgressLabel.text = @"??%%";
+                }
+            }
+            if (thummary.thumbnail)
+            {
+                cell.imageView.image = thummary.thumbnail;
+            }
         }
     }
     return cell;
@@ -124,6 +139,16 @@ static NSString* MVMediaHeaderIdentifier = @"MVMediaHeaderIdentifier";
     [self.collectionView reloadData];
 }
 
+- (void) onMergingMVMediaProgress:(NSNotification*)notification {
+    NSIndexPath* indexPath = notification.object;
+    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+}
+
+- (void) onMergingMVMediaCompleted:(NSNotification*)notification {
+    NSIndexPath* indexPath = notification.object;
+    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+}
+
 #pragma mark    Ctor & Dtor
 
 - (void) dealloc {
@@ -140,6 +165,8 @@ static NSString* MVMediaHeaderIdentifier = @"MVMediaHeaderIdentifier";
     [nc addObserver:self selector:@selector(onAddNewMVMedia:) name:kNotificationAddNewMVMedia object:nil];
     [nc addObserver:self selector:@selector(onRefreshMVMedia:) name:kNotificationRefreshMVMedia object:nil];
     [nc addObserver:self selector:@selector(onMergingMVMedia:) name:kNotificationMergingMVMedia object:nil];
+    [nc addObserver:self selector:@selector(onMergingMVMediaProgress:) name:kNotificationMergingMVMediaProgress object:nil];
+    [nc addObserver:self selector:@selector(onMergingMVMediaCompleted:) name:kNotificationMergingMVMediaCompleted object:nil];
     
     [self.collectionView reloadData];
 }

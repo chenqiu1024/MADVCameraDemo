@@ -14,13 +14,21 @@ extern NSString* kNotificationRefreshMVMedia;
 
 extern NSString* kNotificationMergingMVMedia;
 
-@class MVMedia;
+extern NSString* kNotificationMergingMVMediaProgress;
+
+extern NSString* kNotificationMergingMVMediaCompleted;
+
+extern NSString* FORGED_MEDIA_TAG;
+
 
 @protocol MovieSegmentsMerger
 
 -(void) mergeVideoSegments:(NSArray<NSString* >*)segmentPaths intoFile:(NSString*)filePath progressHandler:(void(^)(int))progressHandler completionHandler:(void(^)())completionHandler;
 
 @end
+
+
+@class MVMedia;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

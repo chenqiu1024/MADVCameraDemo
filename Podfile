@@ -41,7 +41,7 @@ pod 'MWPhotoBrowser', '~> 1.4.1'
 pod 'Masonry'
 
 pod 'MJRefresh', '3.1.12'
-pod 'Realm', '2.0.0'
+pod 'Realm', '2.8.3'
 end
 
 target 'MADVCameraDemo' do
