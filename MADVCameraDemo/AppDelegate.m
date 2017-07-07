@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "MVCameraClient.h"
 #import "MVMediaManager.h"
+#import "MyMovieSegmentMerger.h"
 
 NSString* kNotificationAddNewMVMedia = @"kNotificationAddNewMVMedia";
 
@@ -52,6 +53,13 @@ static AppDelegate* s_singleton = nil;
 
 -(void) mergeVideoSegments:(NSArray<NSString *> *)segmentPaths intoFile:(NSString *)filePath progressHandler:(void (^)(int))progressHandler completionHandler:(void (^)())completionHandler {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        MyMovieSegmentMerger* myMerger = [[MyMovieSegmentMerger alloc] init];
+        
+        void(^successBlock)() = ^(void){};
+        void(^failureBlock)() = ^(void){};
+        
+        [myMerger mergeVideoToOneVideo:segmentPaths intoFile:filePath andIf3D:NO success:successBlock failure:failureBlock];
+         
         for (int i=0; i<100; ++i)
         {
             NSLog(@"#Merging# Call progressHandler %d", i);
@@ -409,10 +417,6 @@ static AppDelegate* s_singleton = nil;
     _dataSetValuesCopy = nil;
     _dataSetKeysCopy = nil;
     _indexPathsOfMedia = nil;
-    
-    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
-    int32_t intTime = (int32_t)time;
-    seed48((unsigned short*) &intTime);
     
     [[MVCameraClient sharedInstance] addObserver:self];
     [[MVMediaManager sharedInstance] addMediaDataSourceObserver:self];

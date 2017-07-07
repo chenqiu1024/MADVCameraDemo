@@ -45,6 +45,7 @@
 		521A4F5E1F0B9D2C00E5F155 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F591F0B9D2C00E5F155 /* libswscale.a */; };
 		521A4F671F0BA1DA00E5F155 /* MyGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521A4F661F0BA1DA00E5F155 /* MyGLView.mm */; };
 		521A4F691F0BAAB800E5F155 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F681F0BAAB800E5F155 /* CoreMotion.framework */; };
+		BB3DA3A31F0F7FE3009B6ACF /* MyMovieSegmentMerger.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,8 @@
 		521A4F661F0BA1DA00E5F155 /* MyGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyGLView.mm; sourceTree = "<group>"; };
 		521A4F681F0BAAB800E5F155 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		664A85556F7159585B5439CC /* Pods-MADVCameraDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MADVCameraDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MADVCameraDemo/Pods-MADVCameraDemo.release.xcconfig"; sourceTree = "<group>"; };
+		BB3DA3A01F0F7FE2009B6ACF /* MyMovieSegmentMerger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMovieSegmentMerger.h; sourceTree = "<group>"; };
+		BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyMovieSegmentMerger.mm; sourceTree = "<group>"; };
 		ECD839518DD38BB9E2CE4C8A /* Pods-MADVCameraDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MADVCameraDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MADVCameraDemo/Pods-MADVCameraDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		F3E22FF2085F15F1C2621E22 /* libPods-MADVCameraDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MADVCameraDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -182,6 +185,8 @@
 		521A4EDE1F0B766B00E5F155 /* MADVCameraDemo */ = {
 			isa = PBXGroup;
 			children = (
+				BB3DA3A01F0F7FE2009B6ACF /* MyMovieSegmentMerger.h */,
+				BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */,
 				521A4F651F0BA1DA00E5F155 /* MyGLView.h */,
 				521A4F661F0BA1DA00E5F155 /* MyGLView.mm */,
 				521A4F251F0B92AB00E5F155 /* z_Sandbox.h */,
@@ -430,6 +435,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB3DA3A31F0F7FE3009B6ACF /* MyMovieSegmentMerger.mm in Sources */,
 				521A4F151F0B78BF00E5F155 /* MediaPlayerViewController.mm in Sources */,
 				521A4F671F0BA1DA00E5F155 /* MyGLView.mm in Sources */,
 				521A4EEA1F0B766B00E5F155 /* CameraLibraryViewController.m in Sources */,
