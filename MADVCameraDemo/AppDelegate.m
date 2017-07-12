@@ -10,6 +10,7 @@
 #import "MVCameraClient.h"
 #import "MVMediaManager.h"
 #import "MyMovieSegmentMerger.h"
+#import "MadvGLRenderer_iOS.h"
 
 NSString* kNotificationAddNewMVMedia = @"kNotificationAddNewMVMedia";
 
@@ -358,7 +359,7 @@ static AppDelegate* s_singleton = nil;
                 
                 MVMedia* mergedMedia = [MVMedia createWithCameraUUID:FORGED_MEDIA_TAG remoteFullPath:key];
                 mergedMedia.mediaType = MVMediaTypeVideo;
-                mergedMedia.localPath = [key stringByAppendingPathExtension:@"mp4"];
+                mergedMedia.localPath = [[key stringByAppendingString:MADV_DUAL_FISHEYE_VIDEO_TAG] stringByAppendingPathExtension:@"mp4"];
                 mergedMedia.size = 100;
                 mergedMedia.downloadedSize = 0;//Percent of merging
                 

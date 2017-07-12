@@ -12,6 +12,8 @@
 #include <MADVPano/MadvGLRenderer.h>
 #include <UIKit/UIKit.h>
 
+#define MADV_DUAL_FISHEYE_VIDEO_TAG @"MADV_DUAL_FISHEYE"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
