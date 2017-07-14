@@ -12,6 +12,7 @@
 #import "MyMovieSegmentMerger.h"
 #import "MadvGLRenderer_iOS.h"
 
+#define MADV_DUAL_FISHEYE_VIDEO_TAG @"MADV_DUAL_FISHEYE_VIDEO"
 NSString* kNotificationAddNewMVMedia = @"kNotificationAddNewMVMedia";
 
 NSString* kNotificationRefreshMVMedia = @"kNotificationRefreshMVMedia";

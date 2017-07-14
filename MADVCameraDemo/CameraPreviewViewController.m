@@ -54,6 +54,14 @@
     }
 }
 
+- (IBAction)set15sButtonClicked:(id)sender {
+    [[MVCameraClient sharedInstance] setVideoSegmentSeconds:15];
+}
+
+- (IBAction)set30sButtonClicked:(id)sender {
+    [[MVCameraClient sharedInstance] setVideoSegmentSeconds:30];
+}
+
 #pragma mark    MVCameraClientObserver
 
 - (void) willConnect {

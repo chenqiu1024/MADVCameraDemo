@@ -105,6 +105,8 @@ typedef enum : NSInteger {
 //拍摄子模式下设置参数
 @property(nonatomic,assign) NSInteger cameraSubModeParam;
 
+@property (nonatomic,assign) int videoSegmentSeconds;
+
 #pragma mark    用于相机设置的方法
 /**
  * 获取相机全部设置项，以树状结构给出

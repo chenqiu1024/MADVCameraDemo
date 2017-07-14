@@ -364,6 +364,8 @@ extern "C" {
 /** 相机的存储卡是否为白名单卡 */
 + (BOOL)isSdWhiteSd_mid:(NSInteger)sd_mid sd_oid:(NSInteger)sd_oid sd_pnm:(NSString *)sd_pnm;
 
+- (void) setVideoSegmentSeconds:(int)seconds;
+
 + (instancetype) sharedInstance;
 
 #pragma mark    Protected

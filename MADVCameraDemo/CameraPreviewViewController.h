@@ -17,6 +17,9 @@
 
 - (IBAction)shootButtonTouchUp:(id)sender;
 
+- (IBAction)set15sButtonClicked:(id)sender;
+- (IBAction)set30sButtonClicked:(id)sender;
+
 @property (nonatomic, strong) IBOutlet UIButton* connectButton;
 
 @property (nonatomic, strong) IBOutlet UIButton* shootButton;

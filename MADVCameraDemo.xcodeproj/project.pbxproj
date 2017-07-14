@@ -45,43 +45,6 @@
 		521A4F5E1F0B9D2C00E5F155 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F591F0B9D2C00E5F155 /* libswscale.a */; };
 		521A4F671F0BA1DA00E5F155 /* MyGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521A4F661F0BA1DA00E5F155 /* MyGLView.mm */; };
 		521A4F691F0BAAB800E5F155 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F681F0BAAB800E5F155 /* CoreMotion.framework */; };
-		522363BA1F1607DD001E125D /* MyMovieSegmentMerger.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */; };
-		522363BB1F1607DD001E125D /* MediaPlayerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521A4F131F0B78BF00E5F155 /* MediaPlayerViewController.mm */; };
-		522363BC1F1607DD001E125D /* MyGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521A4F661F0BA1DA00E5F155 /* MyGLView.mm */; };
-		522363BD1F1607DD001E125D /* CameraLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521A4EE91F0B766B00E5F155 /* CameraLibraryViewController.m */; };
-		522363BE1F1607DD001E125D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 521A4EE31F0B766B00E5F155 /* AppDelegate.m */; };
-		522363BF1F1607DD001E125D /* UIViewController+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 521A4F201F0B849900E5F155 /* UIViewController+Extensions.m */; };
-		522363C01F1607DD001E125D /* KxMovieViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521A4F171F0B78F600E5F155 /* KxMovieViewController.mm */; };
-		522363C11F1607DD001E125D /* CameraPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521A4EE61F0B766B00E5F155 /* CameraPreviewViewController.m */; };
-		522363C21F1607DD001E125D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 521A4EE01F0B766B00E5F155 /* main.m */; };
-		522363C41F1607DD001E125D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F681F0BAAB800E5F155 /* CoreMotion.framework */; };
-		522363C51F1607DD001E125D /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F551F0B9D2C00E5F155 /* libavcodec.a */; };
-		522363C61F1607DD001E125D /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F561F0B9D2C00E5F155 /* libavformat.a */; };
-		522363C71F1607DD001E125D /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F571F0B9D2C00E5F155 /* libavutil.a */; };
-		522363C81F1607DD001E125D /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F581F0B9D2C00E5F155 /* libswresample.a */; };
-		522363C91F1607DD001E125D /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F591F0B9D2C00E5F155 /* libswscale.a */; };
-		522363CA1F1607DD001E125D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F531F0B9C5E00E5F155 /* CoreMedia.framework */; };
-		522363CB1F1607DD001E125D /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F511F0B9C5400E5F155 /* Accelerate.framework */; };
-		522363CC1F1607DD001E125D /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F4F1F0B9C3500E5F155 /* CoreVideo.framework */; };
-		522363CD1F1607DD001E125D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F4B1F0B9C2D00E5F155 /* AudioToolbox.framework */; };
-		522363CE1F1607DD001E125D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F4C1F0B9C2D00E5F155 /* CoreAudio.framework */; };
-		522363CF1F1607DD001E125D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F491F0B9C2000E5F155 /* libsqlite3.tbd */; };
-		522363D01F1607DD001E125D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F471F0B9C0400E5F155 /* CoreTelephony.framework */; };
-		522363D11F1607DD001E125D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F451F0B9C0000E5F155 /* QuartzCore.framework */; };
-		522363D21F1607DD001E125D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F431F0B9BFB00E5F155 /* CoreGraphics.framework */; };
-		522363D31F1607DD001E125D /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F411F0B9BE800E5F155 /* VideoToolbox.framework */; };
-		522363D41F1607DD001E125D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3F1F0B9BE300E5F155 /* Foundation.framework */; };
-		522363D51F1607DD001E125D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F2E1F0B938000E5F155 /* AVFoundation.framework */; };
-		522363D61F1607DD001E125D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3D1F0B9BDB00E5F155 /* CoreFoundation.framework */; };
-		522363D71F1607DD001E125D /* MADVPano.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3B1F0B9A0700E5F155 /* MADVPano.framework */; };
-		522363D91F1607DD001E125D /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F301F0B938600E5F155 /* OpenGLES.framework */; };
-		522363DA1F1607DD001E125D /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F2C1F0B936F00E5F155 /* libxml2.2.tbd */; };
-		522363DB1F1607DD001E125D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F2A1F0B936900E5F155 /* libz.tbd */; };
-		522363DC1F1607DD001E125D /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F281F0B934B00E5F155 /* libiconv.tbd */; };
-		522363DD1F1607DD001E125D /* libPods-MADVCameraDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3E22FF2085F15F1C2621E22 /* libPods-MADVCameraDemo.a */; };
-		522363DF1F1607DD001E125D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 521A4EF01F0B766B00E5F155 /* LaunchScreen.storyboard */; };
-		522363E01F1607DD001E125D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 521A4EEE1F0B766B00E5F155 /* Assets.xcassets */; };
-		522363E11F1607DD001E125D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 521A4EEB1F0B766B00E5F155 /* Main.storyboard */; };
 		BB3DA3A31F0F7FE3009B6ACF /* MyMovieSegmentMerger.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */; };
 /* End PBXBuildFile section */
 
@@ -92,34 +55,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 521A4EDB1F0B766B00E5F155;
 			remoteInfo = MADVCameraDemo;
-		};
-		522363F01F160AE9001E125D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 522363E91F160AE9001E125D /* Madv360_v1.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 84AA00AA1BF9858D00440FE7;
-			remoteInfo = Madv360_v1UITests;
-		};
-		522363F21F160AE9001E125D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 522363E91F160AE9001E125D /* Madv360_v1.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 84E5C18E1C2E5C4100BF8B09;
-			remoteInfo = Madv360_SV1;
-		};
-		522363F41F160AE9001E125D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 522363E91F160AE9001E125D /* Madv360_v1.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 52A08CA71EF776A3000525F4;
-			remoteInfo = Madv360_SV1_with_MADVPano_project;
-		};
-		522363F61F160AE9001E125D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 522363E91F160AE9001E125D /* Madv360_v1.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5278325A1EF9558C00FBB215;
-			remoteInfo = Madv360_SV1_with_MADVPano_framework;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -175,9 +110,7 @@
 		521A4F651F0BA1DA00E5F155 /* MyGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGLView.h; sourceTree = "<group>"; };
 		521A4F661F0BA1DA00E5F155 /* MyGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyGLView.mm; sourceTree = "<group>"; };
 		521A4F681F0BAAB800E5F155 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		522363E71F1607DD001E125D /* MADVCameraDemo_withSource.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MADVCameraDemo_withSource.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		522363E81F1607DD001E125D /* MADVCameraDemo_withSource-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MADVCameraDemo_withSource-Info.plist"; path = "/Users/domqiu/Projects/MADVCameraDemo/MADVCameraDemo_withSource-Info.plist"; sourceTree = "<absolute>"; };
-		522363E91F160AE9001E125D /* Madv360_v1.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Madv360_v1.xcodeproj; path = ../Madv360_v1/Madv360_v1.xcodeproj; sourceTree = "<group>"; };
 		664A85556F7159585B5439CC /* Pods-MADVCameraDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MADVCameraDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MADVCameraDemo/Pods-MADVCameraDemo.release.xcconfig"; sourceTree = "<group>"; };
 		BB3DA3A01F0F7FE2009B6ACF /* MyMovieSegmentMerger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMovieSegmentMerger.h; sourceTree = "<group>"; };
 		BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyMovieSegmentMerger.mm; sourceTree = "<group>"; };
@@ -226,45 +159,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		522363C31F1607DD001E125D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				522363C41F1607DD001E125D /* CoreMotion.framework in Frameworks */,
-				522363C51F1607DD001E125D /* libavcodec.a in Frameworks */,
-				522363C61F1607DD001E125D /* libavformat.a in Frameworks */,
-				522363C71F1607DD001E125D /* libavutil.a in Frameworks */,
-				522363C81F1607DD001E125D /* libswresample.a in Frameworks */,
-				522363C91F1607DD001E125D /* libswscale.a in Frameworks */,
-				522363CA1F1607DD001E125D /* CoreMedia.framework in Frameworks */,
-				522363CB1F1607DD001E125D /* Accelerate.framework in Frameworks */,
-				522363CC1F1607DD001E125D /* CoreVideo.framework in Frameworks */,
-				522363CD1F1607DD001E125D /* AudioToolbox.framework in Frameworks */,
-				522363CE1F1607DD001E125D /* CoreAudio.framework in Frameworks */,
-				522363CF1F1607DD001E125D /* libsqlite3.tbd in Frameworks */,
-				522363D01F1607DD001E125D /* CoreTelephony.framework in Frameworks */,
-				522363D11F1607DD001E125D /* QuartzCore.framework in Frameworks */,
-				522363D21F1607DD001E125D /* CoreGraphics.framework in Frameworks */,
-				522363D31F1607DD001E125D /* VideoToolbox.framework in Frameworks */,
-				522363D41F1607DD001E125D /* Foundation.framework in Frameworks */,
-				522363D51F1607DD001E125D /* AVFoundation.framework in Frameworks */,
-				522363D61F1607DD001E125D /* CoreFoundation.framework in Frameworks */,
-				522363D71F1607DD001E125D /* MADVPano.framework in Frameworks */,
-				522363D91F1607DD001E125D /* OpenGLES.framework in Frameworks */,
-				522363DA1F1607DD001E125D /* libxml2.2.tbd in Frameworks */,
-				522363DB1F1607DD001E125D /* libz.tbd in Frameworks */,
-				522363DC1F1607DD001E125D /* libiconv.tbd in Frameworks */,
-				522363DD1F1607DD001E125D /* libPods-MADVCameraDemo.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		521A4ED31F0B766B00E5F155 = {
 			isa = PBXGroup;
 			children = (
-				522363E91F160AE9001E125D /* Madv360_v1.xcodeproj */,
 				521A4EDE1F0B766B00E5F155 /* MADVCameraDemo */,
 				521A4EFB1F0B766C00E5F155 /* MADVCameraDemoUITests */,
 				521A4EDD1F0B766B00E5F155 /* Products */,
@@ -279,7 +179,6 @@
 			children = (
 				521A4EDC1F0B766B00E5F155 /* MADVCameraDemo.app */,
 				521A4EF81F0B766C00E5F155 /* MADVCameraDemoUITests.xctest */,
-				522363E71F1607DD001E125D /* MADVCameraDemo_withSource.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -365,17 +264,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		522363EA1F160AE9001E125D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				522363F11F160AE9001E125D /* Madv360_v1UITests.xctest */,
-				522363F31F160AE9001E125D /* Madv_11.app */,
-				522363F51F160AE9001E125D /* Madv360_SV1_with_MADVPano_project.app */,
-				522363F71F160AE9001E125D /* Madv360_SV1_with_MADVPano_framework.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		7A68F7B1FE2D5ED65C230AAF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -426,26 +314,6 @@
 			productReference = 521A4EF81F0B766C00E5F155 /* MADVCameraDemoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		522363B71F1607DD001E125D /* MADVCameraDemo_withSource */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 522363E41F1607DD001E125D /* Build configuration list for PBXNativeTarget "MADVCameraDemo_withSource" */;
-			buildPhases = (
-				522363B81F1607DD001E125D /* [CP] Check Pods Manifest.lock */,
-				522363B91F1607DD001E125D /* Sources */,
-				522363C31F1607DD001E125D /* Frameworks */,
-				522363DE1F1607DD001E125D /* Resources */,
-				522363E21F1607DD001E125D /* [CP] Embed Pods Frameworks */,
-				522363E31F1607DD001E125D /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = MADVCameraDemo_withSource;
-			productName = MADVCameraDemo;
-			productReference = 522363E71F1607DD001E125D /* MADVCameraDemo_withSource.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -466,9 +334,6 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 521A4EDB1F0B766B00E5F155;
 					};
-					522363B71F1607DD001E125D = {
-						DevelopmentTeam = QBAB3CS86A;
-					};
 				};
 			};
 			buildConfigurationList = 521A4ED71F0B766B00E5F155 /* Build configuration list for PBXProject "MADVCameraDemo" */;
@@ -482,51 +347,13 @@
 			mainGroup = 521A4ED31F0B766B00E5F155;
 			productRefGroup = 521A4EDD1F0B766B00E5F155 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 522363EA1F160AE9001E125D /* Products */;
-					ProjectRef = 522363E91F160AE9001E125D /* Madv360_v1.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				521A4EDB1F0B766B00E5F155 /* MADVCameraDemo */,
 				521A4EF71F0B766C00E5F155 /* MADVCameraDemoUITests */,
-				522363B71F1607DD001E125D /* MADVCameraDemo_withSource */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		522363F11F160AE9001E125D /* Madv360_v1UITests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = Madv360_v1UITests.xctest;
-			remoteRef = 522363F01F160AE9001E125D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		522363F31F160AE9001E125D /* Madv_11.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = Madv_11.app;
-			remoteRef = 522363F21F160AE9001E125D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		522363F51F160AE9001E125D /* Madv360_SV1_with_MADVPano_project.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = Madv360_SV1_with_MADVPano_project.app;
-			remoteRef = 522363F41F160AE9001E125D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		522363F71F160AE9001E125D /* Madv360_SV1_with_MADVPano_framework.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = Madv360_SV1_with_MADVPano_framework.app;
-			remoteRef = 522363F61F160AE9001E125D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		521A4EDA1F0B766B00E5F155 /* Resources */ = {
@@ -546,72 +373,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		522363DE1F1607DD001E125D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				522363DF1F1607DD001E125D /* LaunchScreen.storyboard in Resources */,
-				522363E01F1607DD001E125D /* Assets.xcassets in Resources */,
-				522363E11F1607DD001E125D /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		3F6707DDA3858C8169096DF1 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MADVCameraDemo/Pods-MADVCameraDemo-resources.sh",
-				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-				"${PODS_ROOT}/MWPhotoBrowser/MWPhotoBrowser/MWPhotoBrowser.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MADVCameraDemo/Pods-MADVCameraDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		522363B81F1607DD001E125D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MADVCameraDemo-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		522363E21F1607DD001E125D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MADVCameraDemo/Pods-MADVCameraDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		522363E31F1607DD001E125D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -687,22 +452,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				521A4EFD1F0B766C00E5F155 /* MADVCameraDemoUITests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		522363B91F1607DD001E125D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				522363BA1F1607DD001E125D /* MyMovieSegmentMerger.mm in Sources */,
-				522363BB1F1607DD001E125D /* MediaPlayerViewController.mm in Sources */,
-				522363BC1F1607DD001E125D /* MyGLView.mm in Sources */,
-				522363BD1F1607DD001E125D /* CameraLibraryViewController.m in Sources */,
-				522363BE1F1607DD001E125D /* AppDelegate.m in Sources */,
-				522363BF1F1607DD001E125D /* UIViewController+Extensions.m in Sources */,
-				522363C01F1607DD001E125D /* KxMovieViewController.mm in Sources */,
-				522363C11F1607DD001E125D /* CameraPreviewViewController.m in Sources */,
-				522363C21F1607DD001E125D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1028,178 +777,6 @@
 			};
 			name = Release;
 		};
-		522363E51F1607DD001E125D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = ECD839518DD38BB9E2CE4C8A /* Pods-MADVCameraDemo.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = QBAB3CS86A;
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/libs",
-				);
-				GCC_PREFIX_HEADER = MADVCameraDemo/PrefixHeader.h;
-				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/MADVPano.framework/Headers",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive/minizip\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive\"",
-				);
-				INFOPLIST_FILE = "MADVCameraDemo_withSource-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/AFNetworking\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/DACircularProgress\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/JLRoutes\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/MBProgressHUD\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/MJExtension\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/MJRefresh\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/MWPhotoBrowser\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/Masonry\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/PSTCollectionView\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SDWebImage\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSKeychain\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/THProgressView\"",
-					"$(PROJECT_DIR)/MADVPano.framework/**",
-					"$(PROJECT_DIR)/libs/FFmpeg",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-l\"AFNetworking\"",
-					"-l\"DACircularProgress\"",
-					"-l\"JLRoutes\"",
-					"-l\"MBProgressHUD\"",
-					"-l\"MJExtension\"",
-					"-l\"MJRefresh\"",
-					"-l\"MWPhotoBrowser\"",
-					"-l\"Masonry\"",
-					"-l\"PSTCollectionView\"",
-					"-l\"Realm\"",
-					"-l\"SDWebImage\"",
-					"-l\"SSKeychain\"",
-					"-l\"SSZipArchive\"",
-					"-l\"THProgressView\"",
-					"-l\"c++\"",
-					"-l\"z\"",
-					"-framework",
-					"\"AssetsLibrary\"",
-					"-framework",
-					"\"CoreGraphics\"",
-					"-framework",
-					"\"Foundation\"",
-					"-framework",
-					"\"ImageIO\"",
-					"-framework",
-					"\"MapKit\"",
-					"-framework",
-					"\"MessageUI\"",
-					"-framework",
-					"\"MobileCoreServices\"",
-					"-framework",
-					"\"QuartzCore\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-framework",
-					"\"UIKit\"",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.madv.MADVCameraDemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		522363E61F1607DD001E125D /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 664A85556F7159585B5439CC /* Pods-MADVCameraDemo.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = QBAB3CS86A;
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/libs",
-				);
-				GCC_PREFIX_HEADER = MADVCameraDemo/PrefixHeader.h;
-				HEADER_SEARCH_PATHS = (
-					"$(PROJECT_DIR)/MADVPano.framework/Headers",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive/minizip\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive\"",
-				);
-				INFOPLIST_FILE = "MADVCameraDemo_withSource-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/AFNetworking\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/DACircularProgress\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/JLRoutes\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/MBProgressHUD\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/MJExtension\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/MJRefresh\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/MWPhotoBrowser\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/Masonry\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/PSTCollectionView\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SDWebImage\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSKeychain\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/THProgressView\"",
-					"$(PROJECT_DIR)/MADVPano.framework/**",
-					"$(PROJECT_DIR)/libs/FFmpeg",
-				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-l\"AFNetworking\"",
-					"-l\"DACircularProgress\"",
-					"-l\"JLRoutes\"",
-					"-l\"MBProgressHUD\"",
-					"-l\"MJExtension\"",
-					"-l\"MJRefresh\"",
-					"-l\"MWPhotoBrowser\"",
-					"-l\"Masonry\"",
-					"-l\"PSTCollectionView\"",
-					"-l\"Realm\"",
-					"-l\"SDWebImage\"",
-					"-l\"SSKeychain\"",
-					"-l\"SSZipArchive\"",
-					"-l\"THProgressView\"",
-					"-l\"c++\"",
-					"-l\"z\"",
-					"-framework",
-					"\"AssetsLibrary\"",
-					"-framework",
-					"\"CoreGraphics\"",
-					"-framework",
-					"\"Foundation\"",
-					"-framework",
-					"\"ImageIO\"",
-					"-framework",
-					"\"MapKit\"",
-					"-framework",
-					"\"MessageUI\"",
-					"-framework",
-					"\"MobileCoreServices\"",
-					"-framework",
-					"\"QuartzCore\"",
-					"-framework",
-					"\"Security\"",
-					"-framework",
-					"\"SystemConfiguration\"",
-					"-framework",
-					"\"UIKit\"",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.madv.MADVCameraDemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1226,15 +803,6 @@
 			buildConfigurations = (
 				521A4F051F0B766C00E5F155 /* Debug */,
 				521A4F061F0B766C00E5F155 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		522363E41F1607DD001E125D /* Build configuration list for PBXNativeTarget "MADVCameraDemo_withSource" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				522363E51F1607DD001E125D /* Debug */,
-				522363E61F1607DD001E125D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
