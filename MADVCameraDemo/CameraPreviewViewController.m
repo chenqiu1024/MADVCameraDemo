@@ -279,11 +279,11 @@
     dateFormatter.dateFormat = @"yyyy-MM-dd";
     NSDateFormatter* timeFormatter = [[NSDateFormatter alloc] init];
     timeFormatter.dateFormat = @"hh:mm:ss.SSS";
-    [NSTimer scheduledTimerWithTimeInterval:0.016 repeats:YES block:^(NSTimer * _Nonnull timer) {
-        NSDate* now = [NSDate date];
-        self.dateLabel.text = [dateFormatter stringFromDate:now];
-        self.timerLabel.text = [timeFormatter stringFromDate:now];
-    }];
+//    [NSTimer scheduledTimerWithTimeInterval:0.016 repeats:YES block:^(NSTimer * _Nonnull timer) {
+//        NSDate* now = [NSDate date];
+//        self.dateLabel.text = [dateFormatter stringFromDate:now];
+//        self.timerLabel.text = [timeFormatter stringFromDate:now];
+//    }];
     
     [[MVCameraClient sharedInstance] addObserver:self];
     
