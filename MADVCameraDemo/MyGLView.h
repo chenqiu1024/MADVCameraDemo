@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "KxMovieViewController.h"
-//#import <kazmath.h>
+#import <kazmath.h>
 
 @class KxVideoFrame;
 @class GLRenderLoop;
@@ -121,6 +121,9 @@
 @property (nonatomic, assign) UIInterfaceOrientation interfaceOrientation;
 
 - (void) resetViewPosition;
+
+// eularDegrees.xyz = {yaw,pitch,bank}
+- (void) lookAt:(kmVec3)eularDegrees;
 
 - (void) startMotionManager;
 - (void) stopMotionManager;

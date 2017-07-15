@@ -10,11 +10,14 @@
 #define EXIFParser_h
 
 #include <stdio.h>
+#include <iostream>
 #include <stdbool.h>
 #ifdef TARGET_OS_IOS
 #import <Foundation/Foundation.h>
 #endif
 #include <stdint.h>
+//#define EXV_HAVE_STDINT_H
+#include "exiv2/include/exiv2.hpp"
 
 #define EXIF_PILOT 0xFF
 #define EXIF_MARKER 0xE1
@@ -95,12 +98,17 @@ extern "C" {
     
     void writeExtensionToFile(const char* filePath, const void* data, int32_t length);
     
-    int exifPrint(const char* imagePath);
+    int exifPrint(const char* imagePath, std::ostream& output);
+    
+    void copyEXIFData(const char* destImagePath, const char* sourceImagePath);
     
     bool setXmpGPanoPacket(const char* imagePath);
     
 #ifdef __cplusplus
 }
 #endif
+
+    Exiv2::Image::AutoPtr createExivImage(const char* sourceImagePath);
+    void copyEXIFDataFromExivImage(const char* destImagePath, Exiv2::Image::AutoPtr sourceImage);
 
 #endif /* EXIFParser_h */

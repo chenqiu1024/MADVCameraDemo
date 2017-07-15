@@ -22,18 +22,17 @@
 
 /** 全景显示模式标志值 */
 typedef enum {
-    // 以下6个项互斥，为主要的模式选项
-    PanoramaDisplayModePlain = 0x00, //直接矩形平铺显示（与普通视频一样）
-    PanoramaDisplayModeSphere = 0x01, //平面模式（视线从球心发出的透视投影）
-    PanoramaDisplayModeLittlePlanet = 0x02, //小行星模式（视线从球上方顶点向下俯视且FOV较大的透视投影）
-    PanoramaDisplayModeStereoGraphic = 0x03, //球面模式（视频从球近方顶点向前看的透视投影）
-    PanoramaDisplayModeReFlatten = 0x04, //平铺显示，但可以根据视角旋转而生成相应的圆柱体展开投影图
-    PanoramaDisplayModeReFlattenInVertex = 0x05, //与PanoramaDisplayModeReFlatten类似，但效率较高。目前尚处于实验中
-    // 以下2个项互斥，与上面的6选1可以用位或包含
-    PanoramaDisplayModeLUT = 0x10, //采用MADV相机的拼接方式将双鱼眼图像拼接为全景图像
-    PanoramaDisplayModePlainStitch = 0x20, //实验用
+    PanoramaDisplayModePlain = 0x00,
+    PanoramaDisplayModeSphere = 0x01,
+    PanoramaDisplayModeLittlePlanet = 0x02,
+    PanoramaDisplayModeStereoGraphic = 0x03,
+    PanoramaDisplayModeReFlatten = 0x04,
+    PanoramaDisplayModeReFlattenInVertex = 0x05,
 
-    PanoramaDisplayModeExclusiveMask = 0x0f, //前6个互斥项的掩码
+	PanoramaDisplayModeLUT = 0x10,
+    PanoramaDisplayModePlainStitch = 0x20,
+
+    PanoramaDisplayModeExclusiveMask = 0x0f,
 } PanoramaDisplayMode;
 
 #pragma mark    GLSL Shaders
@@ -207,6 +206,8 @@ public:
     static void clearCachedLUT(const char* lutPath);
 
     inline GLCameraRef glCamera() {return _glCamera;}
+
+	static void extractLUTFiles(const char* destDirectory, const char* lutBinFilePath, uint32_t fileOffset);
 
 protected:
     

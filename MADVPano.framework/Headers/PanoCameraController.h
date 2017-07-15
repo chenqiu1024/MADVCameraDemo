@@ -74,6 +74,8 @@ public:
     
     void setVirtualCameraPreRotationMatrix(const kmMat4* virtualCameraPreRotationMatrix);
     
+    void lookAt(float yawDegrees, float pitchDegrees, float bankDegrees);
+    
     void resetViewPosition();
     
     void adjustDragAxis();

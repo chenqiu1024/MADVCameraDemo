@@ -456,6 +456,20 @@ static BOOL s_willStopCurrentRenderLoop = NO;
     [_renderCond unlock];
 }
 
+- (void) lookAt:(kmVec3)eularDegrees {
+    [_renderCond lock];
+    if (self.isRendererReady)
+    {
+        if (NULL != _renderer)
+        {
+            _panoController->lookAt(eularDegrees.x, eularDegrees.y, eularDegrees.z);
+            [self requestRedraw];
+        }
+    }
+    [_renderCond unlock];
+}
+
+
 - (void) onDoubleTapRecognized:(UITapGestureRecognizer*)tapRecognizer {
     [self resetViewPosition];
 }
@@ -1896,6 +1910,10 @@ void runAsynchronouslyOnGLQueue(void(^block)()) {
 
 - (void) resetViewPosition {
     [self.glRenderLoop resetViewPosition];
+}
+
+- (void) lookAt:(kmVec3)eularDegrees {
+    [self.glRenderLoop lookAt:eularDegrees];
 }
 
 - (void) takeSnapShot:(NSString*)destPath completion:(dispatch_block_t)completion {

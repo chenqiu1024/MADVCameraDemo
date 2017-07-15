@@ -12,6 +12,10 @@
 #include "OpenGLHelper.h"
 #include <stdio.h>
 #include <setjmp.h>
+
+#ifdef TARGET_OS_WINDOWS
+#define HAVE_BOOLEAN
+#endif
 #include "jpeglib.h"
 
 /*
