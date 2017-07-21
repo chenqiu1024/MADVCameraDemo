@@ -9,7 +9,13 @@
 #ifndef MadvGLRenderer_iOS_hpp
 #define MadvGLRenderer_iOS_hpp
 
+#ifdef MADVPANO_BY_SOURCE
+#include "MadvGLRenderer.h"
+#include "EXIFParser.h"
+#else
 #include <MADVPano/MadvGLRenderer.h>
+#include <MADVPano/EXIFParser.h>
+#endif
 #include <UIKit/UIKit.h>
 
 #define MADV_DUAL_FISHEYE_VIDEO_TAG @"MADV_DUAL_FISHEYE"

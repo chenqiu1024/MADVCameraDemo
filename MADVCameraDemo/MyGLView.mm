@@ -16,7 +16,7 @@
 #import <OpenGLES/ES3/gl.h>
 #import <OpenGLES/EAGL.h>
 #import <CoreMotion/CoreMotion.h>
-#import "NSRecursiveCondition.h"
+#import <MADVCamera/NSRecursiveCondition.h>
 #import <MADVPano/JPEGUtils.h>
 #import <MADVPano/PNGUtils.h>
 #import <MADVPano/OpenGLHelper.h>

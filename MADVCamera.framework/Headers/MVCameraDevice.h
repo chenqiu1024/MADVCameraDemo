@@ -24,21 +24,24 @@ typedef enum : int {
 
 /** 拍摄主模式 */
 typedef enum : NSInteger {
-    CAMERA_MODE_VIDEO = AMBA_PARAM_CAMERA_MODE_VIDEO,//摄像
-    CAMERA_MODE_PHOTO = AMBA_PARAM_CAMERA_MODE_PHOTO,//拍照
+    CameraModeVideo = AMBA_PARAM_CAMERA_MODE_VIDEO,//摄像
+    CameraModePhoto = AMBA_PARAM_CAMERA_MODE_PHOTO,//拍照
 } CameraMode;
 
 /** 拍摄子模式 */
 typedef enum : NSInteger {
-    CAMERA_SUBMODE_VIDEO_NORMAL = 0,//摄像子模式：常规
-    CAMERA_SUBMODE_VIDEO_SLOW = AMBA_MSGID_SET_VIDEO_SLOW_PARAM,//摄像子模式：延时
-    CAMERA_SUBMODE_VIDEO_MICRO = AMBA_MSGID_SET_VIDEO_MICRO_PARAM,//摄像子模式：秒拍
-    CAMERA_SUBMODE_VIDEO_FILTER = AMBA_MSGID_SET_VIDEO_FILTER,//摄像子模式：滤镜（目前不用）
+    CameraSubmodeVideoNormal = 0,//摄像子模式：常规
+    CameraSubmodeVideoTimelapse = AMBA_MSGID_SET_VIDEO_TIMELAPSE_PARAM,//摄像子模式：延时
+    CameraSubmodeVideoMicro = AMBA_MSGID_SET_VIDEO_MICRO_PARAM,//摄像子模式：秒拍
+    CameraSubmodeVideoFilter = AMBA_MSGID_SET_VIDEO_FILTER,//摄像子模式：滤镜（目前不用）
+    CameraSubmodeVideoSlowMotion = AMBA_MSGID_SET_VIDEO_SLOWMOTION_PARAM,//摄像子模式：慢动作
 //    CAMERA_SUBMODE_VIDEO_LIVE = 5,//摄像子模式：直播（预留）
     
-    CAMERA_SUBMODE_PHOTO_NORMAL = 0,//拍照子模式：常规
-    CAMERA_SUBMODE_PHOTO_TIMING = AMBA_MSGID_SET_PHOTO_TIMING_PARAM,//拍照子模式：定时
-    CAMERA_SUBMODE_PHOTO_FILTER = 3,//拍照子模式：美颜
+    CameraSubmodePhotoNormal = 0,//拍照子模式：常规
+    CameraSubmodePhotoTiming = AMBA_MSGID_SET_PHOTO_TIMING_PARAM,//拍照子模式：定时
+    CameraSubmodePhotoFilter = 3,//拍照子模式：美颜
+    CameraSubmodePhotoInterval = 4,//拍照子模式：间隔
+    CameraSubmodePhotoContinuous = 5,//拍照子模式：连拍
 } CameraSubMode;
 
 @class MVMedia;

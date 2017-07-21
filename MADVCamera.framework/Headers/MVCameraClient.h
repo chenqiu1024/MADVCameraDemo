@@ -32,9 +32,11 @@ typedef enum : NSInteger {
     CameraWorkStateStorage = AMBA_PARAM_CAMERA_STATE_STORAGE, //USB存储模式
     CameraWorkStateStandby = AMBA_PARAM_CAMERA_STATE_STANDBY,//待机
     CameraWorkStateCapturingMicro = AMBA_PARAM_CAMERA_STATE_CAPTURING_MICRO,//正在秒拍
-    CameraWorkStateCapturingSlow = AMBA_PARAM_CAMERA_STATE_CAPTURING_SLOW,//正在延时摄像
+    CameraWorkStateCapturingTimeLapse = AMBA_PARAM_CAMERA_STATE_CAPTURING_TIMELAPSE,//正在延时摄像
     CameraWorkStatePhotoing = AMBA_PARAM_CAMERA_STATE_PHOTOING,//正在拍照
     CameraWorkStatePhotoingDelayed = AMBA_PARAM_CAMERA_STATE_PHOTOING_DELAYED,//正在定时拍照
+    CameraWorkStatePhotoingInterval = AMBA_PARAM_CAMERA_STATE_PHOTOING_INTERVAL,//正在间隔拍照
+    CameraWorkStateCapturingSlowMotion = AMBA_PARAM_CAMERA_STATE_CAPTURING_SLOWMOTION,//正在慢动作摄像
 } CameraWorkState;
 
 /** 存储卡容量状态 */
@@ -60,6 +62,27 @@ typedef enum : NSInteger {
     CameraDisconnectReasonInStorageMode = 2, //因处于USB存储模式而断开
     CameraDisconnectReasonStandBy = 3, //因待机而断开
 } CameraDisconnectReason;
+
+typedef enum : int {
+    VideoRecordingSpeedNormal = AMBA_PARAM_VIDEO_RECORDING_SPEED_1X,
+    VideoRecordingSpeed2X = AMBA_PARAM_VIDEO_RECORDING_SPEED_2X,
+    VideoRecordingSpeed4X = AMBA_PARAM_VIDEO_RECORDING_SPEED_4X,
+    VideoRecordingSpeed2D = AMBA_PARAM_VIDEO_RECORDING_SPEED_2D,
+    VideoRecordingSpeed4D = AMBA_PARAM_VIDEO_RECORDING_SPEED_4D,
+} VideoRecordingSpeed;
+
+typedef enum : int {
+    LensUsageModeFront = AMBA_PARAM_LENS_USAGE_LOGO,
+    LensUsageModeBack = AMBA_PARAM_LENS_USAGE_LED,
+    LensUsageModeBoth = AMBA_PARAM_LENS_USAGE_BOTH,
+} LensUsageMode;
+
+typedef enum : int {
+    VideoSegmentDuration15s = 15,
+    VideoSegmentDuration60s = 60,
+    VideoSegmentDuration30s = 30,
+    VideoSegmentDuration300s = 300,
+} VideoSegmentDuration;
 
 /** 通知类型 */
 #ifdef __cplusplus
@@ -139,7 +162,7 @@ extern "C" {
 /** 摄像启动
  * error: 错误代码。如果正常启动摄像应为0
  */
-- (void) didBeginShooting:(int)error;
+- (void) didBeginShooting:(int)error numberOfPhoto:(int)numberOfPhoto;
 
 /** 摄像时长计时器回调
  * 拍摄预览界面上的计时显示应该以此回调的数值为准。应用层无需自己设置计时器
@@ -352,6 +375,9 @@ extern "C" {
 /** 预览模式，见#MadvGLRenderer#的#PanoramaDisplayMode#枚举 */
 @property (nonatomic, assign, readonly) int cameraPreviewMode;
 
+/** 如果相机正在间隔拍照中，返回当前拍照数量,-1则表示此次间隔拍照过程结束 */
+@property(nonatomic,assign,readonly) int intervalPhotosNumber;
+
 /** 设置是否要给相机发送保活心跳包
  * 如果相机在一定时间内收不到任何指令，则会进入待机状态，从而会影响到诸如HTTP文件下载、实时视频预览这些活动不能正常维持
  * 因此需要在开始这类活动时使能保活心跳包，则SDK会自动在没有发送任何指令的期间及时发送保活心跳包，阻止相机进入待机
@@ -361,10 +387,23 @@ extern "C" {
  */
 - (void) setHeartbeatEnabled:(BOOL)enabled forDemander:(NSString*)demander;
 
+- (void) startGPSInfoSynchronization;
+- (void) stopGPSInfoSynchronization;
+
 /** 相机的存储卡是否为白名单卡 */
 + (BOOL)isSdWhiteSd_mid:(NSInteger)sd_mid sd_oid:(NSInteger)sd_oid sd_pnm:(NSString *)sd_pnm;
 
+/** #Douyin# 设置抖音视频长度，单位秒 */
 - (void) setVideoSegmentSeconds:(int)seconds;
+
+/** #Douyin# 设置相机摄像倍速，参数取值#VideoRecordingSpeed#枚举 */
+- (void) setVideoRecordingSpeed:(VideoRecordingSpeed)speed;
+
+/** #Douyin# 设置镜头模式，参数取值#LensUsageMode#枚举 */
+- (void) setLensUsageMode:(LensUsageMode)mode;
+
+/** #Douyin# 设置摄像码率 */
+- (void) setVideoRecordingMBPS:(int)Mbps;
 
 + (instancetype) sharedInstance;
 

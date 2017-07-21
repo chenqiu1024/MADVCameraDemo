@@ -17,10 +17,10 @@
 #import <Photos/Photos.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 //#import "WXApi.h"
-#import "helper.h"
+//#import "helper.h"
 //#import "MVCloudMediaFavor.h"
 //#import "DBHelper.h"
-#import <Masonry/Masonry.h>
+//#import <Masonry/Masonry.h>
 #import "z_Sandbox.h"
 
 @interface MediaPlayerViewController ()

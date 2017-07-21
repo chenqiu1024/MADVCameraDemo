@@ -46,6 +46,7 @@
 		521A4F671F0BA1DA00E5F155 /* MyGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521A4F661F0BA1DA00E5F155 /* MyGLView.mm */; };
 		521A4F691F0BAAB800E5F155 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F681F0BAAB800E5F155 /* CoreMotion.framework */; };
 		BB3DA3A31F0F7FE3009B6ACF /* MyMovieSegmentMerger.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */; };
+		BBF390AE1F2216F00023DC8B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF390AD1F2216F00023DC8B /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		664A85556F7159585B5439CC /* Pods-MADVCameraDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MADVCameraDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MADVCameraDemo/Pods-MADVCameraDemo.release.xcconfig"; sourceTree = "<group>"; };
 		BB3DA3A01F0F7FE2009B6ACF /* MyMovieSegmentMerger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMovieSegmentMerger.h; sourceTree = "<group>"; };
 		BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyMovieSegmentMerger.mm; sourceTree = "<group>"; };
+		BBF390AD1F2216F00023DC8B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		ECD839518DD38BB9E2CE4C8A /* Pods-MADVCameraDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MADVCameraDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MADVCameraDemo/Pods-MADVCameraDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		F3E22FF2085F15F1C2621E22 /* libPods-MADVCameraDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MADVCameraDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -123,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBF390AE1F2216F00023DC8B /* CoreLocation.framework in Frameworks */,
 				521A4F691F0BAAB800E5F155 /* CoreMotion.framework in Frameworks */,
 				521A4F5A1F0B9D2C00E5F155 /* libavcodec.a in Frameworks */,
 				521A4F5B1F0B9D2C00E5F155 /* libavformat.a in Frameworks */,
@@ -233,6 +236,7 @@
 		521A4F191F0B7D3300E5F155 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BBF390AD1F2216F00023DC8B /* CoreLocation.framework */,
 				521A4F681F0BAAB800E5F155 /* CoreMotion.framework */,
 				521A4F551F0B9D2C00E5F155 /* libavcodec.a */,
 				521A4F561F0B9D2C00E5F155 /* libavformat.a */,
@@ -410,7 +414,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FFF447A1F26BFD10500466BD /* [CP] Embed Pods Frameworks */ = {

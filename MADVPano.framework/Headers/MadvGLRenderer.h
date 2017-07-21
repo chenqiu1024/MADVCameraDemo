@@ -209,6 +209,8 @@ public:
 
 	static void extractLUTFiles(const char* destDirectory, const char* lutBinFilePath, uint32_t fileOffset);
 
+	static void renderMadvJPEGToJPEG(const char* destJpegPath, const char* sourceJpegPath, int dstWidth, int dstHeight, const char* lutPath, int filterID, const char* glFilterResourcePath, float* gyroMatrix, int gyroMatrixRank);
+
 protected:
     
     /** 通过无类型对象设置源纹理，需要平台相关的子类具体实现

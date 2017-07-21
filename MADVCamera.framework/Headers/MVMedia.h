@@ -24,12 +24,6 @@ typedef enum : NSInteger {
         MVMediaTypeVideo = 1,
 } MVMediaType;
 
-typedef enum : int {
-    StitchTypeFishEye = 0x54590000,
-    StitchTypeStitched = 0,
-    StitchTypePreserved = 0,
-} StitchType;
-
 @interface MVMedia : RLModel <NSCopying>
 /**
  * 获得该媒体文件的下载状态

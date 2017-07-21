@@ -74,6 +74,9 @@ public:
     
     void setVirtualCameraPreRotationMatrix(const kmMat4* virtualCameraPreRotationMatrix);
     
+    /** Set direction of looking with Euler angles:
+     *  
+     */
     void lookAt(float yawDegrees, float pitchDegrees, float bankDegrees);
     
     void resetViewPosition();

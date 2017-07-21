@@ -20,6 +20,8 @@ typedef enum : NSInteger {
     ViewTypeAction = 3,
     //点击后跳转到某个页面，具体由id决定。例如WiFi设置
     ViewTypeJump = 4,
+    //右边是switch按钮
+    ViewTypeSwitch = 5,
 } SettingViewType;
 
 typedef enum : NSInteger {
@@ -66,4 +68,5 @@ typedef enum : NSInteger {
 + (id)settingTreeNodeWithDict:(NSDictionary *)dict;
 
 + (id)cameraModeParamNodeWithDict:(NSDictionary *)dict modeName:(NSString *)modeName subModeName:(NSString *)subModeName;
++ (id)cameraModeParamNodeWithDict:(NSDictionary *)dict modeUid:(int)uid subModeUid:(int)subModeUid;
 @end
