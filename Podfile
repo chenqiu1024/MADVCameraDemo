@@ -21,3 +21,7 @@ end
 target 'MADVCameraDemo' do
     shared_pods
 end
+
+target 'MADVCameraDemo_MADVCameraSources' do
+    shared_pods
+end

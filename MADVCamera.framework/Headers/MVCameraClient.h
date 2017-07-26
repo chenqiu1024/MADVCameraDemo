@@ -292,7 +292,7 @@ extern "C" {
  */
 -(void) startShooting;
 
-/** 停止摄像或拍照
+/** 停止摄像或拍照(拍照主要是间隔拍照的停止)
  * 拍摄按钮的外观更新也应遵循“先调用，再等回调”的模式，见setCameraMode的注释
  */
 -(void) stopShooting;
@@ -404,6 +404,11 @@ extern "C" {
 
 /** #Douyin# 设置摄像码率 */
 - (void) setVideoRecordingMBPS:(int)Mbps;
+
+/** #Douyin# 设置目前连接的手机APP，相机以此决定一些工作模式设置
+ * @param appID : 0代表全景相机，2代表抖音
+ */
+- (void) setCurrentApp:(int)appID;
 
 + (instancetype) sharedInstance;
 

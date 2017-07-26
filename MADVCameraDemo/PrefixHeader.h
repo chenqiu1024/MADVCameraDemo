@@ -9,10 +9,11 @@
 #ifndef PrefixHeader_h
 #define PrefixHeader_h
 
-//#import "ResourceKeys.h"
+#import "ResourceKeys.h"
+#import "FGLanguageTool.h"
+
 #import "AMBACommands.h"
 //#import <MADVPano/MADVPano.h>
-//#import "FGLanguageTool.h"
 #import "LogManager.h"
 
 ///////////////////
@@ -286,6 +287,17 @@
 #define HARDDOWNLOADSUC @"HARDDOWNLOADSUC"
 
 #define SCREEN_CAPTURE_FILENAME_PREFIX @"ScreenCap_"
+
+#define OPENGPS @"OPENGPS"
+//纬度
+#define LATITUDE @"LATITUDE"
+//经度
+#define LONGITUDE @"LONGITUDE"
+
+//海拔
+#define ALTITUDE @"ALTITUDE"
+
+#define LASTLOCATIONENABLED @"LASTLOCATIONENABLED"
 
 //#define ISFULLSCREEN
 

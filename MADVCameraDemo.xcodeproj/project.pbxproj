@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B55B268F183E629214E6E10 /* libPods-MADVCameraDemo_MADVCameraSources.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CDADBB8AF7E3FEAB29A1C24 /* libPods-MADVCameraDemo_MADVCameraSources.a */; };
 		453749FA82E2206CEF03DAFB /* libPods-MADVCameraDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3E22FF2085F15F1C2621E22 /* libPods-MADVCameraDemo.a */; };
 		521A4EE11F0B766B00E5F155 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 521A4EE01F0B766B00E5F155 /* main.m */; };
 		521A4EE41F0B766B00E5F155 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 521A4EE31F0B766B00E5F155 /* AppDelegate.m */; };
@@ -47,6 +48,130 @@
 		521A4F691F0BAAB800E5F155 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F681F0BAAB800E5F155 /* CoreMotion.framework */; };
 		BB3DA3A31F0F7FE3009B6ACF /* MyMovieSegmentMerger.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */; };
 		BBF390AE1F2216F00023DC8B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF390AD1F2216F00023DC8B /* CoreLocation.framework */; };
+		BBF390B31F26EB820023DC8B /* MyMovieSegmentMerger.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */; };
+		BBF390B41F26EB820023DC8B /* MediaPlayerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521A4F131F0B78BF00E5F155 /* MediaPlayerViewController.mm */; };
+		BBF390B51F26EB820023DC8B /* MyGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521A4F661F0BA1DA00E5F155 /* MyGLView.mm */; };
+		BBF390B61F26EB820023DC8B /* CameraLibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521A4EE91F0B766B00E5F155 /* CameraLibraryViewController.m */; };
+		BBF390B71F26EB820023DC8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 521A4EE31F0B766B00E5F155 /* AppDelegate.m */; };
+		BBF390B81F26EB820023DC8B /* UIViewController+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 521A4F201F0B849900E5F155 /* UIViewController+Extensions.m */; };
+		BBF390B91F26EB820023DC8B /* KxMovieViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521A4F171F0B78F600E5F155 /* KxMovieViewController.mm */; };
+		BBF390BA1F26EB820023DC8B /* CameraPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 521A4EE61F0B766B00E5F155 /* CameraPreviewViewController.m */; };
+		BBF390BB1F26EB820023DC8B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 521A4EE01F0B766B00E5F155 /* main.m */; };
+		BBF390BD1F26EB820023DC8B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF390AD1F2216F00023DC8B /* CoreLocation.framework */; };
+		BBF390BE1F26EB820023DC8B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F681F0BAAB800E5F155 /* CoreMotion.framework */; };
+		BBF390BF1F26EB820023DC8B /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F551F0B9D2C00E5F155 /* libavcodec.a */; };
+		BBF390C01F26EB820023DC8B /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F561F0B9D2C00E5F155 /* libavformat.a */; };
+		BBF390C11F26EB820023DC8B /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F571F0B9D2C00E5F155 /* libavutil.a */; };
+		BBF390C21F26EB820023DC8B /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F581F0B9D2C00E5F155 /* libswresample.a */; };
+		BBF390C31F26EB820023DC8B /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F591F0B9D2C00E5F155 /* libswscale.a */; };
+		BBF390C41F26EB820023DC8B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F531F0B9C5E00E5F155 /* CoreMedia.framework */; };
+		BBF390C51F26EB820023DC8B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F511F0B9C5400E5F155 /* Accelerate.framework */; };
+		BBF390C61F26EB820023DC8B /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F4F1F0B9C3500E5F155 /* CoreVideo.framework */; };
+		BBF390C71F26EB820023DC8B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F4B1F0B9C2D00E5F155 /* AudioToolbox.framework */; };
+		BBF390C81F26EB820023DC8B /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F4C1F0B9C2D00E5F155 /* CoreAudio.framework */; };
+		BBF390C91F26EB820023DC8B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F491F0B9C2000E5F155 /* libsqlite3.tbd */; };
+		BBF390CA1F26EB820023DC8B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F471F0B9C0400E5F155 /* CoreTelephony.framework */; };
+		BBF390CB1F26EB820023DC8B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F451F0B9C0000E5F155 /* QuartzCore.framework */; };
+		BBF390CC1F26EB820023DC8B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F431F0B9BFB00E5F155 /* CoreGraphics.framework */; };
+		BBF390CD1F26EB820023DC8B /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F411F0B9BE800E5F155 /* VideoToolbox.framework */; };
+		BBF390CE1F26EB820023DC8B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3F1F0B9BE300E5F155 /* Foundation.framework */; };
+		BBF390CF1F26EB820023DC8B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F2E1F0B938000E5F155 /* AVFoundation.framework */; };
+		BBF390D01F26EB820023DC8B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3D1F0B9BDB00E5F155 /* CoreFoundation.framework */; };
+		BBF390D11F26EB820023DC8B /* MADVPano.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3B1F0B9A0700E5F155 /* MADVPano.framework */; };
+		BBF390D31F26EB820023DC8B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F301F0B938600E5F155 /* OpenGLES.framework */; };
+		BBF390D41F26EB820023DC8B /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F2C1F0B936F00E5F155 /* libxml2.2.tbd */; };
+		BBF390D51F26EB820023DC8B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F2A1F0B936900E5F155 /* libz.tbd */; };
+		BBF390D61F26EB820023DC8B /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F281F0B934B00E5F155 /* libiconv.tbd */; };
+		BBF390D71F26EB820023DC8B /* libPods-MADVCameraDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3E22FF2085F15F1C2621E22 /* libPods-MADVCameraDemo.a */; };
+		BBF390D91F26EB820023DC8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 521A4EF01F0B766B00E5F155 /* LaunchScreen.storyboard */; };
+		BBF390DA1F26EB820023DC8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 521A4EEE1F0B766B00E5F155 /* Assets.xcassets */; };
+		BBF390DB1F26EB820023DC8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 521A4EEB1F0B766B00E5F155 /* Main.storyboard */; };
+		BBF392941F26FA2E0023DC8B /* AMBAGetFileRequest.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF390EA1F26FA2D0023DC8B /* AMBAGetFileRequest.java */; };
+		BBF392951F26FA2E0023DC8B /* AMBAGetFileRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF390EB1F26FA2D0023DC8B /* AMBAGetFileRequest.m */; };
+		BBF392961F26FA2E0023DC8B /* AMBAPutFileRequest.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF390ED1F26FA2D0023DC8B /* AMBAPutFileRequest.java */; };
+		BBF392971F26FA2E0023DC8B /* AMBAPutFileRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF390EE1F26FA2D0023DC8B /* AMBAPutFileRequest.m */; };
+		BBF392981F26FA2E0023DC8B /* AMBARequest.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF390F01F26FA2D0023DC8B /* AMBARequest.java */; };
+		BBF392991F26FA2E0023DC8B /* AMBARequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF390F11F26FA2D0023DC8B /* AMBARequest.m */; };
+		BBF3929A1F26FA2E0023DC8B /* AMBASetGPSInfoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF390F31F26FA2D0023DC8B /* AMBASetGPSInfoRequest.m */; };
+		BBF3929B1F26FA2E0023DC8B /* AMBASetWifiRequest.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF390F51F26FA2D0023DC8B /* AMBASetWifiRequest.java */; };
+		BBF3929C1F26FA2E0023DC8B /* AMBASetWifiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF390F61F26FA2D0023DC8B /* AMBASetWifiRequest.m */; };
+		BBF3929E1F26FA2E0023DC8B /* AMBACancelFileTransferResponse.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF390FA1F26FA2D0023DC8B /* AMBACancelFileTransferResponse.java */; };
+		BBF3929F1F26FA2E0023DC8B /* AMBACancelFileTransferResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF390FB1F26FA2D0023DC8B /* AMBACancelFileTransferResponse.m */; };
+		BBF392A01F26FA2E0023DC8B /* AMBAFileTransferResultResponse.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF390FD1F26FA2D0023DC8B /* AMBAFileTransferResultResponse.java */; };
+		BBF392A11F26FA2E0023DC8B /* AMBAFileTransferResultResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF390FE1F26FA2D0023DC8B /* AMBAFileTransferResultResponse.m */; };
+		BBF392A21F26FA2E0023DC8B /* AMBAGetAllModeParamResponse.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF391001F26FA2D0023DC8B /* AMBAGetAllModeParamResponse.java */; };
+		BBF392A31F26FA2E0023DC8B /* AMBAGetAllModeParamResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391011F26FA2D0023DC8B /* AMBAGetAllModeParamResponse.m */; };
+		BBF392A41F26FA2E0023DC8B /* AMBAGetAllSettingParamResponse.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF391031F26FA2D0023DC8B /* AMBAGetAllSettingParamResponse.java */; };
+		BBF392A51F26FA2E0023DC8B /* AMBAGetAllSettingParamResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391041F26FA2D0023DC8B /* AMBAGetAllSettingParamResponse.m */; };
+		BBF392A61F26FA2E0023DC8B /* AMBAGetFileResponse.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF391061F26FA2D0023DC8B /* AMBAGetFileResponse.java */; };
+		BBF392A71F26FA2E0023DC8B /* AMBAGetFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391071F26FA2D0023DC8B /* AMBAGetFileResponse.m */; };
+		BBF392A81F26FA2E0023DC8B /* AMBAGetMediaInfoResponse.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF391091F26FA2D0023DC8B /* AMBAGetMediaInfoResponse.java */; };
+		BBF392A91F26FA2E0023DC8B /* AMBAGetMediaInfoResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3910A1F26FA2D0023DC8B /* AMBAGetMediaInfoResponse.m */; };
+		BBF392AA1F26FA2E0023DC8B /* AMBAGetThumbnailResponse.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF3910C1F26FA2D0023DC8B /* AMBAGetThumbnailResponse.java */; };
+		BBF392AB1F26FA2E0023DC8B /* AMBAGetThumbnailResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3910D1F26FA2D0023DC8B /* AMBAGetThumbnailResponse.m */; };
+		BBF392AC1F26FA2E0023DC8B /* AMBAGetWiFiStatusResponse.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF3910F1F26FA2D0023DC8B /* AMBAGetWiFiStatusResponse.java */; };
+		BBF392AD1F26FA2E0023DC8B /* AMBAGetWiFiStatusResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391101F26FA2D0023DC8B /* AMBAGetWiFiStatusResponse.m */; };
+		BBF392AE1F26FA2E0023DC8B /* AMBAListResponse.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF391121F26FA2D0023DC8B /* AMBAListResponse.java */; };
+		BBF392AF1F26FA2E0023DC8B /* AMBAListResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391131F26FA2D0023DC8B /* AMBAListResponse.m */; };
+		BBF392B01F26FA2E0023DC8B /* AMBAPutFileResponse.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF391151F26FA2D0023DC8B /* AMBAPutFileResponse.java */; };
+		BBF392B11F26FA2E0023DC8B /* AMBAPutFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391161F26FA2D0023DC8B /* AMBAPutFileResponse.m */; };
+		BBF392B21F26FA2E0023DC8B /* AMBAResponse.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF391181F26FA2D0023DC8B /* AMBAResponse.java */; };
+		BBF392B31F26FA2E0023DC8B /* AMBAResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391191F26FA2D0023DC8B /* AMBAResponse.m */; };
+		BBF392B41F26FA2E0023DC8B /* AMBASaveMediaFileDoneResponse.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF3911B1F26FA2D0023DC8B /* AMBASaveMediaFileDoneResponse.java */; };
+		BBF392B51F26FA2E0023DC8B /* AMBASaveMediaFileDoneResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3911C1F26FA2D0023DC8B /* AMBASaveMediaFileDoneResponse.m */; };
+		BBF392B61F26FA2E0023DC8B /* AMBASetClientInfoResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3911E1F26FA2D0023DC8B /* AMBASetClientInfoResponse.m */; };
+		BBF392B71F26FA2E0023DC8B /* AMBASyncStorageAllStateResponse.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF391201F26FA2D0023DC8B /* AMBASyncStorageAllStateResponse.java */; };
+		BBF392B81F26FA2E0023DC8B /* AMBASyncStorageAllStateResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391211F26FA2D0023DC8B /* AMBASyncStorageAllStateResponse.m */; };
+		BBF392BB1F26FA2E0023DC8B /* CMDConnectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391251F26FA2D0023DC8B /* CMDConnectManager.m */; };
+		BBF392BD1F26FA2E0023DC8B /* DATAConnectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391281F26FA2D0023DC8B /* DATAConnectManager.m */; };
+		BBF392BF1F26FA2E0023DC8B /* ImageFilterBean.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3912B1F26FA2D0023DC8B /* ImageFilterBean.m */; };
+		BBF392C11F26FA2E0023DC8B /* MVCameraClient.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3912E1F26FA2D0023DC8B /* MVCameraClient.m */; };
+		BBF392C41F26FA2E0023DC8B /* MVCameraDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391321F26FA2D0023DC8B /* MVCameraDevice.m */; };
+		BBF392C61F26FA2E0023DC8B /* MVCameraDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391351F26FA2D0023DC8B /* MVCameraDownloadManager.m */; };
+		BBF392C91F26FA2E0023DC8B /* MVCameraUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391391F26FA2D0023DC8B /* MVCameraUploadManager.m */; };
+		BBF392CB1F26FA2E0023DC8B /* MVMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3913C1F26FA2D0023DC8B /* MVMedia.m */; };
+		BBF392CC1F26FA2E0023DC8B /* MVMediaImpl.java in Sources */ = {isa = PBXBuildFile; fileRef = BBF3913D1F26FA2D0023DC8B /* MVMediaImpl.java */; };
+		BBF392CE1F26FA2E0023DC8B /* MVMediaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391401F26FA2D0023DC8B /* MVMediaManager.m */; };
+		BBF392D31F26FA2E0023DC8B /* PathTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391471F26FA2D0023DC8B /* PathTreeNode.m */; };
+		BBF392D51F26FA2E0023DC8B /* SettingTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3914A1F26FA2D0023DC8B /* SettingTreeNode.m */; };
+		BBF392D71F26FA2E0023DC8B /* WiFiConnectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3914D1F26FA2D0023DC8B /* WiFiConnectManager.m */; };
+		BBF392DF1F26FA2E0023DC8B /* MVHttpResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3915E1F26FA2D0023DC8B /* MVHttpResponse.m */; };
+		BBF392E91F26FA2E0023DC8B /* SdWhiteDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391731F26FA2D0023DC8B /* SdWhiteDetail.m */; };
+		BBF392EA1F26FA2E0023DC8B /* SdWhiteResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391751F26FA2D0023DC8B /* SdWhiteResponse.m */; };
+		BBF392EF1F26FA2E0023DC8B /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391801F26FA2D0023DC8B /* DBHelper.m */; };
+		BBF392F01F26FA2E0023DC8B /* RealmSerialQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391821F26FA2D0023DC8B /* RealmSerialQueue.m */; };
+		BBF392F11F26FA2E0023DC8B /* RLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391841F26FA2D0023DC8B /* RLModel.m */; };
+		BBF392F91F26FA2E0023DC8B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBF391921F26FA2D0023DC8B /* Info.plist */; };
+		BBF392FA1F26FA2E0023DC8B /* KxAudioManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391961F26FA2D0023DC8B /* KxAudioManager.m */; };
+		BBF392FB1F26FA2E0023DC8B /* kxmovie.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BBF391991F26FA2D0023DC8B /* kxmovie.bundle */; };
+		BBF392FC1F26FA2E0023DC8B /* KxMovieDecoder.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBF3919B1F26FA2D0023DC8B /* KxMovieDecoder.mm */; };
+		BBF393011F26FA2E0023DC8B /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF391A51F26FA2D0023DC8B /* libavcodec.a */; };
+		BBF393021F26FA2E0023DC8B /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF391A61F26FA2D0023DC8B /* libavformat.a */; };
+		BBF393031F26FA2E0023DC8B /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF391A71F26FA2D0023DC8B /* libavutil.a */; };
+		BBF393041F26FA2E0023DC8B /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF391A81F26FA2D0023DC8B /* libswresample.a */; };
+		BBF393051F26FA2E0023DC8B /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF391A91F26FA2D0023DC8B /* libswscale.a */; };
+		BBF393071F26FA2E0023DC8B /* MadvGLRenderer_iOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBF391AF1F26FA2D0023DC8B /* MadvGLRenderer_iOS.mm */; };
+		BBF393091F26FA2E0023DC8B /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391B61F26FA2D0023DC8B /* FMDatabase.m */; };
+		BBF3930A1F26FA2E0023DC8B /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391B81F26FA2D0023DC8B /* FMDatabaseAdditions.m */; };
+		BBF3930B1F26FA2E0023DC8B /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391BA1F26FA2D0023DC8B /* FMDatabasePool.m */; };
+		BBF3930C1F26FA2E0023DC8B /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391BC1F26FA2D0023DC8B /* FMDatabaseQueue.m */; };
+		BBF3930D1F26FA2E0023DC8B /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF391BE1F26FA2D0023DC8B /* FMResultSet.m */; };
+		BBF393281F26FA2E0023DC8B /* ImageBlender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF391F91F26FA2D0023DC8B /* ImageBlender.cpp */; };
+		BBF3935A1F26FA2E0023DC8B /* FGLanguageTool.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3925C1F26FA2E0023DC8B /* FGLanguageTool.m */; };
+		BBF3935B1F26FA2E0023DC8B /* helper.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3925E1F26FA2E0023DC8B /* helper.m */; };
+		BBF3935D1F26FA2E0023DC8B /* LogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF392621F26FA2E0023DC8B /* LogManager.m */; };
+		BBF3935E1F26FA2E0023DC8B /* MyReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF392641F26FA2E0023DC8B /* MyReachability.m */; };
+		BBF3935F1F26FA2E0023DC8B /* NSCondition+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF392661F26FA2E0023DC8B /* NSCondition+Extensions.m */; };
+		BBF393621F26FA2E0023DC8B /* NSMutableArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3926C1F26FA2E0023DC8B /* NSMutableArray+Extensions.m */; };
+		BBF393641F26FA2E0023DC8B /* NSRecursiveCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF392701F26FA2E0023DC8B /* NSRecursiveCondition.m */; };
+		BBF393661F26FA2E0023DC8B /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF392741F26FA2E0023DC8B /* NSString+Extensions.m */; };
+		BBF393671F26FA2E0023DC8B /* SocketHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBF392761F26FA2E0023DC8B /* SocketHelper.mm */; };
+		BBF393721F26FA2E0023DC8B /* z_Sandbox.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3928D1F26FA2E0023DC8B /* z_Sandbox.m */; };
+		BBF393731F26FA2E0023DC8B /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF392901F26FA2E0023DC8B /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BBF393741F26FA2E0023DC8B /* XMLTool.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF392921F26FA2E0023DC8B /* XMLTool.m */; };
+		BBF393811F26FE2C0023DC8B /* h264_iOS8VTHD.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBF3937E1F26FE2C0023DC8B /* h264_iOS8VTHD.mm */; };
+		BBF393821F26FE2C0023DC8B /* IDRDecoder.c in Sources */ = {isa = PBXBuildFile; fileRef = BBF3937F1F26FE2C0023DC8B /* IDRDecoder.c */; };
+		BBF3938F1F2705170023DC8B /* TimeUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBF3938D1F2705170023DC8B /* TimeUtils.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,14 +185,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		38AD176FBE07FA87EC823509 /* Pods-MADVCameraDemo_MADVCameraSources.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MADVCameraDemo_MADVCameraSources.release.xcconfig"; path = "Pods/Target Support Files/Pods-MADVCameraDemo_MADVCameraSources/Pods-MADVCameraDemo_MADVCameraSources.release.xcconfig"; sourceTree = "<group>"; };
 		521A4EDC1F0B766B00E5F155 /* MADVCameraDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MADVCameraDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		521A4EE01F0B766B00E5F155 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		521A4EE01F0B766B00E5F155 /* main.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = main.m; sourceTree = "<group>"; };
 		521A4EE21F0B766B00E5F155 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		521A4EE31F0B766B00E5F155 /* AppDelegate.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = AppDelegate.m; sourceTree = "<group>"; };
 		521A4EE51F0B766B00E5F155 /* CameraPreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraPreviewViewController.h; sourceTree = "<group>"; };
-		521A4EE61F0B766B00E5F155 /* CameraPreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraPreviewViewController.m; sourceTree = "<group>"; };
+		521A4EE61F0B766B00E5F155 /* CameraPreviewViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = CameraPreviewViewController.m; sourceTree = "<group>"; };
 		521A4EE81F0B766B00E5F155 /* CameraLibraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CameraLibraryViewController.h; sourceTree = "<group>"; };
-		521A4EE91F0B766B00E5F155 /* CameraLibraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraLibraryViewController.m; sourceTree = "<group>"; };
+		521A4EE91F0B766B00E5F155 /* CameraLibraryViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = CameraLibraryViewController.m; sourceTree = "<group>"; };
 		521A4EEC1F0B766B00E5F155 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		521A4EEE1F0B766B00E5F155 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		521A4EF11F0B766B00E5F155 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -75,14 +201,14 @@
 		521A4EF81F0B766C00E5F155 /* MADVCameraDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MADVCameraDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		521A4EFC1F0B766C00E5F155 /* MADVCameraDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MADVCameraDemoUITests.m; sourceTree = "<group>"; };
 		521A4EFE1F0B766C00E5F155 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		521A4F131F0B78BF00E5F155 /* MediaPlayerViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MediaPlayerViewController.mm; sourceTree = "<group>"; };
+		521A4F131F0B78BF00E5F155 /* MediaPlayerViewController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MediaPlayerViewController.mm; sourceTree = "<group>"; };
 		521A4F141F0B78BF00E5F155 /* MediaPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlayerViewController.h; sourceTree = "<group>"; };
 		521A4F161F0B78F600E5F155 /* KxMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMovieViewController.h; sourceTree = "<group>"; };
-		521A4F171F0B78F600E5F155 /* KxMovieViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = KxMovieViewController.mm; sourceTree = "<group>"; };
+		521A4F171F0B78F600E5F155 /* KxMovieViewController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = KxMovieViewController.mm; sourceTree = "<group>"; };
 		521A4F1A1F0B7D3300E5F155 /* MADVPano.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MADVPano.framework; path = MADVCameraFramework/MADVPano.framework; sourceTree = "<group>"; };
 		521A4F1C1F0B7DE800E5F155 /* PrefixHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.h; sourceTree = "<group>"; };
 		521A4F1F1F0B849900E5F155 /* UIViewController+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extensions.h"; sourceTree = "<group>"; };
-		521A4F201F0B849900E5F155 /* UIViewController+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extensions.m"; sourceTree = "<group>"; };
+		521A4F201F0B849900E5F155 /* UIViewController+Extensions.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = "UIViewController+Extensions.m"; sourceTree = "<group>"; };
 		521A4F251F0B92AB00E5F155 /* z_Sandbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = z_Sandbox.h; sourceTree = "<group>"; };
 		521A4F281F0B934B00E5F155 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		521A4F2A1F0B936900E5F155 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -109,13 +235,171 @@
 		521A4F581F0B9D2C00E5F155 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswresample.a; path = libs/FFmpeg/libswresample.a; sourceTree = "<group>"; };
 		521A4F591F0B9D2C00E5F155 /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswscale.a; path = libs/FFmpeg/libswscale.a; sourceTree = "<group>"; };
 		521A4F651F0BA1DA00E5F155 /* MyGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGLView.h; sourceTree = "<group>"; };
-		521A4F661F0BA1DA00E5F155 /* MyGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyGLView.mm; sourceTree = "<group>"; };
+		521A4F661F0BA1DA00E5F155 /* MyGLView.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MyGLView.mm; sourceTree = "<group>"; };
 		521A4F681F0BAAB800E5F155 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		522363E81F1607DD001E125D /* MADVCameraDemo_withSource-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MADVCameraDemo_withSource-Info.plist"; path = "/Users/domqiu/Projects/MADVCameraDemo/MADVCameraDemo_withSource-Info.plist"; sourceTree = "<absolute>"; };
+		6559114214F7F0085B4330CF /* Pods-MADVCameraDemo_MADVCameraSources.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MADVCameraDemo_MADVCameraSources.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MADVCameraDemo_MADVCameraSources/Pods-MADVCameraDemo_MADVCameraSources.debug.xcconfig"; sourceTree = "<group>"; };
 		664A85556F7159585B5439CC /* Pods-MADVCameraDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MADVCameraDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MADVCameraDemo/Pods-MADVCameraDemo.release.xcconfig"; sourceTree = "<group>"; };
+		8CDADBB8AF7E3FEAB29A1C24 /* libPods-MADVCameraDemo_MADVCameraSources.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MADVCameraDemo_MADVCameraSources.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB3DA3A01F0F7FE2009B6ACF /* MyMovieSegmentMerger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMovieSegmentMerger.h; sourceTree = "<group>"; };
-		BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyMovieSegmentMerger.mm; sourceTree = "<group>"; };
+		BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MyMovieSegmentMerger.mm; sourceTree = "<group>"; };
 		BBF390AD1F2216F00023DC8B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		BBF390E11F26EB820023DC8B /* MADVCameraDemo_MADVCameraSources.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MADVCameraDemo_MADVCameraSources.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBF390E21F26EB840023DC8B /* MADVCameraDemo_MADVCameraSources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MADVCameraDemo_MADVCameraSources-Info.plist"; path = "/Users/qiudong/Projects/DouyinMADVCameraDemo/MADVCameraDemo_MADVCameraSources-Info.plist"; sourceTree = "<absolute>"; };
+		BBF390E61F26FA2D0023DC8B /* AMBACommands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBACommands.h; sourceTree = "<group>"; };
+		BBF390E91F26FA2D0023DC8B /* AMBAGetFileRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBAGetFileRequest.h; sourceTree = "<group>"; };
+		BBF390EA1F26FA2D0023DC8B /* AMBAGetFileRequest.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBAGetFileRequest.java; sourceTree = "<group>"; };
+		BBF390EB1F26FA2D0023DC8B /* AMBAGetFileRequest.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBAGetFileRequest.m; sourceTree = "<group>"; };
+		BBF390EC1F26FA2D0023DC8B /* AMBAPutFileRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBAPutFileRequest.h; sourceTree = "<group>"; };
+		BBF390ED1F26FA2D0023DC8B /* AMBAPutFileRequest.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBAPutFileRequest.java; sourceTree = "<group>"; };
+		BBF390EE1F26FA2D0023DC8B /* AMBAPutFileRequest.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBAPutFileRequest.m; sourceTree = "<group>"; };
+		BBF390EF1F26FA2D0023DC8B /* AMBARequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBARequest.h; sourceTree = "<group>"; };
+		BBF390F01F26FA2D0023DC8B /* AMBARequest.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBARequest.java; sourceTree = "<group>"; };
+		BBF390F11F26FA2D0023DC8B /* AMBARequest.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBARequest.m; sourceTree = "<group>"; };
+		BBF390F21F26FA2D0023DC8B /* AMBASetGPSInfoRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBASetGPSInfoRequest.h; sourceTree = "<group>"; };
+		BBF390F31F26FA2D0023DC8B /* AMBASetGPSInfoRequest.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBASetGPSInfoRequest.m; sourceTree = "<group>"; };
+		BBF390F41F26FA2D0023DC8B /* AMBASetWifiRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBASetWifiRequest.h; sourceTree = "<group>"; };
+		BBF390F51F26FA2D0023DC8B /* AMBASetWifiRequest.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBASetWifiRequest.java; sourceTree = "<group>"; };
+		BBF390F61F26FA2D0023DC8B /* AMBASetWifiRequest.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBASetWifiRequest.m; sourceTree = "<group>"; };
+		BBF390F91F26FA2D0023DC8B /* AMBACancelFileTransferResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBACancelFileTransferResponse.h; sourceTree = "<group>"; };
+		BBF390FA1F26FA2D0023DC8B /* AMBACancelFileTransferResponse.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBACancelFileTransferResponse.java; sourceTree = "<group>"; };
+		BBF390FB1F26FA2D0023DC8B /* AMBACancelFileTransferResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBACancelFileTransferResponse.m; sourceTree = "<group>"; };
+		BBF390FC1F26FA2D0023DC8B /* AMBAFileTransferResultResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBAFileTransferResultResponse.h; sourceTree = "<group>"; };
+		BBF390FD1F26FA2D0023DC8B /* AMBAFileTransferResultResponse.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBAFileTransferResultResponse.java; sourceTree = "<group>"; };
+		BBF390FE1F26FA2D0023DC8B /* AMBAFileTransferResultResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBAFileTransferResultResponse.m; sourceTree = "<group>"; };
+		BBF390FF1F26FA2D0023DC8B /* AMBAGetAllModeParamResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBAGetAllModeParamResponse.h; sourceTree = "<group>"; };
+		BBF391001F26FA2D0023DC8B /* AMBAGetAllModeParamResponse.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBAGetAllModeParamResponse.java; sourceTree = "<group>"; };
+		BBF391011F26FA2D0023DC8B /* AMBAGetAllModeParamResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBAGetAllModeParamResponse.m; sourceTree = "<group>"; };
+		BBF391021F26FA2D0023DC8B /* AMBAGetAllSettingParamResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBAGetAllSettingParamResponse.h; sourceTree = "<group>"; };
+		BBF391031F26FA2D0023DC8B /* AMBAGetAllSettingParamResponse.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBAGetAllSettingParamResponse.java; sourceTree = "<group>"; };
+		BBF391041F26FA2D0023DC8B /* AMBAGetAllSettingParamResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBAGetAllSettingParamResponse.m; sourceTree = "<group>"; };
+		BBF391051F26FA2D0023DC8B /* AMBAGetFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBAGetFileResponse.h; sourceTree = "<group>"; };
+		BBF391061F26FA2D0023DC8B /* AMBAGetFileResponse.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBAGetFileResponse.java; sourceTree = "<group>"; };
+		BBF391071F26FA2D0023DC8B /* AMBAGetFileResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBAGetFileResponse.m; sourceTree = "<group>"; };
+		BBF391081F26FA2D0023DC8B /* AMBAGetMediaInfoResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBAGetMediaInfoResponse.h; sourceTree = "<group>"; };
+		BBF391091F26FA2D0023DC8B /* AMBAGetMediaInfoResponse.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBAGetMediaInfoResponse.java; sourceTree = "<group>"; };
+		BBF3910A1F26FA2D0023DC8B /* AMBAGetMediaInfoResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBAGetMediaInfoResponse.m; sourceTree = "<group>"; };
+		BBF3910B1F26FA2D0023DC8B /* AMBAGetThumbnailResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBAGetThumbnailResponse.h; sourceTree = "<group>"; };
+		BBF3910C1F26FA2D0023DC8B /* AMBAGetThumbnailResponse.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBAGetThumbnailResponse.java; sourceTree = "<group>"; };
+		BBF3910D1F26FA2D0023DC8B /* AMBAGetThumbnailResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBAGetThumbnailResponse.m; sourceTree = "<group>"; };
+		BBF3910E1F26FA2D0023DC8B /* AMBAGetWiFiStatusResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBAGetWiFiStatusResponse.h; sourceTree = "<group>"; };
+		BBF3910F1F26FA2D0023DC8B /* AMBAGetWiFiStatusResponse.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBAGetWiFiStatusResponse.java; sourceTree = "<group>"; };
+		BBF391101F26FA2D0023DC8B /* AMBAGetWiFiStatusResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBAGetWiFiStatusResponse.m; sourceTree = "<group>"; };
+		BBF391111F26FA2D0023DC8B /* AMBAListResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBAListResponse.h; sourceTree = "<group>"; };
+		BBF391121F26FA2D0023DC8B /* AMBAListResponse.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBAListResponse.java; sourceTree = "<group>"; };
+		BBF391131F26FA2D0023DC8B /* AMBAListResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBAListResponse.m; sourceTree = "<group>"; };
+		BBF391141F26FA2D0023DC8B /* AMBAPutFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBAPutFileResponse.h; sourceTree = "<group>"; };
+		BBF391151F26FA2D0023DC8B /* AMBAPutFileResponse.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBAPutFileResponse.java; sourceTree = "<group>"; };
+		BBF391161F26FA2D0023DC8B /* AMBAPutFileResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBAPutFileResponse.m; sourceTree = "<group>"; };
+		BBF391171F26FA2D0023DC8B /* AMBAResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBAResponse.h; sourceTree = "<group>"; };
+		BBF391181F26FA2D0023DC8B /* AMBAResponse.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBAResponse.java; sourceTree = "<group>"; };
+		BBF391191F26FA2D0023DC8B /* AMBAResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBAResponse.m; sourceTree = "<group>"; };
+		BBF3911A1F26FA2D0023DC8B /* AMBASaveMediaFileDoneResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBASaveMediaFileDoneResponse.h; sourceTree = "<group>"; };
+		BBF3911B1F26FA2D0023DC8B /* AMBASaveMediaFileDoneResponse.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBASaveMediaFileDoneResponse.java; sourceTree = "<group>"; };
+		BBF3911C1F26FA2D0023DC8B /* AMBASaveMediaFileDoneResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBASaveMediaFileDoneResponse.m; sourceTree = "<group>"; };
+		BBF3911D1F26FA2D0023DC8B /* AMBASetClientInfoResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBASetClientInfoResponse.h; sourceTree = "<group>"; };
+		BBF3911E1F26FA2D0023DC8B /* AMBASetClientInfoResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBASetClientInfoResponse.m; sourceTree = "<group>"; };
+		BBF3911F1F26FA2D0023DC8B /* AMBASyncStorageAllStateResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBASyncStorageAllStateResponse.h; sourceTree = "<group>"; };
+		BBF391201F26FA2D0023DC8B /* AMBASyncStorageAllStateResponse.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = AMBASyncStorageAllStateResponse.java; sourceTree = "<group>"; };
+		BBF391211F26FA2D0023DC8B /* AMBASyncStorageAllStateResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBASyncStorageAllStateResponse.m; sourceTree = "<group>"; };
+		BBF391231F26FA2D0023DC8B /* CMDConnectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMDConnectManager.h; sourceTree = "<group>"; };
+		BBF391251F26FA2D0023DC8B /* CMDConnectManager.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = CMDConnectManager.m; sourceTree = "<group>"; };
+		BBF391261F26FA2D0023DC8B /* DATAConnectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DATAConnectManager.h; sourceTree = "<group>"; };
+		BBF391281F26FA2D0023DC8B /* DATAConnectManager.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = DATAConnectManager.m; sourceTree = "<group>"; };
+		BBF391291F26FA2D0023DC8B /* ImageFilterBean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFilterBean.h; sourceTree = "<group>"; };
+		BBF3912B1F26FA2D0023DC8B /* ImageFilterBean.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ImageFilterBean.m; sourceTree = "<group>"; };
+		BBF3912C1F26FA2D0023DC8B /* MVCameraClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVCameraClient.h; sourceTree = "<group>"; };
+		BBF3912E1F26FA2D0023DC8B /* MVCameraClient.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MVCameraClient.m; sourceTree = "<group>"; };
+		BBF391301F26FA2D0023DC8B /* MVCameraDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVCameraDevice.h; sourceTree = "<group>"; };
+		BBF391321F26FA2D0023DC8B /* MVCameraDevice.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MVCameraDevice.m; sourceTree = "<group>"; };
+		BBF391331F26FA2D0023DC8B /* MVCameraDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVCameraDownloadManager.h; sourceTree = "<group>"; };
+		BBF391351F26FA2D0023DC8B /* MVCameraDownloadManager.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MVCameraDownloadManager.m; sourceTree = "<group>"; };
+		BBF391371F26FA2D0023DC8B /* MVCameraUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVCameraUploadManager.h; sourceTree = "<group>"; };
+		BBF391391F26FA2D0023DC8B /* MVCameraUploadManager.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MVCameraUploadManager.m; sourceTree = "<group>"; };
+		BBF3913A1F26FA2D0023DC8B /* MVMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVMedia.h; sourceTree = "<group>"; };
+		BBF3913C1F26FA2D0023DC8B /* MVMedia.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MVMedia.m; sourceTree = "<group>"; };
+		BBF3913D1F26FA2D0023DC8B /* MVMediaImpl.java */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.java; path = MVMediaImpl.java; sourceTree = "<group>"; };
+		BBF3913E1F26FA2D0023DC8B /* MVMediaManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVMediaManager.h; sourceTree = "<group>"; };
+		BBF391401F26FA2D0023DC8B /* MVMediaManager.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MVMediaManager.m; sourceTree = "<group>"; };
+		BBF391451F26FA2D0023DC8B /* PathTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PathTreeNode.h; sourceTree = "<group>"; };
+		BBF391471F26FA2D0023DC8B /* PathTreeNode.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = PathTreeNode.m; sourceTree = "<group>"; };
+		BBF391481F26FA2D0023DC8B /* SettingTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTreeNode.h; sourceTree = "<group>"; };
+		BBF3914A1F26FA2D0023DC8B /* SettingTreeNode.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = SettingTreeNode.m; sourceTree = "<group>"; };
+		BBF3914B1F26FA2D0023DC8B /* WiFiConnectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WiFiConnectManager.h; sourceTree = "<group>"; };
+		BBF3914D1F26FA2D0023DC8B /* WiFiConnectManager.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = WiFiConnectManager.m; sourceTree = "<group>"; };
+		BBF3915D1F26FA2D0023DC8B /* MVHttpResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVHttpResponse.h; sourceTree = "<group>"; };
+		BBF3915E1F26FA2D0023DC8B /* MVHttpResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MVHttpResponse.m; sourceTree = "<group>"; };
+		BBF391721F26FA2D0023DC8B /* SdWhiteDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SdWhiteDetail.h; sourceTree = "<group>"; };
+		BBF391731F26FA2D0023DC8B /* SdWhiteDetail.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = SdWhiteDetail.m; sourceTree = "<group>"; };
+		BBF391741F26FA2D0023DC8B /* SdWhiteResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SdWhiteResponse.h; sourceTree = "<group>"; };
+		BBF391751F26FA2D0023DC8B /* SdWhiteResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = SdWhiteResponse.m; sourceTree = "<group>"; };
+		BBF3917F1F26FA2D0023DC8B /* DBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBHelper.h; sourceTree = "<group>"; };
+		BBF391801F26FA2D0023DC8B /* DBHelper.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = DBHelper.m; sourceTree = "<group>"; };
+		BBF391811F26FA2D0023DC8B /* RealmSerialQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealmSerialQueue.h; sourceTree = "<group>"; };
+		BBF391821F26FA2D0023DC8B /* RealmSerialQueue.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = RealmSerialQueue.m; sourceTree = "<group>"; };
+		BBF391831F26FA2D0023DC8B /* RLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLModel.h; sourceTree = "<group>"; };
+		BBF391841F26FA2D0023DC8B /* RLModel.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = RLModel.m; sourceTree = "<group>"; };
+		BBF391921F26FA2D0023DC8B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BBF391941F26FA2D0023DC8B /* AudioRingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioRingBuffer.h; sourceTree = "<group>"; };
+		BBF391951F26FA2D0023DC8B /* KxAudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxAudioManager.h; sourceTree = "<group>"; };
+		BBF391961F26FA2D0023DC8B /* KxAudioManager.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = KxAudioManager.m; sourceTree = "<group>"; };
+		BBF391971F26FA2D0023DC8B /* KxLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxLogger.h; sourceTree = "<group>"; };
+		BBF391981F26FA2D0023DC8B /* kxmovie-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "kxmovie-Prefix.pch"; sourceTree = "<group>"; };
+		BBF391991F26FA2D0023DC8B /* kxmovie.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = kxmovie.bundle; sourceTree = "<group>"; };
+		BBF3919A1F26FA2D0023DC8B /* KxMovieDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMovieDecoder.h; sourceTree = "<group>"; };
+		BBF3919B1F26FA2D0023DC8B /* KxMovieDecoder.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = KxMovieDecoder.mm; sourceTree = "<group>"; };
+		BBF391A51F26FA2D0023DC8B /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavcodec.a; sourceTree = "<group>"; };
+		BBF391A61F26FA2D0023DC8B /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavformat.a; sourceTree = "<group>"; };
+		BBF391A71F26FA2D0023DC8B /* libavutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavutil.a; sourceTree = "<group>"; };
+		BBF391A81F26FA2D0023DC8B /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswresample.a; sourceTree = "<group>"; };
+		BBF391A91F26FA2D0023DC8B /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswscale.a; sourceTree = "<group>"; };
+		BBF391AA1F26FA2D0023DC8B /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		BBF391AB1F26FA2D0023DC8B /* MADVCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MADVCamera.h; sourceTree = "<group>"; };
+		BBF391AC1F26FA2D0023DC8B /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		BBF391AE1F26FA2D0023DC8B /* MadvGLRenderer_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MadvGLRenderer_iOS.h; sourceTree = "<group>"; };
+		BBF391AF1F26FA2D0023DC8B /* MadvGLRenderer_iOS.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MadvGLRenderer_iOS.mm; sourceTree = "<group>"; };
+		BBF391B01F26FA2D0023DC8B /* ResourceKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceKeys.h; sourceTree = "<group>"; };
+		BBF391B51F26FA2D0023DC8B /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		BBF391B61F26FA2D0023DC8B /* FMDatabase.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = FMDatabase.m; sourceTree = "<group>"; };
+		BBF391B71F26FA2D0023DC8B /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		BBF391B81F26FA2D0023DC8B /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		BBF391B91F26FA2D0023DC8B /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		BBF391BA1F26FA2D0023DC8B /* FMDatabasePool.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		BBF391BB1F26FA2D0023DC8B /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		BBF391BC1F26FA2D0023DC8B /* FMDatabaseQueue.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		BBF391BD1F26FA2D0023DC8B /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		BBF391BE1F26FA2D0023DC8B /* FMResultSet.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = FMResultSet.m; sourceTree = "<group>"; };
+		BBF391F91F26FA2D0023DC8B /* ImageBlender.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ImageBlender.cpp; sourceTree = "<group>"; };
+		BBF391FA1F26FA2D0023DC8B /* ImageBlender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBlender.h; sourceTree = "<group>"; };
+		BBF3925B1F26FA2E0023DC8B /* FGLanguageTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FGLanguageTool.h; sourceTree = "<group>"; };
+		BBF3925C1F26FA2E0023DC8B /* FGLanguageTool.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = FGLanguageTool.m; sourceTree = "<group>"; };
+		BBF3925D1F26FA2E0023DC8B /* helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = helper.h; sourceTree = "<group>"; };
+		BBF3925E1F26FA2E0023DC8B /* helper.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = helper.m; sourceTree = "<group>"; };
+		BBF392611F26FA2E0023DC8B /* LogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogManager.h; sourceTree = "<group>"; };
+		BBF392621F26FA2E0023DC8B /* LogManager.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = LogManager.m; sourceTree = "<group>"; };
+		BBF392631F26FA2E0023DC8B /* MyReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyReachability.h; sourceTree = "<group>"; };
+		BBF392641F26FA2E0023DC8B /* MyReachability.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MyReachability.m; sourceTree = "<group>"; };
+		BBF392651F26FA2E0023DC8B /* NSCondition+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCondition+Extensions.h"; sourceTree = "<group>"; };
+		BBF392661F26FA2E0023DC8B /* NSCondition+Extensions.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = "NSCondition+Extensions.m"; sourceTree = "<group>"; };
+		BBF3926B1F26FA2E0023DC8B /* NSMutableArray+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Extensions.h"; sourceTree = "<group>"; };
+		BBF3926C1F26FA2E0023DC8B /* NSMutableArray+Extensions.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = "NSMutableArray+Extensions.m"; sourceTree = "<group>"; };
+		BBF3926F1F26FA2E0023DC8B /* NSRecursiveCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSRecursiveCondition.h; sourceTree = "<group>"; };
+		BBF392701F26FA2E0023DC8B /* NSRecursiveCondition.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = NSRecursiveCondition.m; sourceTree = "<group>"; };
+		BBF392731F26FA2E0023DC8B /* NSString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
+		BBF392741F26FA2E0023DC8B /* NSString+Extensions.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
+		BBF392751F26FA2E0023DC8B /* SocketHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketHelper.h; sourceTree = "<group>"; };
+		BBF392761F26FA2E0023DC8B /* SocketHelper.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = SocketHelper.mm; sourceTree = "<group>"; };
+		BBF3928C1F26FA2E0023DC8B /* z_Sandbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = z_Sandbox.h; sourceTree = "<group>"; };
+		BBF3928D1F26FA2E0023DC8B /* z_Sandbox.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = z_Sandbox.m; sourceTree = "<group>"; };
+		BBF3928F1F26FA2E0023DC8B /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		BBF392901F26FA2E0023DC8B /* GDataXMLNode.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		BBF392911F26FA2E0023DC8B /* XMLTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLTool.h; sourceTree = "<group>"; };
+		BBF392921F26FA2E0023DC8B /* XMLTool.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = XMLTool.m; sourceTree = "<group>"; };
+		BBF3937D1F26FE2C0023DC8B /* h264_iOS8VTHD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = h264_iOS8VTHD.h; sourceTree = "<group>"; };
+		BBF3937E1F26FE2C0023DC8B /* h264_iOS8VTHD.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = h264_iOS8VTHD.mm; sourceTree = "<group>"; };
+		BBF3937F1F26FE2C0023DC8B /* IDRDecoder.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = IDRDecoder.c; sourceTree = "<group>"; };
+		BBF393801F26FE2C0023DC8B /* IDRDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDRDecoder.h; sourceTree = "<group>"; };
+		BBF3938D1F2705170023DC8B /* TimeUtils.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = TimeUtils.cpp; sourceTree = "<group>"; };
+		BBF3938E1F2705170023DC8B /* TimeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeUtils.h; sourceTree = "<group>"; };
 		ECD839518DD38BB9E2CE4C8A /* Pods-MADVCameraDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MADVCameraDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MADVCameraDemo/Pods-MADVCameraDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		F3E22FF2085F15F1C2621E22 /* libPods-MADVCameraDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MADVCameraDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -162,18 +446,58 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BBF390BC1F26EB820023DC8B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBF390BD1F26EB820023DC8B /* CoreLocation.framework in Frameworks */,
+				BBF390BE1F26EB820023DC8B /* CoreMotion.framework in Frameworks */,
+				BBF390BF1F26EB820023DC8B /* libavcodec.a in Frameworks */,
+				BBF390C01F26EB820023DC8B /* libavformat.a in Frameworks */,
+				BBF390C11F26EB820023DC8B /* libavutil.a in Frameworks */,
+				BBF390C21F26EB820023DC8B /* libswresample.a in Frameworks */,
+				BBF390C31F26EB820023DC8B /* libswscale.a in Frameworks */,
+				BBF390C41F26EB820023DC8B /* CoreMedia.framework in Frameworks */,
+				BBF393011F26FA2E0023DC8B /* libavcodec.a in Frameworks */,
+				BBF390C51F26EB820023DC8B /* Accelerate.framework in Frameworks */,
+				BBF390C61F26EB820023DC8B /* CoreVideo.framework in Frameworks */,
+				BBF390C71F26EB820023DC8B /* AudioToolbox.framework in Frameworks */,
+				BBF393051F26FA2E0023DC8B /* libswscale.a in Frameworks */,
+				BBF390C81F26EB820023DC8B /* CoreAudio.framework in Frameworks */,
+				BBF390C91F26EB820023DC8B /* libsqlite3.tbd in Frameworks */,
+				BBF390CA1F26EB820023DC8B /* CoreTelephony.framework in Frameworks */,
+				BBF390CB1F26EB820023DC8B /* QuartzCore.framework in Frameworks */,
+				BBF393041F26FA2E0023DC8B /* libswresample.a in Frameworks */,
+				BBF390CC1F26EB820023DC8B /* CoreGraphics.framework in Frameworks */,
+				BBF390CD1F26EB820023DC8B /* VideoToolbox.framework in Frameworks */,
+				BBF390CE1F26EB820023DC8B /* Foundation.framework in Frameworks */,
+				BBF393031F26FA2E0023DC8B /* libavutil.a in Frameworks */,
+				BBF390CF1F26EB820023DC8B /* AVFoundation.framework in Frameworks */,
+				BBF390D01F26EB820023DC8B /* CoreFoundation.framework in Frameworks */,
+				BBF390D11F26EB820023DC8B /* MADVPano.framework in Frameworks */,
+				BBF390D31F26EB820023DC8B /* OpenGLES.framework in Frameworks */,
+				BBF393021F26FA2E0023DC8B /* libavformat.a in Frameworks */,
+				BBF390D41F26EB820023DC8B /* libxml2.2.tbd in Frameworks */,
+				BBF390D51F26EB820023DC8B /* libz.tbd in Frameworks */,
+				BBF390D61F26EB820023DC8B /* libiconv.tbd in Frameworks */,
+				BBF390D71F26EB820023DC8B /* libPods-MADVCameraDemo.a in Frameworks */,
+				1B55B268F183E629214E6E10 /* libPods-MADVCameraDemo_MADVCameraSources.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		521A4ED31F0B766B00E5F155 = {
 			isa = PBXGroup;
 			children = (
+				BBF390E41F26FA2D0023DC8B /* MADVCamera */,
 				521A4EDE1F0B766B00E5F155 /* MADVCameraDemo */,
 				521A4EFB1F0B766C00E5F155 /* MADVCameraDemoUITests */,
 				521A4EDD1F0B766B00E5F155 /* Products */,
 				521A4F191F0B7D3300E5F155 /* Frameworks */,
 				7A68F7B1FE2D5ED65C230AAF /* Pods */,
-				522363E81F1607DD001E125D /* MADVCameraDemo_withSource-Info.plist */,
+				BBF390E21F26EB840023DC8B /* MADVCameraDemo_MADVCameraSources-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -182,6 +506,7 @@
 			children = (
 				521A4EDC1F0B766B00E5F155 /* MADVCameraDemo.app */,
 				521A4EF81F0B766C00E5F155 /* MADVCameraDemoUITests.xctest */,
+				BBF390E11F26EB820023DC8B /* MADVCameraDemo_MADVCameraSources.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -264,6 +589,7 @@
 				521A4F281F0B934B00E5F155 /* libiconv.tbd */,
 				521A4F1A1F0B7D3300E5F155 /* MADVPano.framework */,
 				F3E22FF2085F15F1C2621E22 /* libPods-MADVCameraDemo.a */,
+				8CDADBB8AF7E3FEAB29A1C24 /* libPods-MADVCameraDemo_MADVCameraSources.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -273,8 +599,284 @@
 			children = (
 				ECD839518DD38BB9E2CE4C8A /* Pods-MADVCameraDemo.debug.xcconfig */,
 				664A85556F7159585B5439CC /* Pods-MADVCameraDemo.release.xcconfig */,
+				6559114214F7F0085B4330CF /* Pods-MADVCameraDemo_MADVCameraSources.debug.xcconfig */,
+				38AD176FBE07FA87EC823509 /* Pods-MADVCameraDemo_MADVCameraSources.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		BBF390E41F26FA2D0023DC8B /* MADVCamera */ = {
+			isa = PBXGroup;
+			children = (
+				BBF390E51F26FA2D0023DC8B /* CameraManager */,
+				BBF3914E1F26FA2D0023DC8B /* DataModel */,
+				BBF3917E1F26FA2D0023DC8B /* DBHelper */,
+				BBF391851F26FA2D0023DC8B /* FFMpegExt */,
+				BBF391921F26FA2D0023DC8B /* Info.plist */,
+				BBF391931F26FA2D0023DC8B /* kxmovie */,
+				BBF391A21F26FA2D0023DC8B /* libs */,
+				BBF391AB1F26FA2D0023DC8B /* MADVCamera.h */,
+				BBF391AC1F26FA2D0023DC8B /* PrefixHeader.pch */,
+				BBF391AD1F26FA2D0023DC8B /* Renderer */,
+				BBF391B01F26FA2D0023DC8B /* ResourceKeys.h */,
+				BBF391B11F26FA2D0023DC8B /* ThirdParty */,
+				BBF392541F26FA2E0023DC8B /* Utils */,
+				BBF3928E1F26FA2E0023DC8B /* XMLManager */,
+			);
+			path = MADVCamera;
+			sourceTree = "<group>";
+		};
+		BBF390E51F26FA2D0023DC8B /* CameraManager */ = {
+			isa = PBXGroup;
+			children = (
+				BBF390E61F26FA2D0023DC8B /* AMBACommands.h */,
+				BBF390E81F26FA2D0023DC8B /* ambarequest */,
+				BBF390F81F26FA2D0023DC8B /* ambaresponse */,
+				BBF391231F26FA2D0023DC8B /* CMDConnectManager.h */,
+				BBF391251F26FA2D0023DC8B /* CMDConnectManager.m */,
+				BBF391261F26FA2D0023DC8B /* DATAConnectManager.h */,
+				BBF391281F26FA2D0023DC8B /* DATAConnectManager.m */,
+				BBF391291F26FA2D0023DC8B /* ImageFilterBean.h */,
+				BBF3912B1F26FA2D0023DC8B /* ImageFilterBean.m */,
+				BBF3912C1F26FA2D0023DC8B /* MVCameraClient.h */,
+				BBF3912E1F26FA2D0023DC8B /* MVCameraClient.m */,
+				BBF391301F26FA2D0023DC8B /* MVCameraDevice.h */,
+				BBF391321F26FA2D0023DC8B /* MVCameraDevice.m */,
+				BBF391331F26FA2D0023DC8B /* MVCameraDownloadManager.h */,
+				BBF391351F26FA2D0023DC8B /* MVCameraDownloadManager.m */,
+				BBF391371F26FA2D0023DC8B /* MVCameraUploadManager.h */,
+				BBF391391F26FA2D0023DC8B /* MVCameraUploadManager.m */,
+				BBF3913A1F26FA2D0023DC8B /* MVMedia.h */,
+				BBF3913C1F26FA2D0023DC8B /* MVMedia.m */,
+				BBF3913D1F26FA2D0023DC8B /* MVMediaImpl.java */,
+				BBF3913E1F26FA2D0023DC8B /* MVMediaManager.h */,
+				BBF391401F26FA2D0023DC8B /* MVMediaManager.m */,
+				BBF391451F26FA2D0023DC8B /* PathTreeNode.h */,
+				BBF391471F26FA2D0023DC8B /* PathTreeNode.m */,
+				BBF391481F26FA2D0023DC8B /* SettingTreeNode.h */,
+				BBF3914A1F26FA2D0023DC8B /* SettingTreeNode.m */,
+				BBF3914B1F26FA2D0023DC8B /* WiFiConnectManager.h */,
+				BBF3914D1F26FA2D0023DC8B /* WiFiConnectManager.m */,
+			);
+			path = CameraManager;
+			sourceTree = "<group>";
+		};
+		BBF390E81F26FA2D0023DC8B /* ambarequest */ = {
+			isa = PBXGroup;
+			children = (
+				BBF390E91F26FA2D0023DC8B /* AMBAGetFileRequest.h */,
+				BBF390EA1F26FA2D0023DC8B /* AMBAGetFileRequest.java */,
+				BBF390EB1F26FA2D0023DC8B /* AMBAGetFileRequest.m */,
+				BBF390EC1F26FA2D0023DC8B /* AMBAPutFileRequest.h */,
+				BBF390ED1F26FA2D0023DC8B /* AMBAPutFileRequest.java */,
+				BBF390EE1F26FA2D0023DC8B /* AMBAPutFileRequest.m */,
+				BBF390EF1F26FA2D0023DC8B /* AMBARequest.h */,
+				BBF390F01F26FA2D0023DC8B /* AMBARequest.java */,
+				BBF390F11F26FA2D0023DC8B /* AMBARequest.m */,
+				BBF390F21F26FA2D0023DC8B /* AMBASetGPSInfoRequest.h */,
+				BBF390F31F26FA2D0023DC8B /* AMBASetGPSInfoRequest.m */,
+				BBF390F41F26FA2D0023DC8B /* AMBASetWifiRequest.h */,
+				BBF390F51F26FA2D0023DC8B /* AMBASetWifiRequest.java */,
+				BBF390F61F26FA2D0023DC8B /* AMBASetWifiRequest.m */,
+			);
+			path = ambarequest;
+			sourceTree = "<group>";
+		};
+		BBF390F81F26FA2D0023DC8B /* ambaresponse */ = {
+			isa = PBXGroup;
+			children = (
+				BBF390F91F26FA2D0023DC8B /* AMBACancelFileTransferResponse.h */,
+				BBF390FA1F26FA2D0023DC8B /* AMBACancelFileTransferResponse.java */,
+				BBF390FB1F26FA2D0023DC8B /* AMBACancelFileTransferResponse.m */,
+				BBF390FC1F26FA2D0023DC8B /* AMBAFileTransferResultResponse.h */,
+				BBF390FD1F26FA2D0023DC8B /* AMBAFileTransferResultResponse.java */,
+				BBF390FE1F26FA2D0023DC8B /* AMBAFileTransferResultResponse.m */,
+				BBF390FF1F26FA2D0023DC8B /* AMBAGetAllModeParamResponse.h */,
+				BBF391001F26FA2D0023DC8B /* AMBAGetAllModeParamResponse.java */,
+				BBF391011F26FA2D0023DC8B /* AMBAGetAllModeParamResponse.m */,
+				BBF391021F26FA2D0023DC8B /* AMBAGetAllSettingParamResponse.h */,
+				BBF391031F26FA2D0023DC8B /* AMBAGetAllSettingParamResponse.java */,
+				BBF391041F26FA2D0023DC8B /* AMBAGetAllSettingParamResponse.m */,
+				BBF391051F26FA2D0023DC8B /* AMBAGetFileResponse.h */,
+				BBF391061F26FA2D0023DC8B /* AMBAGetFileResponse.java */,
+				BBF391071F26FA2D0023DC8B /* AMBAGetFileResponse.m */,
+				BBF391081F26FA2D0023DC8B /* AMBAGetMediaInfoResponse.h */,
+				BBF391091F26FA2D0023DC8B /* AMBAGetMediaInfoResponse.java */,
+				BBF3910A1F26FA2D0023DC8B /* AMBAGetMediaInfoResponse.m */,
+				BBF3910B1F26FA2D0023DC8B /* AMBAGetThumbnailResponse.h */,
+				BBF3910C1F26FA2D0023DC8B /* AMBAGetThumbnailResponse.java */,
+				BBF3910D1F26FA2D0023DC8B /* AMBAGetThumbnailResponse.m */,
+				BBF3910E1F26FA2D0023DC8B /* AMBAGetWiFiStatusResponse.h */,
+				BBF3910F1F26FA2D0023DC8B /* AMBAGetWiFiStatusResponse.java */,
+				BBF391101F26FA2D0023DC8B /* AMBAGetWiFiStatusResponse.m */,
+				BBF391111F26FA2D0023DC8B /* AMBAListResponse.h */,
+				BBF391121F26FA2D0023DC8B /* AMBAListResponse.java */,
+				BBF391131F26FA2D0023DC8B /* AMBAListResponse.m */,
+				BBF391141F26FA2D0023DC8B /* AMBAPutFileResponse.h */,
+				BBF391151F26FA2D0023DC8B /* AMBAPutFileResponse.java */,
+				BBF391161F26FA2D0023DC8B /* AMBAPutFileResponse.m */,
+				BBF391171F26FA2D0023DC8B /* AMBAResponse.h */,
+				BBF391181F26FA2D0023DC8B /* AMBAResponse.java */,
+				BBF391191F26FA2D0023DC8B /* AMBAResponse.m */,
+				BBF3911A1F26FA2D0023DC8B /* AMBASaveMediaFileDoneResponse.h */,
+				BBF3911B1F26FA2D0023DC8B /* AMBASaveMediaFileDoneResponse.java */,
+				BBF3911C1F26FA2D0023DC8B /* AMBASaveMediaFileDoneResponse.m */,
+				BBF3911D1F26FA2D0023DC8B /* AMBASetClientInfoResponse.h */,
+				BBF3911E1F26FA2D0023DC8B /* AMBASetClientInfoResponse.m */,
+				BBF3911F1F26FA2D0023DC8B /* AMBASyncStorageAllStateResponse.h */,
+				BBF391201F26FA2D0023DC8B /* AMBASyncStorageAllStateResponse.java */,
+				BBF391211F26FA2D0023DC8B /* AMBASyncStorageAllStateResponse.m */,
+			);
+			path = ambaresponse;
+			sourceTree = "<group>";
+		};
+		BBF3914E1F26FA2D0023DC8B /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				BBF3915D1F26FA2D0023DC8B /* MVHttpResponse.h */,
+				BBF3915E1F26FA2D0023DC8B /* MVHttpResponse.m */,
+				BBF391721F26FA2D0023DC8B /* SdWhiteDetail.h */,
+				BBF391731F26FA2D0023DC8B /* SdWhiteDetail.m */,
+				BBF391741F26FA2D0023DC8B /* SdWhiteResponse.h */,
+				BBF391751F26FA2D0023DC8B /* SdWhiteResponse.m */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		BBF3917E1F26FA2D0023DC8B /* DBHelper */ = {
+			isa = PBXGroup;
+			children = (
+				BBF3917F1F26FA2D0023DC8B /* DBHelper.h */,
+				BBF391801F26FA2D0023DC8B /* DBHelper.m */,
+				BBF391811F26FA2D0023DC8B /* RealmSerialQueue.h */,
+				BBF391821F26FA2D0023DC8B /* RealmSerialQueue.m */,
+				BBF391831F26FA2D0023DC8B /* RLModel.h */,
+				BBF391841F26FA2D0023DC8B /* RLModel.m */,
+			);
+			path = DBHelper;
+			sourceTree = "<group>";
+		};
+		BBF391851F26FA2D0023DC8B /* FFMpegExt */ = {
+			isa = PBXGroup;
+			children = (
+				BBF3938D1F2705170023DC8B /* TimeUtils.cpp */,
+				BBF3938E1F2705170023DC8B /* TimeUtils.h */,
+				BBF3937D1F26FE2C0023DC8B /* h264_iOS8VTHD.h */,
+				BBF3937E1F26FE2C0023DC8B /* h264_iOS8VTHD.mm */,
+				BBF3937F1F26FE2C0023DC8B /* IDRDecoder.c */,
+				BBF393801F26FE2C0023DC8B /* IDRDecoder.h */,
+			);
+			path = FFMpegExt;
+			sourceTree = "<group>";
+		};
+		BBF391931F26FA2D0023DC8B /* kxmovie */ = {
+			isa = PBXGroup;
+			children = (
+				BBF391941F26FA2D0023DC8B /* AudioRingBuffer.h */,
+				BBF391951F26FA2D0023DC8B /* KxAudioManager.h */,
+				BBF391961F26FA2D0023DC8B /* KxAudioManager.m */,
+				BBF391971F26FA2D0023DC8B /* KxLogger.h */,
+				BBF391981F26FA2D0023DC8B /* kxmovie-Prefix.pch */,
+				BBF391991F26FA2D0023DC8B /* kxmovie.bundle */,
+				BBF3919A1F26FA2D0023DC8B /* KxMovieDecoder.h */,
+				BBF3919B1F26FA2D0023DC8B /* KxMovieDecoder.mm */,
+			);
+			path = kxmovie;
+			sourceTree = "<group>";
+		};
+		BBF391A21F26FA2D0023DC8B /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				BBF391A31F26FA2D0023DC8B /* FFmpeg */,
+				BBF391AA1F26FA2D0023DC8B /* opencv2.framework */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		BBF391A31F26FA2D0023DC8B /* FFmpeg */ = {
+			isa = PBXGroup;
+			children = (
+				BBF391A51F26FA2D0023DC8B /* libavcodec.a */,
+				BBF391A61F26FA2D0023DC8B /* libavformat.a */,
+				BBF391A71F26FA2D0023DC8B /* libavutil.a */,
+				BBF391A81F26FA2D0023DC8B /* libswresample.a */,
+				BBF391A91F26FA2D0023DC8B /* libswscale.a */,
+			);
+			path = FFmpeg;
+			sourceTree = "<group>";
+		};
+		BBF391AD1F26FA2D0023DC8B /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				BBF391AE1F26FA2D0023DC8B /* MadvGLRenderer_iOS.h */,
+				BBF391AF1F26FA2D0023DC8B /* MadvGLRenderer_iOS.mm */,
+			);
+			path = Renderer;
+			sourceTree = "<group>";
+		};
+		BBF391B11F26FA2D0023DC8B /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				BBF391B41F26FA2D0023DC8B /* FMDB */,
+				BBF391F91F26FA2D0023DC8B /* ImageBlender.cpp */,
+				BBF391FA1F26FA2D0023DC8B /* ImageBlender.h */,
+			);
+			path = ThirdParty;
+			sourceTree = "<group>";
+		};
+		BBF391B41F26FA2D0023DC8B /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				BBF391B51F26FA2D0023DC8B /* FMDatabase.h */,
+				BBF391B61F26FA2D0023DC8B /* FMDatabase.m */,
+				BBF391B71F26FA2D0023DC8B /* FMDatabaseAdditions.h */,
+				BBF391B81F26FA2D0023DC8B /* FMDatabaseAdditions.m */,
+				BBF391B91F26FA2D0023DC8B /* FMDatabasePool.h */,
+				BBF391BA1F26FA2D0023DC8B /* FMDatabasePool.m */,
+				BBF391BB1F26FA2D0023DC8B /* FMDatabaseQueue.h */,
+				BBF391BC1F26FA2D0023DC8B /* FMDatabaseQueue.m */,
+				BBF391BD1F26FA2D0023DC8B /* FMResultSet.h */,
+				BBF391BE1F26FA2D0023DC8B /* FMResultSet.m */,
+			);
+			path = FMDB;
+			sourceTree = "<group>";
+		};
+		BBF392541F26FA2E0023DC8B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				BBF3925B1F26FA2E0023DC8B /* FGLanguageTool.h */,
+				BBF3925C1F26FA2E0023DC8B /* FGLanguageTool.m */,
+				BBF3925D1F26FA2E0023DC8B /* helper.h */,
+				BBF3925E1F26FA2E0023DC8B /* helper.m */,
+				BBF392611F26FA2E0023DC8B /* LogManager.h */,
+				BBF392621F26FA2E0023DC8B /* LogManager.m */,
+				BBF392631F26FA2E0023DC8B /* MyReachability.h */,
+				BBF392641F26FA2E0023DC8B /* MyReachability.m */,
+				BBF392651F26FA2E0023DC8B /* NSCondition+Extensions.h */,
+				BBF392661F26FA2E0023DC8B /* NSCondition+Extensions.m */,
+				BBF3926B1F26FA2E0023DC8B /* NSMutableArray+Extensions.h */,
+				BBF3926C1F26FA2E0023DC8B /* NSMutableArray+Extensions.m */,
+				BBF3926F1F26FA2E0023DC8B /* NSRecursiveCondition.h */,
+				BBF392701F26FA2E0023DC8B /* NSRecursiveCondition.m */,
+				BBF392731F26FA2E0023DC8B /* NSString+Extensions.h */,
+				BBF392741F26FA2E0023DC8B /* NSString+Extensions.m */,
+				BBF392751F26FA2E0023DC8B /* SocketHelper.h */,
+				BBF392761F26FA2E0023DC8B /* SocketHelper.mm */,
+				BBF3928C1F26FA2E0023DC8B /* z_Sandbox.h */,
+				BBF3928D1F26FA2E0023DC8B /* z_Sandbox.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		BBF3928E1F26FA2E0023DC8B /* XMLManager */ = {
+			isa = PBXGroup;
+			children = (
+				BBF3928F1F26FA2E0023DC8B /* GDataXMLNode.h */,
+				BBF392901F26FA2E0023DC8B /* GDataXMLNode.m */,
+				BBF392911F26FA2E0023DC8B /* XMLTool.h */,
+				BBF392921F26FA2E0023DC8B /* XMLTool.m */,
+			);
+			path = XMLManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,6 +920,26 @@
 			productReference = 521A4EF81F0B766C00E5F155 /* MADVCameraDemoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		BBF390B01F26EB820023DC8B /* MADVCameraDemo_MADVCameraSources */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBF390DE1F26EB820023DC8B /* Build configuration list for PBXNativeTarget "MADVCameraDemo_MADVCameraSources" */;
+			buildPhases = (
+				BBF390B11F26EB820023DC8B /* [CP] Check Pods Manifest.lock */,
+				BBF390B21F26EB820023DC8B /* Sources */,
+				BBF390BC1F26EB820023DC8B /* Frameworks */,
+				BBF390D81F26EB820023DC8B /* Resources */,
+				BBF390DC1F26EB820023DC8B /* [CP] Embed Pods Frameworks */,
+				BBF390DD1F26EB820023DC8B /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MADVCameraDemo_MADVCameraSources;
+			productName = MADVCameraDemo;
+			productReference = BBF390E11F26EB820023DC8B /* MADVCameraDemo_MADVCameraSources.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -338,6 +960,10 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 521A4EDB1F0B766B00E5F155;
 					};
+					BBF390B01F26EB820023DC8B = {
+						DevelopmentTeam = QBAB3CS86A;
+						ProvisioningStyle = Manual;
+					};
 				};
 			};
 			buildConfigurationList = 521A4ED71F0B766B00E5F155 /* Build configuration list for PBXProject "MADVCameraDemo" */;
@@ -355,6 +981,7 @@
 			targets = (
 				521A4EDB1F0B766B00E5F155 /* MADVCameraDemo */,
 				521A4EF71F0B766C00E5F155 /* MADVCameraDemoUITests */,
+				BBF390B01F26EB820023DC8B /* MADVCameraDemo_MADVCameraSources */,
 			);
 		};
 /* End PBXProject section */
@@ -374,6 +1001,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBF390D81F26EB820023DC8B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBF392F91F26FA2E0023DC8B /* Info.plist in Resources */,
+				BBF392FB1F26FA2E0023DC8B /* kxmovie.bundle in Resources */,
+				BBF390D91F26EB820023DC8B /* LaunchScreen.storyboard in Resources */,
+				BBF390DA1F26EB820023DC8B /* Assets.xcassets in Resources */,
+				BBF390DB1F26EB820023DC8B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +1038,58 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MADVCameraDemo/Pods-MADVCameraDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BBF390B11F26EB820023DC8B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MADVCameraDemo_MADVCameraSources-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BBF390DC1F26EB820023DC8B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MADVCameraDemo_MADVCameraSources/Pods-MADVCameraDemo_MADVCameraSources-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BBF390DD1F26EB820023DC8B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MADVCameraDemo/Pods-MADVCameraDemo-resources.sh",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/MWPhotoBrowser/MWPhotoBrowser/MWPhotoBrowser.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MADVCameraDemo_MADVCameraSources/Pods-MADVCameraDemo_MADVCameraSources-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		CBA32F16CA167EF2951C8A12 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -414,7 +1105,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		FFF447A1F26BFD10500466BD /* [CP] Embed Pods Frameworks */ = {
@@ -456,6 +1147,101 @@
 			buildActionMask = 2147483647;
 			files = (
 				521A4EFD1F0B766C00E5F155 /* MADVCameraDemoUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BBF390B21F26EB820023DC8B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBF3929F1F26FA2E0023DC8B /* AMBACancelFileTransferResponse.m in Sources */,
+				BBF392B41F26FA2E0023DC8B /* AMBASaveMediaFileDoneResponse.java in Sources */,
+				BBF392D71F26FA2E0023DC8B /* WiFiConnectManager.m in Sources */,
+				BBF392B11F26FA2E0023DC8B /* AMBAPutFileResponse.m in Sources */,
+				BBF392D51F26FA2E0023DC8B /* SettingTreeNode.m in Sources */,
+				BBF392D31F26FA2E0023DC8B /* PathTreeNode.m in Sources */,
+				BBF392BB1F26FA2E0023DC8B /* CMDConnectManager.m in Sources */,
+				BBF392AD1F26FA2E0023DC8B /* AMBAGetWiFiStatusResponse.m in Sources */,
+				BBF392AC1F26FA2E0023DC8B /* AMBAGetWiFiStatusResponse.java in Sources */,
+				BBF392AB1F26FA2E0023DC8B /* AMBAGetThumbnailResponse.m in Sources */,
+				BBF392A91F26FA2E0023DC8B /* AMBAGetMediaInfoResponse.m in Sources */,
+				BBF3929E1F26FA2E0023DC8B /* AMBACancelFileTransferResponse.java in Sources */,
+				BBF392EA1F26FA2E0023DC8B /* SdWhiteResponse.m in Sources */,
+				BBF390B31F26EB820023DC8B /* MyMovieSegmentMerger.mm in Sources */,
+				BBF392A41F26FA2E0023DC8B /* AMBAGetAllSettingParamResponse.java in Sources */,
+				BBF392A71F26FA2E0023DC8B /* AMBAGetFileResponse.m in Sources */,
+				BBF3935B1F26FA2E0023DC8B /* helper.m in Sources */,
+				BBF3930B1F26FA2E0023DC8B /* FMDatabasePool.m in Sources */,
+				BBF392A21F26FA2E0023DC8B /* AMBAGetAllModeParamResponse.java in Sources */,
+				BBF392A61F26FA2E0023DC8B /* AMBAGetFileResponse.java in Sources */,
+				BBF392B61F26FA2E0023DC8B /* AMBASetClientInfoResponse.m in Sources */,
+				BBF390B41F26EB820023DC8B /* MediaPlayerViewController.mm in Sources */,
+				BBF392F01F26FA2E0023DC8B /* RealmSerialQueue.m in Sources */,
+				BBF392CB1F26FA2E0023DC8B /* MVMedia.m in Sources */,
+				BBF3929A1F26FA2E0023DC8B /* AMBASetGPSInfoRequest.m in Sources */,
+				BBF393641F26FA2E0023DC8B /* NSRecursiveCondition.m in Sources */,
+				BBF3930C1F26FA2E0023DC8B /* FMDatabaseQueue.m in Sources */,
+				BBF3935F1F26FA2E0023DC8B /* NSCondition+Extensions.m in Sources */,
+				BBF393091F26FA2E0023DC8B /* FMDatabase.m in Sources */,
+				BBF392991F26FA2E0023DC8B /* AMBARequest.m in Sources */,
+				BBF390B51F26EB820023DC8B /* MyGLView.mm in Sources */,
+				BBF390B61F26EB820023DC8B /* CameraLibraryViewController.m in Sources */,
+				BBF392BF1F26FA2E0023DC8B /* ImageFilterBean.m in Sources */,
+				BBF392FA1F26FA2E0023DC8B /* KxAudioManager.m in Sources */,
+				BBF392961F26FA2E0023DC8B /* AMBAPutFileRequest.java in Sources */,
+				BBF3929B1F26FA2E0023DC8B /* AMBASetWifiRequest.java in Sources */,
+				BBF392951F26FA2E0023DC8B /* AMBAGetFileRequest.m in Sources */,
+				BBF392AA1F26FA2E0023DC8B /* AMBAGetThumbnailResponse.java in Sources */,
+				BBF392B01F26FA2E0023DC8B /* AMBAPutFileResponse.java in Sources */,
+				BBF393731F26FA2E0023DC8B /* GDataXMLNode.m in Sources */,
+				BBF390B71F26EB820023DC8B /* AppDelegate.m in Sources */,
+				BBF392CE1F26FA2E0023DC8B /* MVMediaManager.m in Sources */,
+				BBF3935D1F26FA2E0023DC8B /* LogManager.m in Sources */,
+				BBF392A81F26FA2E0023DC8B /* AMBAGetMediaInfoResponse.java in Sources */,
+				BBF392B31F26FA2E0023DC8B /* AMBAResponse.m in Sources */,
+				BBF392B21F26FA2E0023DC8B /* AMBAResponse.java in Sources */,
+				BBF3938F1F2705170023DC8B /* TimeUtils.cpp in Sources */,
+				BBF392941F26FA2E0023DC8B /* AMBAGetFileRequest.java in Sources */,
+				BBF393721F26FA2E0023DC8B /* z_Sandbox.m in Sources */,
+				BBF392E91F26FA2E0023DC8B /* SdWhiteDetail.m in Sources */,
+				BBF392A11F26FA2E0023DC8B /* AMBAFileTransferResultResponse.m in Sources */,
+				BBF393821F26FE2C0023DC8B /* IDRDecoder.c in Sources */,
+				BBF390B81F26EB820023DC8B /* UIViewController+Extensions.m in Sources */,
+				BBF392BD1F26FA2E0023DC8B /* DATAConnectManager.m in Sources */,
+				BBF393621F26FA2E0023DC8B /* NSMutableArray+Extensions.m in Sources */,
+				BBF393671F26FA2E0023DC8B /* SocketHelper.mm in Sources */,
+				BBF392AE1F26FA2E0023DC8B /* AMBAListResponse.java in Sources */,
+				BBF392EF1F26FA2E0023DC8B /* DBHelper.m in Sources */,
+				BBF393071F26FA2E0023DC8B /* MadvGLRenderer_iOS.mm in Sources */,
+				BBF392A51F26FA2E0023DC8B /* AMBAGetAllSettingParamResponse.m in Sources */,
+				BBF392971F26FA2E0023DC8B /* AMBAPutFileRequest.m in Sources */,
+				BBF392C61F26FA2E0023DC8B /* MVCameraDownloadManager.m in Sources */,
+				BBF392B81F26FA2E0023DC8B /* AMBASyncStorageAllStateResponse.m in Sources */,
+				BBF392A01F26FA2E0023DC8B /* AMBAFileTransferResultResponse.java in Sources */,
+				BBF392B71F26FA2E0023DC8B /* AMBASyncStorageAllStateResponse.java in Sources */,
+				BBF392CC1F26FA2E0023DC8B /* MVMediaImpl.java in Sources */,
+				BBF392A31F26FA2E0023DC8B /* AMBAGetAllModeParamResponse.m in Sources */,
+				BBF393661F26FA2E0023DC8B /* NSString+Extensions.m in Sources */,
+				BBF392C11F26FA2E0023DC8B /* MVCameraClient.m in Sources */,
+				BBF392FC1F26FA2E0023DC8B /* KxMovieDecoder.mm in Sources */,
+				BBF390B91F26EB820023DC8B /* KxMovieViewController.mm in Sources */,
+				BBF3929C1F26FA2E0023DC8B /* AMBASetWifiRequest.m in Sources */,
+				BBF390BA1F26EB820023DC8B /* CameraPreviewViewController.m in Sources */,
+				BBF393811F26FE2C0023DC8B /* h264_iOS8VTHD.mm in Sources */,
+				BBF392DF1F26FA2E0023DC8B /* MVHttpResponse.m in Sources */,
+				BBF393281F26FA2E0023DC8B /* ImageBlender.cpp in Sources */,
+				BBF393741F26FA2E0023DC8B /* XMLTool.m in Sources */,
+				BBF392B51F26FA2E0023DC8B /* AMBASaveMediaFileDoneResponse.m in Sources */,
+				BBF392C41F26FA2E0023DC8B /* MVCameraDevice.m in Sources */,
+				BBF3935A1F26FA2E0023DC8B /* FGLanguageTool.m in Sources */,
+				BBF3935E1F26FA2E0023DC8B /* MyReachability.m in Sources */,
+				BBF392981F26FA2E0023DC8B /* AMBARequest.java in Sources */,
+				BBF392AF1F26FA2E0023DC8B /* AMBAListResponse.m in Sources */,
+				BBF392F11F26FA2E0023DC8B /* RLModel.m in Sources */,
+				BBF392C91F26FA2E0023DC8B /* MVCameraUploadManager.m in Sources */,
+				BBF3930D1F26FA2E0023DC8B /* FMResultSet.m in Sources */,
+				BBF390BB1F26EB820023DC8B /* main.m in Sources */,
+				BBF3930A1F26FA2E0023DC8B /* FMDatabaseAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -622,6 +1408,7 @@
 					"$(PROJECT_DIR)/MADVPano.framework/**",
 					"$(PROJECT_DIR)/libs/FFmpeg",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -781,6 +1568,211 @@
 			};
 			name = Release;
 		};
+		BBF390DF1F26EB820023DC8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6559114214F7F0085B4330CF /* Pods-MADVCameraDemo_MADVCameraSources.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = QBAB3CS86A;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/libs",
+					"$(PROJECT_DIR)/MADVCamera/libs",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/Bugly",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/googlelogin",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/Facebook",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/Twitter",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/UMSocialSDK",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocialAnalyics",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/XiaomiLogin",
+					/usr/lib/libxml2.2.dylib,
+				);
+				GCC_PREFIX_HEADER = MADVCameraDemo/PrefixHeader.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"MADVCAMERA_EXPORT=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/MADVCamera.framework/Headers/**",
+					"$(PROJECT_DIR)/MADVPano.framework/Headers",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive/minizip\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive\"",
+					"$(SDKROOT)/usr/include/libxml2",
+				);
+				INFOPLIST_FILE = "MADVCameraDemo_MADVCameraSources-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/AFNetworking\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/MJExtension\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/Masonry\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SSKeychain\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive\"",
+					"$(PROJECT_DIR)/MADVPano.framework/**",
+					"$(PROJECT_DIR)/libs/FFmpeg",
+					"$(PROJECT_DIR)/MADVCamera/libs/FFmpeg",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/Facebook",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/GooglePlus",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/Line",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/Twitter",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/UMSocialSDKPlugin",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"MJExtension\"",
+					"-l\"Masonry\"",
+					"-l\"Realm\"",
+					"-l\"SSKeychain\"",
+					"-l\"SSZipArchive\"",
+					"-l\"c++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MapKit\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.madv.MADVCameraDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "08f98096-70d9-4f99-b334-e11fc3811c0e";
+				PROVISIONING_PROFILE_SPECIFIER = "Madv360 Wildcard Development";
+				USER_HEADER_SEARCH_PATHS = FFmpeg;
+			};
+			name = Debug;
+		};
+		BBF390E01F26EB820023DC8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38AD176FBE07FA87EC823509 /* Pods-MADVCameraDemo_MADVCameraSources.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = QBAB3CS86A;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/libs",
+					"$(PROJECT_DIR)/MADVCamera/libs",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/Bugly",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/googlelogin",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/Facebook",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/Twitter",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/UMSocialSDK",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocialAnalyics",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/XiaomiLogin",
+					/usr/lib/libxml2.2.dylib,
+				);
+				GCC_PREFIX_HEADER = MADVCameraDemo/PrefixHeader.h;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"MADVCAMERA_EXPORT=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/MADVCamera.framework/Headers/**",
+					"$(PROJECT_DIR)/MADVPano.framework/Headers",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive/minizip\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive\"",
+					"$(SDKROOT)/usr/include/libxml2",
+				);
+				INFOPLIST_FILE = "MADVCameraDemo_MADVCameraSources-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/AFNetworking\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/MBProgressHUD\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/MJExtension\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/MJRefresh\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/MWPhotoBrowser\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/Masonry\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/PSTCollectionView\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SDWebImage\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SSKeychain\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/THProgressView\"",
+					"$(PROJECT_DIR)/MADVPano.framework/**",
+					"$(PROJECT_DIR)/libs/FFmpeg",
+					"$(PROJECT_DIR)/MADVCamera/libs/FFmpeg",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/Facebook",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/GooglePlus",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/Line",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/QQ",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/Sina",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/Twitter",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/MADVCamera/ThirdParty/UMSocial/UMSocialSDKPlugin",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"MJExtension\"",
+					"-l\"Masonry\"",
+					"-l\"Realm\"",
+					"-l\"SSKeychain\"",
+					"-l\"SSZipArchive\"",
+					"-l\"c++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MapKit\"",
+					"-framework",
+					"\"MessageUI\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.madv.MADVCameraDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "c0f46587-ec35-4d36-a4fa-3b0ae55f5fcd";
+				PROVISIONING_PROFILE_SPECIFIER = "XC Ad Hoc: *";
+				USER_HEADER_SEARCH_PATHS = FFmpeg;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -807,6 +1799,15 @@
 			buildConfigurations = (
 				521A4F051F0B766C00E5F155 /* Debug */,
 				521A4F061F0B766C00E5F155 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BBF390DE1F26EB820023DC8B /* Build configuration list for PBXNativeTarget "MADVCameraDemo_MADVCameraSources" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBF390DF1F26EB820023DC8B /* Debug */,
+				BBF390E01F26EB820023DC8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

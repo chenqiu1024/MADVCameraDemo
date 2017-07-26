@@ -14,6 +14,8 @@
 {
     AVAudioPlayer* _audioPlayer;
     NSMutableArray<NSURL* >* _audioSourceURLs;
+    
+    NSTimeInterval _audioStartTime;
 }
 
 - (void) setShootButtonAppearance:(BOOL)shooting;
@@ -35,10 +37,14 @@
 }
 
 - (IBAction)shootButtonTouchUp:(id)sender {
+    NSLog(@"#Douyin# APP willStopCapturing, Before pauseAudioPlayer");
     [self pauseAudioPlayer];
+    NSLog(@"#Douyin# APP willStopCapturing, After pauseAudioPlayer");
     
     self.shootButton.enabled = NO;
+    NSLog(@"#Douyin# APP willStopCapturing, Before stopShooting");
     [[MVCameraClient sharedInstance] stopShooting];
+    NSLog(@"#Douyin# APP willStopCapturing, After stopShooting");
 }
 
 - (void) setShootButtonAppearance:(BOOL)shooting {
@@ -72,7 +78,8 @@
  * device: 连接到的相机设备，其中包含了其唯一ID、SSID、密码等等信息，见#MVCameraDevice#类
  */
 -(void) didConnectSuccess:(MVCameraDevice*) device {
-    self.connectButton.hidden = YES;
+///!!!    self.connectButton.hidden = YES;
+    self.connectButton.enabled = YES;
     self.shootButton.hidden = NO;
     [self setShootButtonAppearance:NO];
     
@@ -136,7 +143,9 @@
 }
 
 -(void) willStopCapturing:(id)param {
-    [self shootButtonTouchUp:self.shootButton];
+    NSLog(@"#Douyin# APP willStopCapturing");
+    ///!!![self shootButtonTouchUp:self.shootButton];
+    [self pauseAudioPlayer];
     
     if (param && [param intValue] == 1)
     {
@@ -144,19 +153,35 @@
     }
 }
 
+-(void) willStartCapturing:(id)param {
+    NSLog(@"#Douyin# APP willStartCapturing");
+    ///!!![self shootButtonTouchUp:self.shootButton];
+    _audioStartTime = _audioPlayer.currentTime;
+    [self resumeAudioPlayer];
+    ///!!![[MVCameraClient sharedInstance] startShooting];
+    [[MVCameraClient sharedInstance] startShootingWithTimeoutMills:500];
+}
+
 /** 摄像启动
  * error: 错误代码。如果正常启动摄像应为0
  */
-- (void) didBeginShooting:(int)error {
+- (void) didBeginShooting:(int)error numberOfPhoto:(int)numberOfPhoto {
     if (!error)
     {
-        [self resumeAudioPlayer];
+        NSLog(@"#Douyin# APP didBeginShooting, Before resumeAudioPlayer");
+        ///!!![self resumeAudioPlayer];
+        NSLog(@"#Douyin# APP didBeginShooting, After resumeAudioPlayer");
         
         [self setShootButtonAppearance:YES];
         self.shootButton.enabled = YES;
     }
     else
     {
+        if (_audioStartTime >= 0)
+        {
+            _audioPlayer.currentTime = _audioStartTime;
+        }
+        [self pauseAudioPlayer];
 //        [self setShootButtonAppearance:NO];
         self.shootButton.enabled = YES;
     }
@@ -306,6 +331,7 @@
             [paths addObject:[documentDirectory stringByAppendingPathComponent:filename]];
         }
     }
+    _audioStartTime = -1;
     _audioSourceURLs = [[NSMutableArray alloc] init];
     for (NSString* path in paths)
     {
@@ -343,6 +369,7 @@
     if (!sourceURL)
         return;
     
+    _audioStartTime = 0;
     if (!_audioPlayer || ![_audioPlayer.url isEqual:sourceURL])
     {
         _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:sourceURL error:nil];
@@ -364,22 +391,22 @@
 
 - (void) pauseAudioPlayer {
 //    [self.logView addTimedLogLine:@"#Douyin# pauseAudioPlayer : Before dispatch_async" ofTag:@"Douyin"];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //    [self.logView addTimedLogLine:@"#Douyin# pauseAudioPlayer : Before audioPlayer pause" ofTag:@"Douyin"];
         [_audioPlayer pause];
 //    [self.logView addTimedLogLine:@"#Douyin# pauseAudioPlayer : After audioPlayer pause" ofTag:@"Douyin"];
 //    [self.logView show];
-    });
+    //});
 }
 
 - (void) resumeAudioPlayer {
 //    [self.logView addTimedLogLine:@"#Douyin# resumeAudioPlayer : Before dispatch_async" ofTag:@"Douyin"];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //        [self.logView addTimedLogLine:@"#Douyin# resumeAudioPlayer : Before audioPlayer play" ofTag:@"Douyin"];
         [_audioPlayer play];
 //        [self.logView addTimedLogLine:@"#Douyin# resumeAudioPlayer : After audioPlayer play" ofTag:@"Douyin"];
 //        [self.logView show];
-    });
+    //});
 }
 
 @end
