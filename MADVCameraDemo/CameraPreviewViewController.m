@@ -16,6 +16,7 @@
     NSMutableArray<NSURL* >* _audioSourceURLs;
     
     NSTimeInterval _audioStartTime;
+    NSTimeInterval _currentVideoTime;
 }
 
 - (void) setShootButtonAppearance:(BOOL)shooting;
@@ -156,7 +157,6 @@
 -(void) willStartCapturing:(id)param {
     NSLog(@"#Douyin# APP willStartCapturing");
     ///!!![self shootButtonTouchUp:self.shootButton];
-    _audioStartTime = _audioPlayer.currentTime;
     [self resumeAudioPlayer];
     ///!!![[MVCameraClient sharedInstance] startShooting];
     [[MVCameraClient sharedInstance] startShootingWithTimeoutMills:500];
@@ -177,10 +177,6 @@
     }
     else
     {
-        if (_audioStartTime >= 0)
-        {
-            _audioPlayer.currentTime = _audioStartTime;
-        }
         [self pauseAudioPlayer];
 //        [self setShootButtonAppearance:NO];
         self.shootButton.enabled = YES;
@@ -213,6 +209,11 @@
         //        [self setShootButtonAppearance:YES];
         self.shootButton.enabled = YES;
     }
+    
+    //TODO:
+//    _currentVideoTime += duration;
+//    _audioStartTime = _currentVideoTime - DOUYIN_T2;
+//    NSLog(@"#Douyin# duration=%d, _currentVideoTime=%.3f, _audioStartTime=%.3f", duration, _currentVideoTime, _audioStartTime);
 }
 
 /** 存储卡写入缓慢的通知 */
@@ -369,6 +370,7 @@
     if (!sourceURL)
         return;
     
+    _currentVideoTime = 0;
     _audioStartTime = 0;
     if (!_audioPlayer || ![_audioPlayer.url isEqual:sourceURL])
     {
@@ -397,9 +399,16 @@
 //    [self.logView addTimedLogLine:@"#Douyin# pauseAudioPlayer : After audioPlayer pause" ofTag:@"Douyin"];
 //    [self.logView show];
     //});
+    _audioStartTime = _audioPlayer.currentTime;
+    NSLog(@"#Douyin# pauseAudioPlayer at _audioStartTime=%.3f", _audioStartTime);
 }
 
 - (void) resumeAudioPlayer {
+    NSLog(@"#Douyin# resumeAudioPlayer from _audioStartTime=%.3f", _audioStartTime);
+    if (_audioStartTime >= 0)
+    {
+        _audioPlayer.currentTime = _audioStartTime;
+    }
 //    [self.logView addTimedLogLine:@"#Douyin# resumeAudioPlayer : Before dispatch_async" ofTag:@"Douyin"];
     //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //        [self.logView addTimedLogLine:@"#Douyin# resumeAudioPlayer : Before audioPlayer play" ofTag:@"Douyin"];

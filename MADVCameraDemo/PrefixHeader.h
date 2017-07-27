@@ -301,4 +301,6 @@
 
 //#define ISFULLSCREEN
 
+#define DOUYIN_T2 1000
+
 #endif /* PrefixHeader_h */
