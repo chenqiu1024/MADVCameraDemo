@@ -175,7 +175,7 @@ extern "C" {
 - (void) didCountDownTimerTick:(int)timingStart;
     
 /** 摄像（或定时拍照）已停止 参数没什么用  只是告诉摄像已完成*/
--(void) didEndShooting:(NSString *)remoteFilePath error:(int)error errMsg:(NSString *)errMsg;
+-(void) didEndShooting:(NSString *)remoteFilePath videoDurationMills:(NSInteger)videoDurationMills error:(int)error errMsg:(NSString *)errMsg;
 
 /** 存储卡写入缓慢的通知 */
 - (void) didSDCardSlowlyWrite;
@@ -235,6 +235,8 @@ extern "C" {
 
 -(void) willStopCapturing:(id)param;
 
+-(void) willStartCapturing:(id)param;
+
 @end
 
 /** 相机客户端代理类
@@ -291,6 +293,8 @@ extern "C" {
  * 拍摄按钮的外观更新也应遵循“先调用，再等回调”的模式，见setCameraMode的注释
  */
 -(void) startShooting;
+
+-(void) startShootingWithTimeoutMills:(int)timeoutMills;
 
 /** 停止摄像或拍照(拍照主要是间隔拍照的停止)
  * 拍摄按钮的外观更新也应遵循“先调用，再等回调”的模式，见setCameraMode的注释

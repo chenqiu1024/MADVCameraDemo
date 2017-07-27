@@ -12,8 +12,10 @@
 
 @property (nonatomic, assign) int remain_video;
 @property (nonatomic, assign) int remain_jpg;
+@property (nonatomic, assign) int total_mp4;
 @property (nonatomic, assign) int sd_total;
 @property (nonatomic, assign) int sd_free;
 @property (nonatomic, assign) int sd_full;
+@property (nonatomic, assign) int mp4_time;
 
 @end

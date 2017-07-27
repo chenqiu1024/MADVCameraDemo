@@ -94,10 +94,6 @@ static AppDelegate* s_singleton = nil;
     }
 }
 
--(void) didEndShooting:(NSString *)remoteFilePath error:(int)error errMsg:(NSString *)errMsg {
-
-}
-
 - (void)didStopShooting:(int)error {
 }
 

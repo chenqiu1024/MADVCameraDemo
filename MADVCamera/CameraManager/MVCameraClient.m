@@ -1996,9 +1996,9 @@ NSString* formatSDStorage(int total, int free) {
                 break;
             case MSG_END_SHOOTING:
                 if (arg1 == 0)
-                    [self onShootingEnded:(NSString *)object error:0 errMsg:nil];
+                    [self onShootingEnded:(NSString *)object videoDurationMills:arg2 error:0 errMsg:nil];
                 else
-                    [self onShootingEnded:nil error:(int)arg1 errMsg:(NSString *)object];
+                    [self onShootingEnded:nil videoDurationMills:arg2 error:(int)arg1 errMsg:(NSString *)object];
                 break;
             case MSG_TIMER_TICKED:
                 [self onShootingTimerTicked:(int)arg1 videoTime:(int)arg2];
@@ -2234,16 +2234,16 @@ NSString* formatSDStorage(int total, int free) {
         }
     }
 }
-- (void)onShootingEnded:(NSString *)remoteFilePath error:(int)error errMsg:(NSString *)errMsg
+- (void)onShootingEnded:(NSString *)remoteFilePath videoDurationMills:(NSInteger)videoDurationMills error:(int)error errMsg:(NSString *)errMsg
 {
     NSArray<id<MVCameraClientObserver>>* observers = [NSArray arrayWithArray:_observers];
     //BLYLogInfo([NSString stringWithFormat:@"QD:Callback---didEndShooting:%@ error:%d errMsg:%@",remoteFilePath,error,errMsg]);
     NSLog(@"#Douyin# Callback---didEndShooting:%@ error:%d errMsg:%@",remoteFilePath,error,errMsg);
     for(id<MVCameraClientObserver> delegate in observers)
     {
-        if (delegate && [delegate respondsToSelector:@selector(didEndShooting:error:errMsg:)])
+        if (delegate && [delegate respondsToSelector:@selector(didEndShooting:videoDurationMills:error:errMsg:)])
         {
-            [delegate didEndShooting:remoteFilePath error:error errMsg:errMsg];
+            [delegate didEndShooting:remoteFilePath videoDurationMills:videoDurationMills error:error errMsg:errMsg];
         }
     }
 }
@@ -2590,7 +2590,7 @@ NSString* formatSDStorage(int total, int free) {
             
             AMBASaveMediaFileDoneResponse* saveDoneResponse = (AMBASaveMediaFileDoneResponse*) response;
             NSString* remoteFilePath = [self remoteFilePathOfRTOSPath:((NSString*) saveDoneResponse.param)];
-            [self sendMessageToHandler:MSG_END_SHOOTING arg1:0 arg2:0 object:remoteFilePath];
+            [self sendMessageToHandler:MSG_END_SHOOTING arg1:0 arg2:saveDoneResponse.mp4_time object:remoteFilePath];
             //self.isVideoCapturing = NO;
             
             //dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * 0.5L), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

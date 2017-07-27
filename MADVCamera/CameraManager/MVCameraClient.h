@@ -175,7 +175,7 @@ extern "C" {
 - (void) didCountDownTimerTick:(int)timingStart;
     
 /** 摄像（或定时拍照）已停止 参数没什么用  只是告诉摄像已完成*/
--(void) didEndShooting:(NSString *)remoteFilePath error:(int)error errMsg:(NSString *)errMsg;
+-(void) didEndShooting:(NSString *)remoteFilePath videoDurationMills:(NSInteger)videoDurationMills error:(int)error errMsg:(NSString *)errMsg;
 
 /** 存储卡写入缓慢的通知 */
 - (void) didSDCardSlowlyWrite;
