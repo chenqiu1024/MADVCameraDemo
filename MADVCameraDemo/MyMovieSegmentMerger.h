@@ -15,9 +15,9 @@
 //#import <AVFoundation/AVAudioSession.h>
 
 @interface MyMovieSegmentMerger : NSObject
--(void)mergeVideoToOneVideo:(NSArray *)tArray toStorePath:(NSString *)storePath WithStoreName:(NSString *)storeName andIf3D:(BOOL)tbool success:(void (^)(void))successBlock failure:(void (^)(void))failureBlcok;
--(void)mergeVideoToOneVideo:(NSArray *)tArray intoFile:(NSString *)intoFile andIf3D:(BOOL)tbool success:(void (^)(void))successBlock failure:(void (^)(void))failureBlcok;
--(AVMutableComposition *)mergeVideostoOnevideo:(NSArray*)array;
+-(void)mergeVideoToOneVideo:(NSArray *)tArray toStorePath:(NSString *)storePath WithStoreName:(NSString *)storeName andIf3D:(BOOL)tbool success:(void (^)(void))successBlock failure:(void (^)(void))failureBlcok timeToCutFromEndInSec:(float)timeToCutFromEndInSec;
+-(void)mergeVideoToOneVideo:(NSArray *)tArray intoFile:(NSString *)intoFile andIf3D:(BOOL)tbool success:(void (^)(void))successBlock failure:(void (^)(void))failureBlcok timeToCutFromEndInSec:(float)timeToCutFromEndInSec;
+-(AVMutableComposition *)mergeVideostoOnevideo:(NSArray*)array timeToCutFromEndInSec:(float)timeToCutFromEndInSec;
 -(NSURL *)joinStorePaht:(NSString *)sPath togetherStoreName:(NSString *)sName;
 -(void)storeAVMutableComposition:(AVMutableComposition*)mixComposition withStoreUrl:(NSURL *)storeUrl andVideoUrl:(NSURL *)videoUrl WihtName:(NSString *)aName andIf3D:(BOOL)tbool success:(void (^)(void))successBlock failure:(void (^)(void))failureBlcok;
 @end
