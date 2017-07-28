@@ -35,23 +35,32 @@
  *  多个视频合成为一个
  *
  *  @param array 多个视频的NSURL地址
+ *  @param timeToCutFromEndInSec 每段视频最后部分要裁剪的时间长度
  *
  *  @return 返回AVMutableComposition
  */
--(AVMutableComposition *)mergeVideostoOnevideo:(NSArray*)array
+-(AVMutableComposition *)mergeVideostoOnevideo:(NSArray*)array timeToCutFromEndInSec:(float)timeToCutFromEndInSec
 {
     AVMutableComposition* mixComposition = [AVMutableComposition composition];
     AVMutableCompositionTrack *a_compositionVideoTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
     AVMutableCompositionTrack *b_compositionAudioTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid];
     Float64 video_tmpDuration =0.0f;
     Float64 audio_tmpDuration =0.0f;
-    
+
     for (NSInteger i=0; i<array.count; i++)
     {
         NSURL*    video_inputFileUrl = [NSURL fileURLWithPath:array[i]];
         AVURLAsset *videoAsset = [[AVURLAsset alloc]initWithURL:video_inputFileUrl options:nil];
         
-        CMTimeRange video_timeRange = CMTimeRangeMake(kCMTimeZero,videoAsset.duration);
+        //CMTimeRange video_timeRange = CMTimeRangeMake(kCMTimeZero, videoAsset.duration);
+        CMTime newDurationVideo;
+        if (videoAsset.duration.timescale != 0)
+            newDurationVideo = CMTimeMakeWithSeconds(videoAsset.duration.value/videoAsset.duration.timescale - timeToCutFromEndInSec,
+                                                     videoAsset.duration.timescale);
+        else
+            newDurationVideo = CMTimeMakeWithSeconds(videoAsset.duration.value - timeToCutFromEndInSec,
+                                                     videoAsset.duration.timescale);
+        CMTimeRange video_timeRange = CMTimeRangeMake(kCMTimeZero,newDurationVideo);
         
         /**
          *  依次加入每个asset
@@ -64,13 +73,21 @@
         NSError *error;
         NSArray* videoTracks = [videoAsset tracksWithMediaType:AVMediaTypeVideo];
         BOOL tbool = [a_compositionVideoTrack insertTimeRange:video_timeRange ofTrack:[videoTracks objectAtIndex:0] atTime:kCMTimeInvalid error:&error];//CMTimeMakeWithSeconds(video_tmpDuration, 0) error:&error];
-   
+
         video_tmpDuration += CMTimeGetSeconds(video_timeRange.duration);
-        
+
         NSURL* audio_inputFileUrl = [NSURL fileURLWithPath:array[i]];
 
         AVURLAsset* audioAsset = [[AVURLAsset alloc]initWithURL:audio_inputFileUrl options:nil];
-        CMTimeRange audio_timeRange = CMTimeRangeMake(kCMTimeZero, audioAsset.duration);
+        //CMTimeRange audio_timeRange = CMTimeRangeMake(kCMTimeZero, audioAsset.duration);
+        CMTime newDurationAudio;
+        if (audioAsset.duration.timescale != 0)
+            newDurationAudio = CMTimeMakeWithSeconds(audioAsset.duration.value/audioAsset.duration.timescale - timeToCutFromEndInSec,
+                                                     audioAsset.duration.timescale);
+        else
+            newDurationAudio = CMTimeMakeWithSeconds(audioAsset.duration.value - timeToCutFromEndInSec,
+                                                     audioAsset.duration.timescale);
+        CMTimeRange audio_timeRange = CMTimeRangeMake(kCMTimeZero,newDurationAudio);
 
         [b_compositionAudioTrack insertTimeRange:audio_timeRange ofTrack:[[audioAsset tracksWithMediaType:AVMediaTypeAudio] objectAtIndex:0] atTime:kCMTimeInvalid error:&error];//]CMTimeMakeWithSeconds(video_tmpDuration, 0) error:nil];
         
