@@ -18,15 +18,15 @@
  *  @param successBlock 成功block
  *  @param failureBlcok 失败block
  */
--(void)mergeVideoToOneVideo:(NSArray *)tArray toStorePath:(NSString *)storePath WithStoreName:(NSString *)storeName andIf3D:(BOOL)tbool success:(void (^)(void))successBlock failure:(void (^)(void))failureBlcok
+-(void)mergeVideoToOneVideo:(NSArray *)tArray toStorePath:(NSString *)storePath WithStoreName:(NSString *)storeName andIf3D:(BOOL)tbool success:(void (^)(void))successBlock failure:(void (^)(void))failureBlcok timeToCutFromEndInSec:(float)timeToCutFromEndInSec
 {
-    AVMutableComposition *mixComposition = [self mergeVideostoOnevideo:tArray];
+    AVMutableComposition *mixComposition = [self mergeVideostoOnevideo:tArray timeToCutFromEndInSec:timeToCutFromEndInSec];
     NSURL *outputFileUrl = [self joinStorePaht:storePath togetherStoreName:storeName];
     [self storeAVMutableComposition:mixComposition withStoreUrl:outputFileUrl andVideoUrl:[tArray objectAtIndex:0] WihtName:storeName andIf3D:tbool success:successBlock failure:failureBlcok];
 }
--(void)mergeVideoToOneVideo:(NSArray *)tArray intoFile:(NSString *)intoFile andIf3D:(BOOL)tbool success:(void (^)(void))successBlock failure:(void (^)(void))failureBlcok
+-(void)mergeVideoToOneVideo:(NSArray *)tArray intoFile:(NSString *)intoFile andIf3D:(BOOL)tbool success:(void (^)(void))successBlock failure:(void (^)(void))failureBlcok timeToCutFromEndInSec:(float)timeToCutFromEndInSec
 {
-    AVMutableComposition *mixComposition = [self mergeVideostoOnevideo:tArray];
+    AVMutableComposition *mixComposition = [self mergeVideostoOnevideo:tArray timeToCutFromEndInSec:timeToCutFromEndInSec];
     NSURL *outputFileUrl = [NSURL fileURLWithPath:intoFile];
     
     [self storeAVMutableComposition:mixComposition withStoreUrl:outputFileUrl andVideoUrl:[tArray objectAtIndex:0] WihtName:[intoFile lastPathComponent] andIf3D:tbool success:successBlock failure:failureBlcok];
