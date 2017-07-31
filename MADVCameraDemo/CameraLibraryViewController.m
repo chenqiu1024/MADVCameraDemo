@@ -121,7 +121,15 @@ static NSString* MVMediaHeaderIdentifier = @"MVMediaHeaderIdentifier";
     MVMedia* media = [[AppDelegate sharedApplication] mvMediaOfIndexPath:indexPath];
     if (media && media.mediaType == MVMediaTypeVideo)
     {
+        //*
         [MediaPlayerViewController showFromViewController:self media:media parameters:nil];
+        /*/
+        [MediaPlayerViewController showEncoderControllerFrom:self media:media qualityLevel:QualityLevel4K progressBlock:^(int percent) {
+            NSLog(@"#VideoExport# progressBlock : percent=%d", percent);
+        } doneBlock:^(NSError* error) {
+            NSLog(@"#VideoExport# doneBlock : error=%@", error);
+        }];
+        //*/
     }
 }
 
@@ -170,6 +178,19 @@ static NSString* MVMediaHeaderIdentifier = @"MVMediaHeaderIdentifier";
     [nc addObserver:self selector:@selector(onMergingMVMediaCompleted:) name:kNotificationMergingMVMediaCompleted object:nil];
     
     [self.collectionView reloadData];
+    
+#ifdef DEBUG_VIDEOEXPORT
+    MVMedia* forgedMedia = [MVMedia createWithCameraUUID:@"[FORGED]" remoteFullPath:@"VID_20170731_131555AA.MP4"];
+    forgedMedia.localPath = @"VID_20170731_131555AA.MP4";
+    forgedMedia.size = 1048576;
+    forgedMedia.downloadedSize = 1048576;
+    
+    [MediaPlayerViewController showEncoderControllerFrom:self media:forgedMedia qualityLevel:QualityLevel4K progressBlock:^(int percent) {
+        NSLog(@"#VideoExport# progressBlock : percent=%d", percent);
+    } doneBlock:^(NSError* error) {
+        NSLog(@"#VideoExport# doneBlock : error=%@", error);
+    }];
+#endif //#ifdef DEBUG_VIDEOEXPORT
 }
 
 

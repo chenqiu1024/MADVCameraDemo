@@ -173,12 +173,12 @@
                                         <variation key="heightClass=compact">
                                             <mask key="constraints">
                                                 <include reference="POP-jf-gFZ"/>
+                                                <exclude reference="PKO-qU-jDE"/>
+                                                <exclude reference="RxL-UB-pQf"/>
                                                 <exclude reference="0KA-t7-VaA"/>
                                                 <include reference="oHK-aX-3sk"/>
                                                 <exclude reference="oS5-Rl-0wo"/>
                                                 <include reference="rob-bm-2fd"/>
-                                                <exclude reference="PKO-qU-jDE"/>
-                                                <exclude reference="RxL-UB-pQf"/>
                                                 <exclude reference="33R-cM-pPQ"/>
                                                 <include reference="6KZ-PJ-NSL"/>
                                                 <include reference="C04-Cz-9zA"/>
@@ -1201,13 +1201,13 @@
                                         <exclude reference="r9k-sn-Ltb"/>
                                     </mask>
                                     <mask key="constraints">
-                                        <exclude reference="f9b-IZ-kCD"/>
                                         <exclude reference="Opf-Uy-168"/>
                                         <exclude reference="QyQ-eE-YXz"/>
                                         <exclude reference="rWc-In-WHu"/>
                                         <exclude reference="FXL-IF-DBv"/>
                                         <exclude reference="K6E-Ld-6DG"/>
                                         <exclude reference="aGc-PX-1lL"/>
+                                        <exclude reference="f9b-IZ-kCD"/>
                                         <exclude reference="NdD-Kh-dad"/>
                                     </mask>
                                 </variation>
@@ -1218,14 +1218,14 @@
                                         <include reference="r9k-sn-Ltb"/>
                                     </mask>
                                     <mask key="constraints">
-                                        <exclude reference="Me5-Gm-Wvb"/>
-                                        <include reference="f9b-IZ-kCD"/>
                                         <include reference="Opf-Uy-168"/>
                                         <include reference="QyQ-eE-YXz"/>
                                         <include reference="rWc-In-WHu"/>
                                         <include reference="FXL-IF-DBv"/>
                                         <include reference="K6E-Ld-6DG"/>
                                         <include reference="aGc-PX-1lL"/>
+                                        <exclude reference="Me5-Gm-Wvb"/>
+                                        <include reference="f9b-IZ-kCD"/>
                                         <exclude reference="6P0-0b-VFu"/>
                                         <exclude reference="KX4-1E-H9f"/>
                                         <include reference="NdD-Kh-dad"/>
@@ -1241,76 +1241,6 @@
                             <constraint firstItem="ZoL-OG-RQi" firstAttribute="leading" secondItem="FEI-AK-SFT" secondAttribute="leading" id="Xpd-ZX-4d6"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="bottomBarView" destination="6Yz-iY-bcH" id="BT5-HF-LR4"/>
-                        <outlet property="cameraDeleteLabel" destination="kPj-Z1-rMg" id="148-MQ-xvn"/>
-                        <outlet property="cameraDurationLabel" destination="sfn-FM-ocH" id="Yd9-KH-aqg"/>
-                        <outlet property="cameraHorProgreSlider" destination="bDy-mK-zyc" id="Cmu-kX-H2L"/>
-                        <outlet property="cameraImageBottomView" destination="r9k-sn-Ltb" id="Uu5-tF-krd"/>
-                        <outlet property="cameraImageSphereBtn" destination="75X-Pd-hr4" id="7lw-vq-i1p"/>
-                        <outlet property="cameraImageSphereLabel" destination="UJJ-jc-byq" id="9Oh-lx-2Ve"/>
-                        <outlet property="cameraMoreBtn" destination="c0L-9h-IDM" id="hrg-ru-vmM"/>
-                        <outlet property="centerPlayButton" destination="HdI-dM-gkI" id="fWN-bK-8ar"/>
-                        <outlet property="contentContainerView" destination="ZoL-OG-RQi" id="koC-e2-m2I"/>
-                        <outlet property="deleteLabel" destination="VbA-CF-a3z" id="Soz-8w-Sh1"/>
-                        <outlet property="downloadBtn" destination="gzq-qe-LKs" id="JTU-ta-Bgi"/>
-                        <outlet property="downloadLabel" destination="mOw-lO-4TQ" id="4qM-qq-XFg"/>
-                        <outlet property="durationLabel" destination="bMy-2D-OaD" id="SHF-iw-DAH"/>
-                        <outlet property="editShareBtn" destination="jvW-U5-IJr" id="FQy-we-vTj"/>
-                        <outlet property="favorBtn" destination="Dfn-DM-ibI" id="HK0-2j-984"/>
-                        <outlet property="favorLabel" destination="mzf-lS-hxM" id="Ro3-0m-5wf"/>
-                        <outlet property="findMoreBtn" destination="2pM-hv-B7a" id="2t0-QY-2mN"/>
-                        <outlet property="findMoreLabel" destination="g5Y-hb-ohF" id="klM-iz-s3a"/>
-                        <outlet property="fluentBtn" destination="XqQ-9S-Iq1" id="Rtu-EW-xZW"/>
-                        <outlet property="horPlayBtn" destination="prv-lc-NCp" id="h2c-TN-MGn"/>
-                        <outlet property="horScreencapBtn" destination="lwu-Br-WC9" id="Ef7-3u-IdQ"/>
-                        <outlet property="imageEditBtn" destination="Ede-eo-mSJ" id="3gP-oc-ubm"/>
-                        <outlet property="imageSphereBtn" destination="CXH-Ur-DOM" id="U1m-kJ-pY3"/>
-                        <outlet property="imageSphereLabel" destination="nMw-rP-3IP" id="Oa8-YJ-YPk"/>
-                        <outlet property="imageVrBtn" destination="sOy-eQ-2M8" id="ZN4-In-Xaz"/>
-                        <outlet property="imageVrLabel" destination="TIg-bH-8lV" id="4BR-qO-eFh"/>
-                        <outlet property="imagebottomView" destination="JDd-8G-dZv" id="vQp-AT-ZT7"/>
-                        <outlet property="leftFavorBtn" destination="re4-Hy-884" id="hT5-Fy-27L"/>
-                        <outlet property="leftFluentBtn" destination="kxi-u1-knw" id="tnl-ub-ptz"/>
-                        <outlet property="libraryBottomBarView" destination="GCf-cI-dxL" id="COc-Nk-M1o"/>
-                        <outlet property="libraryDurationLabel" destination="o00-wX-xUh" id="9lO-C6-ebk"/>
-                        <outlet property="libraryProgressSlider" destination="Nbc-8R-Rfn" id="8wr-Uy-JNu"/>
-                        <outlet property="librarySphereBtn" destination="4ea-MR-Vnc" id="UAG-RP-gE6"/>
-                        <outlet property="librarySphereLabel" destination="CFZ-Nq-G71" id="7Nw-Oa-jkh"/>
-                        <outlet property="libraryVrBtn" destination="BdF-Mg-GNS" id="2cz-9u-LvK"/>
-                        <outlet property="libraryVrLabel" destination="ID0-6x-5NJ" id="mfM-MZ-dDu"/>
-                        <outlet property="lineView" destination="1aQ-5L-yhU" id="UA3-ZH-tvI"/>
-                        <outlet property="localBottomView" destination="bGH-4k-YdT" id="8hA-ni-pEc"/>
-                        <outlet property="localDeleteBtn" destination="8ZJ-qH-52x" id="ieg-yu-jmr"/>
-                        <outlet property="localDurationLabel" destination="ReB-IT-kZQ" id="yja-H3-bqA"/>
-                        <outlet property="localEditBtn" destination="AOm-i9-cqh" id="AS3-xt-ke0"/>
-                        <outlet property="localEditLabel" destination="sv1-SC-pkx" id="JXJ-BT-srL"/>
-                        <outlet property="localHorEditBtn" destination="F2d-f1-vn6" id="5Jb-oT-til"/>
-                        <outlet property="localHorProgreSlider" destination="Grn-RX-hbm" id="Yd7-1y-54J"/>
-                        <outlet property="localHorSphereBtn" destination="Vb0-XR-eFt" id="Pu9-my-CTM"/>
-                        <outlet property="localHorSphereLable" destination="a22-6N-ccc" id="nMb-x0-6XT"/>
-                        <outlet property="localPlayView" destination="oYC-9s-cxG" id="y4a-hU-LtI"/>
-                        <outlet property="localSphereBtn" destination="Slg-l9-c0S" id="HJI-NT-Lxz"/>
-                        <outlet property="localSphereLabel" destination="nNu-OE-IHn" id="kv1-zD-q2X"/>
-                        <outlet property="localTimePosiLabel" destination="pR0-Uh-0gV" id="ym1-bc-efK"/>
-                        <outlet property="localVideoHorView" destination="K4c-fs-PPM" id="Dee-cn-05l"/>
-                        <outlet property="localVrBtn" destination="VmH-Ub-9uz" id="Jqw-Vm-Qpu"/>
-                        <outlet property="localVrLabel" destination="1Wm-SR-y7S" id="4a6-ku-GRH"/>
-                        <outlet property="playButton" destination="kQx-Tc-AgY" id="IxP-bU-Bt8"/>
-                        <outlet property="playView" destination="geq-HE-QCZ" id="a6x-pk-mts"/>
-                        <outlet property="progressSlider" destination="Be1-lb-6eN" id="4iL-F8-4DA"/>
-                        <outlet property="progressView" destination="1Q4-st-Ybd" id="69k-6R-Hxi"/>
-                        <outlet property="screencapBtn" destination="DqZ-B5-iVq" id="3uT-4s-gia"/>
-                        <outlet property="screencapLabel" destination="Nwa-5l-lKV" id="oTI-Ef-xR6"/>
-                        <outlet property="shareBtn" destination="fgk-yV-UDL" id="da4-5G-2zP"/>
-                        <outlet property="sphereBtn" destination="4sK-WQ-Cny" id="jSN-32-IHl"/>
-                        <outlet property="sphereLabel" destination="Lwm-XO-5dR" id="bly-NQ-n14"/>
-                        <outlet property="timePositionLabel" destination="p9Y-Si-6iE" id="AAB-in-vIi"/>
-                        <outlet property="titleLabel" destination="ptb-cJ-OjF" id="nq4-Me-WYU"/>
-                        <outlet property="topBarView" destination="VxZ-yD-McI" id="kmT-mK-6ID"/>
-                        <outlet property="vrBtn" destination="r5e-P6-mdf" id="5Gt-V1-W8v"/>
-                        <outlet property="vrLabel" destination="OSF-oS-9cp" id="fUR-Vz-AH6"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YTg-hy-gs3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

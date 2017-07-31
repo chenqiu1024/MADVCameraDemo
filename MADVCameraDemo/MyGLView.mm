@@ -11,7 +11,7 @@
 #import <MADVPano/PanoCameraController_iOS.h>
 #import "KxMovieDecoder.h"
 //#import "NSString+Extensions.h"
-//#import "CycordVideoRecorder.h"
+#import "CycordVideoRecorder.h"
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES3/gl.h>
 #import <OpenGLES/EAGL.h>
@@ -45,7 +45,7 @@ static const int MaxBufferBytes = 32 * 1048576;
 //#define NO_RENDERTEXTURE
 
 #pragma mark    GLRenderLoop
-@interface GLRenderLoop () //<CycordVideoRecorderDelegate>
+@interface GLRenderLoop () <CycordVideoRecorderDelegate>
 {
     EAGLContext* _eaglContext;
     //    CADisplayLink* _displayLink;
@@ -64,7 +64,7 @@ static const int MaxBufferBytes = 32 * 1048576;
     NSString* _snapshotDestPath;
     dispatch_block_t _snapshotCompletionHandler;
     
-//    CycordVideoRecorder* _videoRecorder;
+    CycordVideoRecorder* _videoRecorder;
     
     GLint _width;
     GLint _height;
@@ -512,8 +512,8 @@ static BOOL s_willStopCurrentRenderLoop = NO;
     }
     self.encoderQualityLevel = qualityLevel;
     outputVideoBaseName = [self.class outputVideoBaseName:outputVideoBaseName qualityLevel:qualityLevel];
-    //_videoRecorder = [[CycordVideoRecorder alloc] initWithOutputVideoBaseName:outputVideoBaseName];
-    //_videoRecorder.delegate = self;
+    _videoRecorder = [[CycordVideoRecorder alloc] initWithOutputVideoBaseName:outputVideoBaseName];
+    _videoRecorder.delegate = self;
 }
 
 #define RenderTextureScale 1.0f
@@ -529,7 +529,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
     //        NSLog(@"_filterRenderTexture = %d", _renderTexture0->getTexture());
     //    }
 }
-/*
+
 - (void) resizeVideoRecorder:(CGSize)outputVideoSize {
     _inputWidth = outputVideoSize.width;
     _inputHeight = outputVideoSize.height;
@@ -584,7 +584,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
     }
     //    }///!!!For Debug
 }
-/*
+
 #pragma mark    CycordVideoRecorderDelegate
 
 - (void) cycordVideoRecorderDidRenderOneFrame:(int)elapsedMillseconds {
@@ -598,7 +598,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
 - (void) cycordVideoRecorderFailedWhileRecording:(NSError *)error {
     self.encodingError = error;
     [self stopRendering];
-    [self stopEncoding:nil];
+    //[self stopEncoding:nil];
 }
 //*/
 - (void) renderLoop:(id)object {
@@ -784,7 +784,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
                     
                     KxVideoFrame* frame = (KxVideoFrame*) renderSource;
                     
-                    //[self resizeVideoRecorder:CGSizeMake(frame.width, frame.height)];
+                    [self resizeVideoRecorder:CGSizeMake(frame.width, frame.height)];
                     
                     _renderer->setRenderSource((__bridge_retained void*)frame);
                     _hasSetRenderSource = YES;
@@ -802,9 +802,9 @@ static BOOL s_willStopCurrentRenderLoop = NO;
             }
             
             //if (self.inCapturing)
-            {//Bug#3763
-                //[self resizeVideoRecorder:CGSizeMake(1600, 900)];
-            }
+            //{
+            //    [self resizeVideoRecorder:CGSizeMake(1600, 900)];
+            //}
             
             if (_hasSetRenderSource)
             {
@@ -934,7 +934,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
     });
     NSLog(@"EAGLContext : GLRenderLoop startRendering returned @ %lx",  self.hash);
 }
-/*
+
 - (void)setMadVdata:(NSData*) MadVData
 {
     _madVdata = MadVData;
@@ -946,7 +946,6 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         if (_recording || _capturing)
         {
             _recording = NO;
-            _capturing = NO;
             
             __weak __typeof(self) wSelf = self;
             if (self.encodingError)
@@ -961,7 +960,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
                         error = wSelf.encodingError;
                     }
                     
-                    if (wSelf.recording)
+                    //if (!wSelf.capturing)
                     {
                         if (!error)
                         {
@@ -975,7 +974,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
                         }
                     }
                     NSLog(@"#Bug2880# stopEncoding #3");
-
+                    
                     wSelf.encodingDoneBlock(outputFilePath, error);
                 }
             }];
@@ -1008,9 +1007,9 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         sizeBufferMoovSize = [fh readDataOfLength:4];
         Byte *dataBytesMoovSize = (Byte *)[sizeBufferMoovSize bytes];
         int moovBoxSize = ((dataBytesMoovSize[0] << 24) & 0xff000000)
-                             | ((dataBytesMoovSize[1] << 16) & 0x00ff0000)
-                             | ((dataBytesMoovSize[2] << 8) & 0x0000ff00)
-                             | (dataBytesMoovSize[3] & 0x000000ff);
+        | ((dataBytesMoovSize[1] << 16) & 0x00ff0000)
+        | ((dataBytesMoovSize[2] << 8) & 0x0000ff00)
+        | (dataBytesMoovSize[3] & 0x000000ff);
         moovBoxSize += 454;
         dataBytesMoovSize[0] = (moovBoxSize & 0xff000000) >> 24;
         dataBytesMoovSize[1] = (moovBoxSize & 0x00ff0000) >> 16;
@@ -1024,9 +1023,9 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         sizeBufferVideoTrakSize = [fh readDataOfLength:4];
         Byte *dataBytesVideoTrakSize = (Byte *)[sizeBufferVideoTrakSize bytes];
         int videoTrakBoxSize = ((dataBytesVideoTrakSize[0] << 24) & 0xff000000)
-                               | ((dataBytesVideoTrakSize[1] << 16) & 0x00ff0000)
-                               | ((dataBytesVideoTrakSize[2] << 8) & 0x0000ff00)
-                               | (dataBytesVideoTrakSize[3] & 0x000000ff);
+        | ((dataBytesVideoTrakSize[1] << 16) & 0x00ff0000)
+        | ((dataBytesVideoTrakSize[2] << 8) & 0x0000ff00)
+        | (dataBytesVideoTrakSize[3] & 0x000000ff);
         videoTrakBoxSize += 454;
         dataBytesVideoTrakSize[0] = (videoTrakBoxSize & 0xff000000) >> 24;
         dataBytesVideoTrakSize[1] = (videoTrakBoxSize & 0x00ff0000) >> 16;
@@ -1035,13 +1034,13 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         videoTrakBoxSizeData = [[NSData alloc] initWithBytes:dataBytesVideoTrakSize length:4];
         [fh seekToFileOffset:_videoTrakBoxSizeOffset];
         [fh writeData:videoTrakBoxSizeData];
-
+        
         [fh seekToFileOffset:_videoTrakBoxEndOffset+1];
         tmp = [fh readDataToEndOfFile];
         
         Byte videoMetaDataBytes[] ={
             0x00, 0x00, 0x01, 0xC6, 0x75, 0x75, 0x69, 0x64, 0xFF, 0xCC, 0x82, 0x63, 0xF8, 0x55, 0x4A, 0x93, 0x88, 0x14, 0x58, 0x7A, 0x02, 0x52, 0x1F, 0xDD, 0x3C, 0x3F, 0x78, 0x6D, 0x6C, 0x20, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6F, 0x6E, 0x3D, 0x22, 0x31, 0x2E, 0x30, 0x22, 0x3F, 0x3E, 0x3C, 0x72, 0x64, 0x66, 0x3A, 0x53, 0x70, 0x68, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6C, 0x56, 0x69, 0x64, 0x65, 0x6F, 0x0A, 0x78, 0x6D, 0x6C, 0x6E, 0x73, 0x3A, 0x72, 0x64, 0x66, 0x3D, 0x22, 0x68, 0x74, 0x74, 0x70, 0x3A, 0x2F, 0x2F, 0x77, 0x77, 0x77, 0x2E, 0x77, 0x33, 0x2E, 0x6F, 0x72, 0x67, 0x2F, 0x31, 0x39, 0x39, 0x39, 0x2F, 0x30, 0x32, 0x2F, 0x32, 0x32, 0x2D, 0x72, 0x64, 0x66, 0x2D, 0x73, 0x79, 0x6E, 0x74, 0x61, 0x78, 0x2D, 0x6E, 0x73, 0x23, 0x22, 0x0A, 0x78, 0x6D, 0x6C, 0x6E, 0x73, 0x3A, 0x47, 0x53, 0x70, 0x68, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6C, 0x3D, 0x22, 0x68, 0x74, 0x74, 0x70, 0x3A, 0x2F, 0x2F, 0x6E, 0x73, 0x2E, 0x67, 0x6F, 0x6F, 0x67, 0x6C, 0x65, 0x2E, 0x63, 0x6F, 0x6D, 0x2F, 0x76, 0x69, 0x64, 0x65, 0x6F, 0x73, 0x2F, 0x31, 0x2E, 0x30, 0x2F, 0x73, 0x70, 0x68, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6C, 0x2F, 0x22, 0x3E, 0x3C, 0x47, 0x53, 0x70, 0x68, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6C, 0x3A, 0x53, 0x70, 0x68, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6C, 0x3E, 0x74, 0x72, 0x75, 0x65, 0x3C, 0x2F, 0x47, 0x53, 0x70, 0x68, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6C, 0x3A, 0x53, 0x70, 0x68, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6C, 0x3E, 0x3C, 0x47, 0x53, 0x70, 0x68, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6C, 0x3A, 0x53, 0x74, 0x69, 0x74, 0x63, 0x68, 0x65, 0x64, 0x3E, 0x74, 0x72, 0x75, 0x65, 0x3C, 0x2F, 0x47, 0x53, 0x70, 0x68, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6C, 0x3A, 0x53, 0x74, 0x69, 0x74, 0x63, 0x68, 0x65, 0x64, 0x3E, 0x3C, 0x47, 0x53, 0x70, 0x68, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6C, 0x3A, 0x53, 0x74, 0x69, 0x74, 0x63, 0x68, 0x69, 0x6E, 0x67, 0x53, 0x6F, 0x66, 0x74, 0x77, 0x61, 0x72, 0x65, 0x3E, 0x53, 0x70, 0x68, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6C, 0x20, 0x4D, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0x20, 0x54, 0x6F, 0x6F, 0x6C, 0x3C, 0x2F, 0x47, 0x53, 0x70, 0x68, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6C, 0x3A, 0x53, 0x74, 0x69, 0x74, 0x63, 0x68, 0x69, 0x6E, 0x67, 0x53, 0x6F, 0x66, 0x74, 0x77, 0x61, 0x72, 0x65, 0x3E, 0x3C, 0x47, 0x53, 0x70, 0x68, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6C, 0x3A, 0x50, 0x72, 0x6F, 0x6A, 0x65, 0x63, 0x74, 0x69, 0x6F, 0x6E, 0x54, 0x79, 0x70, 0x65, 0x3E, 0x65, 0x71, 0x75, 0x69, 0x72, 0x65, 0x63, 0x74, 0x61, 0x6E, 0x67, 0x75, 0x6C, 0x61, 0x72, 0x3C, 0x2F, 0x47, 0x53, 0x70, 0x68, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6C, 0x3A, 0x50, 0x72, 0x6F, 0x6A, 0x65, 0x63, 0x74, 0x69, 0x6F, 0x6E, 0x54, 0x79, 0x70, 0x65, 0x3E, 0x3C, 0x2F, 0x72, 0x64, 0x66, 0x3A, 0x53, 0x70, 0x68, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6C, 0x56, 0x69, 0x64, 0x65, 0x6F, 0x3E};
-
+        
         videoMetaData = [[NSData alloc] initWithBytes:videoMetaDataBytes length:454];
         [fh seekToFileOffset:_videoTrakBoxEndOffset+1];
         [fh writeData:videoMetaData];
@@ -1051,7 +1050,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         [fh closeFile];
     }
 }
-//*/
+
 - (void) setFOVRange:(int)initFOV maxFOV:(int)maxFOV minFOV:(int)minFOV {
     _prevFOV = initFOV;
     _FOV = initFOV;
@@ -1245,7 +1244,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
 - (void) renderImmediately: (KxVideoFrame *) frame
 {
     [EAGLContext setCurrentContext:_eaglContext];
-   // [self resizeVideoRecorder:CGSizeMake(frame.width, frame.height)];
+    [self resizeVideoRecorder:CGSizeMake(frame.width, frame.height)];
     
     _renderer->setRenderSource((__bridge_retained void*)frame);
     [self draw];
@@ -1326,7 +1325,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         }
         _renderer->setFlipY(false);
         
-        //[_videoRecorder startRecording:30.f];
+        [_videoRecorder startRecording:30.f];
         //        if (_startTimeMills <= 0)
         //        {
         //            _startTimeMills = getCurrentTimeMills();
@@ -1336,7 +1335,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         glFlush();
         if (_inputVideoFrameTimeStamp >= 0)
         {
-            //[_videoRecorder recordOneFrame:(int)_inputVideoFrameTimeStamp];
+            [_videoRecorder recordOneFrame:(int)_inputVideoFrameTimeStamp];
         }
         
         //NSLog(@"VideoEncoding: recordOneFrame:%d", (int)_currentFrameTimestamp);
