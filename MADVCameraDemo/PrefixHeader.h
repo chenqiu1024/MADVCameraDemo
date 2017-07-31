@@ -301,6 +301,7 @@
 
 //#define ISFULLSCREEN
 
-#define DOUYIN_T2 100
+#define DOUYIN_T2_AUDIO_MILLS 100
+#define DOUYIN_T2_VIDEO_MILLS 100
 
 #endif /* PrefixHeader_h */

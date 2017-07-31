@@ -60,7 +60,7 @@ static AppDelegate* s_singleton = nil;
         void(^successBlock)() = ^(void){};
         void(^failureBlock)() = ^(void){};
         
-        [myMerger mergeVideoToOneVideo:segmentPaths intoFile:filePath andIf3D:NO success:successBlock failure:failureBlock];
+        [myMerger mergeVideoToOneVideo:segmentPaths intoFile:filePath andIf3D:NO success:successBlock failure:failureBlock timeToCutFromEndInSec:(DOUYIN_T2_VIDEO_MILLS / 1000.f)];
          
         for (int i=0; i<100; ++i)
         {

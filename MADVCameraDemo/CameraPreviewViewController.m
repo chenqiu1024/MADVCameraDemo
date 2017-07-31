@@ -211,7 +211,7 @@
     }
     
     _currentVideoTimeMills += videoDurationMills;
-    _audioStartTime = (_currentVideoTimeMills - DOUYIN_T2) / 1000.f;
+    _audioStartTime = (_currentVideoTimeMills - DOUYIN_T2_AUDIO_MILLS) / 1000.f;
     if (_audioStartTime < 0)
     {
         _audioStartTime = 0;
