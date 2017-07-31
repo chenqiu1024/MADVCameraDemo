@@ -187,7 +187,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         }
         else
         {
-            s_willStopCurrentRenderLoop = YES;
+            ///!!!s_willStopCurrentRenderLoop = YES;
         }
         NSLog(@"EAGLContext : GLRenderLoop stopCurrentRenderLoop # After stopCurrentRenderLoop @ %lx : s_willStopCurrentRenderLoop = %d, s_currentRenderLoop = %lx",  self.hash, s_willStopCurrentRenderLoop, s_currentRenderLoop.hash);
     }
