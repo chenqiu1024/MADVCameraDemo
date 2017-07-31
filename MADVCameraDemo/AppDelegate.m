@@ -11,6 +11,7 @@
 #import "MVMediaManager.h"
 #import "MyMovieSegmentMerger.h"
 #import "MadvGLRenderer_iOS.h"
+#import "MediaPlayerViewController.h"
 
 #define MADV_DUAL_FISHEYE_VIDEO_TAG @"MADV_DUAL_FISHEYE_VIDEO"
 NSString* kNotificationAddNewMVMedia = @"kNotificationAddNewMVMedia";
@@ -323,13 +324,12 @@ static AppDelegate* s_singleton = nil;
         _indexPathsOfMedia = [[NSMutableDictionary alloc] init];
         NSMutableArray<NSString* >* keys = [[NSMutableArray alloc] init];
         NSMutableArray<NSArray<MVMedia* >* >* values = [[NSMutableArray alloc] init];
-        int section = 0, row;
-        for (NSString* key in _dataSet.keyEnumerator)
-        {
+        __block int section = 0, row;
+        [_dataSet enumerateKeysAndObjectsWithOptions:NSEnumerationReverse usingBlock:^(NSString * _Nonnull key, NSMutableArray<MVMedia *> * _Nonnull valuesOfKey, BOOL * _Nonnull stop) {
             [keys addObject:key];
             row = 0;
             
-            NSMutableArray<MVMedia* >* valuesOfKey = [_dataSet objectForKey:key];
+            //NSMutableArray<MVMedia* >* valuesOfKey = [_dataSet objectForKey:key];
             MVMedia* lastMedia = [valuesOfKey lastObject];
             BOOL allJustDownloaded = [_filledGroups containsObject:key] && ![lastMedia.cameraUUID isEqualToString:FORGED_MEDIA_TAG];
             
@@ -378,25 +378,51 @@ static AppDelegate* s_singleton = nil;
                     NSString* mergedFilePath = [docDirPath stringByAppendingPathComponent:mergedMedia.localPath];
                     [self.movieMerger mergeVideoSegments:segmentFilePaths intoFile:mergedFilePath progressHandler:^(int percent) {
                         NSLog(@"#Merging# In progressHandler : %d", percent);
+#ifdef EXPORT_MERGED_VIDEO
+                        mergedMedia.downloadedSize = percent / 2;
+#else //#ifdef EXPORT_MERGED_VIDEO
                         mergedMedia.downloadedSize = percent;
-                        
+#endif //#ifdef EXPORT_MERGED_VIDEO
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationMergingMVMediaProgress object:indexPath];
+                            NSIndexPath* theIndexPath = [_indexPathsOfMedia objectForKey:mergedMedia.remotePath];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationMergingMVMediaProgress object:theIndexPath];
                         });
                     } completionHandler:^{
                         NSLog(@"#Merging# In completionHandler");
-                        mergedMedia.downloadedSize = 100;
+#ifdef EXPORT_MERGED_VIDEO
+                        mergedMedia.downloadedSize = 50;
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationMergingMVMediaCompleted object:indexPath];
+                            __block MediaPlayerViewController* encoderVC;
+                            MediaPlayerViewController* vc = [MediaPlayerViewController showEncoderControllerFrom:[AppDelegate sharedApplication].window.rootViewController media:mergedMedia qualityLevel:QualityLevel4K progressBlock:^(int percent) {
+                                NSLog(@"#VideoExport# progressBlock : percent=%d", percent);
+                                mergedMedia.downloadedSize = 50 + percent / 2;
+                            } doneBlock:^(NSError* error) {
+                                NSLog(@"#VideoExport# doneBlock : error=%@", error);
+                                mergedMedia.downloadedSize = 100;
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    NSIndexPath* theIndexPath = [_indexPathsOfMedia objectForKey:mergedMedia.remotePath];
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationMergingMVMediaCompleted object:theIndexPath];
+                                    
+                                    [encoderVC dismissViewControllerAnimated:YES completion:nil];
+                                });
+                            }];
+                            encoderVC = vc;
                         });
+#else
+                        mergedMedia.downloadedSize = 100;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            NSIndexPath* theIndexPath = [_indexPathsOfMedia objectForKey:mergedMedia.remotePath];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationMergingMVMediaCompleted object:theIndexPath];
+                        });
+#endif
                     }];
                 }
             }
             
             [values addObject:[NSArray arrayWithArray:valuesOfKey]];
             section++;
-        }
+        }];
         _dataSetKeysCopy = keys;
         _dataSetValuesCopy = values;
     }

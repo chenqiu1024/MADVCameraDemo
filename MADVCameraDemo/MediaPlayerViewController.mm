@@ -193,7 +193,7 @@
             }else
             {
                 ///#VideoExport# wRet.navigationItem.leftBarButtonItem = wRet.exportBackItem;
-                ///#VideoExport# wRet.videoExportView.isSuc = NO;
+                wRet.videoExportView.isSuc = NO;
             }
         });
         

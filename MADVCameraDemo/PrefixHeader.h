@@ -9,7 +9,8 @@
 #ifndef PrefixHeader_h
 #define PrefixHeader_h
 
-#define DEBUG_VIDEOEXPORT
+//#define DEBUG_VIDEOEXPORT
+#define EXPORT_MERGED_VIDEO
 
 #import "ResourceKeys.h"
 #import "FGLanguageTool.h"
