@@ -423,9 +423,9 @@ NSString* loadDefaultLUT() {
 NSString* cameraOrDefaultLUT() {
     NSString* lutPath = nil;
     MVCameraDevice* connectingCamera = [MVCameraClient sharedInstance].connectingCamera;
+    NSFileManager* fm = [NSFileManager defaultManager];
     if (connectingCamera != nil)
     {
-        NSFileManager* fm = [NSFileManager defaultManager];
         lutPath = [MadvGLRenderer_iOS::cameraLUTFilePath(connectingCamera.uuid) stringByDeletingPathExtension];
         BOOL isDirectory;
         if (![fm fileExistsAtPath:[lutPath stringByAppendingPathComponent:@"l_x_int.png"] isDirectory:&isDirectory] || isDirectory)
@@ -439,7 +439,24 @@ NSString* cameraOrDefaultLUT() {
     }
     else
     {
-        lutPath = loadDefaultLUT();
+        NSDirectoryEnumerator<NSString* >* fileIter = [fm enumeratorAtPath:[z_Sandbox docPath]];
+        for (NSString* file in fileIter)
+        {
+            BOOL isDirectory = NO;
+            if ([fm fileExistsAtPath:[z_Sandbox documentPath:file] isDirectory:&isDirectory] && isDirectory && [file hasSuffix:@"_lut"])
+            {
+                if ([fm fileExistsAtPath:[z_Sandbox documentPath:[file stringByAppendingPathComponent:@"l_x_int.png"]] isDirectory:NULL])
+                {
+                    lutPath = [z_Sandbox documentPath:file];
+                    break;
+                }
+            }
+        }
+        
+        if (!lutPath)
+        {
+            lutPath = loadDefaultLUT();
+        }
     }
     return lutPath;
 }
@@ -549,6 +566,13 @@ NSString* MadvGLRenderer_iOS::lutPathOfSourceURI(NSString* sourceURI, bool withL
     }
     else if ([sourceURI rangeOfString:[z_Sandbox docPath]].location != NSNotFound)
     {
+        if ([sourceURI rangeOfString:MADV_DUAL_FISHEYE_VIDEO_TAG].location != NSNotFound)
+        {
+            lutPath = cameraOrDefaultLUT();
+            DoctorLog(@"lutPathOfSourceURI : #3.5 lutPath='%@'", lutPath);
+            return lutPath;
+        }
+        
         static NSCondition* cond = [[NSCondition alloc] init];
         [cond lock];
         @try

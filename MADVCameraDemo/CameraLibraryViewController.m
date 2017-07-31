@@ -180,8 +180,10 @@ static NSString* MVMediaHeaderIdentifier = @"MVMediaHeaderIdentifier";
     [self.collectionView reloadData];
     
 #ifdef DEBUG_VIDEOEXPORT
-    MVMedia* forgedMedia = [MVMedia createWithCameraUUID:@"[FORGED]" remoteFullPath:@"VID_20170731_131555AA.MP4"];
-    forgedMedia.localPath = @"VID_20170731_131555AA.MP4";
+    //NSString* filename = @"VID_20170731_131555AA.MP4";
+    NSString* filename = @"20170727_052154MADV_DUAL_FISHEYE_VIDEO.mp4";
+    MVMedia* forgedMedia = [MVMedia createWithCameraUUID:@"[FORGED]" remoteFullPath:filename];
+    forgedMedia.localPath = filename;
     forgedMedia.size = 1048576;
     forgedMedia.downloadedSize = 1048576;
     
