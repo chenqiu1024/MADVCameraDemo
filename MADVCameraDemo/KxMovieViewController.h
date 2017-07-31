@@ -66,7 +66,6 @@ NSString * formatTimeInterval(CGFloat seconds, BOOL isLeft);
 @property (readonly) BOOL playing;
 
 @property (nonatomic, assign) BOOL isUsedAsEncoder;
-@property (nonatomic, assign) BOOL isUsedAsVideoEditor;
 @property (nonatomic, assign) QualityLevel encoderQualityLevel;
 #ifdef ENCODING_WITHOUT_MYGLVIEW
 @property (nonatomic, strong) GLRenderLoop* encoderRenderLoop;
@@ -91,13 +90,6 @@ NSString * formatTimeInterval(CGFloat seconds, BOOL isLeft);
 @property(nonatomic,assign)CGFloat editEndTime;
 @property(nonatomic,assign)BOOL isNewEditTime;
 @property (nonatomic, assign) int filterID;
-
-#ifdef ENCODING_WITHOUT_MYGLVIEW
-- (void) cancelEncoding;
-- (void) restartEncoding:(QualityLevel)encoderQuaLevel;
-#endif
-
-+ (NSString*) encodedFileBaseName:(NSString*)contentPath qualityLevel:(QualityLevel)qualityLevel;
 
 @property (nonatomic, strong) dispatch_queue_t    dispatchQueue;
 @property (nonatomic, strong) dispatch_queue_t    dispatchQueueAudioRecord;

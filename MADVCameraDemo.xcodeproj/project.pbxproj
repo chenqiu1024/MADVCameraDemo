@@ -47,6 +47,22 @@
 		521A4F671F0BA1DA00E5F155 /* MyGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521A4F661F0BA1DA00E5F155 /* MyGLView.mm */; };
 		521A4F691F0BAAB800E5F155 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F681F0BAAB800E5F155 /* CoreMotion.framework */; };
 		BB3DA3A31F0F7FE3009B6ACF /* MyMovieSegmentMerger.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */; };
+		BBBFDBB31F2AFC9C00B6DBA2 /* CycordAudioRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBBFDBAD1F2AFC9C00B6DBA2 /* CycordAudioRecorder.mm */; };
+		BBBFDBB41F2AFC9C00B6DBA2 /* CycordAudioRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBBFDBAD1F2AFC9C00B6DBA2 /* CycordAudioRecorder.mm */; };
+		BBBFDBB51F2AFC9C00B6DBA2 /* CycordVideoRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBBFDBAF1F2AFC9C00B6DBA2 /* CycordVideoRecorder.mm */; };
+		BBBFDBB61F2AFC9C00B6DBA2 /* CycordVideoRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBBFDBAF1F2AFC9C00B6DBA2 /* CycordVideoRecorder.mm */; };
+		BBEFDB5C1F2ED37B003A2C27 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBEFDB5B1F2ED37B003A2C27 /* MediaPlayer.framework */; };
+		BBEFDB5D1F2ED38A003A2C27 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBEFDB5B1F2ED37B003A2C27 /* MediaPlayer.framework */; };
+		BBEFDB601F2ED98D003A2C27 /* VideoExportView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB5F1F2ED98D003A2C27 /* VideoExportView.m */; };
+		BBEFDB611F2ED98D003A2C27 /* VideoExportView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB5F1F2ED98D003A2C27 /* VideoExportView.m */; };
+		BBEFDB691F2ED9DC003A2C27 /* CycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB641F2ED9DC003A2C27 /* CycleView.m */; };
+		BBEFDB6A1F2ED9DC003A2C27 /* CycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB641F2ED9DC003A2C27 /* CycleView.m */; };
+		BBEFDB6B1F2ED9DC003A2C27 /* KDGoalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB661F2ED9DC003A2C27 /* KDGoalBar.m */; };
+		BBEFDB6C1F2ED9DC003A2C27 /* KDGoalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB661F2ED9DC003A2C27 /* KDGoalBar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		BBEFDB6D1F2ED9DC003A2C27 /* KDGoalBarPercentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB681F2ED9DC003A2C27 /* KDGoalBarPercentLayer.m */; };
+		BBEFDB6E1F2ED9DC003A2C27 /* KDGoalBarPercentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB681F2ED9DC003A2C27 /* KDGoalBarPercentLayer.m */; };
+		BBEFDB711F2EDA72003A2C27 /* UIColor+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB701F2EDA72003A2C27 /* UIColor+Extensions.m */; };
+		BBEFDB721F2EDA72003A2C27 /* UIColor+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB701F2EDA72003A2C27 /* UIColor+Extensions.m */; };
 		BBF390AE1F2216F00023DC8B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF390AD1F2216F00023DC8B /* CoreLocation.framework */; };
 		BBF390B31F26EB820023DC8B /* MyMovieSegmentMerger.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */; };
 		BBF390B41F26EB820023DC8B /* MediaPlayerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521A4F131F0B78BF00E5F155 /* MediaPlayerViewController.mm */; };
@@ -242,6 +258,24 @@
 		8CDADBB8AF7E3FEAB29A1C24 /* libPods-MADVCameraDemo_MADVCameraSources.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MADVCameraDemo_MADVCameraSources.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB3DA3A01F0F7FE2009B6ACF /* MyMovieSegmentMerger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMovieSegmentMerger.h; sourceTree = "<group>"; };
 		BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MyMovieSegmentMerger.mm; sourceTree = "<group>"; };
+		BBBFDBAC1F2AFC9C00B6DBA2 /* CycordAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycordAudioRecorder.h; sourceTree = "<group>"; };
+		BBBFDBAD1F2AFC9C00B6DBA2 /* CycordAudioRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CycordAudioRecorder.mm; sourceTree = "<group>"; };
+		BBBFDBAE1F2AFC9C00B6DBA2 /* CycordVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycordVideoRecorder.h; sourceTree = "<group>"; };
+		BBBFDBAF1F2AFC9C00B6DBA2 /* CycordVideoRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CycordVideoRecorder.mm; sourceTree = "<group>"; };
+		BBBFDBB01F2AFC9C00B6DBA2 /* CycordVideoRecorderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycordVideoRecorderDelegate.h; sourceTree = "<group>"; };
+		BBBFDBB11F2AFC9C00B6DBA2 /* postex_vert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = postex_vert.h; sourceTree = "<group>"; };
+		BBBFDBB21F2AFC9C00B6DBA2 /* tex_frag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tex_frag.h; sourceTree = "<group>"; };
+		BBEFDB5B1F2ED37B003A2C27 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		BBEFDB5E1F2ED98D003A2C27 /* VideoExportView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoExportView.h; sourceTree = "<group>"; };
+		BBEFDB5F1F2ED98D003A2C27 /* VideoExportView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoExportView.m; sourceTree = "<group>"; };
+		BBEFDB631F2ED9DC003A2C27 /* CycleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CycleView.h; sourceTree = "<group>"; };
+		BBEFDB641F2ED9DC003A2C27 /* CycleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CycleView.m; sourceTree = "<group>"; };
+		BBEFDB651F2ED9DC003A2C27 /* KDGoalBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KDGoalBar.h; sourceTree = "<group>"; };
+		BBEFDB661F2ED9DC003A2C27 /* KDGoalBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KDGoalBar.m; sourceTree = "<group>"; };
+		BBEFDB671F2ED9DC003A2C27 /* KDGoalBarPercentLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KDGoalBarPercentLayer.h; sourceTree = "<group>"; };
+		BBEFDB681F2ED9DC003A2C27 /* KDGoalBarPercentLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KDGoalBarPercentLayer.m; sourceTree = "<group>"; };
+		BBEFDB6F1F2EDA72003A2C27 /* UIColor+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extensions.h"; sourceTree = "<group>"; };
+		BBEFDB701F2EDA72003A2C27 /* UIColor+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extensions.m"; sourceTree = "<group>"; };
 		BBF390AD1F2216F00023DC8B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BBF390E11F26EB820023DC8B /* MADVCameraDemo_MADVCameraSources.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MADVCameraDemo_MADVCameraSources.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBF390E21F26EB840023DC8B /* MADVCameraDemo_MADVCameraSources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MADVCameraDemo_MADVCameraSources-Info.plist"; path = "/Users/qiudong/Projects/DouyinMADVCameraDemo/MADVCameraDemo_MADVCameraSources-Info.plist"; sourceTree = "<absolute>"; };
@@ -409,6 +443,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBEFDB5C1F2ED37B003A2C27 /* MediaPlayer.framework in Frameworks */,
 				BBF390AE1F2216F00023DC8B /* CoreLocation.framework in Frameworks */,
 				521A4F691F0BAAB800E5F155 /* CoreMotion.framework in Frameworks */,
 				521A4F5A1F0B9D2C00E5F155 /* libavcodec.a in Frameworks */,
@@ -450,6 +485,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBEFDB5D1F2ED38A003A2C27 /* MediaPlayer.framework in Frameworks */,
 				BBF390BD1F26EB820023DC8B /* CoreLocation.framework in Frameworks */,
 				BBF390BE1F26EB820023DC8B /* CoreMotion.framework in Frameworks */,
 				BBF390BF1F26EB820023DC8B /* libavcodec.a in Frameworks */,
@@ -514,6 +550,12 @@
 		521A4EDE1F0B766B00E5F155 /* MADVCameraDemo */ = {
 			isa = PBXGroup;
 			children = (
+				BBEFDB6F1F2EDA72003A2C27 /* UIColor+Extensions.h */,
+				BBEFDB701F2EDA72003A2C27 /* UIColor+Extensions.m */,
+				BBEFDB621F2ED9DC003A2C27 /* KDCustom */,
+				BBEFDB5E1F2ED98D003A2C27 /* VideoExportView.h */,
+				BBEFDB5F1F2ED98D003A2C27 /* VideoExportView.m */,
+				BBBFDBAB1F2AFC9C00B6DBA2 /* CycordKit */,
 				BB3DA3A01F0F7FE2009B6ACF /* MyMovieSegmentMerger.h */,
 				BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */,
 				521A4F651F0BA1DA00E5F155 /* MyGLView.h */,
@@ -561,6 +603,7 @@
 		521A4F191F0B7D3300E5F155 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BBEFDB5B1F2ED37B003A2C27 /* MediaPlayer.framework */,
 				BBF390AD1F2216F00023DC8B /* CoreLocation.framework */,
 				521A4F681F0BAAB800E5F155 /* CoreMotion.framework */,
 				521A4F551F0B9D2C00E5F155 /* libavcodec.a */,
@@ -603,6 +646,33 @@
 				38AD176FBE07FA87EC823509 /* Pods-MADVCameraDemo_MADVCameraSources.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		BBBFDBAB1F2AFC9C00B6DBA2 /* CycordKit */ = {
+			isa = PBXGroup;
+			children = (
+				BBBFDBAC1F2AFC9C00B6DBA2 /* CycordAudioRecorder.h */,
+				BBBFDBAD1F2AFC9C00B6DBA2 /* CycordAudioRecorder.mm */,
+				BBBFDBAE1F2AFC9C00B6DBA2 /* CycordVideoRecorder.h */,
+				BBBFDBAF1F2AFC9C00B6DBA2 /* CycordVideoRecorder.mm */,
+				BBBFDBB01F2AFC9C00B6DBA2 /* CycordVideoRecorderDelegate.h */,
+				BBBFDBB11F2AFC9C00B6DBA2 /* postex_vert.h */,
+				BBBFDBB21F2AFC9C00B6DBA2 /* tex_frag.h */,
+			);
+			path = CycordKit;
+			sourceTree = "<group>";
+		};
+		BBEFDB621F2ED9DC003A2C27 /* KDCustom */ = {
+			isa = PBXGroup;
+			children = (
+				BBEFDB631F2ED9DC003A2C27 /* CycleView.h */,
+				BBEFDB641F2ED9DC003A2C27 /* CycleView.m */,
+				BBEFDB651F2ED9DC003A2C27 /* KDGoalBar.h */,
+				BBEFDB661F2ED9DC003A2C27 /* KDGoalBar.m */,
+				BBEFDB671F2ED9DC003A2C27 /* KDGoalBarPercentLayer.h */,
+				BBEFDB681F2ED9DC003A2C27 /* KDGoalBarPercentLayer.m */,
+			);
+			path = KDCustom;
 			sourceTree = "<group>";
 		};
 		BBF390E41F26FA2D0023DC8B /* MADVCamera */ = {
@@ -1135,9 +1205,16 @@
 				521A4F671F0BA1DA00E5F155 /* MyGLView.mm in Sources */,
 				521A4EEA1F0B766B00E5F155 /* CameraLibraryViewController.m in Sources */,
 				521A4EE41F0B766B00E5F155 /* AppDelegate.m in Sources */,
+				BBBFDBB31F2AFC9C00B6DBA2 /* CycordAudioRecorder.mm in Sources */,
+				BBBFDBB51F2AFC9C00B6DBA2 /* CycordVideoRecorder.mm in Sources */,
+				BBEFDB711F2EDA72003A2C27 /* UIColor+Extensions.m in Sources */,
+				BBEFDB6B1F2ED9DC003A2C27 /* KDGoalBar.m in Sources */,
 				521A4F211F0B849900E5F155 /* UIViewController+Extensions.m in Sources */,
+				BBEFDB691F2ED9DC003A2C27 /* CycleView.m in Sources */,
+				BBEFDB601F2ED98D003A2C27 /* VideoExportView.m in Sources */,
 				521A4F181F0B78F600E5F155 /* KxMovieViewController.mm in Sources */,
 				521A4EE71F0B766B00E5F155 /* CameraPreviewViewController.m in Sources */,
+				BBEFDB6D1F2ED9DC003A2C27 /* KDGoalBarPercentLayer.m in Sources */,
 				521A4EE11F0B766B00E5F155 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1157,9 +1234,11 @@
 				BBF3929F1F26FA2E0023DC8B /* AMBACancelFileTransferResponse.m in Sources */,
 				BBF392B41F26FA2E0023DC8B /* AMBASaveMediaFileDoneResponse.java in Sources */,
 				BBF392D71F26FA2E0023DC8B /* WiFiConnectManager.m in Sources */,
+				BBBFDBB61F2AFC9C00B6DBA2 /* CycordVideoRecorder.mm in Sources */,
 				BBF392B11F26FA2E0023DC8B /* AMBAPutFileResponse.m in Sources */,
 				BBF392D51F26FA2E0023DC8B /* SettingTreeNode.m in Sources */,
 				BBF392D31F26FA2E0023DC8B /* PathTreeNode.m in Sources */,
+				BBEFDB6E1F2ED9DC003A2C27 /* KDGoalBarPercentLayer.m in Sources */,
 				BBF392BB1F26FA2E0023DC8B /* CMDConnectManager.m in Sources */,
 				BBF392AD1F26FA2E0023DC8B /* AMBAGetWiFiStatusResponse.m in Sources */,
 				BBF392AC1F26FA2E0023DC8B /* AMBAGetWiFiStatusResponse.java in Sources */,
@@ -1178,6 +1257,7 @@
 				BBF390B41F26EB820023DC8B /* MediaPlayerViewController.mm in Sources */,
 				BBF392F01F26FA2E0023DC8B /* RealmSerialQueue.m in Sources */,
 				BBF392CB1F26FA2E0023DC8B /* MVMedia.m in Sources */,
+				BBBFDBB41F2AFC9C00B6DBA2 /* CycordAudioRecorder.mm in Sources */,
 				BBF3929A1F26FA2E0023DC8B /* AMBASetGPSInfoRequest.m in Sources */,
 				BBF393641F26FA2E0023DC8B /* NSRecursiveCondition.m in Sources */,
 				BBF3930C1F26FA2E0023DC8B /* FMDatabaseQueue.m in Sources */,
@@ -1185,9 +1265,11 @@
 				BBF393091F26FA2E0023DC8B /* FMDatabase.m in Sources */,
 				BBF392991F26FA2E0023DC8B /* AMBARequest.m in Sources */,
 				BBF390B51F26EB820023DC8B /* MyGLView.mm in Sources */,
+				BBEFDB721F2EDA72003A2C27 /* UIColor+Extensions.m in Sources */,
 				BBF390B61F26EB820023DC8B /* CameraLibraryViewController.m in Sources */,
 				BBF392BF1F26FA2E0023DC8B /* ImageFilterBean.m in Sources */,
 				BBF392FA1F26FA2E0023DC8B /* KxAudioManager.m in Sources */,
+				BBEFDB6C1F2ED9DC003A2C27 /* KDGoalBar.m in Sources */,
 				BBF392961F26FA2E0023DC8B /* AMBAPutFileRequest.java in Sources */,
 				BBF3929B1F26FA2E0023DC8B /* AMBASetWifiRequest.java in Sources */,
 				BBF392951F26FA2E0023DC8B /* AMBAGetFileRequest.m in Sources */,
@@ -1225,6 +1307,7 @@
 				BBF392C11F26FA2E0023DC8B /* MVCameraClient.m in Sources */,
 				BBF392FC1F26FA2E0023DC8B /* KxMovieDecoder.mm in Sources */,
 				BBF390B91F26EB820023DC8B /* KxMovieViewController.mm in Sources */,
+				BBEFDB611F2ED98D003A2C27 /* VideoExportView.m in Sources */,
 				BBF3929C1F26FA2E0023DC8B /* AMBASetWifiRequest.m in Sources */,
 				BBF390BA1F26EB820023DC8B /* CameraPreviewViewController.m in Sources */,
 				BBF393811F26FE2C0023DC8B /* h264_iOS8VTHD.mm in Sources */,
@@ -1240,6 +1323,7 @@
 				BBF392F11F26FA2E0023DC8B /* RLModel.m in Sources */,
 				BBF392C91F26FA2E0023DC8B /* MVCameraUploadManager.m in Sources */,
 				BBF3930D1F26FA2E0023DC8B /* FMResultSet.m in Sources */,
+				BBEFDB6A1F2ED9DC003A2C27 /* CycleView.m in Sources */,
 				BBF390BB1F26EB820023DC8B /* main.m in Sources */,
 				BBF3930A1F26FA2E0023DC8B /* FMDatabaseAdditions.m in Sources */,
 			);

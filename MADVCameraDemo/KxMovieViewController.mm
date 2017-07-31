@@ -150,8 +150,7 @@ NSString* formatTimeInterval(CGFloat seconds, BOOL isLeft)
 @implementation KxMovieViewController
 
 @synthesize isUsedAsEncoder;
-@synthesize isUsedAsVideoEditor;
-@synthesize encoderQualityLevel;
+//@synthesize isUsedAsVideoEditor;
 @synthesize decoder = _decoder;
 @synthesize moviePosition = _moviePosition;
 @synthesize subtitles = _subtitles;
@@ -694,30 +693,6 @@ static __weak id s_retainer = nil;
     //[_decoder closeFile];
 }
 
-- (void) cancelEncoding {
-    [self pause];
-    NSLog(@"EAGLContext : ShotController viewWillDisappear freeBufferedFrames, glRenderLoop = %lx", self.glView.glRenderLoop.hash);
-    [self freeBufferedFrames]; //2016.3.3 spy
-    self.decoder = nil;
-    
-#ifdef ENCODING_WITHOUT_MYGLVIEW
-    self.encoderRenderLoop.encodingError = [NSError errorWithDomain:@"MadvErrorEncodingCanceled" code:-2 userInfo:@{}];
-    NSLog(@"#Bug2880# cancelEncoding : self.encoderRenderLoop.encodingError = %@", self.encoderRenderLoop.encodingError);
-    [self.encoderRenderLoop stopRendering];
-    NSLog(@"#Bug2880# cancelEncoding : 2");
-    //[self.encoderRenderLoop stopEncoding:nil];
-    NSLog(@"#Bug2880# cancelEncoding : 3");
-    self.encoderRenderLoop = nil;
-#endif
-
-}
-
-- (void) restartEncoding:(QualityLevel)encoderQuaLevel{
-    self.encoderQualityLevel = encoderQuaLevel;
-    [self setContentPath:_contentPath parameters:_parameters];
-    [self play];
-}
-
 - (void) didPause {
     
 }
@@ -921,11 +896,13 @@ static __weak id s_retainer = nil;
         presentView = [[KxMovieGLView alloc] initWithFrame:bounds decoder:_decoder];
 #else
         NSString* outputVideoBaseName = nil;
+        /*
         if (self.isUsedAsVideoEditor)
         {
             outputVideoBaseName = [self.class editorOutputVideoFileBaseName:_contentPath];
         }
         else
+        //*/
         {
             outputVideoBaseName = [self.class outputVideoFileBaseName:_contentPath qualityLevel:self.encoderQualityLevel];
         }
@@ -963,80 +940,6 @@ static __weak id s_retainer = nil;
             }
         }
         
-        if (self.isUsedAsEncoder && _decoder.validAudio) {
-            //*
-            outputVideoBaseName = [GLRenderLoop outputVideoBaseName:outputVideoBaseName qualityLevel:self.encoderQualityLevel];
-            ///outputVideoBaseName = [CycordVideoRecorder outputAudioTmpFileBaseName:outputVideoBaseName];
-            /*/
-            if (self.encoderQualityLevel == QualityLevel4K)
-                outputVideoBaseName = [outputVideoBaseName stringByAppendingString:@"4K"];
-            else if (self.encoderQualityLevel == QualityLevel1080)
-                outputVideoBaseName = [outputVideoBaseName stringByAppendingString:@"1080"];
-            outputVideoBaseName = [outputVideoBaseName stringByAppendingPathExtension:@"aac"]; write by spy change audio file name
-            //*/
-            _audioOutputPath = [NSString stringWithFormat:@"%@/%@", [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"], outputVideoBaseName] ;
-            
-            // Describe format
-            int kChannels = 2;
-            unsigned int bytesPerSample = sizeof(float) * kChannels;
-
-            memset(&_audioFormat, 0, sizeof(_audioFormat));
-            _audioFormat.mFormatID = kAudioFormatMPEG4AAC;
-            _audioFormat.mFormatFlags = kMPEG4Object_AAC_LC;
-            //_audioFormat.mFormatID = kAudioFormatLinearPCM;
-            //_audioFormat.mFormatFlags = kLinearPCMFormatFlagIsFloat;
-            _audioFormat.mSampleRate = 48000.00;
-            _audioFormat.mFramesPerPacket = 1024;
-            _audioFormat.mChannelsPerFrame = kChannels;
-            //_audioFormat.mFramesPerPacket  = 1;
-            //_audioFormat.mBytesPerFrame    = bytesPerSample;
-            //_audioFormat.mBytesPerPacket   = bytesPerSample * _audioFormat.mFramesPerPacket;
-            //_audioFormat.mBitsPerChannel    = 8 * sizeof(float);
-            
-
-            CFURLRef destinationURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, (CFStringRef)_audioOutputPath, kCFURLPOSIXPathStyle, false);
-            OSStatus status = ExtAudioFileCreateWithURL(destinationURL, kAudioFileAAC_ADTSType, &_audioFormat, NULL, kAudioFileFlags_EraseFile, &_audioFileRef); //kAudioFileCAFType //write by spy aac file
-            //OSStatus status = ExtAudioFileCreateWithURL(destinationURL, kAudioFileCAFType, &_audioFormat, NULL, kAudioFileFlags_EraseFile, &_audioFileRef); //kAudioFileCAFType //write by spy aac file
-    
-            checkStatus(status);
-            CFRelease(destinationURL);
-            
-            UInt32 size;
-            AudioStreamBasicDescription clientFormat;
-            clientFormat.mFormatID          = kAudioFormatLinearPCM;
-            clientFormat.mFormatFlags       = kAudioFormatFlagIsFloat;
-            clientFormat.mBytesPerPacket    = bytesPerSample;
-            clientFormat.mFramesPerPacket   = 1;
-            clientFormat.mBytesPerFrame     = bytesPerSample;
-            clientFormat.mChannelsPerFrame  = kChannels;  // 1 indicates mono
-            clientFormat.mBitsPerChannel    = 8 * sizeof(float);
-            clientFormat.mSampleRate        = 48000.00;
-            
-            size = sizeof( clientFormat );
-            status = ExtAudioFileSetProperty( _audioFileRef, kExtAudioFileProperty_ClientDataFormat, size, &clientFormat ); //write by spy setting input format
-            checkStatus(status);
-        }
-#ifdef ENCODING_WITHOUT_MYGLVIEW
-        if (self.isUsedAsEncoder)
-        {
-            self.encoderRenderLoop.panoramaMode = self.panoramaMode;
-            
-            KxVideoFrameFormat format = [_decoder getVideoFrameFormat];
-            if (format == KxVideoFrameFormatYUV)
-                self.encoderRenderLoop.isYUVColorSpace = YES;
-            else
-                self.encoderRenderLoop.isYUVColorSpace = NO;
-            
-            self.encoderRenderLoop.isGlassMode = self.isGlassMode;
-            self.encoderRenderLoop.panoramaMode = self.panoramaMode;
-            
-            [self.encoderRenderLoop invalidateRenderbuffer];
-            
-            [self.encoderRenderLoop stopOtherRenderLoopIfAny];
-            [self.encoderRenderLoop startRendering];
-        }
-        else
-#endif
         {
             presentView.panoramaMode = self.panoramaMode;
             
@@ -1049,33 +952,7 @@ static __weak id s_retainer = nil;
         
 #endif
     }
-#ifdef ENCODING_WITHOUT_MYGLVIEW
-    if (self.isUsedAsEncoder)
-    {
-        if (!self.encoderRenderLoop) {
-            LoggerVideo(0, @"fallback to use RGB video frame and UIKit");
-            [_decoder setupVideoFrameFormat:KxVideoFrameFormatRGB];
-            //_imageView = [[UIImageView alloc] initWithFrame:bounds];
-            //_imageView.backgroundColor = [UIColor blackColor];
-            self.encoderRenderLoop = [[GLRenderLoop alloc] initWithDelegate:self lutPath:lutPath lutSrcSizeL:CGSizeMake(3456, 1728) lutSrcSizeR:CGSizeMake(3456, 1728) inputFrameSize:CGSizeMake(bounds.size.width * self.view.contentScaleFactor, bounds.size.height * self.view.contentScaleFactor) outputVideoBaseName:nil encoderQualityLevel:self.encoderQualityLevel forCapturing:NO];
-            self.encoderRenderLoop.encodingDoneBlock = self.encodingDoneBlock;
-            self.encoderRenderLoop.panoramaMode = self.panoramaMode;
-            self.encoderRenderLoop.isYUVColorSpace = NO;
-            
-            KxVideoFrameFormat format = [_decoder getVideoFrameFormat];
-            if (format == KxVideoFrameFormatYUV)
-                self.encoderRenderLoop.isYUVColorSpace = YES;
-            else
-                self.encoderRenderLoop.isYUVColorSpace = NO;
-        }
-        if(self.isUsedAsVideoEditor)
-        {
-            self.encoderRenderLoop.filterID = self.filterID;
-        }
-        
-    }
-    else
-#endif
+
     {
         if (!presentView) {
             LoggerVideo(0, @"fallback to use RGB video frame and UIKit");
@@ -1296,10 +1173,10 @@ static __weak id s_retainer = nil;
                             _moviePosition = frame.position;
                             _bufferedDuration -= frame.duration;
                             
-                            if (self.isUsedAsVideoEditor && (_editEndTime - _editStartTime) > 0) {
+                            //#VideoExport#if (self.isUsedAsVideoEditor && (_editEndTime - _editStartTime) > 0) {
                                 //NSLog(@"audiorecord timestamp(before adjust) = %f", frame.timestamp);
-                                frame.timestamp -= _editStartTime;
-                            }
+                                //#VideoExport#frame.timestamp -= _editStartTime;
+                            //#VideoExport#}
                         }
  
                         //NSLog(@"audiorecord timestamp = %f", frame.timestamp);
@@ -1682,8 +1559,8 @@ static __weak id s_retainer = nil;
             if (_videoFrames.count > 0) {
                 
                 frame = _videoFrames[0];
-                if (self.isUsedAsVideoEditor && (_editEndTime - _editStartTime) > 0)
-                    frame.timestamp -= _editStartTime * 1000;
+                //#VideoExport#if (self.isUsedAsVideoEditor && (_editEndTime - _editStartTime) > 0)
+                 //#VideoExport#   frame.timestamp -= _editStartTime * 1000;
                 [_videoFrames removeObjectAtIndex:0];
                 //NSLog(@"videorecord timestamp: %f", frame.timestamp);
 #ifdef DEBUG_VIDEOFRAME_LEAKING
