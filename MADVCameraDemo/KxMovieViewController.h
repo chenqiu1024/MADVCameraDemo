@@ -82,6 +82,7 @@ NSString * formatTimeInterval(CGFloat seconds, BOOL isLeft);
 
 @property(nonatomic,strong) void(^encodingProgressChangedBlock)(int percent);
 @property(nonatomic,strong) void(^encodingDoneBlock)(NSString*, NSError*);
+@property(nonatomic,strong) void(^encodingFrameBlock)(float);
 
 @property (nonatomic, strong) KxMovieDecoder* decoder;
 @property (nonatomic, assign) CGFloat previousMoviePosition;

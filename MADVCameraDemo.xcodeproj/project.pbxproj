@@ -57,12 +57,14 @@
 		BBEFDB611F2ED98D003A2C27 /* VideoExportView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB5F1F2ED98D003A2C27 /* VideoExportView.m */; };
 		BBEFDB691F2ED9DC003A2C27 /* CycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB641F2ED9DC003A2C27 /* CycleView.m */; };
 		BBEFDB6A1F2ED9DC003A2C27 /* CycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB641F2ED9DC003A2C27 /* CycleView.m */; };
-		BBEFDB6B1F2ED9DC003A2C27 /* KDGoalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB661F2ED9DC003A2C27 /* KDGoalBar.m */; };
+		BBEFDB6B1F2ED9DC003A2C27 /* KDGoalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB661F2ED9DC003A2C27 /* KDGoalBar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BBEFDB6C1F2ED9DC003A2C27 /* KDGoalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB661F2ED9DC003A2C27 /* KDGoalBar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BBEFDB6D1F2ED9DC003A2C27 /* KDGoalBarPercentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB681F2ED9DC003A2C27 /* KDGoalBarPercentLayer.m */; };
 		BBEFDB6E1F2ED9DC003A2C27 /* KDGoalBarPercentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB681F2ED9DC003A2C27 /* KDGoalBarPercentLayer.m */; };
 		BBEFDB711F2EDA72003A2C27 /* UIColor+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB701F2EDA72003A2C27 /* UIColor+Extensions.m */; };
 		BBEFDB721F2EDA72003A2C27 /* UIColor+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBEFDB701F2EDA72003A2C27 /* UIColor+Extensions.m */; };
+		BBEFDB741F2EEE11003A2C27 /* MediaPlayerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBEFDB731F2EEE11003A2C27 /* MediaPlayerStoryboard.storyboard */; };
+		BBEFDB751F2EEE11003A2C27 /* MediaPlayerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBEFDB731F2EEE11003A2C27 /* MediaPlayerStoryboard.storyboard */; };
 		BBF390AE1F2216F00023DC8B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBF390AD1F2216F00023DC8B /* CoreLocation.framework */; };
 		BBF390B31F26EB820023DC8B /* MyMovieSegmentMerger.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */; };
 		BBF390B41F26EB820023DC8B /* MediaPlayerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 521A4F131F0B78BF00E5F155 /* MediaPlayerViewController.mm */; };
@@ -276,6 +278,7 @@
 		BBEFDB681F2ED9DC003A2C27 /* KDGoalBarPercentLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KDGoalBarPercentLayer.m; sourceTree = "<group>"; };
 		BBEFDB6F1F2EDA72003A2C27 /* UIColor+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extensions.h"; sourceTree = "<group>"; };
 		BBEFDB701F2EDA72003A2C27 /* UIColor+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extensions.m"; sourceTree = "<group>"; };
+		BBEFDB731F2EEE11003A2C27 /* MediaPlayerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MediaPlayerStoryboard.storyboard; sourceTree = "<group>"; };
 		BBF390AD1F2216F00023DC8B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BBF390E11F26EB820023DC8B /* MADVCameraDemo_MADVCameraSources.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MADVCameraDemo_MADVCameraSources.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBF390E21F26EB840023DC8B /* MADVCameraDemo_MADVCameraSources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MADVCameraDemo_MADVCameraSources-Info.plist"; path = "/Users/qiudong/Projects/DouyinMADVCameraDemo/MADVCameraDemo_MADVCameraSources-Info.plist"; sourceTree = "<absolute>"; };
@@ -527,6 +530,7 @@
 		521A4ED31F0B766B00E5F155 = {
 			isa = PBXGroup;
 			children = (
+				BBEFDB731F2EEE11003A2C27 /* MediaPlayerStoryboard.storyboard */,
 				BBF390E41F26FA2D0023DC8B /* MADVCamera */,
 				521A4EDE1F0B766B00E5F155 /* MADVCameraDemo */,
 				521A4EFB1F0B766C00E5F155 /* MADVCameraDemoUITests */,
@@ -1063,6 +1067,7 @@
 			files = (
 				521A4EF21F0B766B00E5F155 /* LaunchScreen.storyboard in Resources */,
 				521A4EEF1F0B766B00E5F155 /* Assets.xcassets in Resources */,
+				BBEFDB741F2EEE11003A2C27 /* MediaPlayerStoryboard.storyboard in Resources */,
 				521A4EED1F0B766B00E5F155 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1078,6 +1083,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBEFDB751F2EEE11003A2C27 /* MediaPlayerStoryboard.storyboard in Resources */,
 				BBF392F91F26FA2E0023DC8B /* Info.plist in Resources */,
 				BBF392FB1F26FA2E0023DC8B /* kxmovie.bundle in Resources */,
 				BBF390D91F26EB820023DC8B /* LaunchScreen.storyboard in Resources */,

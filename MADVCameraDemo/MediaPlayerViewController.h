@@ -25,4 +25,6 @@
 
 + (instancetype __nullable) showFromViewController:(UIViewController* __nullable)fromViewController media:(MVMedia* __nullable)media parameters:(NSDictionary* __nullable)parameters;
 
++ (instancetype) showEncoderControllerFrom:(UIViewController*)fromViewController media:(MVMedia*)media qualityLevel:(QualityLevel)qualityLevel progressBlock:(void(^)(int))progressBlock doneBlock:(void(^)(NSError*))doneBlock;
+
 @end
