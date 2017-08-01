@@ -516,7 +516,7 @@ NSString* MadvGLRenderer_iOS::lutPathOfSourceURI(NSString* sourceURI, bool withL
 #ifdef USE_PRESTORED_LUT
             return prestoredLUTPath();
 #else
-            return cameraOrDefaultLUT();
+        return cameraOrDefaultLUT();
 #endif
         else
             return nil;

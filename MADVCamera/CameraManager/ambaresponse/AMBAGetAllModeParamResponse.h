@@ -21,7 +21,7 @@
 @property (nonatomic, assign) int cap_interval;
 @property (nonatomic, assign) int cap_interval_num;
 
-@property (nonatomic, assign) int video_speed;
+@property (nonatomic, assign) int speedx;
 
 @property (nonatomic, assign) int douyin_video_time;
 @property (nonatomic, assign) int douyin_speedx;

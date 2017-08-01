@@ -375,6 +375,10 @@
     if (self.isUsedAsEncoder) {
         [self performSelector:@selector(playingDoneWhileEncoding) withObject:nil afterDelay:0];
     }
+    else
+    {
+        [self restorePlay];
+    }
 }
 
 @end

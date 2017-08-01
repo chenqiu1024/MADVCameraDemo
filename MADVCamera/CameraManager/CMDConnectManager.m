@@ -517,7 +517,7 @@ static Class responseClassOfMsgID(int msgID) {
     return YES;
 }
 
-- (void) updateLatestMonitoredTime:(long long)mills {
+- (void) updateLatestMonitoredTime:(long)mills {
     if (mills > _latestMonitoredTimeMills)
     {
         _latestMonitoredTimeMills = mills;
@@ -681,7 +681,7 @@ static Class responseClassOfMsgID(int msgID) {
                     {
                         requestItem.timestamp = [[NSDate date] timeIntervalSince1970] * 1000;
                         //NSLog(@"Heartbeat updated @ sendMsgViaSocket : %s", cJSONString);
-                        [self updateLatestMonitoredTime:requestItem.timestamp];
+                        [self updateLatestMonitoredTime:(long)requestItem.timestamp];
                         
                         //if (requestItem.ambaResponseError || requestItem.ambaResponseReceived || requestItem.shouldWaitUntilPreviousResponded)
                         //{
@@ -862,7 +862,7 @@ static Class responseClassOfMsgID(int msgID) {
             break;
         }
         //NSLog(@"Heartbeat updated @ receiveMsgViaSocket : %s", _msgReadBuffer + _msgReadBufferOffset);
-        [self updateLatestMonitoredTime:[[NSDate date] timeIntervalSince1970] * 1000];
+        [self updateLatestMonitoredTime:(long)[[NSDate date] timeIntervalSince1970] * 1000];
         _msgReadBuffer[_msgReadBufferOffset + readSize] = '\0';
         DoctorLog(@"QD:Socket: After recv : response:(strlen=%ld, readSize=%d, offset=%d, len=%d) %s\n", strlen((const char *)_msgReadBuffer + _msgReadBufferOffset), readSize, _msgReadBufferOffset, BUFFER_SIZE - _msgReadBufferOffset, _msgReadBuffer + _msgReadBufferOffset);
         _msgReadBufferOffset += readSize;

@@ -586,8 +586,8 @@ NSString* NotificationStringOfNotification(int notification) {
     {
         case CameraModePhoto:
         {
-            if (self.isShooting)
-                return;
+//            if (self.isShooting)
+//                return;
             
             switch (self.connectingCamera.cameraSubMode)
             {
@@ -1478,7 +1478,7 @@ NSString* NotificationStringOfNotification(int notification) {
                     [self.connectingCamera transactionWithBlock:^{
                         connectingCamera.cameraMode = CameraModeVideo;
                         connectingCamera.cameraSubMode = CameraSubmodeVideoSlowMotion;
-                        connectingCamera.cameraSubModeParam = allModeParamResponse.video_speed;
+                        connectingCamera.cameraSubModeParam = allModeParamResponse.speedx;
                     }];
                     self.connectingCamera = [self.connectingCamera save];
                     
@@ -2348,6 +2348,8 @@ NSString* formatSDStorage(int total, int free) {
         if (self.connectingCamera.cameraSubModeParam > 0)
         {
             shootingTime *= self.connectingCamera.cameraSubModeParam;
+            
+            NSLog(@"&&&&&&&&&&&&&&&&&+++++ %d &&&&&&&&&& %ld",shootingTime,self.connectingCamera.cameraSubModeParam);
         }
     }
     return shootingTime;
@@ -2786,7 +2788,13 @@ NSString* formatSDStorage(int total, int free) {
             if (CameraModePhoto == connectingCamera.cameraMode
                 && CameraSubmodePhotoInterval == connectingCamera.cameraSubMode)
             {
-                self.isShooting = YES;
+                if (self.intervalPhotosNumber == -1) {
+                    self.isShooting = NO;
+                }else
+                {
+                    self.isShooting = YES;
+                }
+                
                 NSLog(@"#Callback# MSG_BEGIN_SHOOTING(PhotoInterval) on cmdConnectionReceiveCameraResponse");
                 [self sendMessageToHandler:MSG_BEGIN_SHOOTING arg1:0 arg2:self.intervalPhotosNumber object:nil];///!!!TODO: Photo number
             }
