@@ -898,7 +898,7 @@ static __weak id s_retainer = nil;
     NSLog(@"EAGLContext : KxMovieViewController $ setupPresentView");
     MyGLView* presentView = _glView;
     CGRect bounds = self.view.bounds;
-    NSString* lutPath = MadvGLRenderer_iOS::lutPathOfSourceURI(_contentPath, NO, NO);
+    NSString* lutPath = MadvGLRenderer_iOS::lutPathOfSourceURI(_contentPath, YES, NO);
     if (_decoder.validVideo) {
         [_decoder setupVideoFrameFormat:KxVideoFrameFormatYUV];
 #ifdef USE_KXGLVIEW
