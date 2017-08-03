@@ -294,7 +294,11 @@ extern "C" {
  */
 -(void) startShooting;
 
+-(void) startShootingWithAudio:(BOOL)withAudio;
+
 -(void) startShootingWithTimeoutMills:(int)timeoutMills;
+
+-(void) startShootingWithTimeoutMills:(int)timeoutMills withAudio:(BOOL)withAudio;
 
 /** 停止摄像或拍照(拍照主要是间隔拍照的停止)
  * 拍摄按钮的外观更新也应遵循“先调用，再等回调”的模式，见setCameraMode的注释

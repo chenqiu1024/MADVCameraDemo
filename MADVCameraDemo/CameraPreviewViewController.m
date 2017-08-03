@@ -34,7 +34,7 @@
 
 - (IBAction)shootButtonTouchDown:(id)sender {
     self.shootButton.enabled = NO;
-    [[MVCameraClient sharedInstance] startShooting];
+    [[MVCameraClient sharedInstance] startShootingWithAudio:YES];
 }
 
 - (IBAction)shootButtonTouchUp:(id)sender {
@@ -159,7 +159,7 @@
     ///!!![self shootButtonTouchUp:self.shootButton];
     [self resumeAudioPlayer];
     ///!!![[MVCameraClient sharedInstance] startShooting];
-    [[MVCameraClient sharedInstance] startShootingWithTimeoutMills:500];
+    [[MVCameraClient sharedInstance] startShootingWithTimeoutMills:500 withAudio:YES];
 }
 
 /** 摄像启动
