@@ -63,7 +63,7 @@
     } else {
         if(IsContainIndonesia)
         {
-            if (![language isEqualToString:@"id-CN"]) {
+            if (![language isEqualToString:@"id-CN"] || ![language hasPrefix:@"id"]) {
                 language = @"en";
             }
         }else
@@ -90,7 +90,7 @@
             }
         } else {
             if (IsContainIndonesia) {
-                if (![language isEqualToString:@"id-CN"]) {
+                if (![language isEqualToString:@"id-CN"] || ![language hasPrefix:@"id"]) {
                     language = @"en";
                 }
             }else

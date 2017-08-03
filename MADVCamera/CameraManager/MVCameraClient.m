@@ -570,11 +570,19 @@ NSString* NotificationStringOfNotification(int notification) {
 }
 
 -(void) startShooting {
-    [self startShootingWithTimeoutMills:0];
+    [self startShootingWithTimeoutMills:0 withAudio:YES];
+}
+
+-(void) startShootingWithAudio:(BOOL)withAudio {
+    [self startShootingWithTimeoutMills:0 withAudio:withAudio];
+}
+
+-(void) startShootingWithTimeoutMills:(int)timeoutMills {
+    [self startShootingWithTimeoutMills:timeoutMills withAudio:YES];
 }
 
 /** 启动摄像或拍照 */
--(void) startShootingWithTimeoutMills:(int)timeoutMills
+-(void) startShootingWithTimeoutMills:(int)timeoutMills withAudio:(BOOL)withAudio
 {NSLog(@"#Douin# startShooting begin");
     if (!self.connectingCamera)
     {
@@ -692,6 +700,7 @@ NSString* NotificationStringOfNotification(int notification) {
                 startShootingRequest.token = self.sessionToken;
                 startShootingRequest.msgID = msgID;
                 startShootingRequest.timeout = timeoutMills;
+                startShootingRequest.param = [@(withAudio ? 0:1) stringValue];
                 [[CMDConnectManager sharedInstance] sendRequest:startShootingRequest];
                 NSLog(@"#Douin# startShooting request sent");
             }

@@ -57,7 +57,7 @@ static FGLanguageTool *sharedModel;
     {
         tmp = [NSString getPreferredLanguageIsContainIndonesia:YES];
         self.language = tmp;
-        if ([tmp isEqualToString:@"id-CN"]) {
+        if ([tmp hasPrefix:@"id"]) {
             path = [[NSBundle mainBundle]pathForResource:@"en" ofType:@"lproj"];
             self.bundle = [NSBundle bundleWithPath:path];
         }

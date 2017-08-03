@@ -307,4 +307,6 @@
 #define DOUYIN_T2_AUDIO_MILLS 100
 #define DOUYIN_T2_VIDEO_MILLS 100
 
+#define DOUYIN_TIMING_BY_APP
+
 #endif /* PrefixHeader_h */
