@@ -138,7 +138,7 @@
 
 ///////////////////////////
 
-+ (instancetype) showEncoderControllerFrom:(UIViewController*)fromViewController media:(MVMedia*)media qualityLevel:(QualityLevel)qualityLevel progressBlock:(void(^)(int))progressBlock doneBlock:(void(^)(NSError*))doneBlock {
++ (instancetype) showEncoderControllerFrom:(UIViewController*)fromViewController media:(MVMedia*)media qualityLevel:(QualityLevel)qualityLevel progressBlock:(void(^)(int))progressBlock doneBlock:(void(^)(NSString*,NSError*))doneBlock {
     //用runtime去把NaviBar的一些设置保存起来
     [fromViewController saveNaviBarAppearance];
     
@@ -161,7 +161,7 @@
         
         if (doneBlock)
         {
-            doneBlock(error);
+            doneBlock(outputFilePath, error);
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!error) {

@@ -397,8 +397,8 @@ static AppDelegate* s_singleton = nil;
                             MediaPlayerViewController* vc = [MediaPlayerViewController showEncoderControllerFrom:[AppDelegate sharedApplication].window.rootViewController media:mergedMedia qualityLevel:QualityLevel4K progressBlock:^(int percent) {
                                 NSLog(@"#VideoExport# progressBlock : percent=%d", percent);
                                 mergedMedia.downloadedSize = 50 + percent / 2;
-                            } doneBlock:^(NSError* error) {
-                                NSLog(@"#VideoExport# doneBlock : error=%@", error);
+                            } doneBlock:^(NSString* outputFilePath, NSError* error) {
+                                NSLog(@"#VideoExport# doneBlock : outputFilePath=%@, error=%@", outputFilePath, error);
                                 mergedMedia.downloadedSize = 100;
                                 dispatch_async(dispatch_get_main_queue(), ^{
                                     NSIndexPath* theIndexPath = [_indexPathsOfMedia objectForKey:mergedMedia.remotePath];
