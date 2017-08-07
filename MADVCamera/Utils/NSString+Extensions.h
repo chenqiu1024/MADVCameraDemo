@@ -25,5 +25,5 @@
 +(NSString *)getNowTimeTimestamp;
 + (NSString*) deviceString;
 - (NSComparisonResult)new_compare:(NSString *)string;
-
++ (NSString*)md5num:(unsigned char*) data length:(UInt32)length;
 @end

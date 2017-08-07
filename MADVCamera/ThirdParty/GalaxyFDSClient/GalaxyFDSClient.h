@@ -475,4 +475,13 @@
     intoBucket:(NSString *)bucketName fromStream:(FDSObjectInputStream *)input
     withId:(NSString *)uploadId andPartNumber:(int *)partNumber
     andLength:(long long)contentLength baseurl:(NSString *)baseurl signatures:(NSArray *)signatures;
+#pragma mark --微博分片上传--
+- (FDSUploadPartResult *)uploadPartFileToken:(NSString *)fileToken
+                               access_token:(NSString *)access_token fromStream:(FDSObjectInputStream *)input
+                             withId:(NSString *)uploadId andPartNumber:(int *)partNumber
+                                   andLength:(long long)contentLength andPartSzie:(long long)partSize;
+
+- (FDSPutObjectResult *)putFileToken:(NSString *)fileToken
+                       access_token:(NSString *)access_token fromInputStream:(NSInputStream *)input
+                  withObjectMetadata:(FDSObjectMetadata *)metadata andProgressListener:(FDSProgressListener *)listener partSize:(long long)partSize fileName:(NSString *)fileName;
 @end

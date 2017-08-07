@@ -381,6 +381,62 @@
   }
 }
 
+#pragma mark --微博上传--
+- (FDSPutObjectResult *)putFileToken:(NSString *)fileToken
+                        access_token:(NSString *)access_token fromInputStream:(NSInputStream *)input
+                  withObjectMetadata:(FDSObjectMetadata *)metadata andProgressListener:(FDSProgressListener *)listener partSize:(long long)partSize fileName:(NSString *)fileName
+{
+    [FDSArgs notNil:input forName:@"input stream"];
+    [FDSArgs notNil:metadata forName:@"metadata"];
+    long long contentLength = [metadata getContentLength];
+    [FDSArgs notNegative:contentLength forName:@"content length"];
+    
+    if (![metadata getContentType]) {
+        [metadata setContentType:FDSCommon.APPLICATION_OCTET_STREAM];
+    }
+    
+    NSString *uploadId;
+    FDSObjectInputStream *objectInputStream = [[FDSObjectInputStream alloc]
+                                               initWithStream:input andMetadata:metadata andListener:listener];
+    @try {
+        [objectInputStream open];
+        FDSUploadThreadObj *threadObj = [[FDSUploadThreadObj alloc]
+                                         initWithClient:self FileToken:fileToken access_token:access_token fromStream:objectInputStream uploadId:uploadId objectLength:contentLength partSize:partSize];
+        self.threadObj=threadObj;
+        @autoreleasepool {
+            [self.threadObj weiboUpload:nil];
+            
+            while (YES) {
+                BOOL finished = YES;
+                if (self.isAbort) {
+                    @throw [GalaxyFDSClientException exceptionWithReason:FGGetStringWithKeyFromTable(STOP, nil) userInfo:nil];
+                }
+                if (finished) {
+                    break;
+                }
+                [NSThread sleepForTimeInterval:1]; //sleep 1 second
+            }
+        }
+        if (threadObj.exception) {
+            @throw threadObj.exception;
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:UPLOAD_SUCCESS object:fileName];
+        return nil;
+        
+    } @catch (GalaxyFDSClientException *e) {
+        if (uploadId) {
+          //  [self abortMultipartUpload:objectName intoBucket:bucketName withId:uploadId];
+        }
+        @throw e;
+    } @finally {
+        @try {
+            [objectInputStream close];
+        } @catch (NSException *e) {
+            //Ignore exception when close stream
+        }
+    }
+}
+
 - (FDSPutObjectResult *)putObjectToBucket:(NSString *)bucketName
     fromFile:(NSString *)fileName {
   return [self putObjectToBucket:bucketName fromFile:fileName withParams:nil];
@@ -615,6 +671,124 @@
                 //        [_config.credential addParamToURI:nil];
                 //        [_config.credential addHeaderToRequest:nil];
 //                result=nil;
+                responseContent=nil;
+                [data replaceBytesInRange:NSMakeRange(0, [data length]) withBytes:NULL length:0];
+                [data resetBytesInRange:NSMakeRange(0, [data length])];
+                [data setLength:0];
+                data=nil;
+                free(buffer);
+                return result;
+                
+            } @catch (GalaxyFDSClientException *e) {
+                if (++retriedTimes >= _config.maxRetryTimes) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:UPLOAD_ERROR object:nil];
+                    free(buffer);
+                    @throw e;
+                }
+            }
+        }
+    }
+}
+#pragma mark --微博分片上传--
+- (FDSUploadPartResult *)uploadPartFileToken:(NSString *)fileToken
+                                access_token:(NSString *)access_token fromStream:(FDSObjectInputStream *)input
+                                      withId:(NSString *)uploadId andPartNumber:(int *)partNumber
+                                   andLength:(long long)contentLength andPartSzie:(long long)partSize
+{
+    @autoreleasepool {
+        //        NSLog(@"$$$$$$$$$%@",[NSThread currentThread]);
+        //        uint8_t buffer[FDSClientConfiguration.DEFAULT_PART_SIZE];
+        uint8_t* buffer = (uint8_t*) malloc(partSize);
+        NSMutableData *data = [[NSMutableData alloc] init];
+        int index;
+        @try {
+            long long remainingBytes = contentLength;
+            @synchronized (input) {
+                while (remainingBytes > 0) {
+                    NSUInteger toReadBytes = (NSUInteger) [FDSUtilities min:
+                                                           partSize and:remainingBytes];
+                    NSInteger readBytes;
+                    readBytes = [input read:buffer maxLength:toReadBytes];
+                    if (readBytes == -1 || (readBytes == 0 && remainingBytes != 0)) {
+                        free(buffer);
+                        @throw [NSException exceptionWithName:@"IOException"
+                                                       reason:@"Stream read error" userInfo:nil];
+                    } else if (readBytes == 0) {
+                        break;
+                    }
+                    [data appendBytes:buffer length:(NSUInteger) readBytes];
+                    remainingBytes -= readBytes;
+                }
+                index = ++(*partNumber);
+            }
+        } @catch (NSException *e) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:UPLOAD_ERROR object:nil];
+            free(buffer);
+            @throw [GalaxyFDSClientException exceptionWithReason:[NSString
+                                                                  stringWithFormat:@"Fail to read data from input stream, size: %lld. "
+                                                                  "Cause:%@", contentLength, [e reason]] userInfo:[e userInfo]];
+        }
+        
+        //        NSString *uriString = [NSString stringWithFormat:
+        //                               @"%@/%@/%@?uploadId=%@&partNumber=%d", [_config getUploadBaseUri],
+        //                               bucketName, objectName, uploadId, index];
+        NSString * sectioncheck = [NSString md5num:(unsigned char*)data.bytes length:(UInt32)data.length];
+        NSString *uriString=@"https://multimedia.api.weibo.com/2/multimedia/open_upload.json";
+        uriString=[NSString stringWithFormat:@"%@?access_token=%@&filetoken=%@&sectioncheck=%@&startloc=%lld&client=iphone&type=panorama_image",uriString,access_token,fileToken,sectioncheck,partSize * (*partNumber-1)];
+        
+        int retriedTimes = 0;
+        while (YES) {
+            @try {
+                
+                
+//                NSDictionary * header ;
+//                header = @{@"Content-Typ":@"image/png"};
+                
+                id request = [FDSRequestFactory createRequest:uriString withConfig:_config
+                                                andHTTPMethod:@"POST" andHeader:nil];
+                [request setHTTPBody:data];
+                NSHTTPURLResponse *response;
+                NSError *error;
+                NSData *responseContent = [NSURLConnection sendSynchronousRequest:request
+                                                                returningResponse:&response error:&error];
+                
+                if (error) {
+                    
+                    @throw [GalaxyFDSClientException exceptionWithReason:[NSString
+                                                                          stringWithFormat:@"Fail to put part. URI:%@. Cause:%@", uriString,
+                                                                          [error localizedDescription]] userInfo:[error userInfo]];
+                    
+                }
+                NSString * str=[[NSString alloc] initWithData:responseContent encoding:NSUTF8StringEncoding];
+                NSLog(@"微博上传的结果%@",str);
+                long statusCode = [response statusCode];
+                if (statusCode != 200) {
+                    
+                    @throw [GalaxyFDSClientException exceptionWithReason:[NSString
+                                                                          stringWithFormat:@"Unable to uplaod object[] to URI: %@. Fail "
+                                                                          "to upload part %d. Cause: %ld (%@)",
+                                                                          uriString, index, statusCode,
+                                                                          [NSHTTPURLResponse localizedStringForStatusCode:statusCode]]
+                                                                userInfo:nil];
+                }
+                FDSUploadPartResult *result = [[FDSUploadPartResult alloc]
+                                               initFromJson:responseContent];
+             
+                if (result.error) {
+                    
+                    @throw [GalaxyFDSClientException exceptionWithReason:[NSString
+                                                                          stringWithFormat:@"Fail to part the result of uploading part. bucket"
+                                                                          "  upload ID:%@",
+                                                                          uploadId] userInfo:nil];
+                }
+                uriString=nil;
+                response=nil;
+                error=nil;
+                [request setHTTPBody:nil];
+                request=nil;
+                //        [_config.credential addParamToURI:nil];
+                //        [_config.credential addHeaderToRequest:nil];
+                //                result=nil;
                 responseContent=nil;
                 [data replaceBytesInRange:NSMakeRange(0, [data length]) withBytes:NULL length:0];
                 [data resetBytesInRange:NSMakeRange(0, [data length])];
