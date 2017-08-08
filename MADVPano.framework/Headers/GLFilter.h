@@ -17,16 +17,10 @@ public:
 
     virtual ~GLFilter() {
         releaseGLObjects();
+		releaseShaderSources();
     }
 
-    GLFilter(const GLchar** vertexShaderSources, int vertexShaderSourceCount, const GLchar** fragmentShaderSources, int fragmentShaderSourceCount)
-    : _vertexShaderSources(vertexShaderSources)
-    , _vertexShaderSourceCount(vertexShaderSourceCount)
-    , _fragmentShaderSources(fragmentShaderSources)
-    , _fragmentShaderSourceCount(fragmentShaderSourceCount)
-    {
-
-    }
+	GLFilter(const GLchar** vertexShaderSources, int vertexShaderSourceCount, const GLchar** fragmentShaderSources, int fragmentShaderSourceCount);
 
     virtual void render(GLVAORef vao, GLint sourceTexture, GLenum sourceTextureTarget);
 
@@ -41,6 +35,8 @@ public:
     virtual void releaseGLObjects();
     
 protected:
+
+	void releaseShaderSources();
 
     inline Vec2f getDestRectSize() {
         return _boundRectSize;
@@ -61,9 +57,9 @@ private:
     GLint _uniTexcoordOrigin = -1;
     GLint _uniTexcoordSize = -1;
 
-    const GLchar** _vertexShaderSources = NULL;
+    GLchar** _vertexShaderSources = NULL;
     int _vertexShaderSourceCount = 0;
-    const GLchar** _fragmentShaderSources = NULL;
+    GLchar** _fragmentShaderSources = NULL;
     int _fragmentShaderSourceCount = 0;
 
     Vec2f _boundRectOrigin;

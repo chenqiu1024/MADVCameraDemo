@@ -11,7 +11,7 @@
 #import "MVMediaManager.h"
 #import "MyMovieSegmentMerger.h"
 #import "MadvGLRenderer_iOS.h"
-#import "MediaPlayerViewController.h"
+#import "MVMediaPlayerViewController.h"
 
 #define MADV_DUAL_FISHEYE_VIDEO_TAG @"MADV_DUAL_FISHEYE_VIDEO"
 NSString* kNotificationAddNewMVMedia = @"kNotificationAddNewMVMedia";
@@ -393,8 +393,8 @@ static AppDelegate* s_singleton = nil;
                         mergedMedia.downloadedSize = 50;
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            __block MediaPlayerViewController* encoderVC;
-                            MediaPlayerViewController* vc = [MediaPlayerViewController showEncoderControllerFrom:[AppDelegate sharedApplication].window.rootViewController media:mergedMedia qualityLevel:QualityLevel4K progressBlock:^(int percent) {
+                            __block MVMediaPlayerViewController* encoderVC;
+                            MVMediaPlayerViewController* vc = [MVMediaPlayerViewController showEncoderControllerFrom:[AppDelegate sharedApplication].window.rootViewController media:mergedMedia qualityLevel:QualityLevel4K progressBlock:^(int percent) {
                                 NSLog(@"#VideoExport# progressBlock : percent=%d", percent);
                                 mergedMedia.downloadedSize = 50 + percent / 2;
                             } doneBlock:^(NSString* outputFilePath, NSError* error) {

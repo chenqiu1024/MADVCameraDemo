@@ -10,7 +10,7 @@
 #import "MVCameraClient.h"
 #import "MVMediaManager.h"
 #import "AppDelegate.h"
-#import "MediaPlayerViewController.h"
+#import "MVMediaPlayerViewController.h"
 
 static NSString* MVMediaCellIdentifier = @"MVMediaCellIdentifier";
 static NSString* MVMediaHeaderIdentifier = @"MVMediaHeaderIdentifier";
@@ -122,9 +122,9 @@ static NSString* MVMediaHeaderIdentifier = @"MVMediaHeaderIdentifier";
     if (media && media.mediaType == MVMediaTypeVideo)
     {
         //*
-        [MediaPlayerViewController showFromViewController:self media:media parameters:nil];
+        [MVMediaPlayerViewController showFromViewController:self media:media parameters:nil];
         /*/
-        [MediaPlayerViewController showEncoderControllerFrom:self media:media qualityLevel:QualityLevel4K progressBlock:^(int percent) {
+        [MVMediaPlayerViewController showEncoderControllerFrom:self media:media qualityLevel:QualityLevel4K progressBlock:^(int percent) {
             NSLog(@"#VideoExport# progressBlock : percent=%d", percent);
         } doneBlock:^(NSError* error) {
             NSLog(@"#VideoExport# doneBlock : error=%@", error);
@@ -187,7 +187,7 @@ static NSString* MVMediaHeaderIdentifier = @"MVMediaHeaderIdentifier";
     forgedMedia.size = 1048576;
     forgedMedia.downloadedSize = 1048576;
     
-    [MediaPlayerViewController showEncoderControllerFrom:self media:forgedMedia qualityLevel:QualityLevel4K progressBlock:^(int percent) {
+    [MVMediaPlayerViewController showEncoderControllerFrom:self media:forgedMedia qualityLevel:QualityLevel4K progressBlock:^(int percent) {
         NSLog(@"#VideoExport# progressBlock : percent=%d", percent);
     } doneBlock:^(NSError* error) {
         NSLog(@"#VideoExport# doneBlock : error=%@", error);
