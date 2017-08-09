@@ -18,6 +18,11 @@
     objectName:(NSString *)objectName fromStream:(FDSObjectInputStream *)input
     uploadId:(NSString *)uploadId objectLength:(long long)length
     partSize:(long long)partSize baseurl:(NSString *)baseurl signatures:(NSArray *)signatures completeurl:(NSString *)completeurl ;
+- (id)initWithClient:(GalaxyFDSClient *)client FileToken:(NSString *)fileToken
+        access_token:(NSString *)access_token fromStream:(FDSObjectInputStream *)input
+            uploadId:(NSString *)uploadId objectLength:(long long)length
+            partSize:(long long)partSize;
 
 - (void)upload:(id)unused;
+- (void)weiboUpload:(id)unused;
 @end

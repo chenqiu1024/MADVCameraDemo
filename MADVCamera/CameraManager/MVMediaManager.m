@@ -484,7 +484,7 @@ typedef enum : int {
         [_remoteFilePaths removeAllObjects];
         [_cameraMedias removeAllObjects];
         
-        _fileIterator = [PathTreeIterator beginFileTraverse:@"/tmp/SD0/" delegate:self];
+        _fileIterator = [PathTreeIterator beginFileTraverse:@"/tmp/SD0/DCIM/" delegate:self];
         __weak typeof(self) wSelf = self;
         _fileIterator.callback = ^BOOL(NSString* fullPath, BOOL isDirectory, BOOL hasMore) {
             __strong typeof(self) pSelf = wSelf;

@@ -24,6 +24,9 @@
   int _partId;
   NSMutableArray *_results;
   GalaxyFDSClientException *_exception;
+    NSString * _fileToken;
+    NSString * _access_token;
+    
  
 }
 
@@ -51,6 +54,26 @@
     _exception = nil;
   }
   return self;
+}
+- (id)initWithClient:(GalaxyFDSClient *)client FileToken:(NSString *)fileToken
+        access_token:(NSString *)access_token fromStream:(FDSObjectInputStream *)input
+            uploadId:(NSString *)uploadId objectLength:(long long)length
+            partSize:(long long)partSize
+{
+    self = [super init];
+    if (self) {
+        _client = client;
+        _fileToken = fileToken;
+        _access_token = access_token;
+        _stream = input;
+        _uploadId = uploadId;
+        _remainingLength = length;
+        _partSize = partSize;
+        _partId = 0;
+        _results = [[NSMutableArray alloc] init];
+        _exception = nil;
+    }
+    return self;
 }
 
 - (void)upload:(id)unused {
@@ -91,6 +114,39 @@
       return;
     }
   }
+}
+- (void)weiboUpload:(id)unused
+{
+    long long partSize;
+    while (YES) {
+        @synchronized (self) {
+            if (_exception) {
+                return;
+            }
+            if (_remainingLength == 0) {
+                return;
+            }
+            if (self.isAbort) {
+                @throw [GalaxyFDSClientException exceptionWithReason:FGGetStringWithKeyFromTable(STOP, nil) userInfo:nil];
+            }
+            partSize = [FDSUtilities min:_partSize and:_remainingLength];
+            _remainingLength -= partSize;
+        }
+        @try {
+            if (self.isAbort) {
+                @throw [GalaxyFDSClientException exceptionWithReason:FGGetStringWithKeyFromTable(STOP, nil) userInfo:nil];
+            }
+            id result = [_client uploadPartFileToken:_fileToken access_token:_access_token fromStream:_stream withId:_uploadId andPartNumber:&_partId andLength:partSize andPartSzie:_partSize];
+            [_results addObject:result];
+        } @catch (GalaxyFDSClientException *e) {
+            @synchronized (self) {
+                if (!_exception) {
+                    _exception = e;
+                }
+            }
+            return;
+        }
+    }
 }
 
 @end

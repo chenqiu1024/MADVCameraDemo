@@ -8,6 +8,7 @@
 
 #import "NSString+Extensions.h"
 #import "sys/utsname.h"
+#import <CommonCrypto/CommonDigest.h>
 
 @implementation NSString (Extensions)
 
@@ -165,6 +166,24 @@
         
     }
     return NSOrderedSame;
+}
+
++ (NSString*)md5num:(unsigned char*) data length:(UInt32)length {
+    unsigned char result[16];
+    CC_MD5(data, length, result);
+    
+    char md5str[16 * 2 + 1];
+    md5str[16 * 2] = '\0';
+    char* pDst = md5str;
+    unsigned char* pSrc = result;
+    for (int i=0; i<16; ++i)
+    {
+        sprintf(pDst, "%02x", *pSrc);
+        pDst += 2;
+        pSrc++;
+    }
+    
+    return [NSString stringWithUTF8String:md5str];
 }
 
 @end

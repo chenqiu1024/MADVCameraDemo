@@ -585,7 +585,7 @@ enum {
     
 }
 
-#pragma mark    KxMovieViewController Callbacks
+#pragma mark    MVKxMovieViewController Callbacks
 
 - (void) didSetMovieDecoder:(KxMovieDecoder*)decoder withError:(NSError*)error {
     if (!error && decoder)
@@ -687,7 +687,7 @@ enum {
     [self updatePlayButton];
 }
 
-#pragma mark    KxMovieViewController Protected Methods
+#pragma mark    MVKxMovieViewController Protected Methods
 
 - (void) updatePositionView {
     const CGFloat duration = self.decoder.duration;

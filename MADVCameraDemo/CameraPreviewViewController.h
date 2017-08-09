@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "KxMovieViewController.h"
+#import "MVKxMovieViewController.h"
 
-@interface CameraPreviewViewController : KxMovieViewController
+@interface CameraPreviewViewController : MVKxMovieViewController
 
 - (IBAction)connectButtonClicked:(id)sender;
 

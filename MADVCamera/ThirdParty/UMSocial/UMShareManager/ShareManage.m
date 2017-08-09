@@ -19,6 +19,7 @@
 #import "MMProgressHUD.h"
 #import <TwitterKit/TwitterKit.h>
 #import <VeeRSDK/VeeRSDK.h>
+#import "helper.h"
 
 //
 @interface ShareManage()<FBSDKSharingDelegate>
@@ -774,36 +775,48 @@ static ShareManage *shareManage;
 #pragma mark --微博登录--
 - (void)wbLoginWithViewControll:(UIViewController *)viewC
 {
-    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_Sina currentViewController:nil completion:^(id result, NSError *error) {
-        if (error) {
-            if ([self.delegate respondsToSelector:@selector(loginCancel)]) {
-                [self.delegate loginCancel];
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"sinaweibo://"]]) {
+        [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_Sina currentViewController:nil completion:^(id result, NSError *error) {
+            if (error) {
+                if ([self.delegate respondsToSelector:@selector(loginCancel)]) {
+                    [self.delegate loginCancel];
+                }
+            }else
+            {
+                UMSocialUserInfoResponse *resp = result;
+                
+                // 第三方登录数据(为空表示平台未提供)
+                // 授权数据
+                [helper writeProfileString:WEIBOACCESS_TOKEN value:resp.accessToken];
+                [helper writeProfileString:WEIBO_UID value:resp.uid];
+                NSLog(@" uid: %@", resp.uid);
+                NSLog(@" openid: %@", resp.openid);
+                NSLog(@" accessToken: %@", resp.accessToken);
+                NSLog(@" refreshToken: %@", resp.refreshToken);
+                NSLog(@" expiration: %@", resp.expiration);
+                
+                // 用户数据
+                NSLog(@" name: %@", resp.name);
+                NSLog(@" iconurl: %@", resp.iconurl);
+                NSLog(@" gender: %@", resp.gender);
+                
+                // 第三方平台SDK原始数据
+                NSLog(@" originalResponse: %@", resp.originalResponse);
+                if ([self.delegate respondsToSelector:@selector(loginSuccess:loginIndex:)]) {
+                    [self.delegate loginSuccess:resp loginIndex:self.loginIndex];
+                }
             }
-        }else
-        {
-            UMSocialUserInfoResponse *resp = result;
             
-            // 第三方登录数据(为空表示平台未提供)
-            // 授权数据
-            NSLog(@" uid: %@", resp.uid);
-            NSLog(@" openid: %@", resp.openid);
-            NSLog(@" accessToken: %@", resp.accessToken);
-            NSLog(@" refreshToken: %@", resp.refreshToken);
-            NSLog(@" expiration: %@", resp.expiration);
-            
-            // 用户数据
-            NSLog(@" name: %@", resp.name);
-            NSLog(@" iconurl: %@", resp.iconurl);
-            NSLog(@" gender: %@", resp.gender);
-            
-            // 第三方平台SDK原始数据
-            NSLog(@" originalResponse: %@", resp.originalResponse);
-            if ([self.delegate respondsToSelector:@selector(loginSuccess:loginIndex:)]) {
-                [self.delegate loginSuccess:resp loginIndex:self.loginIndex];
-            }
-        }
-        
-    }];
+        }];
+    }else
+    {
+        [UIView animateWithDuration:0 animations:^{
+            [MMProgressHUD showWithStatus:@""];
+        } completion:^(BOOL finished) {
+            [MMProgressHUD dismissWithSuccess:[NSString stringWithFormat:@"%@%@",FGGetStringWithKeyFromTable(NOINSTALL, nil),FGGetStringWithKeyFromTable(WEIBO, nil)]];
+        }];
+    }
+    
 }
 
 #pragma mark --Twitter登录--

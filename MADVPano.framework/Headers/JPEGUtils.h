@@ -84,7 +84,7 @@ extern "C" {
                                                          GLenum colorspace, GLenum bitformat,
                                                          unsigned char* srcBuffer, unsigned long srcBufferSize);
 
-    jpeg_decompress_struct readImageFromJPEGWithCallback(JPEGDecodeLineCallback callback, void* userParams, GLenum colorspace, GLenum bitformat, const char* filename);
+    jpeg_decompress_struct readImageFromJPEGWithCallback(JPEGDecodeLineCallback callback, void* userParams, GLenum colorspace, GLenum bitformat, int scaleNum, int scaleDenom, const char* filename);
 
     GLint createTextureWithJPEG(const char* filePath, Vec2f* outTextureSize = NULL);
 

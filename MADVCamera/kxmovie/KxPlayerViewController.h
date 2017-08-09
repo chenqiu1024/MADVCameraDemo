@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Cyllenge. All rights reserved.
 //
 
-#import "KxMovieViewController.h"
+#import "MVKxMovieViewController.h"
 
-@interface KxPlayerViewController : KxMovieViewController
+@interface KxPlayerViewController : MVKxMovieViewController
 
 @end

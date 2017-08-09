@@ -15,6 +15,9 @@
 @property NSString * expires;
 @property NSString * objectName;
 @property NSString * signature;
+@property NSString * fid;
+@property BOOL succ;
+@property NSString * error;
 
 - (id)initWithNumber:(int)partNumber partSize:(long long)size eTag:(NSString *)tag;
 

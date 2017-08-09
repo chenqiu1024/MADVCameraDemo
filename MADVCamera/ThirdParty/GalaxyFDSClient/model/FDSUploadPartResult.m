@@ -42,6 +42,9 @@
         _expires=json[@"expires"];
         _objectName=json[@"objectName"];
         _signature=json[@"signature"];
+        _fid = json[@"fid"];
+        _succ = [json[@"succ"] boolValue];
+        _error = json[@"error"];
     }
   }
   return self;

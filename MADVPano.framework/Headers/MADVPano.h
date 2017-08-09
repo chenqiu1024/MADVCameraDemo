@@ -27,5 +27,6 @@ FOUNDATION_EXPORT const unsigned char MADVPanoVersionString[];
 #import <MADVPano/MadvUtils.h>
 #import <MADVPano/MadvGLRenderer.h>
 #import <MADVPano/PanoCameraController_iOS.h>
+#import <MADVPano/CycordVideoRecorder.h>
 
 
