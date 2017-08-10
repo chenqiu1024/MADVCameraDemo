@@ -23,7 +23,6 @@
 		521A4F2F1F0B938000E5F155 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F2E1F0B938000E5F155 /* AVFoundation.framework */; };
 		521A4F311F0B938600E5F155 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F301F0B938600E5F155 /* OpenGLES.framework */; };
 		521A4F3A1F0B98E000E5F155 /* MADVCamera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F391F0B98E000E5F155 /* MADVCamera.framework */; };
-		521A4F3C1F0B9A0800E5F155 /* MADVPano.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3B1F0B9A0700E5F155 /* MADVPano.framework */; };
 		521A4F3E1F0B9BDB00E5F155 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3D1F0B9BDB00E5F155 /* CoreFoundation.framework */; };
 		521A4F401F0B9BE300E5F155 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3F1F0B9BE300E5F155 /* Foundation.framework */; };
 		521A4F421F0B9BE800E5F155 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F411F0B9BE800E5F155 /* VideoToolbox.framework */; };
@@ -36,14 +35,8 @@
 		521A4F501F0B9C3500E5F155 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F4F1F0B9C3500E5F155 /* CoreVideo.framework */; };
 		521A4F521F0B9C5400E5F155 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F511F0B9C5400E5F155 /* Accelerate.framework */; };
 		521A4F541F0B9C5E00E5F155 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F531F0B9C5E00E5F155 /* CoreMedia.framework */; };
-		521A4F5A1F0B9D2C00E5F155 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F551F0B9D2C00E5F155 /* libavcodec.a */; };
-		521A4F5B1F0B9D2C00E5F155 /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F561F0B9D2C00E5F155 /* libavformat.a */; settings = {ATTRIBUTES = (Required, ); }; };
-		521A4F5C1F0B9D2C00E5F155 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F571F0B9D2C00E5F155 /* libavutil.a */; };
-		521A4F5D1F0B9D2C00E5F155 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F581F0B9D2C00E5F155 /* libswresample.a */; };
-		521A4F5E1F0B9D2C00E5F155 /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F591F0B9D2C00E5F155 /* libswscale.a */; };
 		521A4F691F0BAAB800E5F155 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F681F0BAAB800E5F155 /* CoreMotion.framework */; };
-		52DB9A911F3B05980050E81F /* IDRDecoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 52DB9A8F1F3B05980050E81F /* IDRDecoder.c */; };
-		52DB9A921F3B05980050E81F /* IDRDecoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 52DB9A8F1F3B05980050E81F /* IDRDecoder.c */; };
+		52DB9A931F3B12450050E81F /* MADVPano.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3B1F0B9A0700E5F155 /* MADVPano.framework */; };
 		BB3DA3A31F0F7FE3009B6ACF /* MyMovieSegmentMerger.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */; };
 		BBEFDB5C1F2ED37B003A2C27 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBEFDB5B1F2ED37B003A2C27 /* MediaPlayer.framework */; };
 		BBEFDB5D1F2ED38A003A2C27 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBEFDB5B1F2ED37B003A2C27 /* MediaPlayer.framework */; };
@@ -238,8 +231,6 @@
 		521A4F581F0B9D2C00E5F155 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswresample.a; path = libs/FFmpeg/libswresample.a; sourceTree = "<group>"; };
 		521A4F591F0B9D2C00E5F155 /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libswscale.a; path = libs/FFmpeg/libswscale.a; sourceTree = "<group>"; };
 		521A4F681F0BAAB800E5F155 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
-		52DB9A8F1F3B05980050E81F /* IDRDecoder.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = IDRDecoder.c; sourceTree = "<group>"; };
-		52DB9A901F3B05980050E81F /* IDRDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDRDecoder.h; sourceTree = "<group>"; };
 		6559114214F7F0085B4330CF /* Pods-MADVCameraDemo_MADVCameraSources.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MADVCameraDemo_MADVCameraSources.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MADVCameraDemo_MADVCameraSources/Pods-MADVCameraDemo_MADVCameraSources.debug.xcconfig"; sourceTree = "<group>"; };
 		664A85556F7159585B5439CC /* Pods-MADVCameraDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MADVCameraDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MADVCameraDemo/Pods-MADVCameraDemo.release.xcconfig"; sourceTree = "<group>"; };
 		8CDADBB8AF7E3FEAB29A1C24 /* libPods-MADVCameraDemo_MADVCameraSources.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MADVCameraDemo_MADVCameraSources.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -430,14 +421,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52DB9A931F3B12450050E81F /* MADVPano.framework in Frameworks */,
 				BBEFDB5C1F2ED37B003A2C27 /* MediaPlayer.framework in Frameworks */,
 				BBF390AE1F2216F00023DC8B /* CoreLocation.framework in Frameworks */,
 				521A4F691F0BAAB800E5F155 /* CoreMotion.framework in Frameworks */,
-				521A4F5A1F0B9D2C00E5F155 /* libavcodec.a in Frameworks */,
-				521A4F5B1F0B9D2C00E5F155 /* libavformat.a in Frameworks */,
-				521A4F5C1F0B9D2C00E5F155 /* libavutil.a in Frameworks */,
-				521A4F5D1F0B9D2C00E5F155 /* libswresample.a in Frameworks */,
-				521A4F5E1F0B9D2C00E5F155 /* libswscale.a in Frameworks */,
 				521A4F541F0B9C5E00E5F155 /* CoreMedia.framework in Frameworks */,
 				521A4F521F0B9C5400E5F155 /* Accelerate.framework in Frameworks */,
 				521A4F501F0B9C3500E5F155 /* CoreVideo.framework in Frameworks */,
@@ -451,7 +438,6 @@
 				521A4F401F0B9BE300E5F155 /* Foundation.framework in Frameworks */,
 				521A4F2F1F0B938000E5F155 /* AVFoundation.framework in Frameworks */,
 				521A4F3E1F0B9BDB00E5F155 /* CoreFoundation.framework in Frameworks */,
-				521A4F3C1F0B9A0800E5F155 /* MADVPano.framework in Frameworks */,
 				521A4F3A1F0B98E000E5F155 /* MADVCamera.framework in Frameworks */,
 				521A4F311F0B938600E5F155 /* OpenGLES.framework in Frameworks */,
 				521A4F2D1F0B936F00E5F155 /* libxml2.2.tbd in Frameworks */,
@@ -538,8 +524,6 @@
 		521A4EDE1F0B766B00E5F155 /* MADVCameraDemo */ = {
 			isa = PBXGroup;
 			children = (
-				52DB9A8F1F3B05980050E81F /* IDRDecoder.c */,
-				52DB9A901F3B05980050E81F /* IDRDecoder.h */,
 				BBFE0C7F1F3A081A00D38C4D /* MVGLView.mm */,
 				BBFE0C801F3A081A00D38C4D /* MVGLView.h */,
 				BB3DA3A01F0F7FE2009B6ACF /* MyMovieSegmentMerger.h */,
@@ -1190,7 +1174,6 @@
 				BBFE0C8D1F3A0AC700D38C4D /* VideoExportView.m in Sources */,
 				BBFE0C811F3A081A00D38C4D /* MVGLView.mm in Sources */,
 				521A4EE11F0B766B00E5F155 /* main.m in Sources */,
-				52DB9A911F3B05980050E81F /* IDRDecoder.c in Sources */,
 				BBFE0C8C1F3A0A9900D38C4D /* MVKxMovieViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1228,7 +1211,6 @@
 				BBF392A41F26FA2E0023DC8B /* AMBAGetAllSettingParamResponse.java in Sources */,
 				BBF392A71F26FA2E0023DC8B /* AMBAGetFileResponse.m in Sources */,
 				BBF3935B1F26FA2E0023DC8B /* helper.m in Sources */,
-				52DB9A921F3B05980050E81F /* IDRDecoder.c in Sources */,
 				BBF392A21F26FA2E0023DC8B /* AMBAGetAllModeParamResponse.java in Sources */,
 				BBFE0A0D1F39655100D38C4D /* UIViewController+MVExtensions.m in Sources */,
 				BBF392A61F26FA2E0023DC8B /* AMBAGetFileResponse.java in Sources */,
@@ -1457,12 +1439,8 @@
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/AFNetworking\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/MJExtension\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/Masonry\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSKeychain\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive\"",
 					"$(PROJECT_DIR)/MADVCamera.framework/**",
 					"$(PROJECT_DIR)/MADVPano.framework/**",
-					"$(PROJECT_DIR)/libs/FFmpeg_built_3.3.2",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1470,10 +1448,7 @@
 					"-ObjC",
 					"-l\"AFNetworking\"",
 					"-l\"MJExtension\"",
-					"-l\"Masonry\"",
 					"-l\"Realm\"",
-					"-l\"SSKeychain\"",
-					"-l\"SSZipArchive\"",
 					"-l\"c++\"",
 					"-l\"z\"",
 					"-framework",
@@ -1537,23 +1512,15 @@
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/AFNetworking\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/MJExtension\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/MJRefresh\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/Masonry\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSKeychain\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive\"",
 					"$(PROJECT_DIR)/MADVPano.framework/**",
 					"$(PROJECT_DIR)/MADVCamera.framework/**",
-					"$(PROJECT_DIR)/libs/FFmpeg_built_3.3.2",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-l\"AFNetworking\"",
 					"-l\"MJExtension\"",
-					"-l\"Masonry\"",
 					"-l\"Realm\"",
-					"-l\"SSKeychain\"",
-					"-l\"SSZipArchive\"",
 					"-l\"c++\"",
 					"-l\"z\"",
 					"-framework",
