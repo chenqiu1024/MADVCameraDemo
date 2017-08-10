@@ -1,6 +1,0 @@
-framework module MADVCamera {
-  umbrella header "MADVCamera.h"
-
-  export *
-  module * { export * }
-}

@@ -1,6 +1,0 @@
-framework module MADVPano {
-  umbrella header "MADVPano.h"
-
-  export *
-  module * { export * }
-}
