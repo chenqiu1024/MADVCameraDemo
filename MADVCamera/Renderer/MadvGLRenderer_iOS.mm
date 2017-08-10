@@ -837,16 +837,14 @@ UIImage* MadvGLRenderer_iOS::renderJPEG(const char* sourcePath, CGSize destSize,
     //*/
 }
 
-void MadvGLRenderer_iOS::renderJPEGToJPEG(NSString* destJpegPath, NSString* sourcePath, int dstWidth, int dstHeight, bool withLUT, bool lutEmbeddedInJPEG, int filterID, float* gyroMatrix, int gyroMatrixRank) {
+void MadvGLRenderer_iOS::renderJPEGToJPEG(NSString* destJpegPath, BOOL eraseMadvExtensions, NSString* sourcePath, int dstWidth, int dstHeight, bool withLUT, bool lutEmbeddedInJPEG, int filterID, float* gyroMatrix, int gyroMatrixRank) {
     NSString* lutPath = lutPathOfSourceURI(sourcePath, withLUT, lutEmbeddedInJPEG);
     withLUT = withLUT && (nil != lutPath);
     
-    long sourceExivImageHandler = createExivImage(sourcePath.UTF8String);
-    //*
     EAGLContext* eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
     [EAGLContext setCurrentContext:eaglContext];
     {
-        MadvGLRenderer::renderMadvJPEGToJPEG(destJpegPath.UTF8String, sourcePath.UTF8String, dstWidth, dstHeight, lutPath.UTF8String, filterID, [[[NSBundle mainBundle] pathForResource:@"lookup" ofType:@"png"] stringByDeletingLastPathComponent].UTF8String, gyroMatrix, gyroMatrixRank);
+        MadvGLRenderer::renderMadvJPEGToJPEG(destJpegPath.UTF8String, eraseMadvExtensions, sourcePath.UTF8String, dstWidth, dstHeight, lutPath.UTF8String, filterID, [[[NSBundle mainBundle] pathForResource:@"lookup" ofType:@"png"] stringByDeletingLastPathComponent].UTF8String, gyroMatrix, gyroMatrixRank);
     }
     [EAGLContext setCurrentContext:nil];
 }

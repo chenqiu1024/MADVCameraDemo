@@ -56,7 +56,7 @@ public:
     static UIImage* renderImageWithIDR(NSString* thumbnailPath, CGSize destSize, bool withLUT, NSString* sourceURI, int filterID, float* gyroMatrix, int gyroMatrixRank);
     static UIImage* renderImage(UIImage* sourceImage, CGSize destSize, bool withLUT, NSString* sourceURI, int filterID, float* gyroMatrix, int gyroMatrixRank);
     static UIImage* renderJPEG(const char* sourcePath, CGSize destSize, bool withLUT, NSString* sourceURI, bool lutEmbeddedInJPEG, int filterID, float* gyroMatrix, int gyroMatrixRank);
-    static void renderJPEGToJPEG(NSString* destJpegPath, NSString* sourcePath, int dstWidth, int dstHeight, bool withLUT, bool lutEmbeddedInJPEG, int filterID, float* gyroMatrix, int gyroMatrixRank);
+    static void renderJPEGToJPEG(NSString* destJpegPath, BOOL eraseMadvExtensions, NSString* sourcePath, int dstWidth, int dstHeight, bool withLUT, bool lutEmbeddedInJPEG, int filterID, float* gyroMatrix, int gyroMatrixRank);
     static void renderImageInMem(unsigned char** outPixels, int* outBytesLength, CGSize destSize, const unsigned char* inPixels, int width, int height, bool withLUT, NSString* sourceURI, int filterID, float* gyroMatrix, int gyroMatrixRank);
     
     static NSString* lutPathOfSourceURI(NSString* sourceURI, bool withLUT, bool lutEmbeddedInJPEG);

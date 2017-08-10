@@ -1665,14 +1665,14 @@ UIImage* getVideoImage(NSString* videoURL)
 #endif
                     if (madvExtension.gyroMatrixBytes > 0)
                     {
-                        MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, sourcePath, jpegInfo.image_width, jpegInfo.image_height, madvExtension.sceneType != StitchTypeStitched, madvExtension.withEmbeddedLUT, (int)media.filterID, matrixData, 3);
+                        MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, YES, sourcePath, jpegInfo.image_width, jpegInfo.image_height, madvExtension.sceneType != StitchTypeStitched, madvExtension.withEmbeddedLUT, (int)media.filterID, matrixData, 3);
                     }
                     else
                     {
-                        MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, sourcePath, jpegInfo.image_width, jpegInfo.image_height, madvExtension.sceneType != StitchTypeStitched, madvExtension.withEmbeddedLUT, (int)media.filterID, NULL, 0);
+                        MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, YES, sourcePath, jpegInfo.image_width, jpegInfo.image_height, madvExtension.sceneType != StitchTypeStitched, madvExtension.withEmbeddedLUT, (int)media.filterID, NULL, 0);
                     }
                     free(matrixData);
-                    
+                    /*
                     long exivImageHandler = createExivImage(destPath.UTF8String);
                     if (StitchTypeStitched != madvExtension.sceneType)
                     {
@@ -1684,7 +1684,7 @@ UIImage* getVideoImage(NSString* videoURL)
                     }
                     exivImageSaveMetaData(exivImageHandler);
                     releaseExivImage(exivImageHandler);
-                    
+                    //*/
                     if (![destPath isEqualToString:sourcePath])
                     {
                         [[NSFileManager defaultManager] removeItemAtPath:sourcePath error:nil];
@@ -2018,14 +2018,14 @@ NSString* uniqueLocalPath(NSString* cameraUUID, NSString* remotePath) {
 #endif
                     if (madvExtension.gyroMatrixBytes > 0)
                     {
-                        MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, sourcePath, jpegInfo.image_width, jpegInfo.image_height, madvExtension.sceneType != StitchTypeStitched, madvExtension.withEmbeddedLUT, (int)media.filterID, matrixData, 3);
+                        MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, YES, sourcePath, jpegInfo.image_width, jpegInfo.image_height, madvExtension.sceneType != StitchTypeStitched, madvExtension.withEmbeddedLUT, (int)media.filterID, matrixData, 3);
                     }
                     else
                     {
-                        MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, sourcePath, jpegInfo.image_width, jpegInfo.image_height, madvExtension.sceneType != StitchTypeStitched, madvExtension.withEmbeddedLUT, (int)media.filterID, NULL, 0);
+                        MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, YES, sourcePath, jpegInfo.image_width, jpegInfo.image_height, madvExtension.sceneType != StitchTypeStitched, madvExtension.withEmbeddedLUT, (int)media.filterID, NULL, 0);
                     }
                     free(matrixData);
-                    
+                    /*
                     long exivImageHandler = createExivImage(destPath.UTF8String);
                     if (StitchTypeStitched != madvExtension.sceneType)
                     {
@@ -2037,7 +2037,7 @@ NSString* uniqueLocalPath(NSString* cameraUUID, NSString* remotePath) {
                     }
                     exivImageSaveMetaData(exivImageHandler);
                     releaseExivImage(exivImageHandler);
-                    
+                    //*/
                     if (![sourcePath isEqualToString:destPath])
                     {
                         [[NSFileManager defaultManager] removeItemAtPath:sourcePath error:nil];
@@ -2433,11 +2433,11 @@ NSString* uniqueLocalPath(NSString* cameraUUID, NSString* remotePath) {
 #endif
                              if (matrixByteLength > 0)
                              {
-                                 MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, sourcePath, jpegInfo.image_width, jpegInfo.image_height, STITCH_PICTURE, (int)media.filterID, matrixData, 3);
+                                 MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, YES, sourcePath, jpegInfo.image_width, jpegInfo.image_height, STITCH_PICTURE, (int)media.filterID, matrixData, 3);
                              }
                              else
                              {
-                                 MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, sourcePath, jpegInfo.image_width, jpegInfo.image_height, STITCH_PICTURE, (int)media.filterID, NULL, 0);
+                                 MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, YES, sourcePath, jpegInfo.image_width, jpegInfo.image_height, STITCH_PICTURE, (int)media.filterID, NULL, 0);
                              }
                              free(matrixData);
                              
