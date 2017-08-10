@@ -10,6 +10,13 @@
 #import "MVCameraClient.h"
 #import <AVFoundation/AVFoundation.h>
 
+//#define DEBUG_VIDEOENCODER
+
+#ifdef DEBUG_VIDEOENCODER
+#import "MediaPlayerViewController.h"
+#import "AppDelegate.h"
+#endif
+
 @interface CameraPreviewViewController () <MVCameraClientObserver>
 {
     AVAudioPlayer* _audioPlayer;
@@ -345,6 +352,28 @@
     srand48((long) [[NSDate date] timeIntervalSince1970]);
 
     [self resetAudioPlayer:[self randomSelectAudioSource]];
+    
+#ifdef DEBUG_VIDEOENCODER
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString* filename = @"VID_20170803_144710AA.MP4";
+        MVMedia* mergedMedia = [MVMedia createWithCameraUUID:@"FORGED_MEDIA_TAG" remoteFullPath:filename];
+        mergedMedia.mediaType = MVMediaTypeVideo;
+        mergedMedia.localPath = filename;
+        mergedMedia.size = 100;
+        mergedMedia.downloadedSize = 100;
+        
+        __block MediaPlayerViewController* encoderVC;
+        MediaPlayerViewController* vc = [MediaPlayerViewController showEncoderControllerFrom:[AppDelegate sharedApplication].window.rootViewController media:mergedMedia qualityLevel:QualityLevel4K progressBlock:^(int percent) {
+            NSLog(@"#VideoExport# progressBlock : percent=%d", percent);
+        } doneBlock:^(NSString* outputFilePath, NSError* error) {
+            NSLog(@"#VideoExport# doneBlock : outputFilePath=%@, error=%@", outputFilePath, error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [encoderVC dismissViewControllerAnimated:YES completion:nil];
+            });
+        }];
+        encoderVC = vc;
+    });
+#endif
 }
 
 

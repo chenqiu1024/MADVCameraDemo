@@ -23,7 +23,6 @@
 		521A4F2F1F0B938000E5F155 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F2E1F0B938000E5F155 /* AVFoundation.framework */; };
 		521A4F311F0B938600E5F155 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F301F0B938600E5F155 /* OpenGLES.framework */; };
 		521A4F3A1F0B98E000E5F155 /* MADVCamera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F391F0B98E000E5F155 /* MADVCamera.framework */; };
-		521A4F3C1F0B9A0800E5F155 /* MADVPano.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3B1F0B9A0700E5F155 /* MADVPano.framework */; };
 		521A4F3E1F0B9BDB00E5F155 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3D1F0B9BDB00E5F155 /* CoreFoundation.framework */; };
 		521A4F401F0B9BE300E5F155 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3F1F0B9BE300E5F155 /* Foundation.framework */; };
 		521A4F421F0B9BE800E5F155 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F411F0B9BE800E5F155 /* VideoToolbox.framework */; };
@@ -37,6 +36,7 @@
 		521A4F521F0B9C5400E5F155 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F511F0B9C5400E5F155 /* Accelerate.framework */; };
 		521A4F541F0B9C5E00E5F155 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F531F0B9C5E00E5F155 /* CoreMedia.framework */; };
 		521A4F691F0BAAB800E5F155 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F681F0BAAB800E5F155 /* CoreMotion.framework */; };
+		52DB9A931F3B12450050E81F /* MADVPano.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3B1F0B9A0700E5F155 /* MADVPano.framework */; };
 		BB3DA3A31F0F7FE3009B6ACF /* MyMovieSegmentMerger.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */; };
 		BBEFDB5C1F2ED37B003A2C27 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBEFDB5B1F2ED37B003A2C27 /* MediaPlayer.framework */; };
 		BBEFDB5D1F2ED38A003A2C27 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBEFDB5B1F2ED37B003A2C27 /* MediaPlayer.framework */; };
@@ -421,6 +421,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52DB9A931F3B12450050E81F /* MADVPano.framework in Frameworks */,
 				BBEFDB5C1F2ED37B003A2C27 /* MediaPlayer.framework in Frameworks */,
 				BBF390AE1F2216F00023DC8B /* CoreLocation.framework in Frameworks */,
 				521A4F691F0BAAB800E5F155 /* CoreMotion.framework in Frameworks */,
@@ -437,7 +438,6 @@
 				521A4F401F0B9BE300E5F155 /* Foundation.framework in Frameworks */,
 				521A4F2F1F0B938000E5F155 /* AVFoundation.framework in Frameworks */,
 				521A4F3E1F0B9BDB00E5F155 /* CoreFoundation.framework in Frameworks */,
-				521A4F3C1F0B9A0800E5F155 /* MADVPano.framework in Frameworks */,
 				521A4F3A1F0B98E000E5F155 /* MADVCamera.framework in Frameworks */,
 				521A4F311F0B938600E5F155 /* OpenGLES.framework in Frameworks */,
 				521A4F2D1F0B936F00E5F155 /* libxml2.2.tbd in Frameworks */,
@@ -1089,7 +1089,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		BBF390DC1F26EB820023DC8B /* [CP] Embed Pods Frameworks */ = {
@@ -1141,7 +1141,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		FFF447A1F26BFD10500466BD /* [CP] Embed Pods Frameworks */ = {
@@ -1424,6 +1424,7 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 					MADVCAMERA_EXPORT,
+					TARGET_DARWIN_IOS,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/MADVCamera.framework/Headers/**",
@@ -1438,12 +1439,8 @@
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/AFNetworking\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/MJExtension\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/Masonry\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSKeychain\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive\"",
 					"$(PROJECT_DIR)/MADVCamera.framework/**",
 					"$(PROJECT_DIR)/MADVPano.framework/**",
-					"$(PROJECT_DIR)/libs/FFmpeg",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -1451,10 +1448,7 @@
 					"-ObjC",
 					"-l\"AFNetworking\"",
 					"-l\"MJExtension\"",
-					"-l\"Masonry\"",
 					"-l\"Realm\"",
-					"-l\"SSKeychain\"",
-					"-l\"SSZipArchive\"",
 					"-l\"c++\"",
 					"-l\"z\"",
 					"-framework",
@@ -1482,6 +1476,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.madv.MADVCameraDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "ffmpeg/**";
 			};
 			name = Debug;
 		};
@@ -1502,6 +1497,7 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 					MADVCAMERA_EXPORT,
+					TARGET_DARWIN_IOS,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/MADVCamera.framework/Headers/**",
@@ -1516,23 +1512,15 @@
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/AFNetworking\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/MJExtension\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/MJRefresh\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/Masonry\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSKeychain\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive\"",
 					"$(PROJECT_DIR)/MADVPano.framework/**",
 					"$(PROJECT_DIR)/MADVCamera.framework/**",
-					"$(PROJECT_DIR)/libs/FFmpeg",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-l\"AFNetworking\"",
 					"-l\"MJExtension\"",
-					"-l\"Masonry\"",
 					"-l\"Realm\"",
-					"-l\"SSKeychain\"",
-					"-l\"SSZipArchive\"",
 					"-l\"c++\"",
 					"-l\"z\"",
 					"-framework",
@@ -1560,6 +1548,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.madv.MADVCameraDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "ffmpeg/**";
 			};
 			name = Release;
 		};
@@ -1613,6 +1602,7 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 					"MADVCAMERA_EXPORT=1",
+					TARGET_DARWIN_IOS,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/MADVCamera.framework/Headers/**",
@@ -1713,6 +1703,7 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 					"MADVCAMERA_EXPORT=1",
+					TARGET_DARWIN_IOS,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/MADVCamera.framework/Headers/**",

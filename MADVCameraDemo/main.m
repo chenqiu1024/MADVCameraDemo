@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
+//#import "IDRDecoder.h"
 
 int main(int argc, char * argv[]) {
     @autoreleasepool {
+        ///!!!For Debug:
+        //_decodeIDR("sourceIDRFile", "destBMPFile");
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }

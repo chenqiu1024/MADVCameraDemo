@@ -10,7 +10,7 @@
 //  KxMovie is licenced under the LGPL v3, see lgpl-3.0.txt
 
 #import "MVKxMovieViewController.h"
-#import <SSZipArchive.h>
+//#import <SSZipArchive.h>
 #import "MVGLView.h"
 #import "MadvGLRenderer_iOS.h"
 #import "NSRecursiveCondition.h"
