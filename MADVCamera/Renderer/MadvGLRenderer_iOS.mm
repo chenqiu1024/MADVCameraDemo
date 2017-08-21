@@ -7,26 +7,32 @@
 //
 
 #include "MadvGLRenderer_iOS.h"
+#ifndef MADVPANO_EXPORT
 #import "KxMovieDecoder.h"
 #import "IDRDecoder.h"
 #import "z_Sandbox.h"
 #import "NSString+Extensions.h"
 #import "MVCameraClient.h"
 #import "MVCameraDevice.h"
+#endif
 #import <OpenGLES/ES2/glext.h>
 #import <OpenGLES/EAGL.h>
 #import <fstream>
 
 #ifdef MADVPANO_BY_SOURCE
+#import "MadvGLRenderer.h"
 #import "JPEGUtils.h"
 #import "EXIFParser.h"
 #import "GLRenderTexture.h"
 #import "GLFilterCache.h"
+#import "MadvGLRendererImpl.h"
 #else
+#import <MADVPano/MadvGLRenderer.h>
 #import <MADVPano/JPEGUtils.h>
 #import <MADVPano/EXIFParser.h>
 #import <MADVPano/GLRenderTexture.h>
 #import <MADVPano/GLFilterCache.h>
+#import <MADVPano/MadvGLRendererImpl.h>
 #endif
 
 using namespace std;
@@ -35,7 +41,47 @@ void cgDataProviderReleaseDataCallback(void * __nullable info, const void *  dat
     free((void*) data);
 }
 
-MadvGLRenderer_iOS::~MadvGLRenderer_iOS() {
+#pragma mark    MadvGLRendererImpl_iOS
+
+class MadvGLRenderer_iOS : public MadvGLRenderer {
+public:
+    
+    MadvGLRenderer_iOS(const char* lutPath, Vec2f leftSrcSize, Vec2f rightSrcSize);
+    
+    static UIImage* renderImageWithIDR(NSString* thumbnailPath, CGSize destSize, bool withLUT, NSString* sourceURI, int filterID, float* gyroMatrix, int gyroMatrixRank);
+    static UIImage* renderImage(UIImage* sourceImage, CGSize destSize, bool withLUT, NSString* sourceURI, int filterID, float* gyroMatrix, int gyroMatrixRank);
+    static UIImage* renderJPEG(const char* sourcePath, CGSize destSize, bool withLUT, NSString* sourceURI, bool lutEmbeddedInJPEG, int filterID, float* gyroMatrix, int gyroMatrixRank);
+    static void renderJPEGToJPEG(NSString* destJpegPath, BOOL eraseMadvExtensions, NSString* sourcePath, int dstWidth, int dstHeight, bool withLUT, bool lutEmbeddedInJPEG, int filterID, float* gyroMatrix, int gyroMatrixRank);
+    static void renderImageInMem(unsigned char** outPixels, int* outBytesLength, CGSize destSize, const unsigned char* inPixels, int width, int height, bool withLUT, NSString* sourceURI, int filterID, float* gyroMatrix, int gyroMatrixRank);
+    
+    static NSString* lutPathOfSourceURI(NSString* sourceURI, bool withLUT, bool lutEmbeddedInJPEG);
+    
+    static NSString* cameraLUTFilePath(NSString* cameraUUID);
+    
+    static NSString* preStitchPictureFileName(NSString* cameraUUID, NSString* fileName);
+    static NSString* stitchedPictureFileName(NSString* preStitchPictureFileName);
+    static NSString* cameraUUIDOfPreStitchFileName(NSString* preStitchFileName);
+    
+    static void extractLUTFiles(const char* destDirectory, const char* lutBinFilePath, uint32_t fileOffset);
+};
+
+class MadvGLRendererImpl_iOS : public MadvGLRendererImpl {
+public:
+    
+    virtual ~MadvGLRendererImpl_iOS();
+    
+    MadvGLRendererImpl_iOS(const char* lutPath, Vec2f leftSrcSize, Vec2f rightSrcSize);
+    
+protected:
+    
+    void prepareTextureWithRenderSource(void* renderSource);
+    
+    //For iOS8HD
+    struct __CVOpenGLESTextureCache * _videoTextureCache;
+    struct __CVOpenGLESTexture *      _videoDestTexture;
+};
+
+MadvGLRendererImpl_iOS::~MadvGLRendererImpl_iOS() {
     if(_videoDestTexture) {
         CFRelease(_videoDestTexture);
         _videoDestTexture = NULL;
@@ -47,12 +93,18 @@ MadvGLRenderer_iOS::~MadvGLRenderer_iOS() {
     }
 }
 
-MadvGLRenderer_iOS::MadvGLRenderer_iOS(const char* lutPath, Vec2f leftSrcSize, Vec2f rightSrcSize)
-: MadvGLRenderer(lutPath, leftSrcSize, rightSrcSize)
+MadvGLRendererImpl_iOS::MadvGLRendererImpl_iOS(const char* lutPath, Vec2f leftSrcSize, Vec2f rightSrcSize)
+: MadvGLRendererImpl(lutPath, leftSrcSize, rightSrcSize)
 , _videoDestTexture(NULL)
 , _videoTextureCache(NULL)
 {
     //prepareLUT(lutPath, leftSrcSize, rightSrcSize);
+}
+
+MadvGLRenderer_iOS::MadvGLRenderer_iOS(const char* lutPath, Vec2f leftSrcSize, Vec2f rightSrcSize)
+: MadvGLRenderer(new MadvGLRendererImpl_iOS(lutPath, leftSrcSize, rightSrcSize))
+{
+    
 }
 
 void findMaxAndMin(const GLushort* data, int length) {
@@ -176,7 +228,7 @@ GLuint createTextureFromImage(UIImage* image, CGSize destSize) {
     return texture;
 }
 
-void MadvGLRenderer_iOS::prepareTextureWithRenderSource(void* renderSource) {
+void MadvGLRendererImpl_iOS::prepareTextureWithRenderSource(void* renderSource) {
     id currentRenderSource = (__bridge_transfer id)renderSource;
     //NSLog(@"MadvGLRenderer_iOS::prepareTextureWithRenderSource : %lx", (long)renderSource);
     if ([currentRenderSource isKindOfClass:NSArray.class])
@@ -211,6 +263,7 @@ void MadvGLRenderer_iOS::prepareTextureWithRenderSource(void* renderSource) {
         }
         setSourceTextures(false, texture, texture, GL_TEXTURE_2D, false);
     }
+#ifndef MADVPANO_EXPORT
     else if ([currentRenderSource isKindOfClass:KxVideoFrame.class])
     {
         KxVideoFrame* frame = currentRenderSource;
@@ -327,9 +380,10 @@ void MadvGLRenderer_iOS::prepareTextureWithRenderSource(void* renderSource) {
 //        }
         frame = nil;
     }
+#endif //#ifndef MADVPANO_EXPORT
     currentRenderSource = nil;
 }
-
+#ifndef MADVPANO_EXPORT
 void MadvGLRenderer_iOS::extractLUTFiles(const char* destDirectory, const char* lutBinFilePath, uint32_t fileOffset) {
     ifstream ifs(lutBinFilePath, ios::in | ios::binary);
     DoctorLog(@"extractLUTFiles : fileOffset=%u, destDirectory='%s', lutBinFilePath='%s'", fileOffset, destDirectory, lutBinFilePath);
@@ -659,8 +713,8 @@ UIImage* MadvGLRenderer_iOS::renderImage(UIImage* sourceImage, CGSize destSize, 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         CHECK_GL_ERROR();
         
-        GLRenderTextureRef filterRenderTexture = NULL;
-        GLFilterCacheRef filterCache = NULL;
+        AutoRef<GLRenderTexture> filterRenderTexture = NULL;
+        AutoRef<GLFilterCache> filterCache = NULL;
         if (filterID > 0)
         {
             filterCache = new GLFilterCache([[[NSBundle mainBundle] pathForResource:@"lookup" ofType:@"png"] stringByDeletingLastPathComponent].UTF8String);
@@ -668,7 +722,7 @@ UIImage* MadvGLRenderer_iOS::renderImage(UIImage* sourceImage, CGSize destSize, 
             filterRenderTexture->blit();
         }
         
-        MadvGLRendererRef renderer = new MadvGLRenderer_iOS(lutPath.UTF8String, Vec2f{3456.f, 1728.f}, Vec2f{3456.f, 1728.f});
+        AutoRef<MadvGLRenderer> renderer = new MadvGLRenderer_iOS(lutPath.UTF8String, Vec2f{3456.f, 1728.f}, Vec2f{3456.f, 1728.f});
         renderer->setIsYUVColorSpace(false);
         renderer->setDisplayMode((lutPath ? PanoramaDisplayModeLUT : 0) | PanoramaDisplayModeReFlatten);
         renderer->setSourceTextures(false, sourceTexture, sourceTexture, GL_TEXTURE_2D, false);
@@ -769,8 +823,8 @@ UIImage* MadvGLRenderer_iOS::renderJPEG(const char* sourcePath, CGSize destSize,
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         CHECK_GL_ERROR();
         
-        GLRenderTextureRef filterRenderTexture = NULL;
-        GLFilterCacheRef filterCache = NULL;
+        AutoRef<GLRenderTexture> filterRenderTexture = NULL;
+        AutoRef<GLFilterCache> filterCache = NULL;
         if (filterID > 0)
         {
             filterCache = new GLFilterCache([[[NSBundle mainBundle] pathForResource:@"lookup" ofType:@"png"] stringByDeletingLastPathComponent].UTF8String);
@@ -778,7 +832,7 @@ UIImage* MadvGLRenderer_iOS::renderJPEG(const char* sourcePath, CGSize destSize,
             filterRenderTexture->blit();
         }
         
-        MadvGLRendererRef renderer = new MadvGLRenderer_iOS(lutPath.UTF8String, Vec2f{3456.f, 1728.f}, Vec2f{3456.f, 1728.f});
+        AutoRef<MadvGLRenderer> renderer = new MadvGLRenderer_iOS(lutPath.UTF8String, Vec2f{3456.f, 1728.f}, Vec2f{3456.f, 1728.f});
         renderer->setIsYUVColorSpace(false);
         renderer->setDisplayMode((lutPath ? PanoramaDisplayModeLUT : 0) | PanoramaDisplayModeReFlatten);
         renderer->setSourceTextures(false, sourceTexture, sourceTexture, GL_TEXTURE_2D, false);
@@ -891,8 +945,8 @@ void MadvGLRenderer_iOS::renderImageInMem(unsigned char** outPixels, int* outByt
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         CHECK_GL_ERROR();
         
-        GLRenderTextureRef filterRenderTexture = NULL;
-        GLFilterCacheRef filterCache = NULL;
+        AutoRef<GLRenderTexture> filterRenderTexture = NULL;
+        AutoRef<GLFilterCache> filterCache = NULL;
         if (filterID > 0)
         {
             filterCache = new GLFilterCache([[[NSBundle mainBundle] pathForResource:@"lookup" ofType:@"png"] stringByDeletingLastPathComponent].UTF8String);
@@ -900,7 +954,7 @@ void MadvGLRenderer_iOS::renderImageInMem(unsigned char** outPixels, int* outByt
             filterRenderTexture->blit();
         }
         
-        MadvGLRendererRef renderer = new MadvGLRenderer_iOS(lutPath.UTF8String, Vec2f{3456.f, 1728.f}, Vec2f{3456.f, 1728.f});
+        AutoRef<MadvGLRenderer> renderer = new MadvGLRenderer_iOS(lutPath.UTF8String, Vec2f{3456.f, 1728.f}, Vec2f{3456.f, 1728.f});
         renderer->setIsYUVColorSpace(false);
         renderer->setDisplayMode((lutPath ? PanoramaDisplayModeLUT : 0) | PanoramaDisplayModeReFlatten);
 //        renderer->setFlipY(false);
@@ -955,3 +1009,184 @@ UIImage* MadvGLRenderer_iOS::renderImageWithIDR(NSString* thumbnailPath, CGSize 
     
     return renderedImage;
 }
+#endif //#ifndef MADVPANO_EXPORT
+@interface MVPanoRenderer ()
+{
+    AutoRef<MadvGLRenderer_iOS> _impl;
+}
+
+@end
+
+@implementation MVPanoRenderer
+
+- (void*) internalInstance {
+    return &_impl;
+}
+
+- (void) dealloc {
+    _impl = NULL;
+}
+
+- (instancetype) initWithLUTPath:(NSString*)lutPath leftSrcSize:(CGSize)leftSrcSize rightSrcSize:(CGSize)rightSrcSize {
+    if (self = [super init])
+    {
+        _impl = new MadvGLRenderer_iOS(lutPath.UTF8String, CGSize2Vec2f(leftSrcSize), CGSize2Vec2f(rightSrcSize));
+    }
+    return self;
+}
+#ifndef MADVPANO_EXPORT
++ (UIImage*) renderImageWithIDR:(NSString*)idrPath destSize:(CGSize)destSize withLUT:(BOOL)withLUT sourceURI:(NSString*)sourceURI filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixBank:(int)gyroMatrixRank {
+    return MadvGLRenderer_iOS::renderImageWithIDR(idrPath, destSize, withLUT, sourceURI, filterID, gyroMatrix, gyroMatrixRank);
+}
+
++ (UIImage*) renderImage:(UIImage*)sourceImage destSize:(CGSize)destSize withLUT:(BOOL)withLUT sourceURI:(NSString*)sourceURI filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixBank:(int)gyroMatrixRank {
+    return MadvGLRenderer_iOS::renderImage(sourceImage, destSize, withLUT, sourceURI, filterID, gyroMatrix, gyroMatrixRank);
+}
+
++ (UIImage*) renderJPEG:(NSString*)sourcePath destSize:(CGSize)destSize withLUT:(bool)withLUT sourceURI:(NSString*)sourceURI lutEmbeddedInJPEG:(bool)lutEmbeddedInJPEG filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixRank:(int)gyroMatrixRank {
+    return MadvGLRenderer_iOS::renderJPEG(sourcePath.UTF8String, destSize, withLUT, sourceURI, lutEmbeddedInJPEG, filterID, gyroMatrix, gyroMatrixRank);
+}
+
++ (void) renderJPEGToJPEG:(NSString*)destJpegPath eraseMadvExtensions:(BOOL)eraseMadvExtensions sourcePath:(NSString*)sourcePath dstWidth:(int)dstWidth dstHeight:(int)dstHeight withLUT:(bool)withLUT lutEmbeddedInJPEG:(bool)lutEmbeddedInJPEG filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixRank:(int)gyroMatrixRank {
+    MadvGLRenderer_iOS::renderJPEGToJPEG(destJpegPath, eraseMadvExtensions, sourcePath, dstWidth, dstHeight, withLUT, lutEmbeddedInJPEG, filterID, gyroMatrix, gyroMatrixRank);
+}
+
++ (void) renderImageInMem:(unsigned char**)outPixels outBytesLength:(int*)outBytesLength destSize:(CGSize)destSize inPixels:(const unsigned char*)inPixels width:(int)width height:(int)height withLUT:(bool)withLUT sourceURI:(NSString*)sourceURI filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixRank:(int)gyroMatrixRank {
+    MadvGLRenderer_iOS::renderImageInMem(outPixels, outBytesLength, destSize, inPixels, width, height, withLUT, sourceURI, filterID, gyroMatrix, gyroMatrixRank);
+}
+
++ (NSString*) lutPathOfSourceURI:(NSString*)sourceURI withLUT:(bool)withLUT lutEmbeddedInJPEG:(BOOL)lutEmbeddedInJPEG {
+    return MadvGLRenderer_iOS::lutPathOfSourceURI(sourceURI, withLUT, lutEmbeddedInJPEG);
+}
+
++ (NSString*) cameraLUTFilePath:(NSString*)cameraUUID {
+    return MadvGLRenderer_iOS::cameraLUTFilePath(cameraUUID);
+}
+
++ (NSString*) preStitchPictureFileName:(NSString*)cameraUUID fileName:(NSString*)fileName {
+    return MadvGLRenderer_iOS::preStitchPictureFileName(cameraUUID, fileName);
+}
+
++ (NSString*) stitchedPictureFileName:(NSString*)preStitchPictureFileName {
+    return MadvGLRenderer_iOS::stitchedPictureFileName(preStitchPictureFileName);
+}
+
++ (NSString*) cameraUUIDOfPreStitchFileName:(NSString*)preStitchFileName {
+    return MadvGLRenderer_iOS::cameraUUIDOfPreStitchFileName(preStitchFileName);
+}
+
++ (void) extractLUTFiles:(const char*)destDirectory lutBinFilePath:(const char*)lutBinFilePath fileOffset:(uint32_t)fileOffset {
+    MadvGLRenderer_iOS::extractLUTFiles(destDirectory, lutBinFilePath, fileOffset);
+}
+#endif //#ifndef MADVPANO_EXPORT
+- (void) setIsYUVColorSpace:(BOOL)isYUVColorSpace {
+    if (NULL != _impl)
+    {
+        _impl->setIsYUVColorSpace(isYUVColorSpace);
+    }
+}
+
+- (BOOL) isYUVColorSpace {
+    if (NULL != _impl)
+        return _impl->getIsYUVColorSpace();
+    else
+        return NO;
+}
+
+- (void) prepareLUT:(NSString*)lutPath leftSrcSize:(CGSize)leftSrcSize rightSrcSize:(CGSize)rightSrcSize {
+    if (NULL != _impl)
+    {
+        _impl->prepareLUT(lutPath.UTF8String, CGSize2Vec2f(leftSrcSize), CGSize2Vec2f(rightSrcSize));
+    }
+}
+
+- (void) setTextureMatrix:(kmMat4*)textureMatrix {
+    if (NULL == _impl)
+        return;
+    
+    _impl->setTextureMatrix(textureMatrix);
+}
+
+- (void) setRenderSource:(void*)renderSource {
+    if (NULL == _impl)
+        return;
+    
+    _impl->setRenderSource(renderSource);
+}
+
+- (CGSize) renderSourceSize {
+    if (NULL == _impl)
+        return CGSizeZero;
+    
+    Vec2f sizeV2f = _impl->getRenderSourceSize();
+    return CGSizeMake(sizeV2f.width, sizeV2f.height);
+}
+
+- (void) setGyroMatrix:(float*)matrix rank:(int)rank {
+    if (NULL == _impl)
+        return;
+    
+    _impl->setGyroMatrix(matrix, rank);
+}
+
+- (GLint) leftSourceTexture {
+    if (NULL == _impl)
+        return 0;
+    return _impl->getLeftSourceTexture();
+}
+
+- (GLint) rightSourceTexture {
+    if (NULL == _impl)
+        return 0;
+    return _impl->getRightSourceTexture();
+}
+
+- (int) displayMode {
+    if (NULL == _impl)
+        return 0;
+    return _impl->getDisplayMode();
+}
+
+- (void) setDisplayMode:(int)displayMode {
+    if (NULL == _impl)
+        return;
+    _impl->setDisplayMode(displayMode);
+}
+
+- (GLenum) sourceTextureTarget {
+    if (NULL == _impl)
+        return GL_TEXTURE_2D;
+    return (GLenum) _impl->getSourceTextureTarget();
+}
+
+- (void) setEnableDebug:(BOOL)enable {
+    if (NULL == _impl)
+        return;
+    _impl->setEnableDebug(enable);
+}
+
+- (void) setFlipY:(BOOL)flipY {
+    if (NULL == _impl)
+        return;
+    _impl->setFlipY(flipY);
+}
+
+- (void) drawWithDisplayMode:(int)displayMode x:(int)x y:(int)y width:(int)width height:(int)height separateSourceTextures:(BOOL)separateSourceTextures srcTextureType:(int)srcTextureType leftSrcTexture:(int)leftSrcTexture rightSrcTexture:(int)rightSrcTexture {
+    if (NULL == _impl)
+        return;
+    _impl->draw(displayMode, x, y, width, height, separateSourceTextures, srcTextureType, leftSrcTexture, rightSrcTexture);
+}
+
+- (void) drawWithX:(int)x y:(int)y width:(int)width height:(int)height {
+    if (NULL == _impl)
+        return;
+    _impl->draw(x, y, width, height);
+}
+
+- (int) fovDegree {
+    if (NULL == _impl || NULL == _impl->glCamera())
+        return 75;
+    return _impl->glCamera()->getFOVDegree();
+}
+
+@end

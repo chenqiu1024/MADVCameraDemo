@@ -44,12 +44,14 @@
             NSString* roundIconPathName;
         } ImageFilterItem;
         static ImageFilterItem items[] = {
-            {GLFilterNone, FGGetStringWithKeyFromTable(ORIGINAL, nil), @"Original", @"nothing_1", @"nothing_2"},
-            {GLFilterBilateralID, FGGetStringWithKeyFromTable(BILATERAL, nil), @"Bilateral", @"exfoliating_1", @"exfoliating_2"},
-            {GLFilterSepiaToneID, FGGetStringWithKeyFromTable(SEPIATONE, nil), @"Sepia Tone", @"past_1", @"past_2"},
-            {GLFilterAmatorkaID, FGGetStringWithKeyFromTable(AMATORKA, nil), @"Amatorka", @"young_1", @"young_2"},
-//            {GLFilterMissEtikateID, FGGetStringWithKeyFromTable(MISSETIKATE, nil), @"Miss Etikate", @"sea_1", @"sea_2"},
-            {GLFilterInverseColorID, FGGetStringWithKeyFromTable(FILM, nil), @"Color Inverse", @"film_1", @"film_2"},
+            {GLFilterNone, ORIGINAL, @"Original", @"nothing_1", @"nothing_2"},
+//            {GLFilterBilateralID, BILATERAL, nil), @"Bilateral", @"exfoliating_1", @"exfoliating_2"},
+            {GLFilterSepiaToneID, SEPIATONE, @"Sepia Tone", @"past_1", @"past_2"},
+            {GLFilterAmatorkaID, AMATORKA, @"Amatorka", @"young_1", @"young_2"},
+//            //{GLFilterMissEtikateID, MISSETIKATE, @"Miss Etikate", @"sea_1", @"sea_2"},
+//            {GLFilterInverseColorID, FILM, @"Color Inverse", @"film_1", @"film_2"},
+            {GLFilterToonID, TOON, @"Toon", @"toon_1", @"toon_2"},
+            {GLFilterSobelEdgeDetectSketchID, SKETCH, @"Sketch", @"sketch_1", @"sketch_2"},
         };
         imageFilters = [[NSMutableArray alloc] init];
         NSBundle* bundle = [NSBundle mainBundle];

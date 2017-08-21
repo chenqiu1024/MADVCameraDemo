@@ -2906,7 +2906,7 @@ NSString* formatSDStorage(int total, int free) {
 }
 
 - (void) checkAndSynchronizeLUT:(NSString*)cameraUUID md5:(NSString*)md5 {
-    NSString* lutBinFilePath = MadvGLRenderer_iOS::cameraLUTFilePath(cameraUUID);
+    NSString* lutBinFilePath = [MVPanoRenderer cameraLUTFilePath:cameraUUID];
     NSString* lutDirStr = [lutBinFilePath stringByDeletingPathExtension];
     DoctorLog(@"#BadLUT# checkAndSynchronizeLUT: response MD5 = %@, lutBinFilePath = %@", md5, lutBinFilePath);
     NSFileManager* fm = [NSFileManager defaultManager];
@@ -2921,7 +2921,7 @@ NSString* formatSDStorage(int total, int free) {
             DoctorLog(@"#BadLUT# checkAndSynchronizeLUT: lutBinFilePath exists, Local MD5 = %@", localLUTMD5);
             if ([localLUTMD5 isEqualToString:md5] || !md5) //有时相机会出现无查找表的情况，这时也应允许连接，让用户在设置里恢复厂设来修复问题
             {
-                MadvGLRenderer_iOS::extractLUTFiles(lutDirStr.UTF8String, lutBinFilePath.UTF8String, 0);///!!!To Be Optimized
+                [MVPanoRenderer extractLUTFiles:lutDirStr.UTF8String lutBinFilePath:lutBinFilePath.UTF8String fileOffset:0];///!!!To Be Optimized
                 @synchronized (self)
                 {
                     DoctorLog(@"#BadLUT# checkAndSynchronizeLUT: #A0 isLUTSynchronized=%d, isSettingsSynchronized=%d, isConnectedStateNotified=%d", self.isLUTSynchronized, self.isSettingsSynchronized, self.isConnectedStateNotified);

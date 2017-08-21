@@ -11,6 +11,7 @@
 #import "RealmSerialQueue.h"
 #import "helper.h"
 #import "z_Sandbox.h"
+#import <Photos/Photos.h>
 
 @implementation MVMedia
 
@@ -129,6 +130,77 @@ static NSMutableDictionary * downloadStatusOfMediaRemoteDict;
 - (NSString *)localIdentifier
 {
     return [self dbValueForKeyPath:@"dbLocalIdentifier"];
+}
+
+- (NSString*) localFilePathSync {
+    __block NSString* ret = nil;
+    NSCondition* cond = [[NSCondition alloc] init];
+    ret = [self requestLocalFilePath:^(NSString* localPath) {
+        ret = localPath;
+        [cond lock];
+        [cond signal];
+        [cond unlock];
+    }];
+    
+    [cond lock];
+    while (!ret)
+    {
+        [cond wait];
+    }
+    [cond unlock];
+    return ret;
+}
+
+- (NSString*) requestLocalFilePath:(void(^)(NSString* filePath))completionHandler {
+    NSFileManager* fm = [NSFileManager defaultManager];
+    NSString* documentFilePath = [z_Sandbox documentPath:self.localPath];
+    if ([fm fileExistsAtPath:documentFilePath])
+    {
+        return documentFilePath;
+    }
+    else if (self.localIdentifier)
+    {
+        PHImageManager* phIM = [PHImageManager defaultManager];
+        NSArray* identifiers = [self.localIdentifier componentsSeparatedByString:@";"];
+        [identifiers enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSString* identifier = (NSString*) obj;
+            PHAsset* asset = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil].firstObject;
+            if (asset)
+            {
+                if (MVMediaTypeVideo == self.mediaType)
+                {
+                    [phIM requestAVAssetForVideo:asset options:nil resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+                        AVURLAsset* urlAsset = (AVURLAsset*) asset;
+                        NSString* videoPath = [urlAsset.URL.absoluteString substringFromIndex:8];
+                        if (videoPath && videoPath.length > 0 && [fm fileExistsAtPath:videoPath])
+                        {
+                            if (completionHandler)
+                            {
+                                completionHandler(videoPath);
+                            }
+                            *stop = YES;
+                        }
+                    }];
+                }
+                else if (MVMediaTypePhoto == self.mediaType)
+                {
+                    NSString* tmpPath = [NSTemporaryDirectory() stringByAppendingPathComponent:self.localPath];
+                    [phIM requestImageDataForAsset:asset options:nil resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+                        if (imageData)
+                        {
+                            [imageData writeToFile:tmpPath atomically:YES];
+                            if (completionHandler)
+                            {
+                                completionHandler(tmpPath);
+                            }
+                            *stop = YES;
+                        }
+                    }];
+                }
+            }
+        }];
+    }
+    return nil;
 }
 
 + (void) initialize {

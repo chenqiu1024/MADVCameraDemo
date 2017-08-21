@@ -277,11 +277,11 @@
             return;
         }
         UIImage* originalImage = nil;
-        originalImage = [UIImage getVideoImage:[z_Sandbox documentPath:media.localPath] time:time*index];
+        originalImage = [UIImage getVideoImage:/*[z_Sandbox documentPath:media.localPath]*/[media localFilePathSync] time:time*index];
         if (originalImage) {
             float gyroMatrix[9];
             copyGyroMatrixFromString(gyroMatrix, media.gyroMatrixString.UTF8String);
-            UIImage* thumbnailImage = MadvGLRenderer_iOS::renderImage(originalImage, CGSizeMake(360, 180), YES, [z_Sandbox documentPath:self.media.localPath], 0, gyroMatrix, 3);
+            UIImage* thumbnailImage = [MVPanoRenderer renderImage:originalImage destSize:CGSizeMake(360, 180) withLUT:YES sourceURI:/*[z_Sandbox documentPath:self.media.localPath]*/[self.media localFilePathSync] filterID:0 gyroMatrix:gyroMatrix gyroMatrixBank:3];
             UIImageView * imageView = self.imageViewArr[index];
             dispatch_async(dispatch_get_main_queue(), ^{
                 imageView.image = thumbnailImage;

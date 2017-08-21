@@ -92,7 +92,7 @@
     _imageFilter=imageFilter;
     self.filterImageView.image=[UIImage imageNamed:imageFilter.iconPNGPath];
     
-    self.nameLabel.text=imageFilter.name;
+    self.nameLabel.text = FGGetStringWithKeyFromTable(imageFilter.name, nil);
     
 }
 @end

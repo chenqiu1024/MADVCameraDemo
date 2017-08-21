@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "MVCloudMedia.h"
+#import "DivisionButtonView.h"
+
 @class DiscoveryCell;
 @protocol DiscoveryCellDelegate <NSObject>
 
-- (void)discoveryCellDidFavor:(DiscoveryCell *)discoveryCell andIsFavor:(NSString *)isFavor andFileName:(NSString *)fileName andImageView:(UIImageView *) imageView andFavorLabel:(UILabel *)favorLabel title:(NSString *)title;
+- (void)discoveryCellDidFavor:(DiscoveryCell *)discoveryCell andIsFavor:(NSString *)isFavor andFileName:(NSString *)fileName andImageView:(DivisionButtonView *) imageView andFavorNum:(int)favorNum title:(NSString *)title;
 - (void)discoveryCellClick:(DiscoveryCell *)discoveryCell;
+- (void)discoveryCellAuthorClick:(DiscoveryCell *)discoveryCell;
 @end
 
 @interface DiscoveryCell : UITableViewCell

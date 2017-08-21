@@ -99,6 +99,8 @@ typedef enum : NSInteger {
 
 @property (nonatomic, assign) MVQualityLevel encoderQualityLevel;
 
+@property (nonatomic, assign) BOOL isFullScreenCapturing;
+
 @property(nonatomic,strong) void(^encodingDoneBlock)(NSString*, NSError*);
 @property(nonatomic,strong) void(^encodingFrameBlock)(float);
 @property(nonatomic,strong) NSError* encodingError;

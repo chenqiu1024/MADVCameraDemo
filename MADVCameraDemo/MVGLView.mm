@@ -13,7 +13,7 @@
 #import <PanoCameraController_iOS.h>
 #import "KxMovieDecoder.h"
 //#import "NSString+Extensions.h"
-#import <CycordVideoRecorder.h>
+#import "CycordVideoRecorder.h"
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES3/gl.h>
 #import <OpenGLES/EAGL.h>
@@ -81,15 +81,15 @@ static const int MaxBufferBytes = 32 * 1048576;
     GLuint _msaaRenderbuffer;
     //    GLuint _msaaDepthbuffer;
     
-    MadvGLRendererRef _renderer;
-    AutoRef<PanoCameraController_iOS> _panoController;
+    MVPanoRenderer* _renderer;
+    MVPanoCameraController* _panoController;
     
-    GLRenderTextureRef _recorderRenderTexture;
+    AutoRef<GLRenderTexture> _recorderRenderTexture;
     CGSize _outputVideoSize;
     
-    GLRenderTextureRef _renderTexture0;
-    GLRenderTextureRef _renderTexture1;
-    GLFilterCacheRef _filterCache;
+    AutoRef<GLRenderTexture> _renderTexture0;
+    AutoRef<GLRenderTexture> _renderTexture1;
+    AutoRef<GLFilterCache> _filterCache;
     GLuint _capsTexture;
     
     //缩放值
@@ -138,6 +138,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
 @synthesize renderCond = _renderCond;
 @synthesize recording = _recording;
 @synthesize capturing = _capturing;
+@synthesize isFullScreenCapturing;
 
 //@synthesize isScrolling = _isScrolling;
 //@synthesize isFlinging = _isFlinging;
@@ -209,16 +210,15 @@ static BOOL s_willStopCurrentRenderLoop = NO;
     [GLRenderLoop stopCurrentRenderLoop];
 }
 
-- (MadvGLRendererRef) renderer {
-    MadvGLRendererRef ret = _renderer;
-    return ret;
+- (MVPanoRenderer*) renderer {
+    return _renderer;
 }
 
 - (void) setIsYUVColorSpace:(BOOL)isYUVColorSpace {
     [_renderCond lock];
     if (self.isRendererReady)
     {
-        _renderer->setIsYUVColorSpace(isYUVColorSpace);
+        [_renderer setIsYUVColorSpace:isYUVColorSpace];
     }
     [_renderCond unlock];
 }
@@ -228,7 +228,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
     [_renderCond lock];
     if (self.isRendererReady)
     {
-        ret = _renderer->getIsYUVColorSpace();
+        ret = _renderer.isYUVColorSpace;
     }
     [_renderCond unlock];
     return ret;
@@ -272,8 +272,8 @@ static BOOL s_willStopCurrentRenderLoop = NO;
     
     _eaglContext = nil;
     
-    _renderer = NULL;
-    _panoController = NULL;
+    _renderer = nil;
+    _panoController = nil;
     
     _recorderRenderTexture = NULL;
     
@@ -345,9 +345,9 @@ static BOOL s_willStopCurrentRenderLoop = NO;
 
 - (void) setIsGyroEnabled:(BOOL)enabled {
     _isGyroEnabled = enabled;
-    if (self.renderer && NULL != _panoController)
+    if (self.renderer && _panoController)
     {
-        _panoController->setEnablePitchDragging(!enabled);
+        [_panoController setEnablePitchDragging:!enabled];
         [self lookAt:{0.f,0.f,0.f}];///!!!#Bug3487#
     }
 }
@@ -360,7 +360,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         {
             if (NULL != _panoController)
             {
-                _panoController->setGyroRotationQuaternion(attitude, orientation, startOrientation);
+                [_panoController setGyroRotationQuaternion:attitude orientation:orientation startOrientation:startOrientation];
             }
         }
         [self.renderCond unlock];
@@ -394,10 +394,10 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         switch (panRecognizer.state) {
             case UIGestureRecognizerStateBegan:
                 {
-                    if (NULL != _renderer && NULL != _panoController)
+                    if (nil != _renderer && NULL != _panoController)
                     {
                         //_panoController->startTouchControl(touchVec2f);
-                        _panoController->startDragging(pointInView, frameSize);
+                        [_panoController startDragging:pointInView viewSize:frameSize];
                     }
 //                    _isScrolling = YES;
 //                    _isFlinging = NO;
@@ -407,19 +407,19 @@ static BOOL s_willStopCurrentRenderLoop = NO;
                 break;
             case UIGestureRecognizerStateChanged:
                 {
-                    if (NULL != _renderer && NULL != _panoController)
+                    if (nil != _renderer && NULL != _panoController)
                     {
                         //_panoController->setDragPoint(touchVec2f);
-                        _panoController->dragTo(pointInView, frameSize);
+                        [_panoController dragTo:pointInView viewSize:frameSize];
                     }
                 }
                 break;
             case UIGestureRecognizerStateCancelled:
             case UIGestureRecognizerStateEnded:
-                if (NULL != _renderer && NULL != _panoController)
+                if (nil != _renderer && NULL != _panoController)
                 {
                     //_panoController->stopTouchControl(normalizedVelocity);
-                    _panoController->stopDraggingAndFling(velocityVector, frameSize);
+                    [_panoController stopDraggingAndFling:velocityVector viewSize:frameSize];
                 }
                 break;
             default:
@@ -430,7 +430,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
 }
 
 - (void) onPinchRecognized:(UIPinchGestureRecognizer*)pinchRecognizer {
-    if (NULL != _renderer)
+    if (nil != _renderer)
     {
         switch (pinchRecognizer.state) {
             case UIGestureRecognizerStateBegan:
@@ -452,9 +452,10 @@ static BOOL s_willStopCurrentRenderLoop = NO;
     [_renderCond lock];
     if (self.isRendererReady)
     {
-        if (NULL != _renderer && NULL != _panoController)
+        if (nil != _renderer && NULL != _panoController)
         {
-            _panoController->lookAt(eularAngleDegrees.x, eularAngleDegrees.y, eularAngleDegrees.z);
+            
+            [_panoController lookAtYaw:eularAngleDegrees.x pitch:eularAngleDegrees.y bank:eularAngleDegrees.z];
             [self requestRedraw];
         }
     }
@@ -529,8 +530,16 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         return;
     
     if (_capturing)
-    {
-        outputVideoSize = CGSizeMake(1600, 900);
+    {//*
+        if (self.isFullScreenCapturing)
+        {
+            outputVideoSize = CGSizeMake(_width, _height);
+        }
+        else
+      //*/
+        {
+            outputVideoSize = CGSizeMake(1920, 1080);
+        }
     }
     else if (_recording)
     {
@@ -635,8 +644,8 @@ static BOOL s_willStopCurrentRenderLoop = NO;
     CHECK_GL_ERROR();
     [self rebindGLCanvas];
     
-    _renderer = new MadvGLRenderer_iOS(_lutPath.UTF8String, CGSize2Vec2f(_lutSrcSizeL), CGSize2Vec2f(_lutSrcSizeR));
-    _panoController = new PanoCameraController_iOS(_renderer);
+    _renderer = [[MVPanoRenderer alloc] initWithLUTPath:_lutPath leftSrcSize:_lutSrcSizeL rightSrcSize:_lutSrcSizeR];
+    _panoController = [[MVPanoCameraController alloc] initWithPanoRenderer:_renderer];
     
     _prevLutPath = _lutPath;
 #ifdef ENABLE_OPENGL_DEBUG
@@ -698,7 +707,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
             
             if (_lutPath && ![_lutPath isEqualToString:_prevLutPath])
             {
-                _renderer->prepareLUT(_lutPath.UTF8String, CGSize2Vec2f(_lutSrcSizeL), CGSize2Vec2f(_lutSrcSizeR));
+                [_renderer prepareLUT:_lutPath leftSrcSize:_lutSrcSizeL rightSrcSize:_lutSrcSizeR];
                 _prevLutPath = _lutPath;
             }
             
@@ -738,9 +747,9 @@ static BOOL s_willStopCurrentRenderLoop = NO;
                     };
                     kmMat4 textureMatrix;
                     kmMat4Fill(&textureMatrix, textureMatrixData);
-                    _renderer->setTextureMatrix(&textureMatrix);
+                    [_renderer setTextureMatrix:&textureMatrix];
                     
-                    _renderer->setRenderSource((__bridge_retained void*)filePath);
+                    [_renderer setRenderSource:(__bridge_retained void*)filePath];
                     _hasSetRenderSource = YES;
                 }
                 else if ([renderSource isKindOfClass:UIImage.class])
@@ -753,12 +762,12 @@ static BOOL s_willStopCurrentRenderLoop = NO;
                     };
                     kmMat4 textureMatrix;
                     kmMat4Fill(&textureMatrix, textureMatrixData);
-                    _renderer->setTextureMatrix(&textureMatrix);
+                    [_renderer setTextureMatrix:&textureMatrix];
                     
                     UIImage* image = (UIImage*) renderSource;
                     //[self resizeVideoRecorder:image.size];
                     
-                    _renderer->setRenderSource((__bridge_retained void*)image);
+                    [_renderer setRenderSource:(__bridge_retained void*)image];
                     _hasSetRenderSource = YES;
                 }
                 else if ([renderSource isKindOfClass:NSClassFromString(@"KxVideoFrame")])
@@ -771,7 +780,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
                     };
                     kmMat4 textureMatrix;
                     kmMat4Fill(&textureMatrix, textureMatrixData);
-                    _renderer->setTextureMatrix(&textureMatrix);
+                    [_renderer setTextureMatrix:&textureMatrix];
                     
                     //KxVideoFrame* frame = (KxVideoFrame*) renderSource;
                     SEL widthSelector = NSSelectorFromString(@"width");
@@ -787,7 +796,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
                     [self resizeVideoRecorder:CGSizeMake(frameWidth, frameHeight)];
                     
                     //_renderer->setRenderSource((__bridge_retained void*)frame);
-                    _renderer->setRenderSource((__bridge_retained void*)renderSource);
+                    [_renderer setRenderSource:(__bridge_retained void*)renderSource];
                     _hasSetRenderSource = YES;
                     
                     if ([renderSource isKindOfClass:NSClassFromString(@"KxVideoFrameCVBuffer")])
@@ -801,7 +810,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
                     }
                 }
                 
-                Vec2f sourceSize = _renderer->getRenderSourceSize();
+                CGSize sourceSize = _renderer.renderSourceSize;
                 _inputHeight = sourceSize.height;
                 _inputWidth = sourceSize.width;
             }
@@ -819,7 +828,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
             
             // Targeting 60 fps, no need for faster
             long timeInterval = 16;
-            _panoController->update((float)timeInterval / 1000.f);
+            [_panoController update:((float)timeInterval / 1000.f)];
             
             long waitDelta = timeInterval - ([[NSDate date] timeIntervalSince1970] * 1000.f - loopStart);
             waitDelta = (waitDelta > 0 ? waitDelta : 0);
@@ -1101,7 +1110,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         //float adustedFOV = (float) Math.toDegrees(Math.atan(Math.tan(Math.toRadians(FOV) / 2.f) * widthInInch / FOVReferenceWidthInInch)) * 2.f;
         //Log.e(TAG, "FOV = " + FOV + ", adustedFOV = " + adustedFOV);
         //if (null != mRenderer) {
-        _panoController->setFOVDegree((int) _FOV);
+        [_panoController setFOVDegree:(int)_FOV];
         //}
     }
     [_renderCond unlock];
@@ -1235,7 +1244,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
     [_renderCond lock];
     if (self.isRendererReady)
     {
-        _renderer->setGyroMatrix(matrix, rank);
+        [_renderer setGyroMatrix:matrix rank:rank];
     }
     [_renderCond unlock];
 }
@@ -1243,7 +1252,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
 - (void) drawStichedImageWithLeftImage:(UIImage*)leftImage rightImage:(UIImage*)rightImage {
     NSArray* images = @[leftImage, rightImage];
     [EAGLContext setCurrentContext:_eaglContext];
-    _renderer->setRenderSource((__bridge_retained void*)images);
+    [_renderer setRenderSource:(__bridge_retained void*)images];
 }
 
 - (void) renderImmediately: (KxVideoFrame *) frame
@@ -1251,7 +1260,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
     [EAGLContext setCurrentContext:_eaglContext];
     [self resizeVideoRecorder:CGSizeMake(frame.width, frame.height)];
     
-    _renderer->setRenderSource((__bridge_retained void*)frame);
+    [_renderer setRenderSource:(__bridge_retained void*)frame];
     [self draw];
 }
 
@@ -1275,9 +1284,9 @@ static BOOL s_willStopCurrentRenderLoop = NO;
     CHECK_GL_ERROR();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     CHECK_GL_ERROR();
-    GLint currentSourceTextureL = _renderer->getLeftSourceTexture();
-    GLint currentSourceTextureR = _renderer->getRightSourceTexture();
-    GLenum currentSourceTextureTarget = _renderer->getSourceTextureTarget();
+    GLint currentSourceTextureL = _renderer.leftSourceTexture;
+    GLint currentSourceTextureR = _renderer.rightSourceTexture;
+    GLenum currentSourceTextureTarget = _renderer.sourceTextureTarget;
     int currentFilterID = self.filterID;
     int currentPanoramaMode = self.panoramaMode;
     int displayWidth = _width;
@@ -1296,13 +1305,13 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         glViewport(0, 0, _outputVideoSize.width, _outputVideoSize.height);
         //        _renderer->setDisplayMode((currentRenderMode & (~PanoramaDisplayModeExclusiveMask)) | PanoramaDisplayModePlain);
 #ifdef ENCODE_VIDEO_WITH_GYRO
-        _renderer->setDisplayMode(currentLUTStitchingMode | PanoramaDisplayModeReFlatten);
+        [_renderer setDisplayMode:(currentLUTStitchingMode | PanoramaDisplayModeReFlatten)];
 #else
-        _renderer->setDisplayMode(currentLUTStitchingMode | PanoramaDisplayModePlain);
+        [_renderer setDisplayMode:(currentLUTStitchingMode | PanoramaDisplayModePlain)];
 //        _renderer->setDisplayMode(PanoramaDisplayModePlain);
 #endif
-        _renderer->setEnableDebug(false);
-        _renderer->setFlipY(true);
+        [_renderer setEnableDebug:NO];
+        [_renderer setFlipY:YES];
         if (currentFilterID > 0)
         {
             if (NULL == _renderTexture0)
@@ -1315,7 +1324,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
             }
             
             _renderTexture0->blit();
-            _renderer->draw(0,0, _renderTexture0->getWidth(), _renderTexture0->getHeight());// _filterRenderTexture << Stitching << sourceTexture(s)
+            [_renderer drawWithX:0 y:0 width:_renderTexture0->getWidth() height:_renderTexture0->getHeight()];// _filterRenderTexture << Stitching << sourceTexture(s)
             _renderTexture0->unblit();
             
             _recorderRenderTexture->blit();
@@ -1325,10 +1334,10 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         else
         {
             _recorderRenderTexture->blit();
-            _renderer->draw(0,0, _recorderRenderTexture->getWidth(), _recorderRenderTexture->getHeight());// _recorderRenderTexture << Stitching << sourceTexture(s)
+            [_renderer drawWithX:0 y:0 width:_recorderRenderTexture->getWidth() height:_recorderRenderTexture->getHeight()];// _recorderRenderTexture << Stitching << sourceTexture(s)
             _recorderRenderTexture->unblit();
         }
-        _renderer->setFlipY(false);
+        [_renderer setFlipY:NO];
         
         [_videoRecorder startRecording:30.f];
         //        if (_startTimeMills <= 0)
@@ -1366,7 +1375,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         int outputWidth, outputHeight;
         
         // Take snapshot if necessary:
-        GLRenderTextureRef snapshotRenderTexture = NULL;
+        AutoRef<GLRenderTexture> snapshotRenderTexture = NULL;
         if (_snapshotDestPath)
         {
             switch (currentPanoramaMode & PanoramaDisplayModeExclusiveMask)
@@ -1375,7 +1384,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
                 case PanoramaDisplayModeStereoGraphic:
                 case PanoramaDisplayModeLittlePlanet:
                 {
-                    int fovDegreeX = _renderer->glCamera()->getFOVDegree();
+                    int fovDegreeX = _renderer.fovDegree;
                     int fovDegreeY = 2.f * fabsf(kmRadiansToDegrees(atanf(tanf(kmDegreesToRadians((float)fovDegreeX / 2.f)) * displayHeight / displayWidth)));
                     if (currentPanoramaMode & PanoramaDisplayModeLittlePlanet)
                     {
@@ -1521,7 +1530,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
             if (currentIsGlassMode)
             {
                 _renderTexture0->blit();
-                _renderer->draw(currentRenderMode, 0, 0, _renderTexture0->getWidth(), _renderTexture0->getHeight(), false, currentSourceTextureTarget, currentSourceTextureL, currentSourceTextureR);
+                [_renderer drawWithDisplayMode:currentRenderMode x:0 y:0 width:_renderTexture0->getWidth() height:_renderTexture0->getHeight() separateSourceTextures:NO srcTextureType:currentSourceTextureTarget leftSrcTexture:currentSourceTextureL rightSrcTexture:currentSourceTextureR];
                 _renderTexture0->unblit();
                 
                 _renderTexture1->blit();
@@ -1542,7 +1551,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
             else
             {
                 _renderTexture0->blit();
-                _renderer->draw(currentRenderMode, 0, 0, _renderTexture0->getWidth(), _renderTexture0->getHeight(), false, currentSourceTextureTarget, currentSourceTextureL, currentSourceTextureR);
+                [_renderer drawWithDisplayMode:currentRenderMode x:0 y:0 width:_renderTexture0->getWidth() height:_renderTexture0->getHeight() separateSourceTextures:NO srcTextureType:currentSourceTextureTarget leftSrcTexture:currentSourceTextureL rightSrcTexture:currentSourceTextureR];
                 _renderTexture0->unblit();
                 
                 _filterCache->render(currentFilterID, (outBoundWidth - destRectWidth) / 2, (outBoundHeight - destRectHeight) / 2, destRectWidth, destRectHeight, _renderTexture0->getTexture(), GL_TEXTURE_2D, renderOrientation, Vec2f{0.f, 0.f}, Vec2f{1.0f, 1.0f});
@@ -1551,7 +1560,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         else if (currentIsGlassMode)
         {
             _renderTexture0->blit();
-            _renderer->draw(currentRenderMode, 0, 0, _renderTexture0->getWidth(), _renderTexture0->getHeight(), false, currentSourceTextureTarget, currentSourceTextureL, currentSourceTextureR);
+            [_renderer drawWithDisplayMode:currentRenderMode x:0 y:0 width:_renderTexture0->getWidth() height:_renderTexture0->getHeight() separateSourceTextures:NO srcTextureType:currentSourceTextureTarget leftSrcTexture:currentSourceTextureL rightSrcTexture:currentSourceTextureR];\
             _renderTexture0->unblit();
             
             if (outputWidth > outputHeight)
@@ -1569,12 +1578,12 @@ static BOOL s_willStopCurrentRenderLoop = NO;
         {
             if (OrientationRotate180DegreeMirror == renderOrientation)
             {
-                _renderer->setFlipY(true);
+                [_renderer setFlipY:YES];
             }
-            _renderer->draw(currentRenderMode, (outBoundWidth - destRectWidth) / 2, (outBoundHeight - destRectHeight) / 2, destRectWidth, destRectHeight, false, currentSourceTextureTarget, currentSourceTextureL, currentSourceTextureR);
+            [_renderer drawWithDisplayMode:currentRenderMode x:((outBoundWidth - destRectWidth) / 2) y:((outBoundHeight - destRectHeight) / 2) width:destRectWidth height:destRectHeight separateSourceTextures:NO srcTextureType:currentSourceTextureTarget leftSrcTexture:currentSourceTextureL rightSrcTexture:currentSourceTextureR];
             if (OrientationRotate180DegreeMirror == renderOrientation)
             {
-                _renderer->setFlipY(false);
+                [_renderer setFlipY:NO];
             }
         }
         
@@ -1651,7 +1660,7 @@ static BOOL s_willStopCurrentRenderLoop = NO;
             _filterCache->render(0, 0,0,displayWidth,displayHeight, _recorderRenderTexture->getTexture(), _recorderRenderTexture->getTextureTarget(), renderOrientation, Vec2f{0.f, 0.f}, Vec2f{1.0f, 1.0f});
         }
     }
-    _renderer->setDisplayMode(currentRenderMode);
+    [_renderer setDisplayMode:currentRenderMode];
     //*/
 #ifdef USE_MSAA
     CHECK_GL_ERROR();

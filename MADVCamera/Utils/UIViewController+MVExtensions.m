@@ -8,7 +8,7 @@
 
 #import "UIViewController+MVExtensions.h"
 #import <objc/runtime.h>
-#import "Masonry.h"
+//#import "Masonry.h"
 
 static const char* kKeyIndicatorView = "IndicatorView";
 //static const char* kKeyTabBarHidden = "TabBarHidden";
@@ -148,20 +148,24 @@ static char * screencap = "screencap";
             
             [self.view addSubview:bgView];
             if ([self.isScreencap isEqualToString:@"1"]) {
-                [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.centerX.equalTo(self.view.mas_centerX);
-                    make.top.equalTo(@(((ScreenWidth*9)/16)*0.5+64-9));
-                    //                make.height.equalTo(@18);
-                    //                make.width.equalTo(@18);
-                }];
+                [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bgView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.f constant:0.f]];
+                [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bgView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1.f constant:((ScreenWidth*9)/16)*0.5+64-9]];
+//                [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+//                    make.centerX.equalTo(self.view.mas_centerX);
+//                    make.top.equalTo(@(((ScreenWidth*9)/16)*0.5+64-9));
+//                    //                make.height.equalTo(@18);
+//                    //                make.width.equalTo(@18);
+//                }];
             }else
             {
-                [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.centerX.equalTo(self.view.mas_centerX);
-                    make.centerY.equalTo(self.view.mas_centerY);
-                    //                make.height.equalTo(@18);
-                    //                make.width.equalTo(@18);
-                }];
+//                [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+//                    make.centerX.equalTo(self.view.mas_centerX);
+//                    make.centerY.equalTo(self.view.mas_centerY);
+//                    //                make.height.equalTo(@18);
+//                    //                make.width.equalTo(@18);
+//                }];
+                [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bgView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.f constant:0.f]];
+                [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bgView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.f constant:0.f]];
             }
             
             

@@ -10,7 +10,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "Masonry.h"
 
-@interface DiscoveryCell()
+
+@interface DiscoveryCell()<DivisionButtonViewDelegate>
 @property(nonatomic,weak)UIImageView * thumImageView;
 @property(nonatomic,weak)UIImageView * authorImageView;
 @property(nonatomic,weak)UILabel * keyWordLabel;
@@ -23,6 +24,9 @@
 @property(nonatomic,weak)UIButton * handleBtn;
 @property(nonatomic,weak)UIImageView * vipImageView;
 @property(nonatomic,weak)UIImageView * inviteImageView;
+@property(nonatomic,weak)UILabel * authorNameLabel;
+@property(nonatomic,weak)UIImageView * centerImage;
+@property(nonatomic,weak)DivisionButtonView * rightView;
 @end
 
 @implementation DiscoveryCell
@@ -70,47 +74,16 @@
     }];
     maskImageView.image=[UIImage imageNamed:@"Mask"];
     
-//    UIImageView * centerImage=[[UIImageView alloc] init];
-//    [self.contentView addSubview:centerImage];
-//    [centerImage mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(self.contentView.mas_centerX);
-//        make.centerY.equalTo(self.contentView.mas_centerY);
-//        make.width.equalTo(@50);
-//        make.height.equalTo(@50);
-//    }];
-//    centerImage.image=[UIImage imageNamed:@"newplay.png"];
-//    self.centerImage=centerImage;
-    
-    
-    
-    UILabel * titleLabel=[[UILabel alloc] init];
-    [self.contentView addSubview:titleLabel];
-    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@15);
-        make.left.equalTo(@15);
-        make.right.equalTo(@-15);
-        make.height.equalTo(@17);
+    UIImageView * centerImage=[[UIImageView alloc] init];
+    [self.contentView addSubview:centerImage];
+    [centerImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(thumImageView.mas_centerX);
+        make.centerY.equalTo(thumImageView.mas_centerY);
+        make.width.equalTo(@50);
+        make.height.equalTo(@50);
     }];
-    titleLabel.textColor=[UIColor colorWithHexString:@"#FFFFFF" alpha:0.9];
-    titleLabel.font=[UIFont systemFontOfSize:15];
-    self.titleLabel=titleLabel;
-    
-    UIImageView * typeImageView = [[UIImageView alloc] init];
-    [self.contentView addSubview:typeImageView];
-    self.typeImageView = typeImageView;
-    
-    UILabel * timeLabel = [[UILabel alloc] init];
-    [self.contentView addSubview:timeLabel];
-    [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(typeImageView.mas_right).offset(5);
-        make.top.equalTo(titleLabel.mas_bottom).offset(8);
-        make.height.equalTo(@12);
-        make.width.equalTo(@150);
-    }];
-    timeLabel.font = [UIFont systemFontOfSize:11];
-    timeLabel.textColor = [UIColor colorWithHexString:@"#FFFFFF" alpha:0.7];
-    self.timeLabel = timeLabel;
-    
+    centerImage.image=[UIImage imageNamed:@"play_discover.png"];
+    self.centerImage=centerImage;
     
     UIView * bottomView = [[UIView alloc] init];
     [self.contentView addSubview:bottomView];
@@ -139,50 +112,75 @@
     authorImageView.layer.borderColor=[UIColor whiteColor].CGColor;
     self.authorImageView=authorImageView;
     
-    UIImageView * vipImageView = [[UIImageView alloc] init];
-    [self.contentView addSubview:vipImageView];
-    [vipImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(authorImageView.mas_bottom).offset(-10);
-        make.right.equalTo(authorImageView.mas_right);
-        make.width.equalTo(@15);
-        make.height.equalTo(@15);
-    }];
-    vipImageView.image = [UIImage imageNamed:@"vip.png"];
-    vipImageView.hidden = YES;
-    self.vipImageView = vipImageView;
-    
-    UILabel * nameLabel = [[UILabel alloc] init];
-    [bottomView addSubview:nameLabel];
-//    [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(authorImageView.mas_right).offset(10);
-//        make.top.equalTo(authorImageView.mas_top);
-//        make.width.equalTo(@150);
-//        make.height.equalTo(@16);
+//    UIImageView * vipImageView = [[UIImageView alloc] init];
+//    [self.contentView addSubview:vipImageView];
+//    [vipImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(authorImageView.mas_bottom).offset(-10);
+//        make.right.equalTo(authorImageView.mas_right);
+//        make.width.equalTo(@15);
+//        make.height.equalTo(@15);
 //    }];
-    nameLabel.frame = CGRectMake(60, (65-35)*0.5, 150, 16);
-    nameLabel.font = [UIFont systemFontOfSize:15];
-    nameLabel.textColor = [UIColor colorWithHexString:@"#000000" alpha:0.9];
-    self.nameLabel = nameLabel;
+//    vipImageView.image = [UIImage imageNamed:@"vip.png"];
+//    vipImageView.hidden = YES;
+//    self.vipImageView = vipImageView;
     
-    UIImageView * inviteImageView = [[UIImageView alloc] init];
-    [self.contentView addSubview:inviteImageView];
+    UILabel * titleLabel = [[UILabel alloc] init];
+    [bottomView addSubview:titleLabel];
+    titleLabel.frame = CGRectMake(60, (65-35)*0.5, ScreenWidth-110-60, 16);
+    titleLabel.font = [UIFont systemFontOfSize:15];
+    titleLabel.textColor = [UIColor colorWithHexString:@"#000000" alpha:0.9];
+    self.titleLabel = titleLabel;
     
-    inviteImageView.image = [UIImage imageNamed:@"invite.png"];
-    inviteImageView.hidden = YES;
-    self.inviteImageView = inviteImageView;
+    UIView * authorImageClickView = [[UIView alloc] init];
+    [bottomView addSubview:authorImageClickView];
+    [authorImageClickView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@0);
+        make.right.equalTo(titleLabel.mas_left);
+        make.left.equalTo(@0);
+        make.bottom.equalTo(@0);
+    }];
+    authorImageClickView.backgroundColor = [UIColor clearColor];
+    authorImageClickView.userInteractionEnabled = YES;
     
-    UILabel * keyWordLabel=[[UILabel alloc] init];
-    [bottomView addSubview:keyWordLabel];
-    [keyWordLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    UITapGestureRecognizer * authorClickGes = [[UITapGestureRecognizer alloc] init];
+    [authorClickGes addTarget:self action:@selector(authorClickGes:)];
+    [authorImageClickView addGestureRecognizer:authorClickGes];
+    
+    
+    
+    
+//    UIImageView * inviteImageView = [[UIImageView alloc] init];
+//    [self.contentView addSubview:inviteImageView];
+//    
+//    inviteImageView.image = [UIImage imageNamed:@"invite.png"];
+//    inviteImageView.hidden = YES;
+//    self.inviteImageView = inviteImageView;
+    
+    UILabel * authorNameLabel=[[UILabel alloc] init];
+    [bottomView addSubview:authorNameLabel];
+    [authorNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(@(-(65-35)*0.5));
         make.left.equalTo(@60);
-        make.width.equalTo(@(ScreenWidth-100-50));
+        make.width.equalTo(@(ScreenWidth-110-60));
         make.height.equalTo(@17);
     }];
-    keyWordLabel.textColor=[UIColor colorWithHexString:@"#000000" alpha:0.6];
-    keyWordLabel.font=[UIFont systemFontOfSize:12];
-    self.keyWordLabel=keyWordLabel;
+    authorNameLabel.textColor=[UIColor colorWithHexString:@"#000000" alpha:0.6];
+    authorNameLabel.font=[UIFont systemFontOfSize:12];
+    self.authorNameLabel=authorNameLabel;
     
+    
+    DivisionButtonView * rightView = [[DivisionButtonView alloc] init];
+    [bottomView addSubview:rightView];
+    rightView.frame = CGRectMake(ScreenWidth - 110, 0 , 110, 65);
+    rightView.imageArray = @[@"look_discover.png",@"love_discover.png"];
+    rightView.nameArray = @[@"",@""];
+    [rightView loadDivisionButtonView];
+    rightView.delegate = self;
+    self.rightView = rightView;
+    
+    
+    
+    /*
     UILabel * publishTimeLabel = [[UILabel alloc] init];
     [bottomView addSubview:publishTimeLabel];
     [publishTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -207,7 +205,7 @@
     [handleBtn setImage:[UIImage imageNamed:@"more-hui.png"] forState:UIControlStateNormal];
     [handleBtn addTarget:self action:@selector(handleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     handleBtn.hidden = YES;
-    self.handleBtn = handleBtn;
+    self.handleBtn = handleBtn;*/
     
     
 //    UIImageView * favorImageView=[[UIImageView alloc] init];
@@ -238,6 +236,15 @@
     }];
     lineView.backgroundColor=[UIColor colorWithRed:0.93f green:0.93f blue:0.93f alpha:1.00f];
 }
+#pragma mark --DivisionButtonViewDelegate代理方法的实现--
+- (void)divisionButtonViewClick:(DivisionButtonView *)divisionButtonView index:(int)index
+{
+    if (index == 1) {
+        if ([self.delegate respondsToSelector:@selector(discoveryCellDidFavor:andIsFavor:andFileName:andImageView:andFavorNum:title:)]) {
+            [self.delegate discoveryCellDidFavor:self andIsFavor:self.cloudMedia.favored andFileName:self.cloudMedia.filename andImageView:self.rightView andFavorNum:[self.cloudMedia.favor intValue] title:self.cloudMedia.title];
+        }
+    }
+}
 //点击收藏的事件  目前先不要
 - (void)favorTap:(UITapGestureRecognizer *)tap
 {
@@ -253,105 +260,59 @@
     
     
     [self.thumImageView sd_setImageWithURL:[NSURL URLWithString:cloudMedia.thumbnail]];
-    self.titleLabel.text=cloudMedia.title;
-    if ([cloudMedia.level isEqualToString:@"0"]) {
-        self.vipImageView.hidden = YES;
-        self.inviteImageView.hidden = YES;
-    }else if([cloudMedia.level isEqualToString:@"1"])
-    {
-        self.vipImageView.hidden = NO;
-        self.inviteImageView.hidden = NO;
-    }
     if ([cloudMedia.type isEqualToString:@"0"]) {
-        [self.typeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.titleLabel.mas_left);
-            make.centerY.equalTo(self.timeLabel.mas_centerY);
-            make.height.equalTo(@11);
-            make.width.equalTo(@11);
-        }];
-        self.typeImageView.image= [UIImage imageNamed:@"dis_picture.png"];
-        if (![cloudMedia.picsize isEqualToString:@""]) {
-            
-            self.timeLabel.text = [NSString stringWithFormat:@"%@MB",[self formatFloat:(float)[cloudMedia.picsize integerValue]/(1024*1024)]];
-        }else
-        {
-            self.timeLabel.text = @"";
-        }
+        self.centerImage.hidden = YES;
         
     }else
     {
-        [self.typeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.titleLabel.mas_left);
-            make.centerY.equalTo(self.timeLabel.mas_centerY);
-            make.height.equalTo(@9);
-            make.width.equalTo(@12);
-        }];
-        self.typeImageView.image= [UIImage imageNamed:@"shoot.png"];
-        if (![cloudMedia.playtime isEqualToString:@""]) {
-            self.timeLabel.text = [self formatTimeInterval:[cloudMedia.playtime floatValue] isLeft:NO];
-        }else
-        {
-            self.timeLabel.text = @"";
-        }
+        self.centerImage.hidden = NO;
         
     }
     
     
     [self.authorImageView sd_setImageWithURL:[NSURL URLWithString:cloudMedia.author_avatar] placeholderImage:[UIImage imageNamed:@"head.png"]];
     
-    if (cloudMedia.keyword == nil || [cloudMedia.keyword isEqualToString:@""]) {
-        
-        if ([cloudMedia.type isEqualToString:@"0"])
-        {
-            self.keyWordLabel.text = [NSString stringWithFormat:@"#%@",FGGetStringWithKeyFromTable(PANPIC, nil)];
-        }else
-        {
-            self.keyWordLabel.text = [NSString stringWithFormat:@"#%@",FGGetStringWithKeyFromTable(PANVIDEO, nil)];
-        }
-        
-    }else
-    {
-        
-        self.keyWordLabel.text=cloudMedia.keyword;
-    }
-    if (cloudMedia.author_name == nil) {
-        cloudMedia.author_name = @"";
-    }
-    NSMutableAttributedString * authorNameAttributed = [[NSMutableAttributedString alloc] initWithString:cloudMedia.author_name];
-    self.nameLabel.attributedText=authorNameAttributed;
-    [self.nameLabel sizeToFit];
-    [self.inviteImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.nameLabel.mas_right).offset(9);
-        make.centerY.equalTo(self.nameLabel.mas_centerY).offset(-5);
-        make.width.equalTo(@39);
-        make.height.equalTo(@24);
-    }];
-    if (self.isMine) {
-        self.publishTimeLabel.hidden = YES;
-        self.handleBtn.hidden = NO;
-        self.timeLabel.text = [NSString stringWithFormat:@"%@/%@",self.timeLabel.text,[cloudMedia.createtime componentsSeparatedByString:@" "][0]];
-    }else
-    {
-        self.publishTimeLabel.hidden = NO;
-        self.handleBtn.hidden = YES;
-        self.publishTimeLabel.text = [cloudMedia.createtime componentsSeparatedByString:@" "][0];
-    }
+    self.authorNameLabel.text=cloudMedia.author_name;
     
+//    NSMutableAttributedString * authorNameAttributed = [[NSMutableAttributedString alloc] initWithString:cloudMedia.title];
+    self.titleLabel.text=cloudMedia.title;
+//    [self.titleLabel sizeToFit];
     
-    
-    
-    
-    
-    
-   
-//    if ([cloudMedia.favored isEqualToString:@"0"]) {
-//        self.favorImageView.image=[UIImage imageNamed:@"like_h.png"];
+//    if (self.isMine) {
+//        self.publishTimeLabel.hidden = YES;
+//        self.handleBtn.hidden = NO;
+//        self.timeLabel.text = [NSString stringWithFormat:@"%@/%@",self.timeLabel.text,[cloudMedia.createtime componentsSeparatedByString:@" "][0]];
 //    }else
 //    {
-//        self.favorImageView.image=[UIImage imageNamed:@"like_n.png"];
+//        self.publishTimeLabel.hidden = NO;
+//        self.handleBtn.hidden = YES;
+//        self.publishTimeLabel.text = [cloudMedia.createtime componentsSeparatedByString:@" "][0];
 //    }
     
+    
+    
+    
+    
+    
+    
+    [self.rightView setNameIndex:0 name:cloudMedia.favor];
+    [self.rightView setNameIndex:1 name:cloudMedia.favor];
+    if ([cloudMedia.favored isEqualToString:@"0"]) {
+        [self.rightView setImageIndex:1 imageName:@"love_discover.png"];
+    }else
+    {
+        [self.rightView setImageIndex:1 imageName:@"love_discover-click.png"];
+    }
+    
 }
+
+- (void)authorClickGes:(UITapGestureRecognizer *)tap
+{
+    if ([self.delegate respondsToSelector:@selector(discoveryCellAuthorClick:)]) {
+        [self.delegate discoveryCellAuthorClick:self];
+    }
+}
+
 - (void)handleBtnClick:(UIButton *)btn
 {
     if ([self.delegate respondsToSelector:@selector(discoveryCellClick:)]) {

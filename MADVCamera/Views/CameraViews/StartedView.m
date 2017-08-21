@@ -81,6 +81,36 @@
     titleLabe.textColor=[UIColor colorWithHexString:@"#F6F6F6"];
     titleLabe.text=FGGetStringWithKeyFromTable(OPENWIFI, nil);
     
+    UILabel * buyLabel = [[UILabel alloc] init];
+    [self addSubview:buyLabel];
+    [buyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(imageView.mas_bottom).offset(82);
+        make.centerX.equalTo(self.mas_centerX);
+        make.width.equalTo(@150);
+        make.height.equalTo(@20);
+    }];
+    buyLabel.textAlignment=NSTextAlignmentCenter;
+    buyLabel.font=[UIFont systemFontOfSize:13];
+    buyLabel.textColor=[UIColor colorWithHexString:@"#F6F6F6"];
+    NSMutableAttributedString * agreement = [[NSMutableAttributedString alloc] initWithString:FGGetStringWithKeyFromTable(BUYCAMERA, nil)];
+    [agreement addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"#2fd5fe"] range:NSMakeRange(FGGetStringWithKeyFromTable(BUYCAMERA, nil).length - 4, 4)];
+    buyLabel.attributedText=agreement;
+    
+    UIView * buyView = [[UIView alloc] init];
+    [self addSubview:buyView];
+    [buyView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(buyLabel.mas_centerY);
+        make.centerX.equalTo(self.mas_centerX);
+        make.width.equalTo(@150);
+        make.height.equalTo(@35);
+    }];
+    buyView.backgroundColor = [UIColor clearColor];
+    
+    UITapGestureRecognizer * buyTapGes = [[UITapGestureRecognizer alloc] init];
+    [buyTapGes addTarget:self action:@selector(buyTapGes:)];
+    [buyView addGestureRecognizer:buyTapGes];
+    
+    
     UIButton * startBtn=[[UIButton alloc] init];
     [self addSubview:startBtn];
     [startBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -99,6 +129,14 @@
     startBtn.titleLabel.font=[UIFont systemFontOfSize:15];
     [startBtn setTitleColor:[UIColor colorWithHexString:@"#FFFFFF" alpha:0.9] forState:UIControlStateNormal];
     
+}
+
+- (void)buyTapGes:(UITapGestureRecognizer *)tap
+{
+    
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"https://www.mi.com/mj-panorama-camera/"]]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.mi.com/mj-panorama-camera/"]];
+    }
 }
 
 #pragma mark --启动--

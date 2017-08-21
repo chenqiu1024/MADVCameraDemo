@@ -10,11 +10,11 @@
 #define MadvGLRenderer_iOS_hpp
 
 #ifdef MADVPANO_BY_SOURCE
-#include "MadvGLRenderer.h"
-#include "EXIFParser.h"
+#import "OpenGLHelper.h"
+#import "MadvGLRenderer.h"
 #else
-#include <MADVPano/MadvGLRenderer.h>
-#include <MADVPano/EXIFParser.h>
+#import <MADVPano/OpenGLHelper.h>
+#import <MADVPano/MadvGLRenderer.h>
 #endif
 #include <UIKit/UIKit.h>
 
@@ -46,36 +46,63 @@ extern "C" {
 }
 #endif
 
-class MadvGLRenderer_iOS : public MadvGLRenderer {
-public:
-    
-    virtual ~MadvGLRenderer_iOS();
-    
-    MadvGLRenderer_iOS(const char* lutPath, Vec2f leftSrcSize, Vec2f rightSrcSize);
-    
-    static UIImage* renderImageWithIDR(NSString* thumbnailPath, CGSize destSize, bool withLUT, NSString* sourceURI, int filterID, float* gyroMatrix, int gyroMatrixRank);
-    static UIImage* renderImage(UIImage* sourceImage, CGSize destSize, bool withLUT, NSString* sourceURI, int filterID, float* gyroMatrix, int gyroMatrixRank);
-    static UIImage* renderJPEG(const char* sourcePath, CGSize destSize, bool withLUT, NSString* sourceURI, bool lutEmbeddedInJPEG, int filterID, float* gyroMatrix, int gyroMatrixRank);
-    static void renderJPEGToJPEG(NSString* destJpegPath, BOOL eraseMadvExtensions, NSString* sourcePath, int dstWidth, int dstHeight, bool withLUT, bool lutEmbeddedInJPEG, int filterID, float* gyroMatrix, int gyroMatrixRank);
-    static void renderImageInMem(unsigned char** outPixels, int* outBytesLength, CGSize destSize, const unsigned char* inPixels, int width, int height, bool withLUT, NSString* sourceURI, int filterID, float* gyroMatrix, int gyroMatrixRank);
-    
-    static NSString* lutPathOfSourceURI(NSString* sourceURI, bool withLUT, bool lutEmbeddedInJPEG);
-    
-    static NSString* cameraLUTFilePath(NSString* cameraUUID);
-    
-    static NSString* preStitchPictureFileName(NSString* cameraUUID, NSString* fileName);
-    static NSString* stitchedPictureFileName(NSString* preStitchPictureFileName);
-    static NSString* cameraUUIDOfPreStitchFileName(NSString* preStitchFileName);
-    
-    static void extractLUTFiles(const char* destDirectory, const char* lutBinFilePath, uint32_t fileOffset);
-    
-protected:
-    
-    void prepareTextureWithRenderSource(void* renderSource);
-    
-    //For iOS8HD
-    struct __CVOpenGLESTextureCache * _videoTextureCache;
-    struct __CVOpenGLESTexture *      _videoDestTexture;
-};
+@interface MVPanoRenderer : NSObject
+
+- (void*) internalInstance;
+
+- (instancetype) initWithLUTPath:(NSString*)lutPath leftSrcSize:(CGSize)leftSrcSize rightSrcSize:(CGSize)rightSrcSize;
+#ifndef MADVPANO_EXPORT
++ (UIImage*) renderImageWithIDR:(NSString*)idrPath destSize:(CGSize)destSize withLUT:(BOOL)withLUT sourceURI:(NSString*)sourceURI filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixBank:(int)gyroMatrixRank;
+#endif //#ifndef MADVPANO_EXPORT
++ (UIImage*) renderImage:(UIImage*)sourceImage destSize:(CGSize)destSize withLUT:(BOOL)withLUT sourceURI:(NSString*)sourceURI filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixBank:(int)gyroMatrixRank;
+
++ (UIImage*) renderJPEG:(NSString*)sourcePath destSize:(CGSize)destSize withLUT:(bool)withLUT sourceURI:(NSString*)sourceURI lutEmbeddedInJPEG:(bool)lutEmbeddedInJPEG filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixRank:(int)gyroMatrixRank;
+
++ (void) renderJPEGToJPEG:(NSString*)destJpegPath eraseMadvExtensions:(BOOL)eraseMadvExtensions sourcePath:(NSString*)sourcePath dstWidth:(int)dstWidth dstHeight:(int)dstHeight withLUT:(bool)withLUT lutEmbeddedInJPEG:(bool)lutEmbeddedInJPEG filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixRank:(int)gyroMatrixRank;
+
++ (void) renderImageInMem:(unsigned char**)outPixels outBytesLength:(int*)outBytesLength destSize:(CGSize)destSize inPixels:(const unsigned char*)inPixels width:(int)width height:(int)height withLUT:(bool)withLUT sourceURI:(NSString*)sourceURI filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixRank:(int)gyroMatrixRank;
+#ifndef MADVPANO_EXPORT
++ (NSString*) lutPathOfSourceURI:(NSString*)sourceURI withLUT:(bool)withLUT lutEmbeddedInJPEG:(BOOL)lutEmbeddedInJPEG;
+
++ (NSString*) cameraLUTFilePath:(NSString*)cameraUUID;
+
++ (NSString*) preStitchPictureFileName:(NSString*)cameraUUID fileName:(NSString*)fileName;
++ (NSString*) stitchedPictureFileName:(NSString*)preStitchPictureFileName;
++ (NSString*) cameraUUIDOfPreStitchFileName:(NSString*)preStitchFileName;
+
++ (void) extractLUTFiles:(const char*)destDirectory lutBinFilePath:(const char*)lutBinFilePath fileOffset:(uint32_t)fileOffset;
+#endif //#ifndef MADVPANO_EXPORT
+- (void) setIsYUVColorSpace:(BOOL)isYUVColorSpace;
+
+- (BOOL) isYUVColorSpace;
+
+- (void) prepareLUT:(NSString*)lutPath leftSrcSize:(CGSize)leftSrcSize rightSrcSize:(CGSize)rightSrcSize;
+
+- (void) setTextureMatrix:(kmMat4*)textureMatrix;
+
+- (void) setRenderSource:(void*)renderSource;
+
+- (CGSize) renderSourceSize;
+
+- (void) setGyroMatrix:(float*)matrix rank:(int)rank;
+
+- (GLint) leftSourceTexture;
+- (GLint) rightSourceTexture;
+- (GLenum) sourceTextureTarget;
+
+- (int) displayMode;
+- (void) setDisplayMode:(int)displayMode;
+
+- (void) setEnableDebug:(BOOL)enable;
+
+- (void) setFlipY:(BOOL)flipY;
+
+- (void) drawWithDisplayMode:(int)displayMode x:(int)x y:(int)y width:(int)width height:(int)height separateSourceTextures:(BOOL)separateSourceTextures srcTextureType:(int)srcTextureType leftSrcTexture:(int)leftSrcTexture rightSrcTexture:(int)rightSrcTexture;
+
+- (void) drawWithX:(int)x y:(int)y width:(int)width height:(int)height;
+
+- (int) fovDegree;
+
+@end
 
 #endif /* MadvGLRenderer_iOS_hpp */

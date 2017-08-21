@@ -164,6 +164,10 @@ typedef enum : NSInteger {
 
 - (MVMedia *) obtainDownloadedOrThisMedia;
 
+- (NSString*) requestLocalFilePath:(void(^)(NSString* localPath))completionHandler;
+
+- (NSString*) localFilePathSync;
+
 - (void)saveCommonFields;
 - (void)copyCommonFields:(MVMedia *)media;
 

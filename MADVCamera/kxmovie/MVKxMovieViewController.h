@@ -72,6 +72,7 @@ NSString * formatTimeInterval(CGFloat seconds, BOOL isLeft);
 
 @property (nonatomic, assign) BOOL isUsedAsEncoder;
 @property (nonatomic, assign) BOOL isUsedAsCapturer;
+@property (nonatomic, assign) BOOL isFullScreenCapturer;
 @property (nonatomic, assign) BOOL isUsedAsVideoEditor;
 @property (nonatomic, assign) QualityLevel encoderQualityLevel;
 #ifdef ENCODING_WITHOUT_MYGLVIEW

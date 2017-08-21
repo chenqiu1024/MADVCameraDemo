@@ -986,12 +986,12 @@ UIImage* getVideoImage(NSString* videoURL)
                         {
                             NSString* idrFilePath = [thumbnailPath stringByAppendingPathExtension:@"idr"];
                             [thumbData writeToFile:idrFilePath atomically:YES];
-                            thumbnailBitmap = MadvGLRenderer_iOS::renderImageWithIDR(idrFilePath, CGSizeMake(ThumbnailWidth, ThumbnailHeight), YES, nil, 0, gyroMatrix, 3);
+                            thumbnailBitmap = [MVPanoRenderer renderImageWithIDR:idrFilePath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:YES sourceURI:nil filterID:0 gyroMatrix:gyroMatrix gyroMatrixBank:3];
                         }
                         else
                         {
                             UIImage* originalImage = [UIImage imageWithData:thumbData];
-                            thumbnailBitmap = MadvGLRenderer_iOS::renderImage(originalImage, CGSizeMake(ThumbnailWidth, ThumbnailHeight), !m.isStitched, nil, (int)m.filterID, gyroMatrix, 3);
+                            thumbnailBitmap = [MVPanoRenderer renderImage:originalImage destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:!m.isStitched sourceURI:nil filterID:(int)m.filterID gyroMatrix:gyroMatrix gyroMatrixBank:3];
                         }
                         
                         [self saveMediaThumbnail:m thumbnail:thumbnailBitmap];
@@ -1112,7 +1112,7 @@ UIImage* getVideoImage(NSString* videoURL)
             }
             else
             {
-                NSString* localPath = [z_Sandbox documentPath:savedMedia.localPath];
+                NSString* localPath = [savedMedia localFilePathSync]; ///[z_Sandbox documentPath:savedMedia.localPath];
                 BOOL isDirectory = NO;
                 BOOL isFileExists = [[NSFileManager defaultManager] fileExistsAtPath:localPath isDirectory:&isDirectory];
                 if (isFileExists && !isDirectory && savedMedia.downloadedSize >= savedMedia.size && savedMedia.size > 0)
@@ -1128,12 +1128,12 @@ UIImage* getVideoImage(NSString* videoURL)
                                 
                                 if (originalImage)
                                 {
-                                    thumbnailImage = MadvGLRenderer_iOS::renderImage(originalImage, CGSizeMake(ThumbnailWidth, ThumbnailHeight), YES, localPath, 0, NULL, 0);
+                                    thumbnailImage = [MVPanoRenderer renderImage:originalImage destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:YES sourceURI:localPath filterID:0 gyroMatrix:NULL gyroMatrixBank:0];
                                 }
                             }
                             else
                             {
-                                thumbnailImage = MadvGLRenderer_iOS::renderJPEG(localPath.UTF8String, CGSizeMake(ThumbnailWidth, ThumbnailHeight), NO, localPath, NO, 0, NULL, 0);
+                                thumbnailImage = [MVPanoRenderer renderJPEG:localPath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:NO sourceURI:localPath lutEmbeddedInJPEG:NO filterID:0 gyroMatrix:NULL gyroMatrixRank:0];
                             }
                             UIImage* finalThumbnail = (thumbnailImage ? : originalImage);
                             if (finalThumbnail)
@@ -1169,7 +1169,7 @@ UIImage* getVideoImage(NSString* videoURL)
             }
             else
             {
-                NSString* localPath = [z_Sandbox documentPath:savedMedia.localPath];
+                NSString* localPath = [savedMedia localFilePathSync];/// [z_Sandbox documentPath:savedMedia.localPath];
                 BOOL isDirectory = NO;
                 BOOL isFileExists = [[NSFileManager defaultManager] fileExistsAtPath:localPath isDirectory:&isDirectory];
                 if (isFileExists && !isDirectory && savedMedia.downloadedSize >= savedMedia.size && savedMedia.size > 0)
@@ -1183,14 +1183,14 @@ UIImage* getVideoImage(NSString* videoURL)
                                 originalImage = getVideoImage(localPath);
                                 if (originalImage)
                                 {
-                                    UIImage* thumbnailImage = MadvGLRenderer_iOS::renderImage(originalImage, CGSizeMake(ThumbnailWidth, ThumbnailHeight), YES, localPath, 0, NULL, 0);
+                                    UIImage* thumbnailImage = [MVPanoRenderer renderImage:originalImage destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:YES sourceURI:localPath filterID:0 gyroMatrix:NULL gyroMatrixBank:0];
                                     [self saveMediaThumbnail:media thumbnail:thumbnailImage];
                                     [self sendCallbackMessage:MsgThumbnailFetched arg1:0 arg2:0 object:media];
                                 }
                             }
                             else
                             {
-                                UIImage* thumbnailImage = MadvGLRenderer_iOS::renderJPEG(localPath.UTF8String, CGSizeMake(ThumbnailWidth, ThumbnailHeight), NO, localPath, NO, 0, NULL, 0);
+                                UIImage* thumbnailImage = [MVPanoRenderer renderJPEG:localPath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:NO sourceURI:localPath lutEmbeddedInJPEG:NO filterID:0 gyroMatrix:NULL gyroMatrixRank:0];
                                 [self saveMediaThumbnail:media thumbnail:thumbnailImage];
                                 [self sendCallbackMessage:MsgThumbnailFetched arg1:0 arg2:0 object:media];
                             }
@@ -1240,7 +1240,7 @@ UIImage* getVideoImage(NSString* videoURL)
             }
             else if (savedMedia.localPath && savedMedia.localPath.length > 0)
             {
-                NSString* localPath = [z_Sandbox documentPath:savedMedia.localPath];
+                NSString* localPath = [savedMedia localFilePathSync];/// [z_Sandbox documentPath:savedMedia.localPath];
                 BOOL isDirectory = NO;
                 BOOL isFileExists = [[NSFileManager defaultManager] fileExistsAtPath:localPath isDirectory:&isDirectory];
                 if (isFileExists && !isDirectory && savedMedia.downloadedSize >= savedMedia.size && savedMedia.size > 0)
@@ -1255,12 +1255,12 @@ UIImage* getVideoImage(NSString* videoURL)
                                 originalImage = getVideoImage(localPath);
                                 if (originalImage)
                                 {
-                                    thumbnailImage = MadvGLRenderer_iOS::renderImage(originalImage, CGSizeMake(ThumbnailWidth, ThumbnailHeight), YES, localPath, 0, NULL, 0);
+                                    thumbnailImage = [MVPanoRenderer renderImage:originalImage destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:YES sourceURI:localPath filterID:0 gyroMatrix:NULL gyroMatrixBank:0];
                                 }
                             }
                             else
                             {
-                                thumbnailImage = MadvGLRenderer_iOS::renderJPEG(localPath.UTF8String, CGSizeMake(ThumbnailWidth, ThumbnailHeight), NO, localPath, NO, 0, NULL, 0);
+                                thumbnailImage = [MVPanoRenderer renderJPEG:localPath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:NO sourceURI:localPath lutEmbeddedInJPEG:NO filterID:0 gyroMatrix:NULL gyroMatrixRank:0];
                             }
                             UIImage* finalThumbnail = (thumbnailImage ? : originalImage);
                             if (finalThumbnail)
@@ -1391,7 +1391,7 @@ UIImage* getVideoImage(NSString* videoURL)
                     {
                         if (savedMedia.localPath && savedMedia.localPath.length > 0)
                         {
-                            [[NSFileManager defaultManager] removeItemAtPath:[z_Sandbox documentPath:savedMedia.localPath] error:nil];
+                            [[NSFileManager defaultManager] removeItemAtPath:/*[z_Sandbox documentPath:savedMedia.localPath]*/[savedMedia localFilePathSync] error:nil];
                         }
                         [savedMedia remove];
                     }
@@ -1454,7 +1454,7 @@ UIImage* getVideoImage(NSString* videoURL)
     {
         NSFileManager* fm = [NSFileManager defaultManager];
         MVMedia* media = [MVMedia querySavedMediaWithCameraUUID:m.cameraUUID remotePath:m.remotePath localPath:m.localPath];
-        [fm removeItemAtPath:[z_Sandbox documentPath:media.localPath] error:nil];
+        [fm removeItemAtPath:/*[z_Sandbox documentPath:media.localPath]*/[media localFilePathSync] error:nil];
         
         if ([media.localPath hasSuffix:@"AA.MP4"])
         {
@@ -1639,10 +1639,10 @@ UIImage* getVideoImage(NSString* videoURL)
         if (!isVideo && !isImage) continue;
         
         // If is pre-stitch picture:
-        NSString* cameraUUID = MadvGLRenderer_iOS::cameraUUIDOfPreStitchFileName(originalFile);
+        NSString* cameraUUID = [MVPanoRenderer cameraUUIDOfPreStitchFileName:originalFile];
         if (cameraUUID)
         {
-            NSString* localPath = MadvGLRenderer_iOS::stitchedPictureFileName(originalFile);
+            NSString* localPath = [MVPanoRenderer stitchedPictureFileName:originalFile];
             MVMedia* media = [MVMedia querySavedMediaWithCameraUUID:cameraUUID remotePath:nil localPath:localPath];
             if (media)
             {
@@ -1665,11 +1665,11 @@ UIImage* getVideoImage(NSString* videoURL)
 #endif
                     if (madvExtension.gyroMatrixBytes > 0)
                     {
-                        MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, YES, sourcePath, jpegInfo.image_width, jpegInfo.image_height, madvExtension.sceneType != StitchTypeStitched, madvExtension.withEmbeddedLUT, (int)media.filterID, matrixData, 3);
+                        [MVPanoRenderer renderJPEGToJPEG:destPath eraseMadvExtensions:YES sourcePath:sourcePath dstWidth:jpegInfo.image_width dstHeight:jpegInfo.image_height withLUT:(madvExtension.sceneType != StitchTypeStitched) lutEmbeddedInJPEG:madvExtension.withEmbeddedLUT filterID:(int)media.filterID gyroMatrix:matrixData gyroMatrixRank:3];
                     }
                     else
                     {
-                        MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, YES, sourcePath, jpegInfo.image_width, jpegInfo.image_height, madvExtension.sceneType != StitchTypeStitched, madvExtension.withEmbeddedLUT, (int)media.filterID, NULL, 0);
+                        [MVPanoRenderer renderJPEGToJPEG:destPath eraseMadvExtensions:YES sourcePath:sourcePath dstWidth:jpegInfo.image_width dstHeight:jpegInfo.image_height withLUT:(madvExtension.sceneType != StitchTypeStitched) lutEmbeddedInJPEG:madvExtension.withEmbeddedLUT filterID:(int)media.filterID gyroMatrix:NULL gyroMatrixRank:0];
                     }
                     free(matrixData);
                     /*
@@ -1690,7 +1690,7 @@ UIImage* getVideoImage(NSString* videoURL)
                         [[NSFileManager defaultManager] removeItemAtPath:sourcePath error:nil];
                     }
                     //*
-                    UIImage* thumbnailImage = MadvGLRenderer_iOS::renderJPEG(destPath.UTF8String, CGSizeMake(ThumbnailWidth, ThumbnailHeight), false, destPath, false, 0, NULL, 0);
+                    UIImage* thumbnailImage = [MVPanoRenderer renderJPEG:destPath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:NO sourceURI:destPath lutEmbeddedInJPEG:NO filterID:0 gyroMatrix:NULL gyroMatrixRank:0];
                     [self saveMediaThumbnail:media thumbnail:thumbnailImage];
                     //[self sendCallbackMessage:MsgThumbnailFetched arg1:0 arg2:0 object:media];
                     //[self updateLocalMedia:media];
@@ -1929,15 +1929,15 @@ NSString* uniqueLocalPath(NSString* cameraUUID, NSString* remotePath) {
                 return YES;
             }
         }
-        
-        NSString* destLocalPath = (MVMediaTypePhoto == media.mediaType ? MadvGLRenderer_iOS::preStitchPictureFileName(media.cameraUUID, media.localPath) : media.localPath);
+
+        NSString* destLocalPath = (MVMediaTypePhoto == media.mediaType ? [MVPanoRenderer preStitchPictureFileName:media.cameraUUID fileName:media.localPath] : media.localPath);
 #ifdef USE_HTTP_DOWNLOADING
         
 #ifdef DEBUG_HTTP_DOWNLOADING
         downloadTask = [[HTTPDownloadTask alloc] initWithPriority:MVDownloadTaskPriorityLow remoteFilePath:media.remotePath resumeData:media.downloadResumeData localFilePath:[z_Sandbox documentPath:[destLocalPath lastPathComponent]] chunkSize:DownloadChunkSize callback:nil];
 #else
         NSString* httpSourceURL = [self.class httpURLFromRemotePath:media.remotePath];
-        //downloadTask = [[HTTPDownloadTask alloc] initWithPriority:MVDownloadTaskPriorityLow remoteFilePath:httpSourceURL offset:media.downloadedSize resumeData:media.downloadResumeData localFilePath:[z_Sandbox documentPath:media.localPath] chunkSize:(int)rangeLength callback:nil];
+        //downloadTask = [[HTTPDownloadTask alloc] initWithPriority:MVDownloadTaskPriorityLow remoteFilePath:httpSourceURL offset:media.downloadedSize resumeData:media.downloadResumeData localFilePath:/*[z_Sandbox documentPath:media.localPath]*/[media localFilePathSync] chunkSize:(int)rangeLength callback:nil];
         downloadTask = [[AFHTTPDownloadTask alloc] initWithPriority:MVDownloadTaskPriorityLow remoteFilePath:httpSourceURL offset:rangeStart length:DownloadChunkSize localFilePath:[z_Sandbox documentPath:destLocalPath] callback:nil];
 #endif
 
@@ -1997,12 +1997,12 @@ NSString* uniqueLocalPath(NSString* cameraUUID, NSString* remotePath) {
                 //NSLog(@"#Bug3040# addDownloading :#3 localPath = '%@', media = %@", media.localPath, media);
                 if (media.mediaType == MVMediaTypePhoto)
                 {
-                    NSString* sourcePath = [z_Sandbox documentPath:MadvGLRenderer_iOS::preStitchPictureFileName(media.cameraUUID, media.localPath)];
+                    NSString* sourcePath = [z_Sandbox documentPath:[MVPanoRenderer preStitchPictureFileName:media.cameraUUID fileName:media.localPath]];
                     if (![[NSFileManager defaultManager] fileExistsAtPath:sourcePath])
                     {
                         return;
                     }
-                    NSString* destPath = [z_Sandbox documentPath:media.localPath];
+                    NSString* destPath = /*[z_Sandbox documentPath:media.localPath]*/[media localFilePathSync];
                     ///NSAssert(media.localPath && media.localPath.length > 0, @"media.localPath == null, media=%@", media);///!!!#Bug3040#
                     float* matrixData = (float*) malloc(sizeof(float) * 16);
                     MadvEXIFExtension madvExtension = readMadvEXIFExtensionFromJPEG(matrixData, sourcePath.UTF8String);
@@ -2018,11 +2018,11 @@ NSString* uniqueLocalPath(NSString* cameraUUID, NSString* remotePath) {
 #endif
                     if (madvExtension.gyroMatrixBytes > 0)
                     {
-                        MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, YES, sourcePath, jpegInfo.image_width, jpegInfo.image_height, madvExtension.sceneType != StitchTypeStitched, madvExtension.withEmbeddedLUT, (int)media.filterID, matrixData, 3);
+                        [MVPanoRenderer renderJPEGToJPEG:destPath eraseMadvExtensions:YES sourcePath:sourcePath dstWidth:jpegInfo.image_width dstHeight:jpegInfo.image_height withLUT:(madvExtension.sceneType != StitchTypeStitched) lutEmbeddedInJPEG:madvExtension.withEmbeddedLUT filterID:(int)media.filterID gyroMatrix:matrixData gyroMatrixRank:3];
                     }
                     else
                     {
-                        MadvGLRenderer_iOS::renderJPEGToJPEG(destPath, YES, sourcePath, jpegInfo.image_width, jpegInfo.image_height, madvExtension.sceneType != StitchTypeStitched, madvExtension.withEmbeddedLUT, (int)media.filterID, NULL, 0);
+                        [MVPanoRenderer renderJPEGToJPEG:destPath eraseMadvExtensions:YES sourcePath:sourcePath dstWidth:jpegInfo.image_width dstHeight:jpegInfo.image_height withLUT:(madvExtension.sceneType != StitchTypeStitched) lutEmbeddedInJPEG:madvExtension.withEmbeddedLUT filterID:(int)media.filterID gyroMatrix:NULL gyroMatrixRank:0];
                     }
                     free(matrixData);
                     /*
@@ -2048,7 +2048,7 @@ NSString* uniqueLocalPath(NSString* cameraUUID, NSString* remotePath) {
                      }];///!!!#Bug3040#
                      //*/
                     //*
-                    UIImage* thumbnailImage = MadvGLRenderer_iOS::renderJPEG(destPath.UTF8String, CGSizeMake(ThumbnailWidth, ThumbnailHeight), false, destPath, madvExtension.withEmbeddedLUT, 0, NULL, 0);
+                    UIImage* thumbnailImage = [MVPanoRenderer renderJPEG:destPath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:NO sourceURI:destPath lutEmbeddedInJPEG:madvExtension.withEmbeddedLUT filterID:0 gyroMatrix:NULL gyroMatrixRank:0];
                     [pSelf saveMediaThumbnail:media thumbnail:thumbnailImage];
                     [pSelf sendCallbackMessage:MsgThumbnailFetched arg1:0 arg2:0 object:media];
                     [pSelf updateLocalMedia:media];
@@ -2355,11 +2355,11 @@ NSString* uniqueLocalPath(NSString* cameraUUID, NSString* remotePath) {
 #else
                  NSString* httpSourceURL = [self.class httpURLFromRemotePath:media.remotePath];
                  //downloadTask = [[HTTPDownloadTask alloc] initWithPriority:MVDownloadTaskPriorityLow remoteFilePath:httpSourceURL offset:media.downloadedSize resumeData:media.downloadResumeData localFilePath:[z_Sandbox documentPath:media.localPath] chunkSize:(int)rangeLength callback:nil];
-                 downloadTask = [[AFHTTPDownloadTask alloc] initWithPriority:MVDownloadTaskPriorityLow remoteFilePath:httpSourceURL offset:rangeStart length:DownloadChunkSize localFilePath:[z_Sandbox documentPath:media.localPath] callback:nil];
+                 downloadTask = [[AFHTTPDownloadTask alloc] initWithPriority:MVDownloadTaskPriorityLow remoteFilePath:httpSourceURL offset:rangeStart length:DownloadChunkSize localFilePath:/*[z_Sandbox documentPath:media.localPath]*/[media localFilePathSync] callback:nil];
 #endif
                  
 #else
-                 downloadTask = [[FileDownloadTask alloc] initWithPriority:MVDownloadTaskPriorityLow remotePath:media.remotePath fileOffset:rangeStart chunkSize:rangeLength localFilePath:[z_Sandbox documentPath:media.localPath] callback:nil];
+                 downloadTask = [[FileDownloadTask alloc] initWithPriority:MVDownloadTaskPriorityLow remotePath:media.remotePath fileOffset:rangeStart chunkSize:rangeLength localFilePath:/*[z_Sandbox documentPath:media.localPath]*/[media localFilePathSync] callback:nil];
 #endif
                  if ([self.downloadTasks containsObject:downloadTask])
                  {
@@ -2420,7 +2420,7 @@ NSString* uniqueLocalPath(NSString* cameraUUID, NSString* remotePath) {
                              {
                                  return;
                              }
-                             NSString* destPath = [z_Sandbox documentPath:media.localPath];
+                             NSString* destPath = /*[z_Sandbox documentPath:media.localPath]*/[media localFilePathSync];
                              ///NSAssert(media.localPath && media.localPath.length > 0, @"media.localPath == null, media=%@", media);///!!!#Bug3040#
                              float* matrixData = (float*) malloc(sizeof(float) * 16);
                              int matrixByteLength = readGyroDataFromJPEG(matrixData, sourcePath.UTF8String);
@@ -2652,7 +2652,7 @@ NSString* uniqueLocalPath(NSString* cameraUUID, NSString* remotePath) {
             localPath = fileDownloadTask.localFilePath;
         }
         
-        NSString* stitchedPictureName = MadvGLRenderer_iOS::stitchedPictureFileName(localPath);
+        NSString* stitchedPictureName = [MVPanoRenderer stitchedPictureFileName:localPath];
         if (stitchedPictureName)
         {
             localPath = stitchedPictureName;
@@ -2699,7 +2699,7 @@ NSString* uniqueLocalPath(NSString* cameraUUID, NSString* remotePath) {
     //}
     if (media.localPath && 0 != media.localPath.length)
     {
-        [[NSFileManager defaultManager] removeItemAtPath:[z_Sandbox documentPath:media.localPath] error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:/*[z_Sandbox documentPath:media.localPath]*/[media localFilePathSync] error:nil];
         NSString* tempFilePath = [MVCameraDownloadManager downloadingTempFilePath:media.localPath];
         [[NSFileManager defaultManager] removeItemAtPath:tempFilePath error:nil];
     }

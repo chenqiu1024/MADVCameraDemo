@@ -10,7 +10,7 @@
 //  KxMovie is licenced under the LGPL v3, see lgpl-3.0.txt
 
 #import "MVKxMovieViewController.h"
-//#import <SSZipArchive.h>
+//#import "SSZipArchive.h"
 #import "MVGLView.h"
 #import "MadvGLRenderer_iOS.h"
 #import "NSRecursiveCondition.h"
@@ -151,6 +151,7 @@ NSString* formatTimeInterval(CGFloat seconds, BOOL isLeft)
 
 @synthesize isUsedAsEncoder;
 @synthesize isUsedAsCapturer;
+@synthesize isFullScreenCapturer;
 @synthesize isUsedAsVideoEditor;
 @synthesize encoderQualityLevel;
 @synthesize decoder = _decoder;
@@ -932,7 +933,7 @@ static __weak id s_retainer = nil;
     NSLog(@"EAGLContext : MVKxMovieViewController $ setupPresentView");
     MVGLView* presentView = _glView;
     CGRect bounds = self.view.bounds;
-    NSString* lutPath = MadvGLRenderer_iOS::lutPathOfSourceURI(_contentPath, NO, NO);
+    NSString* lutPath = [MVPanoRenderer lutPathOfSourceURI:_contentPath withLUT:NO lutEmbeddedInJPEG:NO];
     if (_decoder.validVideo) {
         [_decoder setupVideoFrameFormat:KxVideoFrameFormatYUV];
 #ifdef USE_KXGLVIEW
@@ -966,6 +967,7 @@ static __weak id s_retainer = nil;
                 self.encoderRenderLoop.encodingDoneBlock = self.encodingDoneBlock;
                 self.encoderRenderLoop.encodingFrameBlock = self.encodingFrameBlock;
             }
+            self.encoderRenderLoop.isFullScreenCapturing = self.isFullScreenCapturer;
             self.encoderRenderLoop.encodingError = nil;
         }
         else
@@ -981,6 +983,7 @@ static __weak id s_retainer = nil;
                 NSLog(@"EAGLContext : MVKxMovieViewController $ setupPresentView # _glView = (%@), PresentView = %@, glRenderLoop = %lx", _glView, presentView, _glView.glRenderLoop.hash);
                 presentView = [[MVGLView alloc] initWithFrame:bounds lutPath:lutPath lutSrcSizeL:CGSizeMake(3456, 1728) lutSrcSizeR:CGSizeMake(3456, 1728) outputVideoBaseName:outputVideoBaseName encoderQualityLevel:(MVQualityLevel)self.encoderQualityLevel forCapturing:self.isUsedAsCapturer];
             }
+            presentView.glRenderLoop.isFullScreenCapturing = self.isFullScreenCapturer;
             presentView.glRenderLoop.encodingDoneBlock = self.encodingDoneBlock;
             presentView.glRenderLoop.encodingFrameBlock = self.encodingFrameBlock;
         }
@@ -1086,6 +1089,7 @@ static __weak id s_retainer = nil;
             //_imageView = [[UIImageView alloc] initWithFrame:bounds];
             //_imageView.backgroundColor = [UIColor blackColor];
             self.encoderRenderLoop = [[GLRenderLoop alloc] initWithDelegate:self lutPath:lutPath lutSrcSizeL:CGSizeMake(3456, 1728) lutSrcSizeR:CGSizeMake(3456, 1728) inputFrameSize:CGSizeMake(bounds.size.width * self.view.contentScaleFactor, bounds.size.height * self.view.contentScaleFactor) outputVideoBaseName:nil encoderQualityLevel:(MVQualityLevel)self.encoderQualityLevel forCapturing:NO];
+            self.encoderRenderLoop.isFullScreenCapturing = self.isFullScreenCapturer;
             self.encoderRenderLoop.encodingDoneBlock = self.encodingDoneBlock;
             self.encoderRenderLoop.encodingFrameBlock = self.encodingFrameBlock;
             self.encoderRenderLoop.panoramaMode = self.panoramaMode;
@@ -1112,6 +1116,7 @@ static __weak id s_retainer = nil;
             //_imageView = [[UIImageView alloc] initWithFrame:bounds];
             //_imageView.backgroundColor = [UIColor blackColor];
             presentView = [[MVGLView alloc] initWithFrame:bounds lutPath:lutPath lutSrcSizeL:CGSizeMake(3456, 1728) lutSrcSizeR:CGSizeMake(3456, 1728) outputVideoBaseName:nil encoderQualityLevel:(MVQualityLevel)self.encoderQualityLevel forCapturing:self.isUsedAsCapturer];
+            presentView.glRenderLoop.isFullScreenCapturing = self.isFullScreenCapturer;
             presentView.glRenderLoop.encodingDoneBlock = self.encodingDoneBlock;
             presentView.glRenderLoop.encodingFrameBlock = self.encodingFrameBlock;
             presentView.panoramaMode = self.panoramaMode;

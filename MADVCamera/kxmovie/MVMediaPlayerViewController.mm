@@ -108,7 +108,11 @@
         self.videoExportView = videoExportView;
     }
     
-    [self setContentPath:[z_Sandbox documentPath:self.media.localPath] parameters:self.parameters];
+    __weak typeof(self) wSelf = self;
+    [self.media requestLocalFilePath:^(NSString* filePath) {
+        __strong typeof(self) pSelf = wSelf;
+        [pSelf setContentPath:filePath parameters:self.parameters];
+    }];
 }
 
 #pragma mark --返回--
