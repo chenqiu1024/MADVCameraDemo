@@ -39,6 +39,11 @@
 		52DB9A931F3B12450050E81F /* MADVPano.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3B1F0B9A0700E5F155 /* MADVPano.framework */; };
 		BB206DCC1F4AA15900EB50C0 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB206DCB1F4AA15800EB50C0 /* Photos.framework */; };
 		BB3DA3A31F0F7FE3009B6ACF /* MyMovieSegmentMerger.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */; };
+		BB89B5BB1F556354007AC0A2 /* MVGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB89B5BA1F556354007AC0A2 /* MVGLView.mm */; };
+		BB89B5BC1F556362007AC0A2 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB206DCB1F4AA15800EB50C0 /* Photos.framework */; };
+		BB89B5C11F55642F007AC0A2 /* AMBASetCameraModeResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BB89B5BE1F55642F007AC0A2 /* AMBASetCameraModeResponse.m */; };
+		BB89B5C21F55642F007AC0A2 /* AMBAShootPhotoIntervalResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = BB89B5C01F55642F007AC0A2 /* AMBAShootPhotoIntervalResponse.m */; };
+		BB89B6691F55761A007AC0A2 /* KxMovieDecoder_douyin.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB89B6681F55761A007AC0A2 /* KxMovieDecoder_douyin.mm */; };
 		BBEFDB5C1F2ED37B003A2C27 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBEFDB5B1F2ED37B003A2C27 /* MediaPlayer.framework */; };
 		BBEFDB5D1F2ED38A003A2C27 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBEFDB5B1F2ED37B003A2C27 /* MediaPlayer.framework */; };
 		BBEFDB741F2EEE11003A2C27 /* MediaPlayerStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBEFDB731F2EEE11003A2C27 /* MediaPlayerStoryboard.storyboard */; };
@@ -149,7 +154,6 @@
 		BBF3935E1F26FA2E0023DC8B /* MyReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF392641F26FA2E0023DC8B /* MyReachability.m */; };
 		BBF3935F1F26FA2E0023DC8B /* NSCondition+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF392661F26FA2E0023DC8B /* NSCondition+Extensions.m */; };
 		BBF393621F26FA2E0023DC8B /* NSMutableArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3926C1F26FA2E0023DC8B /* NSMutableArray+Extensions.m */; };
-		BBF393641F26FA2E0023DC8B /* NSRecursiveCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF392701F26FA2E0023DC8B /* NSRecursiveCondition.m */; };
 		BBF393661F26FA2E0023DC8B /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF392741F26FA2E0023DC8B /* NSString+Extensions.m */; };
 		BBF393671F26FA2E0023DC8B /* SocketHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBF392761F26FA2E0023DC8B /* SocketHelper.mm */; };
 		BBF393721F26FA2E0023DC8B /* z_Sandbox.m in Sources */ = {isa = PBXBuildFile; fileRef = BBF3928D1F26FA2E0023DC8B /* z_Sandbox.m */; };
@@ -236,6 +240,14 @@
 		BB206DCB1F4AA15800EB50C0 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		BB3DA3A01F0F7FE2009B6ACF /* MyMovieSegmentMerger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMovieSegmentMerger.h; sourceTree = "<group>"; };
 		BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = MyMovieSegmentMerger.mm; sourceTree = "<group>"; };
+		BB89B5B91F556354007AC0A2 /* MVGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MVGLView.h; sourceTree = "<group>"; };
+		BB89B5BA1F556354007AC0A2 /* MVGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MVGLView.mm; sourceTree = "<group>"; };
+		BB89B5BD1F55642F007AC0A2 /* AMBASetCameraModeResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBASetCameraModeResponse.h; sourceTree = "<group>"; };
+		BB89B5BE1F55642F007AC0A2 /* AMBASetCameraModeResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBASetCameraModeResponse.m; sourceTree = "<group>"; };
+		BB89B5BF1F55642F007AC0A2 /* AMBAShootPhotoIntervalResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBAShootPhotoIntervalResponse.h; sourceTree = "<group>"; };
+		BB89B5C01F55642F007AC0A2 /* AMBAShootPhotoIntervalResponse.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = AMBAShootPhotoIntervalResponse.m; sourceTree = "<group>"; };
+		BB89B6671F55761A007AC0A2 /* KxMovieDecoder_douyin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMovieDecoder_douyin.h; sourceTree = "<group>"; };
+		BB89B6681F55761A007AC0A2 /* KxMovieDecoder_douyin.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = KxMovieDecoder_douyin.mm; sourceTree = "<group>"; };
 		BBEFDB5B1F2ED37B003A2C27 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BBEFDB731F2EEE11003A2C27 /* MediaPlayerStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MediaPlayerStoryboard.storyboard; sourceTree = "<group>"; };
 		BBF390AD1F2216F00023DC8B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -457,6 +469,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB89B5BC1F556362007AC0A2 /* Photos.framework in Frameworks */,
 				BBEFDB5D1F2ED38A003A2C27 /* MediaPlayer.framework in Frameworks */,
 				BBF390BD1F26EB820023DC8B /* CoreLocation.framework in Frameworks */,
 				BBF390BE1F26EB820023DC8B /* CoreMotion.framework in Frameworks */,
@@ -523,6 +536,8 @@
 		521A4EDE1F0B766B00E5F155 /* MADVCameraDemo */ = {
 			isa = PBXGroup;
 			children = (
+				BB89B5B91F556354007AC0A2 /* MVGLView.h */,
+				BB89B5BA1F556354007AC0A2 /* MVGLView.mm */,
 				BB3DA3A01F0F7FE2009B6ACF /* MyMovieSegmentMerger.h */,
 				BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */,
 				521A4EE21F0B766B00E5F155 /* AppDelegate.h */,
@@ -688,6 +703,10 @@
 		BBF390F81F26FA2D0023DC8B /* ambaresponse */ = {
 			isa = PBXGroup;
 			children = (
+				BB89B5BD1F55642F007AC0A2 /* AMBASetCameraModeResponse.h */,
+				BB89B5BE1F55642F007AC0A2 /* AMBASetCameraModeResponse.m */,
+				BB89B5BF1F55642F007AC0A2 /* AMBAShootPhotoIntervalResponse.h */,
+				BB89B5C01F55642F007AC0A2 /* AMBAShootPhotoIntervalResponse.m */,
 				BBF390F91F26FA2D0023DC8B /* AMBACancelFileTransferResponse.h */,
 				BBF390FA1F26FA2D0023DC8B /* AMBACancelFileTransferResponse.java */,
 				BBF390FB1F26FA2D0023DC8B /* AMBACancelFileTransferResponse.m */,
@@ -775,6 +794,8 @@
 		BBF391931F26FA2D0023DC8B /* kxmovie */ = {
 			isa = PBXGroup;
 			children = (
+				BB89B6671F55761A007AC0A2 /* KxMovieDecoder_douyin.h */,
+				BB89B6681F55761A007AC0A2 /* KxMovieDecoder_douyin.mm */,
 				BBFE0A021F3962C600D38C4D /* MVKxMovieViewController.h */,
 				BBFE0A031F3962C600D38C4D /* MVMediaPlayerViewController.h */,
 				BBFE0A041F3962C600D38C4D /* MVMediaPlayerViewController.mm */,
@@ -1203,18 +1224,20 @@
 				BBF392A91F26FA2E0023DC8B /* AMBAGetMediaInfoResponse.m in Sources */,
 				BBF3929E1F26FA2E0023DC8B /* AMBACancelFileTransferResponse.java in Sources */,
 				BBF392EA1F26FA2E0023DC8B /* SdWhiteResponse.m in Sources */,
+				BB89B5BB1F556354007AC0A2 /* MVGLView.mm in Sources */,
 				BBF390B31F26EB820023DC8B /* MyMovieSegmentMerger.mm in Sources */,
 				BBF392A41F26FA2E0023DC8B /* AMBAGetAllSettingParamResponse.java in Sources */,
 				BBF392A71F26FA2E0023DC8B /* AMBAGetFileResponse.m in Sources */,
+				BB89B6691F55761A007AC0A2 /* KxMovieDecoder_douyin.mm in Sources */,
 				BBF3935B1F26FA2E0023DC8B /* helper.m in Sources */,
 				BBF392A21F26FA2E0023DC8B /* AMBAGetAllModeParamResponse.java in Sources */,
 				BBFE0A0D1F39655100D38C4D /* UIViewController+MVExtensions.m in Sources */,
 				BBF392A61F26FA2E0023DC8B /* AMBAGetFileResponse.java in Sources */,
 				BBF392B61F26FA2E0023DC8B /* AMBASetClientInfoResponse.m in Sources */,
 				BBF392F01F26FA2E0023DC8B /* RealmSerialQueue.m in Sources */,
+				BB89B5C21F55642F007AC0A2 /* AMBAShootPhotoIntervalResponse.m in Sources */,
 				BBF392CB1F26FA2E0023DC8B /* MVMedia.m in Sources */,
 				BBF3929A1F26FA2E0023DC8B /* AMBASetGPSInfoRequest.m in Sources */,
-				BBF393641F26FA2E0023DC8B /* NSRecursiveCondition.m in Sources */,
 				BBF3935F1F26FA2E0023DC8B /* NSCondition+Extensions.m in Sources */,
 				BBF392991F26FA2E0023DC8B /* AMBARequest.m in Sources */,
 				BBF390B61F26EB820023DC8B /* CameraLibraryViewController.m in Sources */,
@@ -1275,6 +1298,7 @@
 				BBF392AF1F26FA2E0023DC8B /* AMBAListResponse.m in Sources */,
 				BBF392F11F26FA2E0023DC8B /* RLModel.m in Sources */,
 				BBFE0B9F1F39685B00D38C4D /* FMDatabaseQueue.m in Sources */,
+				BB89B5C11F55642F007AC0A2 /* AMBASetCameraModeResponse.m in Sources */,
 				BBF392C91F26FA2E0023DC8B /* MVCameraUploadManager.m in Sources */,
 				BBF390BB1F26EB820023DC8B /* main.m in Sources */,
 				BBFE0BBC1F39685B00D38C4D /* CycleView.m in Sources */,
@@ -1595,6 +1619,7 @@
 					"COCOAPODS=1",
 					"MADVCAMERA_EXPORT=1",
 					TARGET_DARWIN_IOS,
+					FOR_DOUYIN,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/MADVCamera.framework/Headers/**",
@@ -1696,6 +1721,7 @@
 					"COCOAPODS=1",
 					"MADVCAMERA_EXPORT=1",
 					TARGET_DARWIN_IOS,
+					FOR_DOUYIN,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/MADVCamera.framework/Headers/**",

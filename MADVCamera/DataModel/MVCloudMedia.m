@@ -7,6 +7,7 @@
 //
 
 #import "MVCloudMedia.h"
+#import "MediaVideoStream.h"
 
 @implementation MVCloudMedia
 
@@ -17,6 +18,12 @@
     size=[favor boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes: @{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size;
     self.favorWidth=size.width;
 }
++ (NSDictionary*) mj_replacedKeyFromPropertyName {
+    return @{@"descr":@"description"};
+}
++ (NSDictionary*) mj_objectClassInArray {
+    return @{@"streamlist":MediaVideoStream.class};
+}
 
 //+ (NSDictionary*) mj_objectClassInArray {
 //    return @{@"keywords":NSString.class};
@@ -25,10 +32,3 @@
 
 @end
 
-@implementation MVCloudMediaListResponse
-
-+ (NSDictionary*) mj_objectClassInArray {
-    return @{@"result":MVCloudMedia.class};
-}
-
-@end

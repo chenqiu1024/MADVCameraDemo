@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <MJExtension/MJExtension.h>
-@interface MediaVideoStream : NSObject
+#import "Realm.h"
+@interface MediaVideoStream : RLMObject
 @property(nonatomic,copy)NSString * fps;//帧率
 @property(nonatomic,copy)NSString * resolution;//分辨率
 @property(nonatomic,copy)NSString * bitrate;//码率

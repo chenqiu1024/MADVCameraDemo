@@ -145,6 +145,7 @@ static char * screencap = "screencap";
             indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
             indicatorView.center = CGPointMake(CGRectGetMidX(bgView.bounds), CGRectGetMidY(bgView.bounds));
             [bgView addSubview:indicatorView];
+            bgView.translatesAutoresizingMaskIntoConstraints = NO;
             
             [self.view addSubview:bgView];
             if ([self.isScreencap isEqualToString:@"1"]) {

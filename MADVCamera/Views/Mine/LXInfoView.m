@@ -17,7 +17,7 @@
 @implementation LXInfoView
 - (void)loadInfoView
 {
-    CGFloat width=([UIScreen mainScreen].bounds.size.width)/3;
+    CGFloat width=([UIScreen mainScreen].bounds.size.width)/2;
     NSNumber * widthNum=[NSNumber numberWithFloat:width];
     
     UIView * leftView=[[UIView alloc] init];
@@ -63,13 +63,13 @@
     leftBottom.font=[UIFont systemFontOfSize:12];
     leftBottom.textColor=[UIColor colorWithHexString:@"#000000" alpha:0.5];
     leftBottom.textAlignment=NSTextAlignmentCenter;
-    leftBottom.text=FGGetStringWithKeyFromTable(SHARE, nil);
+    leftBottom.text=FGGetStringWithKeyFromTable(WORKS, nil);
     
     UITapGestureRecognizer * leftTap=[[UITapGestureRecognizer alloc] init];
     [leftTap addTarget:self action:@selector(leftTap:)];
     [leftView addGestureRecognizer:leftTap];
     
-    
+    /*
     UIView * rightView=[[UIView alloc] init];
     [self addSubview:rightView];
     [rightView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -77,7 +77,6 @@
         make.right.equalTo(@0);
         make.width.equalTo(widthNum);
         make.bottom.equalTo(@0);
-        
     }];
     
    
@@ -110,7 +109,7 @@
     
     UITapGestureRecognizer * rightTap=[[UITapGestureRecognizer alloc] init];
     [rightTap addTarget:self action:@selector(rightTap:)];
-    [rightView addGestureRecognizer:rightTap];
+    [rightView addGestureRecognizer:rightTap];*/
     
     
     
@@ -119,7 +118,7 @@
     [midView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@0);
         make.left.equalTo(leftView.mas_right);
-        make.right.equalTo(rightView.mas_left);
+        make.right.equalTo(@0);
         make.bottom.equalTo(@0);
     }];
     
@@ -157,7 +156,7 @@
     midBottom.font=[UIFont systemFontOfSize:12];
     midBottom.textColor=[UIColor colorWithHexString:@"#000000" alpha:0.5];
     midBottom.textAlignment=NSTextAlignmentCenter;
-    midBottom.text=FGGetStringWithKeyFromTable(PUBLISH, nil);
+    midBottom.text=FGGetStringWithKeyFromTable(LIKE, nil);
     
     UITapGestureRecognizer * midTap=[[UITapGestureRecognizer alloc] init];
     [midTap addTarget:self action:@selector(midTap:)];
@@ -189,7 +188,7 @@
     _infoArr=infoArr;
     self.leftTop.text=infoArr[0];
     self.midTop.text=infoArr[1];
-    self.rightTop.text=infoArr[2];
+    //self.rightTop.text=infoArr[2];
 }
 
 @end

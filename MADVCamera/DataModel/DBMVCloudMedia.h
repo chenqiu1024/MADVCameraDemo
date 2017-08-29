@@ -32,6 +32,10 @@
 @property(nonatomic,copy)NSString * picsize;
 @property(nonatomic,copy)NSString * createtime;
 @property(nonatomic,copy)NSString * level;
+@property(nonatomic,copy)NSString * view_count;//浏览量
+
+@property(nonatomic,copy)NSString * isNewest;//0推荐  1最新
+
 
 - (id)createWithMVCloudMedia:(MVCloudMedia *)cloudMedia;
 @end

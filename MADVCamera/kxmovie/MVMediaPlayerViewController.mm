@@ -9,7 +9,13 @@
 #import "MVMediaPlayerViewController.h"
 #import "MVGLView.h"
 #import "MadvGLRenderer_iOS.h"
+
+#ifdef FOR_DOUYIN
+#import "KxMovieDecoder_douyin.h"
+#else //#ifdef FOR_DOUYIN
 #import "KxMovieDecoder.h"
+#endif //#ifdef FOR_DOUYIN
+
 #import "KxAudioManager.h"
 //#import "PostVideoViewController.h"
 //#import "ALAsset+Extensions.h"
@@ -108,11 +114,8 @@
         self.videoExportView = videoExportView;
     }
     
-    __weak typeof(self) wSelf = self;
-    [self.media requestLocalFilePath:^(NSString* filePath) {
-        __strong typeof(self) pSelf = wSelf;
-        [pSelf setContentPath:filePath parameters:self.parameters];
-    }];
+    NSString* localFilePath = self.media.localFilePathSync;
+    [self setContentPath:localFilePath parameters:self.parameters];
 }
 
 #pragma mark --返回--

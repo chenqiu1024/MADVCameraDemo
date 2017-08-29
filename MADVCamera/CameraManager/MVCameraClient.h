@@ -37,6 +37,7 @@ typedef enum : NSInteger {
     CameraWorkStatePhotoingDelayed = AMBA_PARAM_CAMERA_STATE_PHOTOING_DELAYED,//正在定时拍照
     CameraWorkStatePhotoingInterval = AMBA_PARAM_CAMERA_STATE_PHOTOING_INTERVAL,//正在间隔拍照
     CameraWorkStateCapturingSlowMotion = AMBA_PARAM_CAMERA_STATE_CAPTURING_SLOWMOTION,//正在慢动作摄像
+    CameraWorkStatePhotoingContinuous = AMBA_PARAM_CAMERA_STATE_CAPTURING_CONTINUOUS,//正在连续拍照
 } CameraWorkState;
 
 /** 存储卡容量状态 */

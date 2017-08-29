@@ -37,6 +37,8 @@ static Class responseClassOfMsgID(int msgID) {
             @(AMBA_MSGID_FILE_TRANSFER_RESULT):NSClassFromString(@"AMBAFileTransferResultResponse"),
             @(AMBA_MSGID_SAVE_VIDEO_DONE):NSClassFromString(@"AMBASaveMediaFileDoneResponse"),
             @(AMBA_MSGID_SAVE_PHOTO_DONE):NSClassFromString(@"AMBASaveMediaFileDoneResponse"),
+            @(AMBA_MSGID_SET_CAMERA_MODE):NSClassFromString(@"AMBASetCameraModeResponse"),
+            @(AMBA_MSGID_SHOOT_PHOTO_INTERVAL):NSClassFromString(@"AMBAShootPhotoIntervalResponse"),
             };
     });
     Class clazz = responseClassMap[@(msgID)];

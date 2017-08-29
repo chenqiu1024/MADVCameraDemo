@@ -27,6 +27,7 @@
 @property(nonatomic,weak)UILabel * authorNameLabel;
 @property(nonatomic,weak)UIImageView * centerImage;
 @property(nonatomic,weak)DivisionButtonView * rightView;
+@property(nonatomic,weak)DivisionButtonView * mineRightView;
 @end
 
 @implementation DiscoveryCell
@@ -179,6 +180,17 @@
     self.rightView = rightView;
     
     
+    DivisionButtonView * mineRightView = [[DivisionButtonView alloc] init];
+    [bottomView addSubview:mineRightView];
+    mineRightView.frame = CGRectMake(ScreenWidth - 175, 0 , 175, 65);
+    mineRightView.imageArray = @[@"look_discover.png",@"love_discover.png",@"more_discover.png"];
+    mineRightView.nameArray = @[@"",@"",FGGetStringWithKeyFromTable(MORE, nil)];
+    [mineRightView loadDivisionButtonView];
+    mineRightView.delegate = self;
+    mineRightView.hidden = YES;
+    self.mineRightView = mineRightView;
+    
+    
     
     /*
     UILabel * publishTimeLabel = [[UILabel alloc] init];
@@ -241,7 +253,19 @@
 {
     if (index == 1) {
         if ([self.delegate respondsToSelector:@selector(discoveryCellDidFavor:andIsFavor:andFileName:andImageView:andFavorNum:title:)]) {
-            [self.delegate discoveryCellDidFavor:self andIsFavor:self.cloudMedia.favored andFileName:self.cloudMedia.filename andImageView:self.rightView andFavorNum:[self.cloudMedia.favor intValue] title:self.cloudMedia.title];
+            DivisionButtonView * rightView;
+            if (!self.rightView.hidden) {
+                rightView = self.rightView;
+            }
+            if (!self.mineRightView.hidden) {
+                rightView = self.mineRightView;
+            }
+            [self.delegate discoveryCellDidFavor:self andIsFavor:self.cloudMedia.favored andFileName:self.cloudMedia.filename andImageView:rightView andFavorNum:[self.cloudMedia.favor intValue] title:self.cloudMedia.title];
+        }
+    }else if (index == 2)
+    {
+        if ([self.delegate respondsToSelector:@selector(discoveryCellClick:)]) {
+            [self.delegate discoveryCellClick:self];
         }
     }
 }
@@ -278,31 +302,64 @@
     self.titleLabel.text=cloudMedia.title;
 //    [self.titleLabel sizeToFit];
     
-//    if (self.isMine) {
-//        self.publishTimeLabel.hidden = YES;
-//        self.handleBtn.hidden = NO;
-//        self.timeLabel.text = [NSString stringWithFormat:@"%@/%@",self.timeLabel.text,[cloudMedia.createtime componentsSeparatedByString:@" "][0]];
-//    }else
-//    {
-//        self.publishTimeLabel.hidden = NO;
-//        self.handleBtn.hidden = YES;
-//        self.publishTimeLabel.text = [cloudMedia.createtime componentsSeparatedByString:@" "][0];
-//    }
     
     
     
     
     
     
-    
-    [self.rightView setNameIndex:0 name:cloudMedia.favor];
-    [self.rightView setNameIndex:1 name:cloudMedia.favor];
-    if ([cloudMedia.favored isEqualToString:@"0"]) {
-        [self.rightView setImageIndex:1 imageName:@"love_discover.png"];
+    int viewCount = [cloudMedia.view_count intValue];
+    NSString * viewCountStr = @"";
+    if (viewCount >= 10000) {
+        viewCountStr = [self formatInt:viewCount];
     }else
     {
-        [self.rightView setImageIndex:1 imageName:@"love_discover-click.png"];
+        viewCountStr = [NSString stringWithFormat:@"%d",viewCount];
     }
+    
+    int favor = [cloudMedia.favor intValue];
+    NSString * favorStr = @"";
+    if (favor >= 10000) {
+        favorStr = [self formatInt:favor];
+    }else
+    {
+        favorStr = cloudMedia.favor;
+    }
+    
+    if (self.isMine) {
+        self.rightView.hidden = YES;
+        self.mineRightView.hidden = NO;
+        self.titleLabel.frame = CGRectMake(60, (65-35)*0.5, ScreenWidth-175-60, 16);
+        [self.authorNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(@(-(65-35)*0.5));
+            make.left.equalTo(@60);
+            make.width.equalTo(@(ScreenWidth-175-60));
+            make.height.equalTo(@17);
+        }];
+        [self.mineRightView setNameIndex:0 name:viewCountStr];
+        [self.mineRightView setNameIndex:1 name:favorStr];
+        if ([cloudMedia.favored isEqualToString:@"0"]) {
+            [self.mineRightView setImageIndex:1 imageName:@"love_discover.png"];
+        }else
+        {
+            [self.mineRightView setImageIndex:1 imageName:@"love_discover-click.png"];
+        }
+    }else
+    {
+        self.rightView.hidden = NO;
+        self.mineRightView.hidden = YES;
+        [self.rightView setNameIndex:0 name:viewCountStr];
+        [self.rightView setNameIndex:1 name:favorStr];
+        if ([cloudMedia.favored isEqualToString:@"0"]) {
+            [self.rightView setImageIndex:1 imageName:@"love_discover.png"];
+        }else
+        {
+            [self.rightView setImageIndex:1 imageName:@"love_discover-click.png"];
+        }
+        
+    }
+    
+    
     
 }
 
@@ -318,6 +375,16 @@
     if ([self.delegate respondsToSelector:@selector(discoveryCellClick:)]) {
         [self.delegate discoveryCellClick:self];
     }
+}
+
+- (NSString *)formatInt:(int)num
+{
+    int thethousand = num/10000;
+    int thousand = (num - thethousand * 10000)/1000;
+    if (thousand > 0) {
+        return [NSString stringWithFormat:@"%d.%d万",thethousand,thousand];
+    }
+    return [NSString stringWithFormat:@"%d万",thethousand];
 }
 
 - (NSString *)formatFloat:(float)f

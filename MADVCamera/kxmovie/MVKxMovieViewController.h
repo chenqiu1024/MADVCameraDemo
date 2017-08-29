@@ -22,7 +22,13 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import <CoreMotion/CoreMotion.h>
+
+#ifdef FOR_DOUYIN
+#import "KxMovieDecoder_douyin.h"
+#else //#ifdef FOR_DOUYIN
 #import "KxMovieDecoder.h"
+#endif //#ifdef FOR_DOUYIN
+
 #import "KxAudioManager.h"
 //#import "KxMovieGLView.h"
 #import "KxLogger.h"

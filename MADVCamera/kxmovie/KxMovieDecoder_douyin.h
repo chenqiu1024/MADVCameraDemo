@@ -1,5 +1,5 @@
 //
-//  KxMovieDecoder.h
+//  KxMovieDecoder_douyin.h
 //  kxmovie
 //
 //  Created by Kolyvan on 15.10.12.
@@ -9,7 +9,7 @@
 //  this file is part of KxMovie
 //  KxMovie is licenced under the LGPL v3, see lgpl-3.0.txt
 
-#ifndef FOR_DOUYIN
+#ifdef FOR_DOUYIN
 
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
@@ -164,4 +164,4 @@ typedef BOOL(^KxMovieDecoderInterruptCallback)();
 
 @end
 
-#endif //#ifndef FOR_DOUYIN
+#endif //#ifdef FOR_DOUYIN

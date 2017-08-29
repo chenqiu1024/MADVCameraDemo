@@ -8,7 +8,13 @@
 
 #include "MadvGLRenderer_iOS.h"
 #ifndef MADVPANO_EXPORT
+
+#ifdef FOR_DOUYIN
+#import "KxMovieDecoder_douyin.h"
+#else //#ifdef FOR_DOUYIN
 #import "KxMovieDecoder.h"
+#endif //#ifdef FOR_DOUYIN
+
 #import "IDRDecoder.h"
 #import "z_Sandbox.h"
 #import "NSString+Extensions.h"
@@ -554,45 +560,41 @@ NSString* makeTempLUTDirectory() {
     return lutPath;
 }
 
-//#define USE_PRESTORED_LUT
-
 #ifdef USE_PRESTORED_LUT
 NSString* prestoredLUTPath() {
-    return [z_Sandbox documentPath:@"PrestoredLUT"];
+    NSString* directoryPath = [z_Sandbox documentPath:@"PrestoredLUT"];
+    NSFileManager* fm = [NSFileManager defaultManager];
+    BOOL isDirectory = YES;
+    if (![fm fileExistsAtPath:directoryPath isDirectory:&isDirectory] || !isDirectory)
+    {
+        [fm removeItemAtPath:directoryPath error:nil];
+        [fm createDirectoryAtPath:directoryPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    NSEnumerator* fileEnumerator = [fm enumeratorAtPath:directoryPath];
+    if (!fileEnumerator.nextObject)
+    {
+        NSString* lutBinPath = [z_Sandbox documentPath:@"lut.bin"];
+        MadvGLRenderer_iOS::extractLUTFiles(directoryPath.UTF8String, lutBinPath.UTF8String, 0);
+    }
+    return directoryPath;
 }
 #endif
 
 NSString* MadvGLRenderer_iOS::lutPathOfSourceURI(NSString* sourceURI, bool withLUT, bool lutEmbeddedInJPEG) {
     DoctorLog(@"lutPathOfSourceURI : %@, withLUT = %d", sourceURI, withLUT);
+#ifdef USE_PRESTORED_LUT
+    return prestoredLUTPath();
+#endif
     if (!sourceURI || 0 == sourceURI.length)
     {
         if (withLUT)
-#ifdef USE_PRESTORED_LUT
-            return prestoredLUTPath();
-#else
-        return cameraOrDefaultLUT();
-#endif
+            return cameraOrDefaultLUT();
         else
             return nil;
     }
     
     NSString* lutPath = nil;
     NSString* lowerExt = [[sourceURI pathExtension] lowercaseString];
-    if ([sourceURI hasSuffix:PRESTITCH_PICTURE_EXTENSION])
-    {
-        if (withLUT)
-        {
-            NSString* cameraUUID = cameraUUIDOfPreStitchFileName(sourceURI);
-            lutPath = [cameraLUTFilePath(cameraUUID) stringByDeletingPathExtension];
-            
-            BOOL isDirectory;
-            if (![[NSFileManager defaultManager] fileExistsAtPath:[lutPath stringByAppendingPathComponent:@"l_x_int.png"] isDirectory:&isDirectory] || isDirectory)
-            {
-                lutPath = nil;
-            }
-        }
-    }
-    
     if ([@"jpg" isEqualToString:lowerExt] || [@"png" isEqualToString:lowerExt] || [@"gif" isEqualToString:lowerExt] || [@"bmp" isEqualToString:lowerExt])
     {
         if (withLUT && !lutPath)
@@ -610,6 +612,21 @@ NSString* MadvGLRenderer_iOS::lutPathOfSourceURI(NSString* sourceURI, bool withL
             if (!lutPath)
             {
                 lutPath = cameraOrDefaultLUT();
+            }
+        }
+        
+        if ([sourceURI hasSuffix:PRESTITCH_PICTURE_EXTENSION] && !lutPath)
+        {
+            if (withLUT)
+            {
+                NSString* cameraUUID = cameraUUIDOfPreStitchFileName(sourceURI);
+                lutPath = [cameraLUTFilePath(cameraUUID) stringByDeletingPathExtension];
+                
+                BOOL isDirectory;
+                if (![[NSFileManager defaultManager] fileExistsAtPath:[lutPath stringByAppendingPathComponent:@"l_x_int.png"] isDirectory:&isDirectory] || isDirectory)
+                {
+                    lutPath = nil;
+                }
             }
         }
     }
@@ -672,11 +689,7 @@ NSString* MadvGLRenderer_iOS::lutPathOfSourceURI(NSString* sourceURI, bool withL
         lutPath = nil;
         DoctorLog(@"lutPathOfSourceURI : Video from other stream, no LUT stitching");
     }
-#ifdef USE_PRESTORED_LUT
-    return prestoredLUTPath();
-#else
     return lutPath;
-#endif
 }
 
 //[MadvGLRenderer renderThumbnail:@"thumb.h264" destSize:CGSizeMake(1920, 1080)];

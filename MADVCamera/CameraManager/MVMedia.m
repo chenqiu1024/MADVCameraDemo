@@ -133,17 +133,23 @@ static NSMutableDictionary * downloadStatusOfMediaRemoteDict;
 }
 
 - (NSString*) localFilePathSync {
+    __block BOOL finished = NO;
     __block NSString* ret = nil;
     NSCondition* cond = [[NSCondition alloc] init];
     ret = [self requestLocalFilePath:^(NSString* localPath) {
+        finished = YES;
         ret = localPath;
         [cond lock];
         [cond signal];
         [cond unlock];
     }];
+    if (ret)
+    {
+        return ret;
+    }
     
     [cond lock];
-    while (!ret)
+    while (!finished)
     {
         [cond wait];
     }
@@ -152,24 +158,35 @@ static NSMutableDictionary * downloadStatusOfMediaRemoteDict;
 }
 
 - (NSString*) requestLocalFilePath:(void(^)(NSString* filePath))completionHandler {
-    NSFileManager* fm = [NSFileManager defaultManager];
-    NSString* documentFilePath = [z_Sandbox documentPath:self.localPath];
-    if ([fm fileExistsAtPath:documentFilePath])
+    if (self.localPath && self.localPath.length > 0)
     {
+        NSString* documentFilePath = [z_Sandbox documentPath:self.localPath];
         return documentFilePath;
     }
-    else if (self.localIdentifier)
+    else if (self.localIdentifier && self.localIdentifier.length > 0)
     {
         PHImageManager* phIM = [PHImageManager defaultManager];
         NSArray* identifiers = [self.localIdentifier componentsSeparatedByString:@";"];
+        if (!identifiers || 0 == identifiers.count)
+        {
+            if (completionHandler)
+            {
+                completionHandler(nil);
+            }
+            return nil;
+        }
+        
+        __block BOOL anyAssetExists = NO;
         [identifiers enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSString* identifier = (NSString*) obj;
             PHAsset* asset = [PHAsset fetchAssetsWithLocalIdentifiers:@[identifier] options:nil].firstObject;
             if (asset)
             {
+                anyAssetExists = YES;
                 if (MVMediaTypeVideo == self.mediaType)
                 {
                     [phIM requestAVAssetForVideo:asset options:nil resultHandler:^(AVAsset * _Nullable asset, AVAudioMix * _Nullable audioMix, NSDictionary * _Nullable info) {
+                        NSFileManager* fm = [NSFileManager defaultManager];
                         AVURLAsset* urlAsset = (AVURLAsset*) asset;
                         NSString* videoPath = [urlAsset.URL.absoluteString substringFromIndex:8];
                         if (videoPath && videoPath.length > 0 && [fm fileExistsAtPath:videoPath])
@@ -199,6 +216,22 @@ static NSMutableDictionary * downloadStatusOfMediaRemoteDict;
                 }
             }
         }];
+        
+        if (!anyAssetExists)
+        {
+            if (completionHandler)
+            {
+                completionHandler(nil);
+            }
+            return nil;
+        }
+    }
+    else
+    {
+        if (completionHandler)
+        {
+            completionHandler(nil);
+        }
     }
     return nil;
 }

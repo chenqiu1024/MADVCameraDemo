@@ -25,6 +25,7 @@
     media.picsize = cloudMedia.picsize;
     media.createtime = cloudMedia.createtime;
     media.level = cloudMedia.level;
+    media.view_count = cloudMedia.view_count;
     return media;
     
 }

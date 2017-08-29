@@ -337,7 +337,7 @@ static NSMutableArray<SettingTreeNode *> * deviceSettingsList;
 
 //数据库忽略该属性 不操作该属性
 + (NSArray *)ignoredProperties {
-    return @[@"SSID",@"password",@"uuid",@"fwVer",@"rcFwVer",@"serialID",@"lastSyncTime",@"isConnect",@"voltagePercent",@"isWifiConnect",@"thumbnailImage",@"isConnecting",@"connectionState",@"cameraMode",@"cameraSubMode",@"cameraSubModeParam",@"recentMedia",@"isCharging",@"cameraPreviewMode", @"firmwareUpdateState", @"jpgCaptured", @"mp4Captured", @"videoSegmentSeconds"];
+    return @[@"SSID",@"password",@"uuid",@"fwVer",@"rcFwVer",@"serialID",@"lastSyncTime",@"isConnect",@"voltagePercent",@"isWifiConnect",@"thumbnailImage",@"isConnecting",@"connectionState",@"cameraMode",@"cameraSubMode",@"cameraSubModeParam",@"recentMedia",@"isCharging",@"cameraPreviewMode", @"firmwareUpdateState", @"jpgCaptured", @"mp4Captured", @"videoSegmentSeconds", @"capIntervalNum"];
 }
 
 //属性的默认值

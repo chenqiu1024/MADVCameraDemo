@@ -110,6 +110,8 @@ typedef enum : NSInteger {
 
 @property (nonatomic,assign) int videoSegmentSeconds;
 
+@property (nonatomic,assign) int capIntervalNum;
+
 #pragma mark    用于相机设置的方法
 /**
  * 获取相机全部设置项，以树状结构给出

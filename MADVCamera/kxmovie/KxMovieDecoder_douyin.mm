@@ -1,5 +1,5 @@
 //
-//  KxMovieDecoder.m
+//  KxMovieDecoder_douyin.m
 //  kxmovie
 //
 //  Created by Kolyvan on 15.10.12.
@@ -9,9 +9,9 @@
 //  this file is part of KxMovie
 //  KxMovie is licenced under the LGPL v3, see lgpl-3.0.txt
 
-#ifndef FOR_DOUYIN
+#ifdef FOR_DOUYIN
 
-#import "KxMovieDecoder.h"
+#import "KxMovieDecoder_douyin.h"
 #import <UIKit/UIKit.h>
 #import <Accelerate/Accelerate.h>
 #import <CoreMedia/CoreMedia.h>
@@ -2347,4 +2347,4 @@ static void FFLog(void* context, int level, const char* format, va_list args) {
     }
 }
 
-#endif //#ifndef FOR_DOUYIN
+#endif //#ifdef FOR_DOUYIN

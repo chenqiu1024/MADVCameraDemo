@@ -21,6 +21,8 @@
 #import "AMBASaveMediaFileDoneResponse.h"
 #import "AMBAGetAllModeParamResponse.h"
 #import "AMBASetClientInfoResponse.h"
+#import "AMBASetCameraModeResponse.h"
+#import "AMBAShootPhotoIntervalResponse.h"
 #import "AMBASetGPSInfoRequest.h"
 #import "MVMedia.h"
 #import "MVMediaManager.h"
@@ -449,17 +451,68 @@ NSString* NotificationStringOfNotification(int notification) {
     if (setMainModeParam != -1)
     {
         AMBARequest* setModeRequest = [[AMBARequest alloc] initWithReceiveBlock:^(AMBAResponse *response) {
-            if (!response.isRvalOK)
+            AMBASetCameraModeResponse* setCameraModeResponse = (AMBASetCameraModeResponse*) response;
+            if (setCameraModeResponse.isRvalOK)
             {
-                [self sendMessageToHandler:MSG_MODE_CHANGED arg1:response.rval arg2:0 object:[NSString stringWithFormat:@"ResponseFail:%ld param:%@",(long)response.rval,response.param]];
+                int sub_mode = setCameraModeResponse.sub_mode;
+                int sub_mode_param = setCameraModeResponse.sub_mode_param;
+                [self.connectingCamera transactionWithBlock:^{
+                    if (mode == CameraModeVideo)
+                    {
+                        self.connectingCamera.cameraMode = CameraModeVideo;
+                        switch (sub_mode) {
+                            case 1:
+                                self.connectingCamera.cameraSubMode = CameraSubmodeVideoMicro;
+                                self.connectingCamera.cameraSubModeParam = sub_mode_param;
+                                break;
+                            case 2:
+                                self.connectingCamera.cameraSubMode = CameraSubmodeVideoTimelapse;
+                                self.connectingCamera.cameraSubModeParam = sub_mode_param;
+                                break;
+                            case 3:
+                                self.connectingCamera.cameraSubMode = CameraSubmodeVideoSlowMotion;
+                                self.connectingCamera.cameraSubModeParam = sub_mode_param;
+                                break;
+                            default:
+                                self.connectingCamera.cameraSubMode = CameraSubmodeVideoNormal;
+                                self.connectingCamera.cameraSubModeParam = 0;
+                                break;
+                        }
+                    } else {
+                        self.connectingCamera.cameraMode = CameraModePhoto;
+                        switch (sub_mode) {
+                            case 1:
+                                self.connectingCamera.cameraSubMode = CameraSubmodePhotoTiming;
+                                self.connectingCamera.cameraSubModeParam = sub_mode_param;
+                                break;
+                            case 2:
+                                self.connectingCamera.cameraSubMode = CameraSubmodePhotoInterval;
+                                self.connectingCamera.cameraSubModeParam = sub_mode_param;
+                                break;
+                            case 3:
+                                self.connectingCamera.cameraSubMode = CameraSubmodePhotoContinuous;
+                                self.connectingCamera.cameraSubModeParam = sub_mode_param;
+                                break;
+                            default:
+                                self.connectingCamera.cameraSubMode = CameraSubmodePhotoNormal;
+                                self.connectingCamera.cameraSubModeParam = 0;
+                                break;
+                        }
+                    }
+                }];
+                
+                self.connectingCamera = [self.connectingCamera save];
+                self.isShooting = NO;
+                self.cameraWorkState = CameraWorkStateIdle;
+                [self sendMessageToHandler:MSG_MODE_CHANGED arg1:0 arg2:0 object:nil];
             }
             else
             {
-                [self setCameraSubMode:mode subMode:subMode param:(int)param];
+                [self sendMessageToHandler:MSG_MODE_CHANGED arg1:response.rval arg2:0 object:[NSString stringWithFormat:@"ResponseFail:%ld param:%@",(long)response.rval,response.param]];
             }
         } errorBlock:^(AMBARequest *response, int error, NSString *msg) {
             [self sendMessageToHandler:MSG_MODE_CHANGED arg1:error arg2:0 object:msg];
-        }];
+        } responseClass:AMBASetCameraModeResponse.class];
         setModeRequest.msgID = AMBA_MSGID_SET_CAMERA_MODE;
         setModeRequest.param = [@(setMainModeParam) stringValue];
         setModeRequest.token = self.sessionToken;
@@ -500,6 +553,25 @@ NSString* NotificationStringOfNotification(int notification) {
                 case CameraSubmodePhotoInterval:
                     msgID = AMBA_MSGID_SET_PHOTO_INTERVAL_PARAM;
                     break;
+                case CameraSubmodePhotoContinuous:
+                    msgID = AMBA_MSGID_SET_PHOTO_CONTINUOUS_PARAM;
+                    break;
+                case CameraSubmodePhotoNormal:
+                {
+                    switch (self.connectingCamera.cameraSubMode)
+                    {
+                        case CameraSubmodePhotoTiming:
+                            msgID = AMBA_MSGID_SET_PHOTO_TIMING_PARAM;
+                            break;
+                        case CameraSubmodePhotoInterval:
+                            msgID = AMBA_MSGID_SET_PHOTO_INTERVAL_PARAM;
+                            break;
+                        case CameraSubmodePhotoContinuous:
+                            msgID = AMBA_MSGID_SET_PHOTO_CONTINUOUS_PARAM;
+                            break;
+                    }
+                    break;
+                }
                 default:
                     break;
             }
@@ -521,6 +593,22 @@ NSString* NotificationStringOfNotification(int notification) {
                 case CameraSubmodeVideoSlowMotion:
                     msgID = AMBA_MSGID_SET_VIDEO_SLOWMOTION_PARAM;
                     break;
+                case CameraSubmodeVideoNormal:
+                {
+                    switch (self.connectingCamera.cameraSubMode)
+                    {
+                        case CameraSubmodeVideoTimelapse:
+                            msgID = AMBA_MSGID_SET_VIDEO_TIMELAPSE_PARAM;
+                            break;
+                        case CameraSubmodeVideoMicro:
+                            msgID = AMBA_MSGID_SET_VIDEO_MICRO_PARAM;
+                            break;
+                        case CameraSubmodeVideoSlowMotion:
+                            msgID = AMBA_MSGID_SET_VIDEO_SLOWMOTION_PARAM;
+                            break;
+                    }
+                    break;
+                }
                 default:
                     break;
             }
@@ -605,6 +693,9 @@ NSString* NotificationStringOfNotification(int notification) {
                 case CameraSubmodePhotoInterval:
                     msgID = AMBA_MSGID_SHOOT_PHOTO_INTERVAL;
                     break;
+                case CameraSubmodePhotoContinuous:
+                    msgID = AMBA_MSGID_SHOOT_PHOTO_CONTINUOUS;
+                    break;
                 default:
                     msgID = AMBA_MSGID_SHOOT_PHOTO_NORMAL;
                     break;
@@ -613,26 +704,23 @@ NSString* NotificationStringOfNotification(int notification) {
             self.isShooting = YES;
             AMBARequest* takePhotoRequest = [[AMBARequest alloc] initWithReceiveBlock:^(AMBAResponse *response) {
                 if (response.isRvalOK)
-                {NSLog(@"#Callback# MSG_BEGIN_SHOOTING on startShooting takePhotoRequest OK");
-                    if (self.connectingCamera.cameraSubMode == CameraSubmodePhotoInterval)
+                {
+                    //如果是停止间隔拍照就不需要再发这个状态了
+                    if (self.cameraWorkState == CameraWorkStatePhotoingInterval && msgID == AMBA_MSGID_SHOOT_PHOTO_INTERVAL)
                     {
-                        self.intervalPhotosNumber = [response.param intValue];
-                        [self sendMessageToHandler:MSG_BEGIN_SHOOTING arg1:0 arg2:self.intervalPhotosNumber object:nil];
+                        self.cameraWorkState = CameraWorkStateIdle;
+                        self.isShooting = NO;
+                        [self sendMessageToHandler:MSG_MODE_CHANGED arg1:0 arg2:0 object:nil];
+                        [self sendMessageToHandler:MSG_END_SHOOTING arg1:0 arg2:0 object:nil];
                     }
                     else
                     {
                         [self sendMessageToHandler:MSG_BEGIN_SHOOTING arg1:0 arg2:0 object:nil];
                     }
-                    
-                    if (AMBA_MSGID_SHOOT_PHOTO_TIMING == msgID)
-                    {
-                        [self startCountDown:(int)self.connectingCamera.cameraSubModeParam];
-                    }
                 }
                 else
                 {
                     self.isShooting = NO;
-                    NSLog(@"#Callback# MSG_BEGIN_SHOOTING on startShooting takePhotoRequest failed");
                     [self sendMessageToHandler:MSG_BEGIN_SHOOTING_ERROR arg1:response.rval arg2:0 object:nil];
                 }
             } errorBlock:^(AMBARequest *response, int error, NSString *msg) {
@@ -1416,19 +1504,58 @@ NSString* NotificationStringOfNotification(int notification) {
                 {
                     self.isShooting = NO;
                     [self stopTimer];
-                    CameraMode mode = (CameraMode) allModeParamResponse.mode;
+                    
+                    int mode = allModeParamResponse.mode;
+                    int subMode = allModeParamResponse.sub_mode;
                     [self.connectingCamera transactionWithBlock:^{
-                        self.connectingCamera.cameraMode = mode;
-                        if (self.connectingCamera.cameraMode == CameraModeVideo)
+                        if (mode == CameraModeVideo)
                         {
-                            self.connectingCamera.cameraSubMode = CameraSubmodeVideoNormal;
+                            self.connectingCamera.cameraMode = CameraModeVideo;
+                            switch (subMode)
+                            {
+                                case 1:
+                                    self.connectingCamera.cameraSubMode = CameraSubmodeVideoMicro;
+                                    self.connectingCamera.cameraSubModeParam = allModeParamResponse.second;
+                                    break;
+                                case 2:
+                                    self.connectingCamera.cameraSubMode = CameraSubmodeVideoTimelapse;
+                                    self.connectingCamera.cameraSubModeParam = allModeParamResponse.lapse;
+                                    break;
+                                case 3:
+                                    self.connectingCamera.cameraSubMode = CameraSubmodeVideoSlowMotion;
+                                    self.connectingCamera.cameraSubModeParam = allModeParamResponse.speedx;
+                                    break;
+                                default:
+                                    self.connectingCamera.cameraSubMode = CameraSubmodeVideoNormal;
+                                    self.connectingCamera.cameraSubModeParam = 0;
+                                    break;
+                            }
                         }
-                        else if (connectingCamera.cameraMode == CameraModePhoto)
+                        else
                         {
-                            self.connectingCamera.cameraSubMode = CameraSubmodePhotoNormal;
+                            self.connectingCamera.cameraMode = CameraModePhoto;
+                            switch (subMode) {
+                                case 1:
+                                    self.connectingCamera.cameraSubMode = CameraSubmodePhotoTiming;
+                                    self.connectingCamera.cameraSubModeParam = allModeParamResponse.timing;
+                                    break;
+                                case 2:
+                                    self.connectingCamera.cameraSubMode = CameraSubmodePhotoInterval;
+                                    self.connectingCamera.cameraSubModeParam = allModeParamResponse.cap_interval;
+                                    break;
+                                case 3:
+                                    self.connectingCamera.cameraSubMode = CameraSubmodePhotoContinuous;
+                                    self.connectingCamera.cameraSubModeParam = allModeParamResponse.burst_num;
+                                    break;
+                                default:
+                                    self.connectingCamera.cameraSubMode = CameraSubmodePhotoNormal;
+                                    self.connectingCamera.cameraSubModeParam = 0;
+                                    break;
+                            }
                         }
-                        connectingCamera.cameraSubModeParam = 0;
+                        
                     }];
+                    
                     self.connectingCamera = [self.connectingCamera save];
                     [self sendMessageToHandler:MSG_MODE_CHANGED arg1:0 arg2:0 object:nil];
                     [self sendMessageToHandler:MSG_END_SHOOTING arg1:0 arg2:0 object:nil];
@@ -1550,6 +1677,21 @@ NSString* NotificationStringOfNotification(int notification) {
                     [self sendMessageToHandler:MSG_MODE_CHANGED arg1:0 arg2:0 object:nil];
                 }
                     break;
+                case AMBA_PARAM_CAMERA_STATE_CAPTURING_CONTINUOUS:
+                {
+                    //正在连续拍照
+                    self.isShooting = YES;
+                    self.cameraWorkState = CameraWorkStatePhotoingContinuous;
+                    [self.connectingCamera transactionWithBlock:^{
+                        connectingCamera.cameraMode = CameraModePhoto;
+                        connectingCamera.cameraSubMode = CameraSubmodePhotoContinuous;
+                        connectingCamera.cameraSubModeParam = allModeParamResponse.burst_num;
+                    }];
+                    self.connectingCamera = [self.connectingCamera save];
+                    [self sendMessageToHandler:MSG_MODE_CHANGED arg1:0 arg2:0 object:nil];
+                    [self sendMessageToHandler:MSG_BEGIN_SHOOTING arg1:0 arg2:0 object:nil];
+                    break;
+                }
             }
         }
         else
@@ -1767,7 +1909,7 @@ NSString* formatSDStorage(int total, int free) {
     
     notifiyBlock();
     
-    _gpsSyncTimer = [NSTimer scheduledTimerWithTimeInterval:60.f repeats:YES block:^(NSTimer * _Nonnull timer) {
+    _gpsSyncTimer = [NSTimer scheduledTimerWithTimeInterval:10.f repeats:YES block:^(NSTimer * _Nonnull timer) {
         notifiyBlock();
     }];
     [[NSRunLoop currentRunLoop] addTimer:_gpsSyncTimer forMode:NSRunLoopCommonModes];
@@ -1796,6 +1938,7 @@ NSString* formatSDStorage(int total, int free) {
         case AMBA_PARAM_CAMERA_STATE_STANDBY:
             //[self disconnectCamera:CameraDisconnectReasonStandBy];
             break;
+            /*
         case AMBA_PARAM_CAMERA_STATE_IDLE:
         {
             self.isShooting = NO;
@@ -1827,6 +1970,7 @@ NSString* formatSDStorage(int total, int free) {
             [[CMDConnectManager sharedInstance] sendRequest:getModeRequest];
             break;
         }
+             //*/
         default:
             break;
     }
@@ -2556,15 +2700,56 @@ NSString* formatSDStorage(int total, int free) {
             break;
         case AMBA_MSGID_SET_CAMERA_MODE:
         {
-            self.connectingCamera.cameraMode = (CameraMode) [(NSNumber *)response.param intValue];
-            if (self.connectingCamera.cameraMode == CameraModeVideo)
-            {
-                self.connectingCamera.cameraSubMode = CameraSubmodeVideoNormal;
-            }
-            else if (self.connectingCamera.cameraMode == CameraModePhoto)
-            {
-                self.connectingCamera.cameraSubMode = CameraSubmodePhotoNormal;
-            }
+            AMBASetCameraModeResponse* setCameraModeResponse = (AMBASetCameraModeResponse*) response;
+            int mode = [setCameraModeResponse.param intValue];
+            int sub_mode = setCameraModeResponse.sub_mode;
+            int sub_mode_param = setCameraModeResponse.sub_mode_param;
+            [self.connectingCamera transactionWithBlock:^{
+                if (mode == CameraModeVideo) {
+                    self.connectingCamera.cameraMode = CameraModeVideo;
+                    switch (sub_mode) {
+                        case 1:
+                            self.connectingCamera.cameraSubMode = CameraSubmodeVideoMicro;
+                            self.connectingCamera.cameraSubModeParam = sub_mode_param;
+                            break;
+                        case 2:
+                            self.connectingCamera.cameraSubMode = CameraSubmodeVideoTimelapse;
+                            self.connectingCamera.cameraSubModeParam = sub_mode_param;
+                            break;
+                        case 3:
+                            self.connectingCamera.cameraSubMode = CameraSubmodeVideoSlowMotion;
+                            self.connectingCamera.cameraSubModeParam = sub_mode_param;
+                            break;
+                        default:
+                            self.connectingCamera.cameraSubMode = CameraSubmodeVideoNormal;
+                            self.connectingCamera.cameraSubModeParam = 0;
+                            break;
+                    }
+                } else {
+                    self.connectingCamera.cameraMode = CameraModePhoto;
+                    switch (sub_mode) {
+                        case 1:
+                            self.connectingCamera.cameraSubMode = CameraSubmodePhotoTiming;
+                            self.connectingCamera.cameraSubModeParam = sub_mode_param;
+                            break;
+                        case 2:
+                            self.connectingCamera.cameraSubMode = CameraSubmodePhotoInterval;
+                            self.connectingCamera.cameraSubModeParam = sub_mode_param;
+                            break;
+                        case 3:
+                            self.connectingCamera.cameraSubMode = CameraSubmodePhotoContinuous;
+                            self.connectingCamera.cameraSubModeParam = sub_mode_param;
+                            break;
+                        default:
+                            self.connectingCamera.cameraSubMode = CameraSubmodePhotoNormal;
+                            self.connectingCamera.cameraSubModeParam = 0;
+                            break;
+                    }
+                }
+            }];
+            self.connectingCamera = [self.connectingCamera save];
+            self.isShooting = NO;
+            self.cameraWorkState = CameraWorkStateIdle;
             [self sendMessageToHandler:MSG_MODE_CHANGED arg1:0 arg2:0 object:nil];
             break;
         }
@@ -2765,62 +2950,98 @@ NSString* formatSDStorage(int total, int free) {
         }
         case AMBA_MSGID_SHOOT_PHOTO_NORMAL:
         {
-            self.cameraWorkState = CameraWorkStatePhotoing;
-            if (CameraModePhoto == connectingCamera.cameraMode
-                && CameraSubmodePhotoNormal == connectingCamera.cameraSubMode)
+            if (CameraModePhoto == self.connectingCamera.cameraMode
+                && (CameraSubmodePhotoFilter == self.connectingCamera.cameraSubMode || CameraSubmodePhotoNormal == self.connectingCamera.cameraSubMode))
             {
                 self.isShooting = YES;
-                NSLog(@"#Callback# MSG_BEGIN_SHOOTING(PhotoNormal) on cmdConnectionReceiveCameraResponse");
+                self.cameraWorkState = CameraWorkStatePhotoing;
                 [self sendMessageToHandler:MSG_BEGIN_SHOOTING arg1:0 arg2:0 object:nil];
             }
             else
             {
+                self.cameraWorkState = CameraWorkStatePhotoing;
                 [self.connectingCamera transactionWithBlock:^{
-                    connectingCamera.cameraMode = CameraModePhoto;
-                    connectingCamera.cameraSubMode = CameraSubmodePhotoNormal;
-                    connectingCamera.cameraSubModeParam = 0;
+                    self.connectingCamera.cameraMode = CameraModePhoto;
+                    self.connectingCamera.cameraSubMode = CameraSubmodePhotoNormal;
+                    self.connectingCamera.cameraSubModeParam = 0;
                 }];
                 self.connectingCamera = [self.connectingCamera save];
+                [self sendMessageToHandler:MSG_MODE_CHANGED arg1:0 arg2:0 object:nil];
                 
                 self.isShooting = YES;
-                [self sendMessageToHandler:MSG_MODE_CHANGED arg1:0 arg2:0 object:nil];
-                NSLog(@"#Callback# MSG_BEGIN_SHOOTING(PhotoNormal) on cmdConnectionReceiveCameraResponse");
                 [self sendMessageToHandler:MSG_BEGIN_SHOOTING arg1:0 arg2:0 object:nil];
             }
-            
             break;
         }
         case AMBA_MSGID_SHOOT_PHOTO_INTERVAL:
         {
-            self.cameraWorkState = CameraWorkStatePhotoing;
-            self.intervalPhotosNumber = [response.param intValue];
-            if (CameraModePhoto == connectingCamera.cameraMode
-                && CameraSubmodePhotoInterval == connectingCamera.cameraSubMode)
+            AMBAShootPhotoIntervalResponse* shootPhotoIntervalResponse = (AMBAShootPhotoIntervalResponse*) response;
+            if (shootPhotoIntervalResponse.time > 0)
             {
-                if (self.intervalPhotosNumber == -1) {
-                    self.isShooting = NO;
-                }else
-                {
-                    self.isShooting = YES;
-                }
-                
-                NSLog(@"#Callback# MSG_BEGIN_SHOOTING(PhotoInterval) on cmdConnectionReceiveCameraResponse");
-                [self sendMessageToHandler:MSG_BEGIN_SHOOTING arg1:0 arg2:self.intervalPhotosNumber object:nil];///!!!TODO: Photo number
+                [self.connectingCamera transactionWithBlock:^{
+                    self.connectingCamera.cameraMode = CameraModePhoto;
+                    self.connectingCamera.cameraSubMode = CameraSubmodePhotoInterval;
+                    self.connectingCamera.cameraSubModeParam = shootPhotoIntervalResponse.time;
+                }];
+                self.connectingCamera = [self.connectingCamera save];
+                [self sendMessageToHandler:MSG_MODE_CHANGED arg1:0 arg2:0 object:nil];
+            }
+            //如果卡满了，则会返回失败
+            [self.connectingCamera transactionWithBlock:^{
+                self.connectingCamera.cameraMode = CameraModePhoto;
+                self.connectingCamera.cameraSubMode = CameraSubmodePhotoInterval;
+            }];
+            self.connectingCamera = [self.connectingCamera save];
+            [self sendMessageToHandler:MSG_MODE_CHANGED arg1:0 arg2:0 object:nil];
+            int count1 = [response.param intValue];
+            if (count1 > -1)
+            {
+                self.isShooting = YES;
+                self.cameraWorkState = CameraWorkStatePhotoingInterval;
+                self.connectingCamera.capIntervalNum = count1;
+                [self sendMessageToHandler:MSG_BEGIN_SHOOTING arg1:0 arg2:count1 object:nil];
             }
             else
             {
-                [self.connectingCamera transactionWithBlock:^{
-                    connectingCamera.cameraMode = CameraModePhoto;
-                    connectingCamera.cameraSubMode = CameraSubmodePhotoInterval;
-                    ///connectingCamera.cameraSubModeParam = 10;///!!!TODO:
-                }];
-                self.connectingCamera = [self.connectingCamera save];
-                
-                self.isShooting = YES;
-                [self sendMessageToHandler:MSG_MODE_CHANGED arg1:0 arg2:0 object:nil];
-                NSLog(@"#Callback# MSG_BEGIN_SHOOTING(PhotoInterval) on cmdConnectionReceiveCameraResponse");
-                [self sendMessageToHandler:MSG_BEGIN_SHOOTING arg1:0 arg2:self.intervalPhotosNumber object:nil];
+                self.isShooting = NO;
+                self.cameraWorkState = CameraWorkStateIdle;
+                self.connectingCamera.capIntervalNum = 0;
+                [self sendMessageToHandler:MSG_BEGIN_SHOOTING arg1:0 arg2:0 object:nil];
             }
+            break;
+        }
+            /*
+        case AMBA_PARAM_CAMERA_STATE_PHOTOING_INTERVAL:
+        {
+            self.isShooting = YES;
+            self.cameraWorkState = CameraWorkStatePhotoingInterval;
+            int count = [response.param intValue];
+            if (count > -1)
+            {
+                self.connectingCamera.capIntervalNum = count;
+                [self sendMessageToHandler:MSG_BEGIN_SHOOTING arg1:0 arg2:count object:nil];
+            }
+            else
+            {
+                self.connectingCamera.capIntervalNum = 0;
+                [self sendMessageToHandler:MSG_BEGIN_SHOOTING arg1:0 arg2:0 object:nil];
+            }
+        }
+            break;
+             //*/
+        case AMBA_MSGID_SHOOT_PHOTO_CONTINUOUS:
+        {
+            self.cameraWorkState = CameraWorkStatePhotoingContinuous;
+            [self.connectingCamera transactionWithBlock:^{
+                self.connectingCamera.cameraMode = CameraModePhoto;
+                self.connectingCamera.cameraSubMode = CameraSubmodePhotoContinuous;
+                self.connectingCamera.cameraSubModeParam = [response.param intValue];
+            }];
+            self.connectingCamera = [self.connectingCamera save];
+            [self sendMessageToHandler:MSG_MODE_CHANGED arg1:0 arg2:0 object:nil];
+            
+            self.isShooting = YES;
+            [self sendMessageToHandler:MSG_BEGIN_SHOOTING arg1:0 arg2:0 object:nil];
         }
             break;
         case AMBA_MSGID_CLOSE_CAMERA:

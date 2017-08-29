@@ -10,7 +10,12 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreMotion/CoreMotion.h>
-#import <kazmath.h>
+
+#ifdef MADVPANO_BY_SOURCE
+#import "kazmath.h"
+#else //#ifdef MADVPANO_BY_SOURCE
+#import <MADVPano/kazmath.h>
+#endif //#ifdef MADVPANO_BY_SOURCE
 //#import "MVKxMovieViewController.h"
 
 typedef enum : NSInteger {

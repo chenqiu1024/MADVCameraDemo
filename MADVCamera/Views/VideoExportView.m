@@ -37,6 +37,7 @@
     self.progressView = progressView;
     
     UIImageView * resultImageView = [[UIImageView alloc] init];
+    resultImageView.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:resultImageView];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:resultImageView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.f constant:0.f]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:resultImageView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.f constant:-32.f]];
@@ -73,8 +74,9 @@
     
     self.decLabel = decLabel;
     UIButton * bottomBtn = [[UIButton alloc] init];
+    bottomBtn.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:bottomBtn];
-    [bottomBtn addConstraint:[NSLayoutConstraint constraintWithItem:bottomBtn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.f constant:40.f]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:bottomBtn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.f constant:40.f]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:bottomBtn attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.f constant:25.f]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:bottomBtn attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1.f constant:-25.f]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:bottomBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.f constant:-30.f]];
@@ -103,6 +105,7 @@
         self.editBottomView = editBottomView;
         
         UIView * lineView = [[UIView alloc] init];
+        lineView.translatesAutoresizingMaskIntoConstraints = NO;
         [editBottomView addSubview:lineView];
         [lineView addConstraint:[NSLayoutConstraint constraintWithItem:lineView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.f constant:1.f]];
         [editBottomView addConstraint:[NSLayoutConstraint constraintWithItem:lineView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:editBottomView attribute:NSLayoutAttributeTop multiplier:1.f constant:0.f]];

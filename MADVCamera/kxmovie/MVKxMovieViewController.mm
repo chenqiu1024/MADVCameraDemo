@@ -1784,6 +1784,7 @@ static int frameCount = 0;
     if (self.gyroStringBytesSize > 0 && frameNumber >= 0)
     {
         //[self updateGyroData:frameNumber maxFrameNumber:(self.isUsedAsEncoder ? 60 : -1)];
+        //NSLog(@"Call updateGyroData with frameNumber=%d, seconds=%f, FPS=%f", frameNumber, seconds, self.FPS);
         [self updateGyroData:frameNumber maxFrameNumber:-1];
     }
     return frameNumber;
@@ -1809,7 +1810,7 @@ static int frameCount = 0;
             {
                 float matrix[9];
                 fscanf(gyroFile, "%f,%f,%f,%f,%f,%f,%f,%f,%f", &matrix[0], &matrix[1], &matrix[2], &matrix[3], &matrix[4], &matrix[5], &matrix[6], &matrix[7], &matrix[8]);
-                NSLog(@"GyroMatrix : %f,%f,%f,%f,%f,%f,%f,%f,%f", matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5], matrix[6], matrix[7], matrix[8]);
+                //NSLog(@"GyroMatrix : %f,%f,%f,%f,%f,%f,%f,%f,%f", matrix[0], matrix[1], matrix[2], matrix[3], matrix[4], matrix[5], matrix[6], matrix[7], matrix[8]);
                 [self.encoderRenderLoop setGyroMatrix:matrix rank:3];
             }
 #endif

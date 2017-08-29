@@ -9,21 +9,44 @@
 #ifdef TARGET_OS_IOS
 
 #import "MVGLView.h"
-#import "MadvGLRenderer_iOS.h"
-#import <PanoCameraController_iOS.h>
-#import "KxMovieDecoder.h"
-//#import "NSString+Extensions.h"
+
+#ifdef MADVPANO_BY_SOURCE
+
+#import "JPEGUtils.h"
+#import "PNGUtils.h"
+#import "OpenGLHelper.h"
+#import "GLRenderTexture.h"
+#import "GLFilterCache.h"
+#import "MVPanoCameraController.h"
 #import "CycordVideoRecorder.h"
+
+#else //#ifdef MADVPANO_BY_SOURCE
+
+#import <MADVPano/JPEGUtils.h>
+#import <MADVPano/PNGUtils.h>
+#import <MADVPano/OpenGLHelper.h>
+#import <MADVPano/GLRenderTexture.h>
+#import <MADVPano/GLFilterCache.h>
+#import <MADVPano/MVPanoCameraController.h>
+#import <MADVPano/CycordVideoRecorder.h>
+
+#endif //#ifdef MADVPANO_BY_SOURCE
+
+#import "NSRecursiveCondition.h"
+#import "MadvGLRenderer_iOS.h"
+
+#ifdef FOR_DOUYIN
+#import "KxMovieDecoder_douyin.h"
+#else //#ifdef FOR_DOUYIN
+#import "KxMovieDecoder.h"
+#endif //#ifdef FOR_DOUYIN
+
+//#import "NSString+Extensions.h"
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES3/gl.h>
 #import <OpenGLES/EAGL.h>
 #import <CoreMotion/CoreMotion.h>
-#import "NSRecursiveCondition.h"
-#import <JPEGUtils.h>
-#import <PNGUtils.h>
-#import <OpenGLHelper.h>
-#import <GLRenderTexture.h>
-#import <GLFilterCache.h>
+
 
 #define MAX_FOCAL_LENGTH    30.f
 #define MIN_FOCAL_LENGTH    3.f

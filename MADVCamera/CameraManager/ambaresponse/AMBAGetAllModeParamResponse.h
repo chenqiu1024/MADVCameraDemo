@@ -12,6 +12,7 @@
 
 @property (nonatomic, assign) int status;
 @property (nonatomic, assign) int mode;
+@property (nonatomic, assign) int sub_mode;
 @property (nonatomic, assign) int rec_time;
 @property (nonatomic, assign) int second;
 @property (nonatomic, assign) int lapse;
@@ -22,6 +23,9 @@
 @property (nonatomic, assign) int cap_interval_num;
 
 @property (nonatomic, assign) int speedx;
+
+@property (nonatomic, assign) int sensor_num;
+@property (nonatomic, assign) int burst_num;
 
 @property (nonatomic, assign) int douyin_video_time;
 @property (nonatomic, assign) int douyin_speedx;
