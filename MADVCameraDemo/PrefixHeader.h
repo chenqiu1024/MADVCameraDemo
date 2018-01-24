@@ -13,7 +13,7 @@
 #define EXPORT_MERGED_VIDEO
 
 #import "ResourceKeys.h"
-#import "FGLanguageTool.h"
+//#import "FGLanguageTool.h"
 #import "UIViewController+MVExtensions.h"
 #import "UIColor+MVExtensions.h"
 #import "AMBACommands.h"

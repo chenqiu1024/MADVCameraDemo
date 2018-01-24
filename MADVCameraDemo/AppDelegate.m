@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "MVCameraClient.h"
+#import <MADVCamera/MVCameraClient.h>
 #import "MVMediaManager.h"
 #import "MyMovieSegmentMerger.h"
 #import "MadvGLRenderer_iOS.h"
