@@ -9,14 +9,15 @@
 #import "MVServerResponse.h"
 #import "MVHttpResponse.h"
 #import <UIKit/UIKit.h>
+#import "CloudMediaDetail.h"
 
 typedef enum {
     MVCloudMediaTypeVideo,
     MVCloudMediaTypePhoto,
 } MVCloudMediaType;
 
-@interface MVCloudMedia : NSObject
-
+@interface MVCloudMedia : CloudMediaDetail
+/*
 @property(nonatomic,copy)NSString * filename;//文件名
 
 @property (nonatomic, copy) NSString* title;//标题
@@ -54,15 +55,15 @@ typedef enum {
 @property(nonatomic,copy)NSString * fileurl;//视频的地址
 @property(nonatomic,copy)NSString * shareurl;//分享url
 
-@property(nonatomic,strong)NSArray * streamlist;//所有转码视频的信息
+@property(nonatomic,strong)NSArray * streamlist;//所有转码视频的信息*/
 
-@property(nonatomic,copy)NSString * view_count;//浏览量
+//@property(nonatomic,copy)NSString * view_count;//浏览量
 
-@property(nonatomic,copy)NSString * viewerurl;
+/*@property(nonatomic,copy)NSString * viewerurl;
 
 
 @property(nonatomic,assign)CGFloat favorWidth;
-@property(nonatomic,copy)NSString * isuploaded;
+@property(nonatomic,copy)NSString * isuploaded;*/
 
 
 //@property (nonatomic, assign) NSInteger authorID;

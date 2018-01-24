@@ -24,15 +24,19 @@
         
         UILabel * titleLabel = [[UILabel alloc] init];
         [self.contentView addSubview:titleLabel];
-        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(editImageView.mas_bottom).offset(10);
-            make.centerX.equalTo(self.contentView.mas_centerX);
-            make.width.equalTo(@50);
-            make.height.equalTo(@12);
-        }];
+        titleLabel.frame = CGRectMake(5, self.contentView.frame.size.height * 0.5 + 10, self.contentView.frame.size.width - 10, 12);
+        titleLabel.numberOfLines = 0;
+        
+//        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(editImageView.mas_bottom).offset(10);
+//            make.left.equalTo(@5);
+//            make.right.equalTo(@-5);
+//            make.height.equalTo(@12);
+//        }];
         titleLabel.font = [UIFont systemFontOfSize:11];
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.textAlignment = NSTextAlignmentCenter;
+        
         self.titleLabel = titleLabel;
         
         UIView * lineView = [[UIView alloc] init];

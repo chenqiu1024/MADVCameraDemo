@@ -19,14 +19,13 @@
     return self;
 }
 
-+ (NSDictionary*) mj_replacedKeyFromPropertyName {
-    static NSDictionary* dict = nil;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        NSMutableDictionary* tmpDict = [[AMBAResponse mj_replacedKeyFromPropertyName] mutableCopy];
-        [tmpDict addEntriesFromDictionary:@{@"fetchSize":@"fetch_size"}];
-        dict = [NSDictionary dictionaryWithDictionary:tmpDict];
-    });
++ (NSArray<NSString* >*) jsonSerializablePropertyNames {
+    mergeJsonSerializablePropertyNames(array, @[@"offset", @"fetchSize"]);
+    return array;
+}
+
++ (NSDictionary<NSString*, NSString* >*) propertyNameToJsonKeyMap {
+    mergePropertyNameToJsonKeyMap(dict, @{@"fetchSize":@"fetch_size"});
     return dict;
 }
 

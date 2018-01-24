@@ -812,7 +812,13 @@ typedef enum : int {
         else
         {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [self importPrestoredMedias];
+                static BOOL prestoredMediasImported = NO;
+                if (!prestoredMediasImported)
+                {
+                    prestoredMediasImported = YES;
+                    [self importPrestoredMedias];
+                }
+                
                 NSArray<MVMedia*>* list = [MVMedia queryDownloadedMedias];
                 @synchronized (self)
                 {
@@ -991,7 +997,7 @@ UIImage* getVideoImage(NSString* videoURL)
                         else
                         {
                             UIImage* originalImage = [UIImage imageWithData:thumbData];
-                            thumbnailBitmap = [MVPanoRenderer renderImage:originalImage destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:!m.isStitched sourceURI:nil filterID:(int)m.filterID gyroMatrix:gyroMatrix gyroMatrixBank:3];
+                            thumbnailBitmap = [MVPanoRenderer renderImage:originalImage destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) forceLUTStitching:!m.isStitched sourcePath:nil pMadvEXIFExtension:NULL filterID:(int)m.filterID gyroMatrix:gyroMatrix gyroMatrixBank:3];
                         }
                         
                         [self saveMediaThumbnail:m thumbnail:thumbnailBitmap];
@@ -1128,12 +1134,12 @@ UIImage* getVideoImage(NSString* videoURL)
                                 
                                 if (originalImage)
                                 {
-                                    thumbnailImage = [MVPanoRenderer renderImage:originalImage destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:YES sourceURI:localPath filterID:0 gyroMatrix:NULL gyroMatrixBank:0];
+                                    thumbnailImage = [MVPanoRenderer renderImage:originalImage destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) forceLUTStitching:YES sourcePath:localPath pMadvEXIFExtension:NULL filterID:0 gyroMatrix:NULL gyroMatrixBank:0];
                                 }
                             }
                             else
                             {
-                                thumbnailImage = [MVPanoRenderer renderJPEG:localPath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:NO sourceURI:localPath lutEmbeddedInJPEG:NO filterID:0 gyroMatrix:NULL gyroMatrixRank:0];
+                                thumbnailImage = [MVPanoRenderer renderJPEG:localPath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) forceLUTStitching:NO pMadvEXIFExtension:NULL filterID:0 gyroMatrix:NULL gyroMatrixRank:0];
                             }
                             UIImage* finalThumbnail = (thumbnailImage ? : originalImage);
                             if (finalThumbnail)
@@ -1183,14 +1189,14 @@ UIImage* getVideoImage(NSString* videoURL)
                                 originalImage = getVideoImage(localPath);
                                 if (originalImage)
                                 {
-                                    UIImage* thumbnailImage = [MVPanoRenderer renderImage:originalImage destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:YES sourceURI:localPath filterID:0 gyroMatrix:NULL gyroMatrixBank:0];
+                                    UIImage* thumbnailImage = [MVPanoRenderer renderImage:originalImage destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) forceLUTStitching:YES sourcePath:localPath pMadvEXIFExtension:NULL filterID:0 gyroMatrix:NULL gyroMatrixBank:0];
                                     [self saveMediaThumbnail:media thumbnail:thumbnailImage];
                                     [self sendCallbackMessage:MsgThumbnailFetched arg1:0 arg2:0 object:media];
                                 }
                             }
                             else
                             {
-                                UIImage* thumbnailImage = [MVPanoRenderer renderJPEG:localPath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:NO sourceURI:localPath lutEmbeddedInJPEG:NO filterID:0 gyroMatrix:NULL gyroMatrixRank:0];
+                                UIImage* thumbnailImage = [MVPanoRenderer renderJPEG:localPath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) forceLUTStitching:NO pMadvEXIFExtension:NULL filterID:0 gyroMatrix:NULL gyroMatrixRank:0];
                                 [self saveMediaThumbnail:media thumbnail:thumbnailImage];
                                 [self sendCallbackMessage:MsgThumbnailFetched arg1:0 arg2:0 object:media];
                             }
@@ -1255,12 +1261,12 @@ UIImage* getVideoImage(NSString* videoURL)
                                 originalImage = getVideoImage(localPath);
                                 if (originalImage)
                                 {
-                                    thumbnailImage = [MVPanoRenderer renderImage:originalImage destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:YES sourceURI:localPath filterID:0 gyroMatrix:NULL gyroMatrixBank:0];
+                                    thumbnailImage = [MVPanoRenderer renderImage:originalImage destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) forceLUTStitching:YES sourcePath:localPath pMadvEXIFExtension:NULL filterID:0 gyroMatrix:NULL gyroMatrixBank:0];
                                 }
                             }
                             else
                             {
-                                thumbnailImage = [MVPanoRenderer renderJPEG:localPath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:NO sourceURI:localPath lutEmbeddedInJPEG:NO filterID:0 gyroMatrix:NULL gyroMatrixRank:0];
+                                thumbnailImage = [MVPanoRenderer renderJPEG:localPath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) forceLUTStitching:NO pMadvEXIFExtension:NULL filterID:0 gyroMatrix:NULL gyroMatrixRank:0];
                             }
                             UIImage* finalThumbnail = (thumbnailImage ? : originalImage);
                             if (finalThumbnail)
@@ -1626,7 +1632,10 @@ UIImage* getVideoImage(NSString* videoURL)
 }
 
 - (void) importPrestoredMedias {
-    BOOL shouldInvalidateLocalMediasLater = NO;
+    ///!!!BOOL shouldInvalidateLocalMediasLater = NO;
+    //__block int asyncTasksCount = 0;
+    //NSRecursiveCondition* cond = [[NSRecursiveCondition alloc] init];
+    
     NSDirectoryEnumerator<NSString* >* enumerator = [[NSFileManager defaultManager] enumeratorAtPath:[z_Sandbox docPath]];
     for (NSString* originalFile in enumerator)
     {
@@ -1635,79 +1644,128 @@ UIImage* getVideoImage(NSString* videoURL)
         
         NSString* ext = originalFile.pathExtension.lowercaseString;
         BOOL isVideo = [ext isEqualToString:@"mp4"] || [ext isEqualToString:@"mov"];
-        BOOL isImage = [ext isEqualToString:@"jpg"];
-        if (!isVideo && !isImage) continue;
+        BOOL isImage = [ext isEqualToString:@"jpg"];/// || [ext isEqualToString:@"png"] || [ext isEqualToString:@"gif"] || [ext isEqualToString:@"bmp"];
+        if (!isVideo && !isImage)
+            continue;
         
-        // If is pre-stitch picture:
-        NSString* cameraUUID = [MVPanoRenderer cameraUUIDOfPreStitchFileName:originalFile];
-        if (cameraUUID)
+        if (isImage)
         {
-            NSString* localPath = [MVPanoRenderer stitchedPictureFileName:originalFile];
-            MVMedia* media = [MVMedia querySavedMediaWithCameraUUID:cameraUUID remotePath:nil localPath:localPath];
-            if (media)
-            {
-                shouldInvalidateLocalMediasLater = YES;
-                dispatch_async(_imageRenderQueue, ^() {
-                    NSString* sourcePath = [z_Sandbox documentPath:originalFile];
+            //[cond lock];
+            //{
+            //    asyncTasksCount++;
+            //}
+            //[cond unlock];
+            
+            NSString* sourcePath = [z_Sandbox documentPath:originalFile];
+            dispatch_async(_imageRenderQueue, ^() {
+                @try
+                {
                     if (![[NSFileManager defaultManager] fileExistsAtPath:sourcePath])
                     {
                         return;
                     }
-                    NSString* destPath = [z_Sandbox documentPath:localPath];
+                    NSString* destPath = sourcePath;
+                    NSString* localPath = originalFile;
+                    
+                    NSString* cameraUUID = [MVPanoRenderer cameraUUIDOfPreStitchFileName:localPath];
+                    if (cameraUUID)
+                    {
+                        localPath = [MVPanoRenderer stitchedPictureFileName:originalFile];
+                        destPath = [z_Sandbox documentPath:localPath];
+                    }
+                    
                     float* matrixData = (float*) malloc(sizeof(float) * 16);
                     MadvEXIFExtension madvExtension = readMadvEXIFExtensionFromJPEG(matrixData, sourcePath.UTF8String);
                     jpeg_decompress_struct jpegInfo = readImageInfoFromJPEG(sourcePath.UTF8String);
+                    
+                    BOOL mediaJustCreated = NO;
+                    MVMedia* media = [MVMedia querySavedMediaWithCameraUUID:cameraUUID remotePath:nil localPath:localPath];
+                    if (!media)
+                    {
+                        mediaJustCreated = YES;
+                        
+                        media = [MVMedia createWithCameraUUID:(cameraUUID ? cameraUUID : @"LOCAL") remoteFullPath:originalFile];
+                        [media insert];
+                        [media transactionWithBlock:^{
+                            media.mediaType = MVMediaTypePhoto;
+                            media.filterID = 0;
+                            media.localPath = localPath;
+                            if (!cameraUUID && madvExtension.sceneType == StitchTypeStitched)
+                            {
+                                media.size = [z_Sandbox getFileSizePath:destPath];
+                                media.downloadedSize = media.size;
+                            }
+                        }];
+                    }
+                    
+                    if (cameraUUID || madvExtension.sceneType != StitchTypeStitched || mediaJustCreated)
+                    {
 #ifdef USE_IMAGE_BLENDER
-                    if (madvExtension.sceneType == StitchTypeStitched)
-                    {
-                        blendImage(sourcePath.UTF8String, sourcePath.UTF8String);
-                    }
+                        if (madvExtension.sceneType == StitchTypeStitched)
+                        {
+                            blendImage(sourcePath.UTF8String, sourcePath.UTF8String);
+                        }
 #endif
-                    if (madvExtension.gyroMatrixBytes > 0)
-                    {
-                        [MVPanoRenderer renderJPEGToJPEG:destPath eraseMadvExtensions:YES sourcePath:sourcePath dstWidth:jpegInfo.image_width dstHeight:jpegInfo.image_height withLUT:(madvExtension.sceneType != StitchTypeStitched) lutEmbeddedInJPEG:madvExtension.withEmbeddedLUT filterID:(int)media.filterID gyroMatrix:matrixData gyroMatrixRank:3];
-                    }
-                    else
-                    {
-                        [MVPanoRenderer renderJPEGToJPEG:destPath eraseMadvExtensions:YES sourcePath:sourcePath dstWidth:jpegInfo.image_width dstHeight:jpegInfo.image_height withLUT:(madvExtension.sceneType != StitchTypeStitched) lutEmbeddedInJPEG:madvExtension.withEmbeddedLUT filterID:(int)media.filterID gyroMatrix:NULL gyroMatrixRank:0];
+                        if (madvExtension.gyroMatrixBytes > 0)
+                        {
+                            [MVPanoRenderer renderJPEGToJPEG:destPath sourcePath:sourcePath dstWidth:jpegInfo.image_width dstHeight:jpegInfo.image_height forceLUTStitching:NO pMadvEXIFExtension:&madvExtension filterID:(int)media.filterID gyroMatrix:matrixData gyroMatrixRank:3];
+                        }
+                        else
+                        {
+                            [MVPanoRenderer renderJPEGToJPEG:destPath sourcePath:sourcePath dstWidth:jpegInfo.image_width dstHeight:jpegInfo.image_height forceLUTStitching:NO pMadvEXIFExtension:&madvExtension filterID:(int)media.filterID gyroMatrix:NULL gyroMatrixRank:0];
+                        }
+                        
+                        /*
+                         long exivImageHandler = createExivImage(destPath.UTF8String);
+                         if (StitchTypeStitched != madvExtension.sceneType)
+                         {
+                         exivImageEraseSceneType(exivImageHandler);
+                         }
+                         if (madvExtension.gyroMatrixBytes > 0)
+                         {
+                         exivImageEraseGyroData(exivImageHandler);
+                         }
+                         exivImageSaveMetaData(exivImageHandler);
+                         releaseExivImage(exivImageHandler);
+                         //*/
+                        if (![destPath isEqualToString:sourcePath])
+                        {
+                            [[NSFileManager defaultManager] removeItemAtPath:sourcePath error:nil];
+                        }
+                        //*
+                        UIImage* thumbnailImage = [MVPanoRenderer renderJPEG:destPath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) forceLUTStitching:NO pMadvEXIFExtension:NULL filterID:0 gyroMatrix:NULL gyroMatrixRank:0];
+                        [self saveMediaThumbnail:media thumbnail:thumbnailImage];
+                        //[self sendCallbackMessage:MsgThumbnailFetched arg1:0 arg2:0 object:media];
+                        //[self updateLocalMedia:media];
+                        //*/
+                        [media transactionWithBlock:^{
+                            media.size = [z_Sandbox getFileSizePath:destPath];
+                            media.downloadedSize = media.size;
+                        }];
+                        [self setMediaDownloadStatus:MVMediaDownloadStatusFinished ofMedia:media errorCode:0];
+                        //[wSelf invalidateLocalMedias:YES];
                     }
                     free(matrixData);
-                    /*
-                    long exivImageHandler = createExivImage(destPath.UTF8String);
-                    if (StitchTypeStitched != madvExtension.sceneType)
-                    {
-                        exivImageEraseSceneType(exivImageHandler);
-                    }
-                    if (madvExtension.gyroMatrixBytes > 0)
-                    {
-                        exivImageEraseGyroData(exivImageHandler);
-                    }
-                    exivImageSaveMetaData(exivImageHandler);
-                    releaseExivImage(exivImageHandler);
-                    //*/
-                    if (![destPath isEqualToString:sourcePath])
-                    {
-                        [[NSFileManager defaultManager] removeItemAtPath:sourcePath error:nil];
-                    }
-                    //*
-                    UIImage* thumbnailImage = [MVPanoRenderer renderJPEG:destPath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:NO sourceURI:destPath lutEmbeddedInJPEG:NO filterID:0 gyroMatrix:NULL gyroMatrixRank:0];
-                    [self saveMediaThumbnail:media thumbnail:thumbnailImage];
-                    //[self sendCallbackMessage:MsgThumbnailFetched arg1:0 arg2:0 object:media];
-                    //[self updateLocalMedia:media];
-                    //*/
-                    [media transactionWithBlock:^{
-                        media.modifyDate = [NSDate date];
-                    }];
-                    [self setMediaDownloadStatus:MVMediaDownloadStatusFinished ofMedia:media errorCode:0];
-                    //[wSelf invalidateLocalMedias:YES];
-                });
-                continue;
-            }
-            else
-            {
-                ///!!!Should not happen!!!
-                continue;
-            }
+                }
+                @catch (NSException *exception)
+                {
+                    //Handle an exception thrown in the @try block
+                }
+                @finally
+                {
+                    //[cond lock];
+                    //{
+                    //    if (0 == --asyncTasksCount)
+                    //    {
+                    //        [cond broadcast];
+                    //    }
+                    //
+                    //}
+                    //[cond unlock];
+                }
+                
+            });
+            continue;
         }
         
         //NSString* baseName = [file stringByDeletingPathExtension];
@@ -1719,6 +1777,12 @@ UIImage* getVideoImage(NSString* videoURL)
                 [[NSFileManager defaultManager] removeItemAtPath:[z_Sandbox documentPath:originalFile] error:nil];
             }
             continue;
+        }
+        if ([ext isEqualToString:@"jpg"]) {
+            if ([[[originalFile lastPathComponent] stringByDeletingPathExtension] hasSuffix:@"_4096scaled"] || [[[originalFile lastPathComponent] stringByDeletingPathExtension] hasSuffix:@"_scaled"])
+            {
+                continue;
+            }
         }
         
         MVMedia* prestoredMedia = [MVMedia createWithCameraUUID:@"LOCAL" remoteFullPath:originalFile];
@@ -1756,13 +1820,19 @@ UIImage* getVideoImage(NSString* videoURL)
             savedMedia = prestoredMedia;
         }
     }
-    
-    if (shouldInvalidateLocalMediasLater)
-    {
-        dispatch_async(_imageRenderQueue, ^() {
-            [self invalidateLocalMedias:YES];
-        });
-    }
+    //*
+    //[cond lock];
+    //{
+    //    while (asyncTasksCount > 0)
+    //    {
+    //        [cond wait];
+    //    }
+    //}
+    //[cond unlock];
+    dispatch_async(_imageRenderQueue, ^() {
+        [self invalidateLocalMedias:YES];
+    });
+    //*/
 }
 
 /*
@@ -2018,11 +2088,11 @@ NSString* uniqueLocalPath(NSString* cameraUUID, NSString* remotePath) {
 #endif
                     if (madvExtension.gyroMatrixBytes > 0)
                     {
-                        [MVPanoRenderer renderJPEGToJPEG:destPath eraseMadvExtensions:YES sourcePath:sourcePath dstWidth:jpegInfo.image_width dstHeight:jpegInfo.image_height withLUT:(madvExtension.sceneType != StitchTypeStitched) lutEmbeddedInJPEG:madvExtension.withEmbeddedLUT filterID:(int)media.filterID gyroMatrix:matrixData gyroMatrixRank:3];
+                        [MVPanoRenderer renderJPEGToJPEG:destPath sourcePath:sourcePath dstWidth:jpegInfo.image_width dstHeight:jpegInfo.image_height forceLUTStitching:NO pMadvEXIFExtension:&madvExtension filterID:(int)media.filterID gyroMatrix:matrixData gyroMatrixRank:3];
                     }
                     else
                     {
-                        [MVPanoRenderer renderJPEGToJPEG:destPath eraseMadvExtensions:YES sourcePath:sourcePath dstWidth:jpegInfo.image_width dstHeight:jpegInfo.image_height withLUT:(madvExtension.sceneType != StitchTypeStitched) lutEmbeddedInJPEG:madvExtension.withEmbeddedLUT filterID:(int)media.filterID gyroMatrix:NULL gyroMatrixRank:0];
+                        [MVPanoRenderer renderJPEGToJPEG:destPath sourcePath:sourcePath dstWidth:jpegInfo.image_width dstHeight:jpegInfo.image_height forceLUTStitching:NO pMadvEXIFExtension:&madvExtension filterID:(int)media.filterID gyroMatrix:NULL gyroMatrixRank:0];
                     }
                     free(matrixData);
                     /*
@@ -2048,7 +2118,7 @@ NSString* uniqueLocalPath(NSString* cameraUUID, NSString* remotePath) {
                      }];///!!!#Bug3040#
                      //*/
                     //*
-                    UIImage* thumbnailImage = [MVPanoRenderer renderJPEG:destPath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) withLUT:NO sourceURI:destPath lutEmbeddedInJPEG:madvExtension.withEmbeddedLUT filterID:0 gyroMatrix:NULL gyroMatrixRank:0];
+                    UIImage* thumbnailImage = [MVPanoRenderer renderJPEG:destPath destSize:CGSizeMake(ThumbnailWidth, ThumbnailHeight) forceLUTStitching:NO pMadvEXIFExtension:&madvExtension filterID:0 gyroMatrix:NULL gyroMatrixRank:0];
                     [pSelf saveMediaThumbnail:media thumbnail:thumbnailImage];
                     [pSelf sendCallbackMessage:MsgThumbnailFetched arg1:0 arg2:0 object:media];
                     [pSelf updateLocalMedia:media];

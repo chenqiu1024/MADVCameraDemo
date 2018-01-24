@@ -9,5 +9,14 @@
 #import "MediaVideoStream.h"
 
 @implementation MediaVideoStream
-
+//- (id)createWithFps:(NSString *)fps resolution:(NSString *)resolution bitrate:(NSString *)bitrate videocodec:(NSString *)videocodec fileurl:(NSString *)fileurl
+//{
+//    MediaVideoStream * mediaVideoStream = [[MediaVideoStream alloc] init];
+//    mediaVideoStream.fps = fps;
+//    mediaVideoStream.resolution = resolution;
+//    mediaVideoStream.bitrate = bitrate;
+//    mediaVideoStream.videocodec = videocodec;
+//    mediaVideoStream.fileurl = fileurl;
+//    return mediaVideoStream;
+//}
 @end

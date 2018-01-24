@@ -28,6 +28,7 @@
     CGFloat width = (self.width - (self.imageArray.count - 1))/self.imageArray.count;
     for (int i = 0; i < self.imageArray.count; i++) {
         CenterButton * centerBtn = [[CenterButton alloc] init];
+        centerBtn.isTop = YES;
         [self addSubview:centerBtn];
         [centerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(@0);

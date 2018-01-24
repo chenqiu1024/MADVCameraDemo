@@ -6,9 +6,10 @@
 //  Copyright © 2016年 Cyllenge. All rights reserved.
 //
 
-#import <MJExtension/MJExtension.h>
+//#import <MJExtension/MJExtension.h>
+#import "JSONSerializableObject.h"
 
-@interface AMBAResponse : NSObject
+@interface AMBAResponse : JsonSerializableObject
 
 #pragma mark    JSON Fields
 

@@ -86,7 +86,7 @@
     [shareLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_centerY).offset(-120);
         make.centerX.equalTo(self.mas_centerX);
-        make.width.equalTo(@100);
+        make.width.equalTo(@250);
         make.height.equalTo(@20);
     }];
     shareLabel.font = [UIFont systemFontOfSize:15];
@@ -168,7 +168,7 @@
         [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(btn.mas_bottom).offset(10);
             make.centerX.equalTo(btn.mas_centerX);
-            make.width.equalTo(@100);
+            make.width.equalTo(@130);
             make.height.equalTo(@15);
         }];
         nameLabel.textAlignment=NSTextAlignmentCenter;

@@ -19,4 +19,9 @@
     return self;
 }
 
++ (NSArray<NSString* >*) jsonSerializablePropertyNames {
+    mergeJsonSerializablePropertyNames(array, @[@"lon", @"lat", @"alt"]);
+    return array;
+}
+
 @end

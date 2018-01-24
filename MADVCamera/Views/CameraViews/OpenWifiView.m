@@ -44,29 +44,39 @@
     
     UILabel * subDescLabel=[[UILabel alloc] init];
     [self addSubview:subDescLabel];
-    [subDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(imageView.mas_top).offset(-20);
-        make.left.equalTo(@15);
-        make.right.equalTo(@-15);
-        make.height.equalTo(@13);
-    }];
+    subDescLabel.frame = CGRectMake(20, ScreenHeight * 0.5 - 72 - 20 -13, ScreenWidth-40, 13);
+//    [subDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(imageView.mas_top).offset(-20);
+//        make.left.equalTo(@15);
+//        make.right.equalTo(@-15);
+//        make.height.equalTo(@13);
+//    }];
+    subDescLabel.numberOfLines = 0;
     subDescLabel.font=[UIFont systemFontOfSize:13];
     subDescLabel.textColor=[UIColor colorWithHexString:@"#F6F6F6"];
     subDescLabel.textAlignment=NSTextAlignmentCenter;
     subDescLabel.text=FGGetStringWithKeyFromTable(PRESSWIFI, nil);
+    [subDescLabel sizeToFit];
+    subDescLabel.y = ScreenHeight * 0.5 - 72 - 20 - subDescLabel.height;
+    subDescLabel.x = (ScreenWidth - subDescLabel.width)*0.5;
     
     UILabel * descLabel=[[UILabel alloc] init];
     [self addSubview:descLabel];
-    [descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(subDescLabel.mas_top).offset(-5);
-        make.left.equalTo(@15);
-        make.right.equalTo(@-15);
-        make.height.equalTo(@13);
-    }];
+    descLabel.frame = CGRectMake(20, CGRectGetMaxY(subDescLabel.frame)-subDescLabel.height-5 -13, ScreenWidth-40, 13);
+//    [descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(subDescLabel.mas_top).offset(-5);
+//        make.left.equalTo(@15);
+//        make.right.equalTo(@-15);
+//        make.height.equalTo(@13);
+//    }];
+    descLabel.numberOfLines = 0;
     descLabel.font=[UIFont systemFontOfSize:13];
     descLabel.textColor=[UIColor colorWithHexString:@"#F6F6F6"];
     descLabel.textAlignment=NSTextAlignmentCenter;
     descLabel.text=FGGetStringWithKeyFromTable(SUREWIFIOPENED, nil);
+    [descLabel sizeToFit];
+    descLabel.y = CGRectGetMaxY(subDescLabel.frame)-subDescLabel.height-5 -descLabel.height;
+    descLabel.x = (ScreenWidth - descLabel.width)*0.5;
     
     UILabel * titleLabe=[[UILabel alloc] init];
     [self addSubview:titleLabe];

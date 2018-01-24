@@ -39,16 +39,23 @@
         
         UILabel * titleLabel = [[UILabel alloc] init];
         [baseView addSubview:titleLabel];
-        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.pageControl.mas_top).offset(-15);
-            make.centerX.equalTo(baseView.mas_centerX);
-            make.width.equalTo(@250);
-            make.height.equalTo(@20);
-        }];
+        titleLabel.frame = CGRectMake((baseView.width - 250)*0.5, self.height-40-10 - 15 - 20, 250, 20);
+//        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.bottom.equalTo(self.pageControl.mas_top).offset(-15);
+//            make.centerX.equalTo(baseView.mas_centerX);
+//            make.width.equalTo(@250);
+//            make.height.equalTo(@20);
+//        }];
+        titleLabel.numberOfLines = 0;
         titleLabel.font = [UIFont systemFontOfSize:17];
         titleLabel.textColor = [UIColor colorWithHexString:@"#000000" alpha:0.8];
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.text = playScrollModel.title;
+        [titleLabel sizeToFit];
+        titleLabel.y = self.height-40-10 - 15 - titleLabel.height;
+        if (titleLabel.width < 250) {
+            titleLabel.width = 250;
+        }
         
         UIImageView * imageView = [[UIImageView alloc] init];
         [baseView addSubview:imageView];

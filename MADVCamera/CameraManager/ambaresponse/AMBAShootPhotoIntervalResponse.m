@@ -10,4 +10,10 @@
 
 @implementation AMBAShootPhotoIntervalResponse
 
++ (NSArray<NSString* >*) jsonSerializablePropertyNames {
+    NSArray* myArray = @[@"time"];
+    mergeJsonSerializablePropertyNames(array, myArray);
+    return array;
+}
+
 @end

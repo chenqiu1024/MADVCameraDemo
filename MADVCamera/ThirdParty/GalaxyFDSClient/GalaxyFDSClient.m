@@ -621,12 +621,15 @@
                 NSLog(@"++++++++type%@",type);
                 
                 NSDictionary * header ;
-                if ([type isEqualToString:@"mp4"]) {
-                    header = @{@"Content-Typ":@"video/mp4"};
-                }else
-                {
-                    header = @{@"Content-Typ":@"image/png"};
+                if (!signatures || signatures.count==0) {
+                    if ([type isEqualToString:@"mp4"]) {
+                        header = @{@"content-type":@"video/mp4"};
+                    }else
+                    {
+                        header = @{@"content-type":@"image/png"};
+                    }
                 }
+                
                 
                 id request = [FDSRequestFactory createRequest:uriString withConfig:_config
                                                 andHTTPMethod:@"PUT" andHeader:header];
@@ -734,7 +737,7 @@
         //                               bucketName, objectName, uploadId, index];
         NSString * sectioncheck = [NSString md5num:(unsigned char*)data.bytes length:(UInt32)data.length];
         NSString *uriString=@"https://multimedia.api.weibo.com/2/multimedia/open_upload.json";
-        uriString=[NSString stringWithFormat:@"%@?access_token=%@&filetoken=%@&sectioncheck=%@&startloc=%lld&client=iphone&type=panorama_image",uriString,access_token,fileToken,sectioncheck,partSize * (*partNumber-1)];
+        uriString=[NSString stringWithFormat:@"%@?access_token=%@&filetoken=%@&sectioncheck=%@&startloc=%lld&client=iphone",uriString,access_token,fileToken,sectioncheck,partSize * (*partNumber-1)];
         
         int retriedTimes = 0;
         while (YES) {
@@ -744,8 +747,12 @@
 //                NSDictionary * header ;
 //                header = @{@"Content-Typ":@"image/png"};
                 
-                id request = [FDSRequestFactory createRequest:uriString withConfig:_config
-                                                andHTTPMethod:@"POST" andHeader:nil];
+                //id request = [FDSRequestFactory createRequest:uriString withConfig:_config
+//                                                andHTTPMethod:@"POST" andHeader:nil];
+                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:uriString]];
+                request.timeoutInterval = (60 * 1000) / 1000;
+                request.cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
+                request.HTTPMethod = @"POST";
                 [request setHTTPBody:data];
                 NSHTTPURLResponse *response;
                 NSError *error;
@@ -763,13 +770,23 @@
                 NSLog(@"微博上传的结果%@",str);
                 long statusCode = [response statusCode];
                 if (statusCode != 200) {
-                    
-                    @throw [GalaxyFDSClientException exceptionWithReason:[NSString
-                                                                          stringWithFormat:@"Unable to uplaod object[] to URI: %@. Fail "
-                                                                          "to upload part %d. Cause: %ld (%@)",
-                                                                          uriString, index, statusCode,
-                                                                          [NSHTTPURLResponse localizedStringForStatusCode:statusCode]]
-                                                                userInfo:nil];
+                    if (statusCode == 504) {
+                        retriedTimes = 5;
+                        @throw [GalaxyFDSClientException exceptionWithReason:[NSString
+                                                                              stringWithFormat:@"Unable to uplaod object[] to URI: %@. Fail "
+                                                                              "to upload part %d. Cause: %ld (%@)",
+                                                                              uriString, index, statusCode,
+                                                                              [NSHTTPURLResponse localizedStringForStatusCode:statusCode]]
+                                                                    userInfo:nil];
+                    }else
+                    {
+                        @throw [GalaxyFDSClientException exceptionWithReason:[NSString
+                                                                              stringWithFormat:@"Unable to uplaod object[] to URI: %@. Fail "
+                                                                              "to upload part %d. Cause: %ld (%@)",
+                                                                              uriString, index, statusCode,
+                                                                              [NSHTTPURLResponse localizedStringForStatusCode:statusCode]]
+                                                                    userInfo:nil];
+                    }
                 }
                 FDSUploadPartResult *result = [[FDSUploadPartResult alloc]
                                                initFromJson:responseContent];
@@ -798,10 +815,17 @@
                 return result;
                 
             } @catch (GalaxyFDSClientException *e) {
-                if (++retriedTimes >= _config.maxRetryTimes) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:UPLOAD_ERROR object:nil];
+                if (retriedTimes > 4) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:TIME_OUT object:nil];
                     free(buffer);
                     @throw e;
+                }else
+                {
+                    if (++retriedTimes >= _config.maxRetryTimes) {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:UPLOAD_ERROR object:nil];
+                        free(buffer);
+                        @throw e;
+                    }
                 }
             }
         }
@@ -836,10 +860,10 @@
     
     NSDictionary * header ;
     if ([type isEqualToString:@"mp4"]) {
-        header = @{@"Content-Typ":@"video/mp4"};
+        header = @{@"content-type":@"video/mp4"};
     }else
     {
-        header = @{@"Content-Typ":@"image/png"};
+        header = @{@"content-type":@"image/png"};
     }
   int retriedTimes = 0;
     while (YES) {

@@ -20,12 +20,13 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         UILabel * titleTagLabel = [[UILabel alloc] init];
         [self.contentView addSubview:titleTagLabel];
-        [titleTagLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(@15);
-            make.centerY.equalTo(self.contentView.mas_centerY);
-            make.width.equalTo(@40);
-            make.height.equalTo(@20);
-        }];
+        titleTagLabel.frame = CGRectMake(15, 15, 40, 16);
+//        [titleTagLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(@15);
+//            make.centerY.equalTo(self.contentView.mas_centerY);
+//            make.width.equalTo(@40);
+//            make.height.equalTo(@20);
+//        }];
         titleTagLabel.textColor = [UIColor colorWithHexString:@"#000000" alpha:0.8];
         titleTagLabel.font = [UIFont systemFontOfSize:16];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@:",FGGetStringWithKeyFromTable(TITLE, nil)]];

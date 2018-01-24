@@ -10,18 +10,13 @@
 
 @implementation AMBAGetMediaInfoResponse
 
-+ (NSArray*) mj_ignoredPropertyNames {
-    return [AMBAResponse mj_ignoredPropertyNames];
++ (NSArray<NSString* >*) jsonSerializablePropertyNames {
+    mergeJsonSerializablePropertyNames(array, @[@"duration", @"jsonSize", @"media_type", @"scene_type", @"gyro"]);
+    return array;
 }
 
-+ (NSDictionary*) mj_replacedKeyFromPropertyName {
-    static NSDictionary* dict = nil;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        NSMutableDictionary* tmpDict = [[AMBAResponse mj_replacedKeyFromPropertyName] mutableCopy];
-        [tmpDict addEntriesFromDictionary:@{@"jsonSize":@"size"}];
-        dict = [NSDictionary dictionaryWithDictionary:tmpDict];
-    });
++ (NSDictionary<NSString*, NSString* >*) propertyNameToJsonKeyMap {
+    mergePropertyNameToJsonKeyMap(dict, @{@"jsonSize":@"size"});
     return dict;
 }
 

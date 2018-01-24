@@ -10,6 +10,11 @@
 
 @implementation AMBACancelFileTransferResponse
 
++ (NSArray<NSString* >*) jsonSerializablePropertyNames {
+    mergeJsonSerializablePropertyNames(array, @[@"transferred_size"]);
+    return array;
+}
+
 - (NSString*) md5 {
     return @"N/A";
 }

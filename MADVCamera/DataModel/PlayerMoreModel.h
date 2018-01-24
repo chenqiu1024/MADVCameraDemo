@@ -18,6 +18,7 @@ typedef enum : NSInteger {
     Favor = 6,
     Quality = 7,
     VR_Patter = 8,
+    CONTENT_INFO = 9,
 } MoreType;
 @interface PlayerMoreModel : NSObject
 @property(nonatomic,copy)NSString * title;

@@ -10,11 +10,11 @@
 
 @implementation AMBAResponse
 
-+ (NSArray*) mj_ignoredPropertyNames {
-    return @[@"requestKey", @"isRvalOK"];
++ (NSArray<NSString* >*) jsonSerializablePropertyNames {
+    return @[@"token", @"rval", @"msgID", @"rval", @"type", @"param"];
 }
 
-+ (NSDictionary*) mj_replacedKeyFromPropertyName {
++ (NSDictionary<NSString*, NSString* >*) propertyNameToJsonKeyMap {
     return @{@"msgID":@"msg_id"};
 }
 

@@ -79,16 +79,23 @@
         if (arr.count == 1) {
             UILabel * titleLabel = [[UILabel alloc] init];
             [baseView addSubview:titleLabel];
-            [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.bottom.equalTo(@-120);
-                make.centerX.equalTo(baseView.mas_centerX);
-                make.height.equalTo(@17);
-                make.width.equalTo(@300);
-            }];
+//            [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.bottom.equalTo(@-120);
+//                make.centerX.equalTo(baseView.mas_centerX);
+//                make.height.equalTo(@17);
+//                make.width.equalTo(@300);
+//            }];
+            titleLabel.frame = CGRectMake(15, baseView.height - 120 - 17, baseView.width - 30, 17);
+            titleLabel.numberOfLines = 0;
             titleLabel.font = [UIFont systemFontOfSize:16];
             titleLabel.textColor = [UIColor whiteColor];
             titleLabel.textAlignment = NSTextAlignmentCenter;
             titleLabel.text = arr[0];
+            [titleLabel sizeToFit];
+            if (titleLabel.width < baseView.width - 30) {
+                titleLabel.width = baseView.width - 30;
+            }
+            //titleLabel.y = baseView.height - 120 - titleLabel.height;
         }else
         {
             UILabel * titleLabel = [[UILabel alloc] init];

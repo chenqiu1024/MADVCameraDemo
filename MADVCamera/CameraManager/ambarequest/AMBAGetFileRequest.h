@@ -10,8 +10,6 @@
 
 @interface AMBAGetFileRequest : AMBARequest
 
-- (instancetype) initWithReceiveBlock:(AMBAResponseReceivedBlock)receiveBlock errorBlock:(AMBAResponseErrorBlock)errorBlock;
-
 @property (nonatomic, copy) NSString* offset;
 
 @property (nonatomic, assign) NSInteger fetchSize;

@@ -144,6 +144,8 @@ typedef BOOL(^KxMovieDecoderInterruptCallback)();
 - (int) getCutCount;
 - (int) getCutSizePerPoint;
 - (uint8_t*) getCutData;
+- (uint8_t*) getGpsxData;
+- (int) getGpsxSize;
 - (boolean_t) isMadVContent;
 - (boolean_t) isShareBitrateContent;
 - (boolean_t) isTimeElapsedVideo;

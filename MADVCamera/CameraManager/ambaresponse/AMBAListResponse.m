@@ -10,4 +10,9 @@
 
 @implementation AMBAListResponse
 
++ (NSArray<NSString* >*) jsonSerializablePropertyNames {
+    mergeJsonSerializablePropertyNames(array, @[@"listing"]);
+    return array;
+}
+
 @end

@@ -1915,6 +1915,22 @@ NSString * const naluTypesStrings[] = {
     return _formatCtx->cut_data;
 }
 
+- (uint8_t*) getGpsxData
+{
+    return _formatCtx->gpsx_data;
+}
+
+- (int) getGpsxSize
+{
+    if (_formatCtx != NULL)
+    {
+        NSLog(@"Gpsx: getGpsxSize = %d", _formatCtx->gpsx_size);
+        return _formatCtx->gpsx_size;
+    }
+    else
+        return 0;
+}
+
 - (boolean_t) isMadVContent
 {
     return _formatCtx->is_madv_content;
@@ -2091,6 +2107,7 @@ static bool waitNextKeyFrame = false;
                     
                     KxVideoFrame *frame = [self handleVideoFrame];
                     //LoggerVideo(1, @"decoded v timestamp %f", frame.timestamp);
+                    NSLog(@"decoded v timestamp %f", frame.timestamp);
                     
                     if (frame) {
                         

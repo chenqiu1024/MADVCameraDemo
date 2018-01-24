@@ -10,6 +10,8 @@
 #define CNS @"zh-Hans"
 #define EN @"en"
 #define CNT @"zh-Hant"
+#define ES @"es"
+#define RU @"ru"
 #define LANGUAGE_SET @"langeuageset"
 
 @interface FGLanguageTool : NSObject

@@ -20,11 +20,17 @@
 
 @implementation AMBARequest
 
-+ (NSArray*) mj_ignoredPropertyNames {
-    return @[@"shouldWaitUntilPreviousResponded", @"timestamp", @"timeout", @"requestKey", @"responseClass", @"ambaResponseReceived", @"ambaResponseError", @"ambaRequestSent"];
++ (NSArray<NSString* >*) jsonSerializablePropertyNames {
+    /*
+     NSMutableArray<NSString* >* mergedArray = [@[@"token", @"rval", @"msgID", @"rval", @"type", @"param"] mutableCopy];
+     [mergedArray addObjectsFromArray:[super jsonSerializablePropertyNames]];
+     return [NSArray arrayWithArray:mergedArray];
+     /*/
+    return @[@"msgID", @"token", @"type", @"btwifi", @"param"];
+    //*/
 }
 
-+ (NSDictionary*) mj_replacedKeyFromPropertyName {
++ (NSDictionary<NSString*, NSString* >*) propertyNameToJsonKeyMap {
     return @{@"msgID":@"msg_id"};
 }
 

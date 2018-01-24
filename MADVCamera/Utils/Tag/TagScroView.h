@@ -22,6 +22,7 @@
 @property(nonatomic,strong)UIColor * titleColor;
 @property(nonatomic,strong)UIColor * borderColor;
 @property(nonatomic,strong)UIColor * lastTitleColor;
+@property(nonatomic,strong)UIColor * contentBackgroundColor;
 
 //是否选择后变样式
 @property(nonatomic,assign)BOOL isSelected;

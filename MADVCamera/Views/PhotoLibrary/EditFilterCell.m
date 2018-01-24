@@ -36,8 +36,8 @@
         [self.contentView addSubview:titleLabel];
         [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(filterImageview.mas_bottom).offset(8);
-            make.centerX.equalTo(self.contentView.mas_centerX);
-            make.width.equalTo(@50);
+            make.left.equalTo(@2);
+            make.right.equalTo(@-2);
             make.height.equalTo(@12);
         }];
         titleLabel.font = [UIFont systemFontOfSize:11];

@@ -17,10 +17,15 @@
 #pragma mark --秒转成00:00:00--
 + (NSString *)timeformatFromSeconds:(int)seconds;
 //iOS 获取当前手机系统语言 是否包括印尼
-+ (NSString*)getPreferredLanguageIsContainIndonesia:(BOOL)IsContainIndonesia;
++ (NSString*)getPreferredLanguage;
 + (NSString *)formatFloat:(float)f;
-//获取app语言 是否包括印尼
-+ (NSString *)getAppLanguageIsContainIndonesia:(BOOL)IsContainIndonesia;
+
+//获取app语言，只包括简体、繁体、en
++ (NSString *)getAppLessLanguage;
+
+//获取app语言，包括app所要适配的语言
++ (NSString *)getAppLanguage;
+
 //获取当前时间的时间戳获取当前时间戳有两种方法(以秒为单位
 +(NSString *)getNowTimeTimestamp;
 + (NSString*) deviceString;

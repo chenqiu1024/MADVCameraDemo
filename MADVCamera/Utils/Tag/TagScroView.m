@@ -79,12 +79,17 @@
                 leftPos=0;
                 view.frame=CGRectMake(0, line*30, size.width+20, 25);
             }
-            view.backgroundColor=[UIColor whiteColor];
+            if (self.contentBackgroundColor) {
+                view.backgroundColor=self.contentBackgroundColor;
+            }else
+            {
+                view.backgroundColor=[UIColor whiteColor];
+            }
+            
             view.layer.borderWidth=1;
             view.layer.borderColor=self.borderColor.CGColor;
             view.layer.masksToBounds=YES;
             view.layer.cornerRadius=3.0f;
-            
             UITapGestureRecognizer * tapGes=[[UITapGestureRecognizer alloc] init];
             [tapGes addTarget:self action:@selector(tapGes:)];
             [view addGestureRecognizer:tapGes];

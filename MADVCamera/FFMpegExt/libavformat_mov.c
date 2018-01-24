@@ -486,6 +486,17 @@ static int mov_read_DISP(MOVContext *c, AVIOContext *pb, MOVAtom atom){
     return 0;
 }
 
+static int mov_read_gpsx(MOVContext *c, AVIOContext *pb, MOVAtom atom){
+    c->fc->gpsx_size = atom.size;
+    
+    if (c->fc->gpsx_size > 0) {
+        c->fc->gpsx_data = malloc(c->fc->gpsx_size);
+        avio_read(pb, c->fc->gpsx_data, c->fc->gpsx_size);
+    }
+    av_log(c->fc, AV_LOG_ERROR, "gpsx size: %"PRId64"\n", c->fc->gpsx_size);
+    return 0;
+}
+
 static int mov_read_chpl(MOVContext *c, AVIOContext *pb, MOVAtom atom)
 {
     int64_t start;
@@ -3248,6 +3259,7 @@ static const MOVParseTableEntry mov_default_parse_table[] = {
 { MKTAG('f','l','t','r'), mov_read_fltr },
 { MKTAG('c','u','t','l'), mov_read_cutl },
 { MKTAG('t','l','y','d'), mov_read_tlyd },
+{ MKTAG('g','p','s','x'), mov_read_gpsx },
 { MKTAG('G','Y','R','A'), mov_read_GYRA },
 { MKTAG('D','I','S','P'), mov_read_DISP },
 { MKTAG('-','-','-','-'), mov_read_custom },

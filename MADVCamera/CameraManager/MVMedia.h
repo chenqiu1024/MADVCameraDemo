@@ -141,6 +141,22 @@ typedef enum : NSInteger {
 @property(nonatomic,assign)NSInteger finishDownloadedSize;
 @property(nonatomic,assign)int error;
 
+@property(nonatomic,copy)NSString * shotDateTime;//拍照时间
+@property(nonatomic,copy)NSString * maker;
+@property(nonatomic,copy)NSString * model;//设备型号
+@property(nonatomic,assign)int xResolution;
+@property(nonatomic,assign)int yResolution;
+@property(nonatomic,copy)NSString * exposureTime;//快门时间
+@property(nonatomic,assign)long ISO;
+@property(nonatomic,assign)int whiteBalance;//白平衡
+@property(nonatomic,assign)float longitude;//经度
+@property(nonatomic,assign)float latitude;//纬度
+@property(nonatomic,assign)float altitude;//高度
+@property(nonatomic,copy)NSString * resolution;
+@property(nonatomic,copy)NSString * exposureBiasValue;//曝光补偿
+@property(nonatomic,copy)NSString * location;//位置
+@property(nonatomic,assign)BOOL isLocationHandled;
+
 + (NSString *)storageKeyWithCameraUUID:(NSString *)cameraUUID remotePath:(NSString *)remotePath localPath:(NSString *)localPath;
 
 + (NSString*) uniqueLocalPathWithCameraUUID:(NSString*)cameraUUID remotePath:(NSString*)remotePath;

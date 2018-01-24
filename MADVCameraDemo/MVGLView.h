@@ -17,12 +17,27 @@
 #import <MADVPano/kazmath.h>
 #endif //#ifdef MADVPANO_BY_SOURCE
 //#import "MVKxMovieViewController.h"
+#import "MVMedia.h"
 
 typedef enum : NSInteger {
     MVQualityLevel4K = 0,//4k,
     MVQualityLevel1080 = 1,
     MVQualityLevelOther = 2,
 } MVQualityLevel;
+
+typedef enum : int {
+    GLRenderLoopNotReady = 0,
+    //GLRenderLoopPreparing = 1,
+    GLRenderLoopRunning = 2,
+    GLRenderLoopPausing = 3,
+    GLRenderLoopPaused = 4,
+    GLRenderLoopTerminating = 5,
+    GLRenderLoopTerminated = 6,
+} GLRenderLoopState;
+
+extern NSString* kNotificationGLRenderLoopWillResignActive;
+extern NSString* kNotificationGLRenderLoopDidEnterBackground;
+extern NSString* kNotificationGLRenderLoopDidBecomeActive;
 
 @class KxVideoFrame;
 @class GLRenderLoop;
@@ -44,9 +59,15 @@ typedef enum : NSInteger {
 
 @interface GLRenderLoop : NSObject
 
-+ (void) stopCurrentRenderLoop;
+//+ (void) stopCurrentRenderLoop;
+//
+//- (void) stopOtherRenderLoopIfAny;
 
-- (void) stopOtherRenderLoopIfAny;
++ (NSString*) stringOfGLRenderLoopState:(GLRenderLoopState)state;
+
++ (void) notifyApplicationWillResignActive:(id)object;
++ (void) notifyApplicationDidEnterBackground:(id)object;
++ (void) notifyApplicationDidBecomeActive:(id)object;
 
 - (instancetype) initWithDelegate:(id<GLRenderLoopDelegate>)delegate lutPath:(NSString*)lutPath lutSrcSizeL:(CGSize)lutSrcSizeL lutSrcSizeR:(CGSize)lutSrcSizeR inputFrameSize:(CGSize)inputFrameSize outputVideoBaseName:(NSString*)outputVideoBaseName encoderQualityLevel:(MVQualityLevel)qualityLevel forCapturing:(BOOL)forCapturing;
 
@@ -61,6 +82,8 @@ typedef enum : NSInteger {
 
 - (void) setFOVRange:(int)initFOV maxFOV:(int)maxFOV minFOV:(int)minFOV;
 
+- (void) setEnablePitchDragging:(BOOL)enabled;
+
 - (void) setVideoRecorder:(NSString*)outputVideoBaseName qualityLevel:(MVQualityLevel)qualityLevel forCapturing:(BOOL)forCapturing;
 
 - (void) setLUTPath:(NSString*)lutPath lutSrcSizeL:(CGSize)lutSrcSizeL lutSrcSizeR:(CGSize)lutSrcSizeR;
@@ -71,7 +94,7 @@ typedef enum : NSInteger {
 
 - (void) draw;
 
-- (void) draw: (UIImage *) image;
+//- (void) draw:(UIImage*)image withLUTStitching:(BOOL)withLUTStitching gyroMatrix:(NSData*)gyroMatrix videoCaptureResolution:(VideoCaptureResolution)videoCaptureResolution;
 - (void) drawJPEG:(NSString*)filePath;
 - (void) render: (KxVideoFrame *) frame;
 - (void) drawStichedImageWithLeftImage:(UIImage*)leftImage rightImage:(UIImage*)rightImage;
@@ -79,15 +102,19 @@ typedef enum : NSInteger {
 
 - (void) setGyroMatrix:(float*)matrix rank:(int)rank;
 
-- (void) pauseRendering;
-- (void) resumeRendering;
-- (void) stopRendering;
-- (void) startRendering;
+- (void) setModelPostRotationFrom:(kmVec3)fromVector to:(kmVec3)toVector;
+
+- (BOOL) pauseRendering;
+- (BOOL) resumeRendering;
+- (BOOL) stopRendering;
+- (BOOL) startRendering;
+
 - (void) setShareMode;
 
 - (void) stopEncoding;
 - (void) setMadVData:(NSData*) MadVData;
 
+- (BOOL) readyToRenderNextFrame;
 - (void) takeSnapShot:(NSString*)destPath completion:(dispatch_block_t)completion;
 
 @property (nonatomic, weak) id<GLRenderLoopDelegate> delegate;
@@ -114,12 +141,25 @@ typedef enum : NSInteger {
 @property (nonatomic, assign) int64_t moovBoxSizeOffset;
 @property (nonatomic, assign) int64_t videoTrakBoxSizeOffset;
 @property (nonatomic, assign) int64_t videoTrakBoxEndOffset;
+
+@property (nonatomic, assign) float FPS;
+
+//@property (nonatomic, assign) VideoCaptureResolution videoCaptureResolution;
+//@property (nonatomic, assign) VideoCaptureResolution illusionVideoCaptureResolution;//For preview
+//
+//@property (nonatomic, assign) VideoCaptureResolution videoCaptureResolution4Thumbnail;
+//@property (nonatomic, assign) VideoCaptureResolution illusionVideoCaptureResolution4Thumbnail;//For preview
+
+@property (nonatomic, assign) BOOL enableWatermark2D;
+
 @end
 
 
 @interface MVGLView : UIView
 
 - (instancetype) initWithFrame:(CGRect)frame lutPath:(NSString*)lutPath lutSrcSizeL:(CGSize)lutSrcSizeL lutSrcSizeR:(CGSize)lutSrcSizeR outputVideoBaseName:(NSString*)outputVideoBaseName encoderQualityLevel:(MVQualityLevel)qualityLevel forCapturing:(BOOL)forCapturing;
+
+@property (nonatomic, assign) BOOL enableWatermark2D;
 
 @property (nonatomic, assign) int panoramaMode;
 
@@ -129,7 +169,7 @@ typedef enum : NSInteger {
 
 @property (nonatomic, assign) BOOL isYUVColorSpace;
 
-- (void) willAppear;
+//- (void) willAppear;
 - (void) willDisappear;
 
 @property (nonatomic, readonly, strong) GLRenderLoop* glRenderLoop;

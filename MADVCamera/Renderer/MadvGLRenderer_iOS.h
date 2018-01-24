@@ -12,9 +12,11 @@
 #ifdef MADVPANO_BY_SOURCE
 #import "OpenGLHelper.h"
 #import "MadvGLRenderer.h"
+#import "EXIFParser.h"
 #else
 #import <MADVPano/OpenGLHelper.h>
 #import <MADVPano/MadvGLRenderer.h>
+#import <MADVPano/EXIFParser.h>
 #endif
 #include <UIKit/UIKit.h>
 
@@ -54,15 +56,16 @@ extern "C" {
 #ifndef MADVPANO_EXPORT
 + (UIImage*) renderImageWithIDR:(NSString*)idrPath destSize:(CGSize)destSize withLUT:(BOOL)withLUT sourceURI:(NSString*)sourceURI filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixBank:(int)gyroMatrixRank;
 #endif //#ifndef MADVPANO_EXPORT
-+ (UIImage*) renderImage:(UIImage*)sourceImage destSize:(CGSize)destSize withLUT:(BOOL)withLUT sourceURI:(NSString*)sourceURI filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixBank:(int)gyroMatrixRank;
++ (UIImage*) renderImage:(UIImage*)sourceImage destSize:(CGSize)destSize forceLUTStitching:(BOOL)forceLUTStitching sourcePath:(NSString*)sourcePath pMadvEXIFExtension:(MadvEXIFExtension*)pMadvEXIFExtension filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixBank:(int)gyroMatrixRank;
 
-+ (UIImage*) renderJPEG:(NSString*)sourcePath destSize:(CGSize)destSize withLUT:(bool)withLUT sourceURI:(NSString*)sourceURI lutEmbeddedInJPEG:(bool)lutEmbeddedInJPEG filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixRank:(int)gyroMatrixRank;
++ (UIImage*) renderJPEG:(NSString*)sourcePath destSize:(CGSize)destSize forceLUTStitching:(BOOL)forceLUTStitching pMadvEXIFExtension:(MadvEXIFExtension*)pMadvEXIFExtension filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixRank:(int)gyroMatrixRank;
 
-+ (void) renderJPEGToJPEG:(NSString*)destJpegPath eraseMadvExtensions:(BOOL)eraseMadvExtensions sourcePath:(NSString*)sourcePath dstWidth:(int)dstWidth dstHeight:(int)dstHeight withLUT:(bool)withLUT lutEmbeddedInJPEG:(bool)lutEmbeddedInJPEG filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixRank:(int)gyroMatrixRank;
++ (BOOL) renderJPEGToJPEG:(NSString*)destJpegPath sourcePath:(NSString*)sourcePath dstWidth:(int)dstWidth dstHeight:(int)dstHeight forceLUTStitching:(BOOL)forceLUTStitching pMadvEXIFExtension:(MadvEXIFExtension*)pMadvEXIFExtension filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixRank:(int)gyroMatrixRank;
 
-+ (void) renderImageInMem:(unsigned char**)outPixels outBytesLength:(int*)outBytesLength destSize:(CGSize)destSize inPixels:(const unsigned char*)inPixels width:(int)width height:(int)height withLUT:(bool)withLUT sourceURI:(NSString*)sourceURI filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixRank:(int)gyroMatrixRank;
++ (BOOL) renderJPEGToJPEG:(NSString*)destJpegPath sourcePath:(NSString*)sourcePath dstWidth:(int)dstWidth dstHeight:(int)dstHeight lutPath:(NSString*)lutPath filterID:(int)filterID gyroMatrix:(float*)gyroMatrix gyroMatrixRank:(int)gyroMatrixRank;
+
 #ifndef MADVPANO_EXPORT
-+ (NSString*) lutPathOfSourceURI:(NSString*)sourceURI withLUT:(bool)withLUT lutEmbeddedInJPEG:(BOOL)lutEmbeddedInJPEG;
++ (NSString*) lutPathOfSourceURI:(NSString*)sourceURI forceLUTStitching:(BOOL)forceLUTStitching pMadvEXIFExtension:(MadvEXIFExtension*)pMadvEXIFExtension;
 
 + (NSString*) cameraLUTFilePath:(NSString*)cameraUUID;
 
@@ -97,7 +100,7 @@ extern "C" {
 
 - (void) setFlipY:(BOOL)flipY;
 
-- (void) drawWithDisplayMode:(int)displayMode x:(int)x y:(int)y width:(int)width height:(int)height separateSourceTextures:(BOOL)separateSourceTextures srcTextureType:(int)srcTextureType leftSrcTexture:(int)leftSrcTexture rightSrcTexture:(int)rightSrcTexture;
+- (void) drawWithDisplayMode:(int)displayMode x:(int)x y:(int)y width:(int)width height:(int)height /*separateSourceTextures:(BOOL)separateSourceTextures */srcTextureType:(int)srcTextureType leftSrcTexture:(int)leftSrcTexture rightSrcTexture:(int)rightSrcTexture;
 
 - (void) drawWithX:(int)x y:(int)y width:(int)width height:(int)height;
 

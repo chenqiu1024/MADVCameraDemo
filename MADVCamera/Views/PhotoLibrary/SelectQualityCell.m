@@ -29,7 +29,7 @@
         [self.contentView addSubview:contentLabel];
         [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(isSelectImage.mas_right).offset(6);
-            make.width.equalTo(@100);
+            make.width.equalTo(@200);
             make.centerY.equalTo(self.contentView.mas_centerY);
             make.height.equalTo(@17);
         }];

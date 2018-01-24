@@ -11,7 +11,7 @@ static NSString *URI_FILES = @"files";
 static NSString *URI_CDN = @"cdn";
 static NSString *URI_FDS_SUFFIX = @".fds.api.xiaomi.com";
 static NSString *URI_FDS_SSL_SUFFIX = @".fds-ssl.api.xiaomi.com";
-static int DEFAULT_TIMEOUT_MS = 50 * 1000;
+static int DEFAULT_TIMEOUT_MS = 90 * 1000;
 static int DEFAULT_MAX_RETRY_TIMES = 3;
 
 @implementation FDSClientConfiguration {

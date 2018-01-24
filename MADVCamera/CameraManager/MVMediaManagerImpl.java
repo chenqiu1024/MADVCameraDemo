@@ -778,7 +778,7 @@ public class MVMediaManagerImpl extends MVMediaManager
         glRenderer.setIsYUVColorSpace(false);
         glRenderer.setFlipY(true);
         glRenderer.setDisplayMode(withLUT ? MadvGLRenderer.PanoramaDisplayModeLUT : 0);
-        glRenderer.setSourceTextures(false, sourceTexture, sourceTexture, new Vec2f(srcWidth, srcHeight), new Vec2f(srcWidth, srcHeight), GLES20.GL_TEXTURE_2D, false);
+        glRenderer.setSourceTextures(/*false, */sourceTexture, sourceTexture, new Vec2f(srcWidth, srcHeight), new Vec2f(srcWidth, srcHeight), GLES20.GL_TEXTURE_2D, false);
         glRenderer.draw(0, 0, dstWidth, dstHeight);
 
         if (filterID > 0) {

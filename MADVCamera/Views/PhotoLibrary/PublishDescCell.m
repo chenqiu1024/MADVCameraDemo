@@ -20,7 +20,7 @@
         describeLabel.font=[UIFont systemFontOfSize:14];
         describeLabel.textColor=[UIColor colorWithHexString:@"#000000" alpha:0.8];
         
-        NSString * language = [NSString getAppLanguageIsContainIndonesia:NO];
+        NSString * language = [NSString getAppLessLanguage];
         if ([language isEqualToString:@"en"]) {
             describeLabel.attributedText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@:",FGGetStringWithKeyFromTable(DESCRIBE, nil)]];
             [describeLabel sizeToFit];

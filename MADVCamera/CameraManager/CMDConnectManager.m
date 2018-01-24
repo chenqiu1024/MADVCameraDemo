@@ -663,11 +663,12 @@ static Class responseClassOfMsgID(int msgID) {
                 }
             }
             [_cond unlock];
-            
-            NSString* jsonString = [requestItem mj_JSONString];
+
+            NSString* jsonString = [requestItem toJSON];
             const char* cJSONString = [jsonString UTF8String];
             @try
             {
+                requestItem.timestamp = [[NSDate date] timeIntervalSince1970] * 1000;
                 [_cond lock];
                 {
                     [_waitSendRequestQueue removeObject:requestItem];
@@ -681,7 +682,6 @@ static Class responseClassOfMsgID(int msgID) {
                 {//NSLog(@"Before lock @ sendMsgViaSocket#1");
                     [_cond lock];
                     {
-                        requestItem.timestamp = [[NSDate date] timeIntervalSince1970] * 1000;
                         //NSLog(@"Heartbeat updated @ sendMsgViaSocket : %s", cJSONString);
                         [self updateLatestMonitoredTime:(long)requestItem.timestamp];
                         
@@ -783,7 +783,8 @@ static Class responseClassOfMsgID(int msgID) {
                 str[i + 1] = '\0';
                 NSString* jsonString = [NSString stringWithCString:str + startIndex encoding:NSASCIIStringEncoding];
                 DoctorLog(@"Socket:jsonString = (%d~%d:%d) '%@'", startIndex, i, i+1-startIndex, jsonString);
-                AMBAResponse* baseResponse = [AMBAResponse.class mj_objectWithKeyValues:jsonString];
+                AMBAResponse* baseResponse = [[AMBAResponse.class alloc] init];
+                [baseResponse fromJSON:jsonString];
 //                NSLog(@"Before lock @ CMDConnectManager.extractJSONAndDispatch#0");
                 AMBAResponse* response = nil;
                 [_cond lock];
@@ -796,7 +797,9 @@ static Class responseClassOfMsgID(int msgID) {
                         Class responseClass = request.responseClass;
                         if (!responseClass) responseClass = AMBAResponse.class;
                         
-                        response = [responseClass mj_objectWithKeyValues:jsonString];
+                        response = [[responseClass alloc] init];
+                        [response fromJSON:jsonString];
+                        //response = [responseClass mj_objectWithKeyValues:jsonString];
                         [_responseQueue addObject:response];
                         [_responseReceivedRequestMap setObject:request forKey:request.requestKey];
                         
@@ -808,7 +811,9 @@ static Class responseClassOfMsgID(int msgID) {
                         Class responseClass = responseClassOfMsgID((int) baseResponse.msgID);
                         if (!responseClass) responseClass = AMBAResponse.class;
                         
-                        response = [responseClass mj_objectWithKeyValues:jsonString];
+                        response = [[responseClass alloc] init];
+                        [response fromJSON:jsonString];
+                        //response = [responseClass mj_objectWithKeyValues:jsonString];
                         [_responseQueue addObject:response];
                     }
                 }

@@ -10,4 +10,9 @@
 
 @implementation AMBAGetThumbnailResponse
 
++ (NSArray<NSString* >*) jsonSerializablePropertyNames {
+    mergeJsonSerializablePropertyNames(array, @[@"md5sum", @"size"]);
+    return array;
+}
+
 @end

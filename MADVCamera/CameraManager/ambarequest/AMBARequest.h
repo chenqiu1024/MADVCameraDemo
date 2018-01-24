@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <MJExtension/MJExtension.h>
+//#import <MJExtension/MJExtension.h>
+#import "JSONSerializableObject.h"
 
 @class AMBAResponse;
 @class AMBARequest;
@@ -33,7 +34,7 @@ typedef enum : NSInteger {
 typedef void (^AMBAResponseReceivedBlock)(AMBAResponse* response);
 typedef void (^AMBAResponseErrorBlock)(AMBARequest* response, int error, NSString* msg);
 
-@interface AMBARequest : NSObject
+@interface AMBARequest : JsonSerializableObject
 
 @property (nonatomic, strong) AMBAResponseReceivedBlock ambaResponseReceived;
 

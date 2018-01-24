@@ -151,30 +151,41 @@ static ShareManage *shareManage;
 #pragma mark 新浪微博分享
 - (void)wbShareWithViewControll:(UIViewController *)viewC
 {
-    _viewC = viewC;
-    
-    UMShareWebpageObject * shareWeb = [[UMShareWebpageObject alloc] init];
-    shareWeb.webpageUrl = _shared_url;
-    shareWeb.title = _shared_title;
-    shareWeb.thumbImage = _shared_image;
-    shareWeb.descr = _shared_desc;
-    UMSocialMessageObject * messageObj = [UMSocialMessageObject messageObjectWithMediaObject:shareWeb];
-    messageObj.title = _shared_title;
-    messageObj.text = _shared_desc;
-    
-    
-    [[UMSocialManager defaultManager] shareToPlatform:UMSocialPlatformType_Sina messageObject:messageObj currentViewController:viewC completion:^(id result, NSError *error) {
-        if (error) {
-            [UIView animateWithDuration:0 animations:^{
-                [MMProgressHUD showWithStatus:@""];
-            } completion:^(BOOL finished) {
-                [MMProgressHUD dismissWithSuccess:FGGetStringWithKeyFromTable(SHAREFAIL, nil)];
-            }];
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"sinaweibo://"]])
+    {
+        _viewC = viewC;
+        
+        UMShareWebpageObject * shareWeb = [[UMShareWebpageObject alloc] init];
+        shareWeb.webpageUrl = _shared_url;
+        shareWeb.title = _shared_title;
+        shareWeb.thumbImage = _shared_image;
+        shareWeb.descr = _shared_desc;
+        UMSocialMessageObject * messageObj = [UMSocialMessageObject messageObjectWithMediaObject:shareWeb];
+        messageObj.title = _shared_title;
+        messageObj.text = _shared_desc;
+        
+        
+        [[UMSocialManager defaultManager] shareToPlatform:UMSocialPlatformType_Sina messageObject:messageObj currentViewController:viewC completion:^(id result, NSError *error) {
+            if (error) {
+                [UIView animateWithDuration:0 animations:^{
+                    [MMProgressHUD showWithStatus:@""];
+                } completion:^(BOOL finished) {
+                    [MMProgressHUD dismissWithSuccess:FGGetStringWithKeyFromTable(SHAREFAIL, nil)];
+                }];
+            }
+        }];
+        if ([self.delegate respondsToSelector:@selector(shareSuccess)]) {
+            [self.delegate shareSuccess];
         }
-    }];
-    if ([self.delegate respondsToSelector:@selector(shareSuccess)]) {
-        [self.delegate shareSuccess];
+    }else
+    {
+        [UIView animateWithDuration:0 animations:^{
+            [MMProgressHUD showWithStatus:@""];
+        } completion:^(BOOL finished) {
+            [MMProgressHUD dismissWithSuccess:[NSString stringWithFormat:@"%@%@",FGGetStringWithKeyFromTable(NOINSTALL, nil),FGGetStringWithKeyFromTable(WEIBO, nil)]];
+        }];
     }
+    
 }
 
 #pragma mark 微信朋友圈分享

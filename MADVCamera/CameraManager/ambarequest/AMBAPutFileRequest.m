@@ -19,4 +19,9 @@
     return self;
 }
 
++ (NSArray<NSString* >*) jsonSerializablePropertyNames {
+    mergeJsonSerializablePropertyNames(array, @[@"offset", @"size", @"md5sum", @"fType"]);
+    return array;
+}
+
 @end

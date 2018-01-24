@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CenterButton : UIButton
-
+@property(nonatomic,assign)BOOL isTop;
 @end

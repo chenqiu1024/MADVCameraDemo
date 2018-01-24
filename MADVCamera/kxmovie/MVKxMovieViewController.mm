@@ -933,7 +933,7 @@ static __weak id s_retainer = nil;
     NSLog(@"EAGLContext : MVKxMovieViewController $ setupPresentView");
     MVGLView* presentView = _glView;
     CGRect bounds = self.view.bounds;
-    NSString* lutPath = [MVPanoRenderer lutPathOfSourceURI:_contentPath withLUT:NO lutEmbeddedInJPEG:NO];
+    NSString* lutPath = [MVPanoRenderer lutPathOfSourceURI:_contentPath forceLUTStitching:NO pMadvEXIFExtension:NULL];
     if (_decoder.validVideo) {
         [_decoder setupVideoFrameFormat:KxVideoFrameFormatYUV];
 #ifdef USE_KXGLVIEW
@@ -957,13 +957,13 @@ static __weak id s_retainer = nil;
         {
             if (self.encoderRenderLoop)
             {
-                [self.encoderRenderLoop setLUTPath:lutPath lutSrcSizeL:CGSizeMake(3456, 1728) lutSrcSizeR:CGSizeMake(3456, 1728)];
+                [self.encoderRenderLoop setLUTPath:lutPath lutSrcSizeL:CGSizeMake(DEFAULT_LUT_VALUE_WIDTH, DEFAULT_LUT_VALUE_HEIGHT) lutSrcSizeR:CGSizeMake(DEFAULT_LUT_VALUE_WIDTH, DEFAULT_LUT_VALUE_HEIGHT)];
                 [self.encoderRenderLoop setVideoRecorder:outputVideoBaseName qualityLevel:(MVQualityLevel)self.encoderQualityLevel forCapturing:NO];
             }
             else
             {
                 NSLog(@"EAGLContext : MVKxMovieViewController $ setupPresentView # self.encoderRenderLoop = %lx", self.encoderRenderLoop.hash);
-                self.encoderRenderLoop = [[GLRenderLoop alloc] initWithDelegate:self lutPath:lutPath lutSrcSizeL:CGSizeMake(3456, 1728) lutSrcSizeR:CGSizeMake(3456, 1728) inputFrameSize:CGSizeMake(bounds.size.width * self.view.contentScaleFactor, bounds.size.height * self.view.contentScaleFactor) outputVideoBaseName:outputVideoBaseName encoderQualityLevel:(MVQualityLevel)self.encoderQualityLevel forCapturing:NO];
+                self.encoderRenderLoop = [[GLRenderLoop alloc] initWithDelegate:self lutPath:lutPath lutSrcSizeL:CGSizeMake(DEFAULT_LUT_VALUE_WIDTH, DEFAULT_LUT_VALUE_HEIGHT) lutSrcSizeR:CGSizeMake(DEFAULT_LUT_VALUE_WIDTH, DEFAULT_LUT_VALUE_HEIGHT) inputFrameSize:CGSizeMake(bounds.size.width * self.view.contentScaleFactor, bounds.size.height * self.view.contentScaleFactor) outputVideoBaseName:outputVideoBaseName encoderQualityLevel:(MVQualityLevel)self.encoderQualityLevel forCapturing:NO];
                 self.encoderRenderLoop.encodingDoneBlock = self.encodingDoneBlock;
                 self.encoderRenderLoop.encodingFrameBlock = self.encodingFrameBlock;
             }
@@ -975,13 +975,13 @@ static __weak id s_retainer = nil;
         {
             if (presentView)
             {
-                [presentView.glRenderLoop setLUTPath:lutPath lutSrcSizeL:CGSizeMake(3456, 1728) lutSrcSizeR:CGSizeMake(3456, 1728)];
+                [presentView.glRenderLoop setLUTPath:lutPath lutSrcSizeL:CGSizeMake(DEFAULT_LUT_VALUE_WIDTH, DEFAULT_LUT_VALUE_HEIGHT) lutSrcSizeR:CGSizeMake(DEFAULT_LUT_VALUE_WIDTH, DEFAULT_LUT_VALUE_HEIGHT)];
                 [presentView.glRenderLoop setVideoRecorder:outputVideoBaseName qualityLevel:(MVQualityLevel)self.encoderQualityLevel forCapturing:self.isUsedAsCapturer];
             }
             else
             {
                 NSLog(@"EAGLContext : MVKxMovieViewController $ setupPresentView # _glView = (%@), PresentView = %@, glRenderLoop = %lx", _glView, presentView, _glView.glRenderLoop.hash);
-                presentView = [[MVGLView alloc] initWithFrame:bounds lutPath:lutPath lutSrcSizeL:CGSizeMake(3456, 1728) lutSrcSizeR:CGSizeMake(3456, 1728) outputVideoBaseName:outputVideoBaseName encoderQualityLevel:(MVQualityLevel)self.encoderQualityLevel forCapturing:self.isUsedAsCapturer];
+                presentView = [[MVGLView alloc] initWithFrame:bounds lutPath:lutPath lutSrcSizeL:CGSizeMake(DEFAULT_LUT_VALUE_WIDTH, DEFAULT_LUT_VALUE_HEIGHT) lutSrcSizeR:CGSizeMake(DEFAULT_LUT_VALUE_WIDTH, DEFAULT_LUT_VALUE_HEIGHT) outputVideoBaseName:outputVideoBaseName encoderQualityLevel:(MVQualityLevel)self.encoderQualityLevel forCapturing:self.isUsedAsCapturer];
             }
             presentView.glRenderLoop.isFullScreenCapturing = self.isFullScreenCapturer;
             presentView.glRenderLoop.encodingDoneBlock = self.encodingDoneBlock;
@@ -1088,7 +1088,7 @@ static __weak id s_retainer = nil;
             [_decoder setupVideoFrameFormat:KxVideoFrameFormatRGB];
             //_imageView = [[UIImageView alloc] initWithFrame:bounds];
             //_imageView.backgroundColor = [UIColor blackColor];
-            self.encoderRenderLoop = [[GLRenderLoop alloc] initWithDelegate:self lutPath:lutPath lutSrcSizeL:CGSizeMake(3456, 1728) lutSrcSizeR:CGSizeMake(3456, 1728) inputFrameSize:CGSizeMake(bounds.size.width * self.view.contentScaleFactor, bounds.size.height * self.view.contentScaleFactor) outputVideoBaseName:nil encoderQualityLevel:(MVQualityLevel)self.encoderQualityLevel forCapturing:NO];
+            self.encoderRenderLoop = [[GLRenderLoop alloc] initWithDelegate:self lutPath:lutPath lutSrcSizeL:CGSizeMake(DEFAULT_LUT_VALUE_WIDTH, DEFAULT_LUT_VALUE_HEIGHT) lutSrcSizeR:CGSizeMake(DEFAULT_LUT_VALUE_WIDTH, DEFAULT_LUT_VALUE_HEIGHT) inputFrameSize:CGSizeMake(bounds.size.width * self.view.contentScaleFactor, bounds.size.height * self.view.contentScaleFactor) outputVideoBaseName:nil encoderQualityLevel:(MVQualityLevel)self.encoderQualityLevel forCapturing:NO];
             self.encoderRenderLoop.isFullScreenCapturing = self.isFullScreenCapturer;
             self.encoderRenderLoop.encodingDoneBlock = self.encodingDoneBlock;
             self.encoderRenderLoop.encodingFrameBlock = self.encodingFrameBlock;
@@ -1115,7 +1115,7 @@ static __weak id s_retainer = nil;
             [_decoder setupVideoFrameFormat:KxVideoFrameFormatRGB];
             //_imageView = [[UIImageView alloc] initWithFrame:bounds];
             //_imageView.backgroundColor = [UIColor blackColor];
-            presentView = [[MVGLView alloc] initWithFrame:bounds lutPath:lutPath lutSrcSizeL:CGSizeMake(3456, 1728) lutSrcSizeR:CGSizeMake(3456, 1728) outputVideoBaseName:nil encoderQualityLevel:(MVQualityLevel)self.encoderQualityLevel forCapturing:self.isUsedAsCapturer];
+            presentView = [[MVGLView alloc] initWithFrame:bounds lutPath:lutPath lutSrcSizeL:CGSizeMake(DEFAULT_LUT_VALUE_WIDTH, DEFAULT_LUT_VALUE_HEIGHT) lutSrcSizeR:CGSizeMake(DEFAULT_LUT_VALUE_WIDTH, DEFAULT_LUT_VALUE_HEIGHT) outputVideoBaseName:nil encoderQualityLevel:(MVQualityLevel)self.encoderQualityLevel forCapturing:self.isUsedAsCapturer];
             presentView.glRenderLoop.isFullScreenCapturing = self.isFullScreenCapturer;
             presentView.glRenderLoop.encodingDoneBlock = self.encodingDoneBlock;
             presentView.glRenderLoop.encodingFrameBlock = self.encodingFrameBlock;
@@ -1714,25 +1714,29 @@ static __weak id s_retainer = nil;
     if (_decoder.validVideo) {
         
         KxVideoFrame *frame;
-        
-        @synchronized(_videoFrames) {
+        NSLog(@"isUsedAsEncoder %d isUsedAsCapturer %d", self.isUsedAsEncoder, self.isUsedAsCapturer);
+        if (self.isUsedAsEncoder && !self.isUsedAsCapturer && self.encoderRenderLoop && !self.encoderRenderLoop.readyToRenderNextFrame) {
+            NSLog(@"rendering loop busy, skip to wait");
+        } else {
+            @synchronized(_videoFrames) {
             
-            if (_videoFrames.count > 0) {
+                if (_videoFrames.count > 0) {
                 
-                frame = _videoFrames[0];
-                if (self.isUsedAsVideoEditor && (_editEndTime - _editStartTime) > 0)
-                    frame.timestamp -= _editStartTime * 1000;
-                [_videoFrames removeObjectAtIndex:0];
-                //NSLog(@"videorecord timestamp: %f", frame.timestamp);
+                    frame = _videoFrames[0];
+                    if (self.isUsedAsVideoEditor && (_editEndTime - _editStartTime) > 0)
+                        frame.timestamp -= _editStartTime * 1000;
+                    [_videoFrames removeObjectAtIndex:0];
+                    NSLog(@"videorecord timestamp: %f", frame.timestamp);
 #ifdef DEBUG_VIDEOFRAME_LEAKING
-                //NSLog(@"VideoLeak : _videoFrames removeObject, count = %d", (int)_videoFrames.count);
+                    //NSLog(@"VideoLeak : _videoFrames removeObject, count = %d", (int)_videoFrames.count);
 #endif
-                _bufferedDuration -= frame.duration;
+                    _bufferedDuration -= frame.duration;
+                    }
             }
-        }
         
-        if (frame)
-            interval = [self presentVideoFrame:frame];
+            if (frame)
+                interval = [self presentVideoFrame:frame];
+        }
         
     } else if (_decoder.validAudio) {
 

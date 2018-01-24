@@ -16,7 +16,13 @@
     // Center image
     CGPoint center = self.imageView.center;
     center.x = self.frame.size.width/2;
-    center.y = self.height * 0.5 -5 - self.imageView.frame.size.height + 5;
+    if (self.isTop) {
+        center.y = self.height * 0.5 -5 - self.imageView.frame.size.height + 5;
+    }else
+    {
+        center.y = self.height * 0.5 -5 - self.imageView.frame.size.height + 15;
+    }
+    
     self.imageView.center = center;
     
     //Center text

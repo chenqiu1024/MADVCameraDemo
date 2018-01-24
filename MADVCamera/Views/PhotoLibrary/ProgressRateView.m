@@ -24,6 +24,7 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(uploadError:) name:UPLOAD_ERROR object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(uploadSuccess:) name:UPLOAD_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(uploadTime_outError:) name:TIME_OUT object:nil];
 
 //    self.closeBtn=closeBtn;
     
@@ -137,7 +138,7 @@
     agreementLabel.textAlignment=NSTextAlignmentCenter;
     agreementLabel.font=[UIFont systemFontOfSize:13];
     
-    NSString * language = [NSString getAppLanguageIsContainIndonesia:YES];
+    NSString * language = [NSString getAppLanguage];
     NSMutableAttributedString * agreement;
     if ([language isEqualToString:@"en"]) {
         agreement=[[NSMutableAttributedString alloc] initWithString:FGGetStringWithKeyFromTable(UPLOADAGREEMJXJPRIVACYPOLICY, nil)];
@@ -155,7 +156,23 @@
         
         [agreement addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(@"Jika Anda memublikasikan konten, Anda akan dipertimbangkan telah menyetujui semua persyaratan Kebijakan Privasi Mi Sphere Camera".length - 34, 34)];
         [agreement addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(@"Jika Anda memublikasikan konten, Anda akan dipertimbangkan telah menyetujui semua persyaratan Kebijakan Privasi Mi Sphere Camera".length - 34, 34)];
-    }else
+    }else if ([language isEqualToString:@"es"])
+    {
+        agreement=[[NSMutableAttributedString alloc] initWithString:FGGetStringWithKeyFromTable(UPLOADAGREEMJXJPRO, nil)];
+        [agreement addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(FGGetStringWithKeyFromTable(UPLOADAGREEMJXJPRO, nil).length - 39, 39)];
+        [agreement addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(FGGetStringWithKeyFromTable(UPLOADAGREEMJXJPRO, nil).length - 39, 39)];
+    }else if ([language isEqualToString:@"ru"])
+    {
+        agreement=[[NSMutableAttributedString alloc] initWithString:FGGetStringWithKeyFromTable(UPLOADAGREEMJXJPRO, nil)];
+        [agreement addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(FGGetStringWithKeyFromTable(UPLOADAGREEMJXJPRO, nil).length - 46, 46)];
+        [agreement addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(FGGetStringWithKeyFromTable(UPLOADAGREEMJXJPRO, nil).length - 46, 46)];
+    }else if ([language isEqualToString:@"ar"])
+    {
+        agreement=[[NSMutableAttributedString alloc] initWithString:FGGetStringWithKeyFromTable(UPLOADAGREEMJXJPRIVACYPOLICY, nil)];
+        [agreement addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(FGGetStringWithKeyFromTable(UPLOADAGREEMJXJPRIVACYPOLICY, nil).length - 31, 31)];
+        [agreement addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:NSMakeRange(FGGetStringWithKeyFromTable(UPLOADAGREEMJXJPRIVACYPOLICY, nil).length - 31, 31)];
+    }
+    else
     {
         agreement=[[NSMutableAttributedString alloc] initWithString:FGGetStringWithKeyFromTable(UPLOADAGREEMJXJPRIVACYPOLICY, nil)];
         
@@ -375,10 +392,21 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self.delegate respondsToSelector:@selector(progressRateViewUploadError:)]) {
+            self.errorType = Error_Upload;
             [self.delegate progressRateViewUploadError:self];
         }
     });
     
+}
+#pragma mark --上传超时--
+- (void)uploadTime_outError:(NSNotification *)not
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self.delegate respondsToSelector:@selector(progressRateViewUploadError:)]) {
+                       self.errorType = Error_UploadTimeOut;
+                    [self.delegate progressRateViewUploadError:self];
+                }
+        });
 }
 #pragma mark --上传成功--
 - (void)uploadSuccess:(NSNotification *)not

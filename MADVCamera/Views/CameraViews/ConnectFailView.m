@@ -76,8 +76,8 @@
     [self addSubview:titleLabe];
     [titleLabe mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(descLabel.mas_top).offset(-10);
-        make.centerX.equalTo(self.mas_centerX);
-        make.width.equalTo(@200);
+        make.left.equalTo(@15);
+        make.right.equalTo(@-15);
         make.height.equalTo(@20);
     }];
     titleLabe.textAlignment=NSTextAlignmentCenter;

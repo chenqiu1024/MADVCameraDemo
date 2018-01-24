@@ -10,4 +10,9 @@
 
 @implementation AMBASetWifiRequest
 
++ (NSArray<NSString* >*) jsonSerializablePropertyNames {
+    mergeJsonSerializablePropertyNames(array, @[@"ssid", @"passwd"]);
+    return array;
+}
+
 @end

@@ -38,6 +38,7 @@
 		521A4F691F0BAAB800E5F155 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F681F0BAAB800E5F155 /* CoreMotion.framework */; };
 		52DB9A931F3B12450050E81F /* MADVPano.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521A4F3B1F0B9A0700E5F155 /* MADVPano.framework */; };
 		BB206DCC1F4AA15900EB50C0 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB206DCB1F4AA15800EB50C0 /* Photos.framework */; };
+		BB20FA372018317400B300DD /* MVMediaPlayerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBFE0A041F3962C600D38C4D /* MVMediaPlayerViewController.mm */; };
 		BB3DA3A31F0F7FE3009B6ACF /* MyMovieSegmentMerger.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB3DA3A11F0F7FE2009B6ACF /* MyMovieSegmentMerger.mm */; };
 		BB89B5BB1F556354007AC0A2 /* MVGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = BB89B5BA1F556354007AC0A2 /* MVGLView.mm */; };
 		BB89B5BC1F556362007AC0A2 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB206DCB1F4AA15800EB50C0 /* Photos.framework */; };
@@ -175,8 +176,6 @@
 		BBFE0BBC1F39685B00D38C4D /* CycleView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFE0B441F39685B00D38C4D /* CycleView.m */; };
 		BBFE0BBD1F39685B00D38C4D /* KDGoalBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFE0B461F39685B00D38C4D /* KDGoalBar.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BBFE0BBE1F39685B00D38C4D /* KDGoalBarPercentLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFE0B481F39685B00D38C4D /* KDGoalBarPercentLayer.m */; };
-		BBFE0C8B1F3A0A9900D38C4D /* MVMediaPlayerViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBFE0A041F3962C600D38C4D /* MVMediaPlayerViewController.mm */; };
-		BBFE0C8C1F3A0A9900D38C4D /* MVKxMovieViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBFE0A051F3962C600D38C4D /* MVKxMovieViewController.mm */; };
 		BBFE0C8D1F3A0AC700D38C4D /* VideoExportView.m in Sources */ = {isa = PBXBuildFile; fileRef = BBFE0AA01F3966B200D38C4D /* VideoExportView.m */; };
 /* End PBXBuildFile section */
 
@@ -1188,11 +1187,10 @@
 				BB3DA3A31F0F7FE3009B6ACF /* MyMovieSegmentMerger.mm in Sources */,
 				521A4EEA1F0B766B00E5F155 /* CameraLibraryViewController.m in Sources */,
 				521A4EE41F0B766B00E5F155 /* AppDelegate.m in Sources */,
-				BBFE0C8B1F3A0A9900D38C4D /* MVMediaPlayerViewController.mm in Sources */,
+				BB20FA372018317400B300DD /* MVMediaPlayerViewController.mm in Sources */,
 				521A4EE71F0B766B00E5F155 /* CameraPreviewViewController.m in Sources */,
 				BBFE0C8D1F3A0AC700D38C4D /* VideoExportView.m in Sources */,
 				521A4EE11F0B766B00E5F155 /* main.m in Sources */,
-				BBFE0C8C1F3A0A9900D38C4D /* MVKxMovieViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1456,7 +1454,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/AFNetworking\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/MJExtension\"",
 					"$(PROJECT_DIR)/MADVCamera.framework/**",
 					"$(PROJECT_DIR)/MADVPano.framework/**",
 				);
@@ -1465,7 +1462,6 @@
 					"$(inherited)",
 					"-ObjC",
 					"-l\"AFNetworking\"",
-					"-l\"MJExtension\"",
 					"-l\"Realm\"",
 					"-l\"c++\"",
 					"-l\"z\"",
@@ -1527,7 +1523,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/AFNetworking\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/MJExtension\"",
 					"$(PROJECT_DIR)/MADVPano.framework/**",
 					"$(PROJECT_DIR)/MADVCamera.framework/**",
 				);
@@ -1535,7 +1530,6 @@
 					"$(inherited)",
 					"-ObjC",
 					"-l\"AFNetworking\"",
-					"-l\"MJExtension\"",
 					"-l\"Realm\"",
 					"-l\"c++\"",
 					"-l\"z\"",
@@ -1634,7 +1628,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/AFNetworking\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/MJExtension\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/Masonry\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/SSKeychain\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/SSZipArchive\"",
@@ -1655,7 +1648,6 @@
 					"$(inherited)",
 					"-ObjC",
 					"-l\"AFNetworking\"",
-					"-l\"MJExtension\"",
 					"-l\"Masonry\"",
 					"-l\"Realm\"",
 					"-l\"SSKeychain\"",
@@ -1737,7 +1729,6 @@
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/AFNetworking\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/MBProgressHUD\"",
-					"\"$PODS_CONFIGURATION_BUILD_DIR/MJExtension\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/MJRefresh\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/MWPhotoBrowser\"",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/Masonry\"",
@@ -1763,7 +1754,6 @@
 					"$(inherited)",
 					"-ObjC",
 					"-l\"AFNetworking\"",
-					"-l\"MJExtension\"",
 					"-l\"Masonry\"",
 					"-l\"Realm\"",
 					"-l\"SSKeychain\"",

@@ -10,4 +10,10 @@
 
 @implementation AMBASetClientInfoResponse
 
++ (NSArray<NSString* >*) jsonSerializablePropertyNames {
+    NSArray* myArray = @[@"update", @"session_id"];
+    mergeJsonSerializablePropertyNames(array, myArray);
+    return array;
+}
+
 @end

@@ -85,6 +85,12 @@
         cell.lineView.hidden = NO;
     }
     cell.titleLabel.text = self.titleArr[indexPath.item];
+    [cell.titleLabel sizeToFit];
+    CGFloat width;
+    width = ScreenWidth/self.imageArr.count;
+    if (cell.titleLabel.width < width - 10) {
+        cell.titleLabel.width = width - 10;
+    }
     cell.indexPath = indexPath;
     cell.delegate = self;
     return cell;

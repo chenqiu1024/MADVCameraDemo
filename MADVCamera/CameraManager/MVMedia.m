@@ -400,7 +400,10 @@ static NSMutableDictionary * downloadStatusOfMediaRemoteDict;
             media.mediaType =     MVMediaTypePhoto;
         }
         
-        media.createDate = [self dateFromFileName:remoteFullPath.lowercaseString];
+        if (remoteFullPath)
+        {
+            media.createDate = [self dateFromFileName:remoteFullPath.lowercaseString];
+        }
         if (!media.createDate)
         {
             media.createDate = [NSDate date];
@@ -832,7 +835,7 @@ static NSMutableDictionary * downloadStatusOfMediaRemoteDict;
 }
 //数据库忽略该属性 不操作该属性
 + (NSArray *)ignoredProperties {
-    return @[@"downloadStatus",@"dbDownloadStatus",@"mediaType",@"cameraUUID",@"remotePath",@"localPath",@"thumbnailImagePath",@"createDate",@"modifyDate",@"size",@"downloadedSize",@"videoDuration",@"filterID",@"isStitched",@"gyroMatrixString",@"finishDownloadedSize",@"downloadResumeData",@"error",@"localIdentifier"];
+    return @[@"downloadStatus",@"dbDownloadStatus",@"mediaType",@"cameraUUID",@"remotePath",@"localPath",@"thumbnailImagePath",@"createDate",@"modifyDate",@"size",@"downloadedSize",@"videoDuration",@"filterID",@"isStitched",@"gyroMatrixString",@"finishDownloadedSize",@"downloadResumeData",@"error",@"localIdentifier",@"shotDateTime",@"maker",@"model",@"xResolution",@"yResolution",@"exposureTime",@"ISO",@"whiteBalance",@"longitude",@"latitude",@"altitude",@"resolution",@"exposureBiasValue",@"location",@"isLocationHandled"];
 }
 //属性的默认值
 + (NSDictionary *)defaultPropertyValues {

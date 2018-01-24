@@ -55,13 +55,13 @@ static FGLanguageTool *sharedModel;
     //默认是中文
     if (!tmp || [tmp isEqualToString:@""])
     {
-        tmp = [NSString getPreferredLanguageIsContainIndonesia:YES];
-        self.language = tmp;
-        if ([tmp hasPrefix:@"id"]) {
-            path = [[NSBundle mainBundle]pathForResource:@"en" ofType:@"lproj"];
-            self.bundle = [NSBundle bundleWithPath:path];
-        }
-        return;
+        tmp = [NSString getPreferredLanguage];
+//        self.language = tmp;
+//        if ([tmp hasPrefix:@"id"]) {
+//            path = [[NSBundle mainBundle]pathForResource:@"en" ofType:@"lproj"];
+//            self.bundle = [NSBundle bundleWithPath:path];
+//        }
+//        return;
     }
     
     self.language = tmp;
@@ -88,7 +88,7 @@ static FGLanguageTool *sharedModel;
         return;
     }
     self.isChangeLanguage = YES;
-    if ([language isEqualToString:EN] || [language isEqualToString:CNS] || [language isEqualToString:CNT])
+    if ([language isEqualToString:EN] || [language isEqualToString:CNS] || [language isEqualToString:CNT] || [language isEqualToString:ES] || [language isEqualToString:RU])
     {
         NSString *path = [[NSBundle mainBundle]pathForResource:language ofType:@"lproj"];
         self.bundle = [NSBundle bundleWithPath:path];

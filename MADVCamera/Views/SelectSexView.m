@@ -100,7 +100,7 @@
     [maleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(selectImage.mas_right).offset(7);
         make.centerY.equalTo(midView.mas_centerY);
-        make.width.equalTo(@50);
+        make.width.equalTo(@150);
         make.height.equalTo(@15);
     }];
     maleLabel.font=[UIFont systemFontOfSize:15];
@@ -152,7 +152,7 @@
     [femaleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(selectFemaleImage.mas_right).offset(7);
         make.centerY.equalTo(bottomView.mas_centerY);
-        make.width.equalTo(@50);
+        make.width.equalTo(@150);
         make.height.equalTo(@15);
     }];
     femaleLabel.font=[UIFont systemFontOfSize:15];

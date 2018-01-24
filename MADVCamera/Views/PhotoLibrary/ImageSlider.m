@@ -281,7 +281,7 @@
         if (originalImage) {
             float gyroMatrix[9];
             copyGyroMatrixFromString(gyroMatrix, media.gyroMatrixString.UTF8String);
-            UIImage* thumbnailImage = [MVPanoRenderer renderImage:originalImage destSize:CGSizeMake(360, 180) withLUT:YES sourceURI:/*[z_Sandbox documentPath:self.media.localPath]*/[self.media localFilePathSync] filterID:0 gyroMatrix:gyroMatrix gyroMatrixBank:3];
+            UIImage* thumbnailImage = [MVPanoRenderer renderImage:originalImage destSize:CGSizeMake(360, 180) forceLUTStitching:YES sourcePath:/*[z_Sandbox documentPath:self.media.localPath]*/[self.media localFilePathSync] pMadvEXIFExtension:NULL filterID:0 gyroMatrix:gyroMatrix gyroMatrixBank:3];
             UIImageView * imageView = self.imageViewArr[index];
             dispatch_async(dispatch_get_main_queue(), ^{
                 imageView.image = thumbnailImage;

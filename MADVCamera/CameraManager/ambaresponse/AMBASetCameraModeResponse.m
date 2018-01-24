@@ -10,4 +10,10 @@
 
 @implementation AMBASetCameraModeResponse
 
++ (NSArray<NSString* >*) jsonSerializablePropertyNames {
+    NSArray* myArray = @[@"sub_mode", @"sub_mode_param"];
+    mergeJsonSerializablePropertyNames(array, myArray);
+    return array;
+}
+
 @end

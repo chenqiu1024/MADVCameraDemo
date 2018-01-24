@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 @class ProgressRateView;
+typedef enum : NSInteger {
+    Error_Upload = 0,
+    Error_UploadTimeOut = 1,
+} ErrorType;
 @protocol ProgressRateViewDelegate <NSObject>
 
 - (void)progressRateViewaGreementDidClick:(ProgressRateView *)progressRateView;
@@ -33,6 +37,7 @@
 @property(nonatomic,weak)UIView * finishView;
 @property(nonatomic,assign)BOOL isEdit;
 @property(nonatomic,assign)BOOL isScreencap;
+@property(nonatomic,assign)ErrorType errorType;
 
 - (void)loadProgressRateView;
 

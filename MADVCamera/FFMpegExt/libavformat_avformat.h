@@ -1656,6 +1656,16 @@ typedef struct AVFormatContext {
     uint8_t* cut_data;
     
     /**
+     * gpsx data.
+     */
+    uint8_t* gpsx_data;
+    
+    /**
+     * gpsx size.
+     */
+    int gpsx_size;
+    
+    /**
      * MadV content or not.
      */
     boolean_t is_madv_content;

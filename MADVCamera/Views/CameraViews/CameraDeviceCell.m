@@ -45,12 +45,15 @@
         
         UILabel * decLabel=[[UILabel alloc] init];
         [self.contentView addSubview:decLabel];
-        [decLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.contentView.mas_centerY).offset(5);
-            make.left.equalTo(ssidLabel.mas_left);
-            make.width.equalTo(@200);
-            make.height.equalTo(@13);
-        }];
+//        [decLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(self.contentView.mas_centerY).offset(5);
+//            make.left.equalTo(ssidLabel.mas_left);
+//            make.width.equalTo(@200);
+//            make.height.equalTo(@13);
+//        }];
+        decLabel.numberOfLines = 0;
+        decLabel.frame = CGRectMake(93, 10, ScreenWidth - 50 - 93, 13);
+        decLabel.y = self.contentView.center.y + 5;
         decLabel.font=[UIFont systemFontOfSize:13];
         decLabel.textColor=[UIColor colorWithHexString:@"#000000" alpha:0.5];
         self.decLabel=decLabel;
@@ -101,6 +104,11 @@
         [dateFormatter setDateFormat:@"yyyy/MM/dd"];
         NSString * lastSyncTime = [dateFormatter stringFromDate:cameraDevice.lastSyncTime];
         self.decLabel.text=[NSString stringWithFormat:@"%@：%@",FGGetStringWithKeyFromTable(LASTCONNECTED, nil),lastSyncTime];
+    }
+    [self.decLabel sizeToFit];
+    self.decLabel.y = 58;
+    if (self.decLabel.width <= ScreenWidth - 50 - 93) {
+        self.decLabel.width = ScreenWidth - 50 - 93;
     }
     if (cameraDevice.isWifiConnect) {
         self.wifiImageView.image=[UIImage imageNamed:@"wifi.png"];

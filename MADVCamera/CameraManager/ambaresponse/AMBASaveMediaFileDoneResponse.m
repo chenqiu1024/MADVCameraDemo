@@ -10,4 +10,9 @@
 
 @implementation AMBASaveMediaFileDoneResponse
 
++ (NSArray<NSString* >*) jsonSerializablePropertyNames {
+    mergeJsonSerializablePropertyNames(array, @[@"remain_video", @"remain_jpg", @"total_mp4", @"sd_total", @"sd_free", @"sd_full", @"mp4_time"]);
+    return array;
+}
+
 @end

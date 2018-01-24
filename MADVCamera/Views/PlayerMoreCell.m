@@ -36,7 +36,7 @@
         [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(imagView.mas_right).offset(15);
             make.centerY.equalTo(self.contentView.mas_centerY);
-            make.width.equalTo(@150);
+            make.width.equalTo(@200);
             make.height.equalTo(@17);
         }];
         titleLabel.font = [UIFont systemFontOfSize:15];

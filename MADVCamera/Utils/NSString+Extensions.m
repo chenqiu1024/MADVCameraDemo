@@ -48,7 +48,7 @@
  *得到本机现在用的语言
  * en-CN 或en  英文  zh-Hans-CN或zh-Hans  简体中文   zh-Hant-CN或zh-Hant  繁体中文    ja-CN或ja  日本  ......
  */
-+ (NSString*)getPreferredLanguageIsContainIndonesia:(BOOL)IsContainIndonesia
++ (NSString*)getPreferredLanguage
 {
     static NSString * language=nil;
     
@@ -61,21 +61,19 @@
         } else { // zh-Hant\zh-HK\zh-TW
             language = @"zh-Hant"; // 繁體中文
         }
-    } else {
-        if(IsContainIndonesia)
-        {
-            if (![language isEqualToString:@"id-CN"] || ![language hasPrefix:@"id"]) {
-                language = @"en";
-            }
-        }else
-        {
-           language = @"en";
-        }
+    }else if ([language hasPrefix:@"es"])
+    {
+        language = @"es";
+    }else if ([language hasPrefix:@"ru"])
+    {
+        language = @"ru";
+    }else {
+        language = @"en";
         
     }
     return language;
 }
-+ (NSString *)getAppLanguageIsContainIndonesia:(BOOL)IsContainIndonesia
++ (NSString *)getAppLanguage
 {
     NSString * language=nil;
     NSString *tmp = [[NSUserDefaults standardUserDefaults]objectForKey:LANGUAGE_SET];
@@ -89,17 +87,23 @@
             } else { // zh-Hant\zh-HK\zh-TW
                 language = @"zh-Hant"; // 繁體中文
             }
-        } else {
-            if (IsContainIndonesia) {
-                if (![language isEqualToString:@"id-CN"] || ![language hasPrefix:@"id"]) {
-                    language = @"en";
-                }
-            }else
-            {
-               language = @"en";
-            }
-            
+        }else if ([language hasPrefix:@"id"])//印尼
+        {
+            language = @"id";
+        }else if ([language hasPrefix:@"es"])//西班牙语
+        {
+            language = @"es";
+        }else if ([language hasPrefix:@"ru"])
+        {
+            language = @"ru";
+        }else if ([language hasPrefix:@"ar"])
+        {
+            language = @"ar";
+        }else
+        {
+            language = @"en";
         }
+        
     }else if ([tmp isEqualToString:CNS])
     {
         language = @"zh-Hans";
@@ -109,9 +113,45 @@
     }else if ([tmp isEqualToString:EN])
     {
         language = @"en";
+    }else
+    {
+        language = tmp;
     }
     return language;
 }
+
++ (NSString *)getAppLessLanguage
+{
+    NSString * language=nil;
+    NSString *tmp = [[NSUserDefaults standardUserDefaults]objectForKey:LANGUAGE_SET];
+    if (!tmp || [tmp isEqualToString:@""]) {
+        language = [NSLocale preferredLanguages].firstObject;
+        if ([language hasPrefix:@"en"]) {
+            language = @"en";
+        } else if ([language hasPrefix:@"zh"]) {
+            if ([language rangeOfString:@"Hans"].location != NSNotFound) {
+                language = @"zh-Hans"; // 简体中文
+            } else { // zh-Hant\zh-HK\zh-TW
+                language = @"zh-Hant"; // 繁體中文
+            }
+        }else
+        {
+            language = @"en";
+        }
+        
+    }else if ([tmp isEqualToString:CNS])
+    {
+        language = @"zh-Hans";
+    }else if ([tmp isEqualToString:CNT])
+    {
+        language = @"zh-Hant";
+    }else
+    {
+        language = @"en";
+    }
+    return language;
+}
+
 + (NSString *)formatFloat:(float)f
 {
     if (fmodf(f, 1)==0) {//如果有一位小数点

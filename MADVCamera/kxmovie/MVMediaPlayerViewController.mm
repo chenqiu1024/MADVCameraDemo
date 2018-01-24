@@ -236,9 +236,6 @@
     ret.providesPresentationContextTransitionStyle = YES;
     ret.definesPresentationContext = YES;
     ret.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-#ifdef ENCODE_VIDEO_WITH_GYRO
-    ret.isCameraGyroAdustEnabled = YES;
-#endif
     
 #ifdef OPENNEWPUBLISH
     UINavigationController* navigationVC;
@@ -258,7 +255,7 @@
     return ret;
 }
 
-- (NSData*)createMadVData
+- (NSData*)createMadVData:(BOOL)writeGyroData
 {
     NSData* MadVData = nil;
     if (self.decoder) {
@@ -266,15 +263,15 @@
         uint8_t dispMode = self.panoramaMode; // fill this value for real dispmode to record/export
         int64_t disp_size = 1;
         
-#ifndef ENCODE_VIDEO_WITH_GYRO
         int64_t  gyro_box_size;
-        if (gyro_size > 0)
-            gyro_box_size = gyro_size + 8;
-        else
+        if(writeGyroData) {
+            if (gyro_size > 0)
+                gyro_box_size = gyro_size + 8;
+            else
+                gyro_box_size = 0;
+        } else {
             gyro_box_size = 0;
-#else
-        int64_t  gyro_box_size = 0;
-#endif
+        }
         int64_t  disp_box_size = disp_size + 8;
         int64_t  madv_box_size = gyro_box_size + disp_box_size + 8;
         
@@ -323,7 +320,7 @@
 {
     //NSLog(@"VideoEncoding: MVMediaPlayerViewController $ playingDoneWhileEncoding");
     if (self.isUsedAsEncoder) {
-        NSData* MadVData = [self createMadVData];
+        NSData* MadVData = [self createMadVData:!self.isCameraGyroAdustEnabled];
 #ifdef ENCODING_WITHOUT_MYGLVIEW
         [self.encoderRenderLoop setMadVdata:MadVData];
         [self.encoderRenderLoop stopRendering];

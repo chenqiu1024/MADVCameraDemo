@@ -45,7 +45,7 @@
             make.top.equalTo(@0);
             make.height.equalTo(@130);
         }];
-        textView.font=[UIFont systemFontOfSize:17];
+        textView.font=[UIFont systemFontOfSize:15];
         self.textView=textView;
         
         UILabel * emailLabel = [[UILabel alloc] init];
@@ -96,7 +96,15 @@
             make.top.equalTo(@0);
             make.height.equalTo(@40);
         }];
-        mailTextField.placeholder=FGGetStringWithKeyFromTable(PLEASEEMAILWECANREPLY, nil);
+        
+        //mailTextField.placeholder=FGGetStringWithKeyFromTable(PLEASEEMAILWECANREPLY, nil);
+        NSDictionary *attributes = @{
+                                     
+                                     NSFontAttributeName:[UIFont systemFontOfSize:10],
+                                     
+                                     };
+        mailTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:FGGetStringWithKeyFromTable(PLEASEEMAILWECANREPLY, nil) attributes:attributes];
+        mailTextField.font = [UIFont systemFontOfSize:15];
         self.mailTextField=mailTextField;
         
     }

@@ -49,7 +49,7 @@
     scrollView.bounces=NO;
     
     BOOL isEn = false;
-    NSString * language = [NSString getAppLanguageIsContainIndonesia:NO];
+    NSString * language = [NSString getAppLessLanguage];
     if ([language isEqualToString:@"en"]) {
         isEn = true;
     }
@@ -145,12 +145,13 @@
         if (playScroll.linkStr) {
             
             if (isEn) {
-                [descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(titleLabel.mas_bottom).offset(40);
-                    make.centerX.equalTo(baseView.mas_centerX);
-                    make.width.equalTo(@250);
-                    make.height.equalTo(@40);
-                }];
+//                [descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//                    make.top.equalTo(titleLabel.mas_bottom).offset(40);
+//                    make.centerX.equalTo(baseView.mas_centerX);
+//                    make.width.equalTo(@250);
+//                    make.height.equalTo(@40);
+//                }];
+                descLabel.frame = CGRectMake((ScreenWidth - 250) * 0.5, CGRectGetMaxY(titleLabel.frame) +40, 250, 40);
                 descLabel.numberOfLines = 0;
             }else
             {
@@ -162,6 +163,9 @@
                 }];
             }
             descLabel.text = playScroll.desc;
+            if (isEn) {
+                [descLabel sizeToFit];
+            }
             if ([helper isNull:playScroll.type]) {
                 UILabel * linkLabel = [[UILabel alloc] init];
                 [baseView addSubview:linkLabel];
@@ -220,14 +224,20 @@
         {
             if (isEn) {
                 descLabel.frame = CGRectMake(10, height+25+40, 200, 70);
+                descLabel.numberOfLines = 0;
+                descLabel.text = playScroll.desc;
+                [descLabel sizeToFit];
+                descLabel.center = CGPointMake(self.width*0.5, descLabel.center.y);
+                
             }else
             {
                 descLabel.frame = CGRectMake(10, height+25+40, 160, 70);
+                descLabel.center = CGPointMake(self.width*0.5, descLabel.center.y);
+                descLabel.numberOfLines = 2;
+                descLabel.text = playScroll.desc;
             }
             
-            descLabel.center = CGPointMake(self.width*0.5, descLabel.center.y);
-            descLabel.numberOfLines = 2;
-            descLabel.text = playScroll.desc;
+            
         }
         
         

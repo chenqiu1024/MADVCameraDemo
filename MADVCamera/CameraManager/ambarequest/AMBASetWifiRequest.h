@@ -12,5 +12,5 @@
 
 @property(nonatomic,copy)NSString * ssid;
 @property(nonatomic,copy)NSString * passwd;
-- (instancetype) initWithReceiveBlock:(AMBAResponseReceivedBlock)receiveBlock errorBlock:(AMBAResponseErrorBlock)errorBlock;
+
 @end

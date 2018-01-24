@@ -10,14 +10,14 @@
 
 @implementation AMBAGetFileResponse
 
-+ (NSDictionary*) mj_replacedKeyFromPropertyName {
-    static NSMutableDictionary* dict = nil;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        dict = [[AMBAResponse mj_replacedKeyFromPropertyName] mutableCopy];
-        [dict addEntriesFromDictionary:@{@"siRemSize":@"rem_size", @"siSize":@"size"}];
-    });
-    return [NSDictionary dictionaryWithDictionary:dict];
++ (NSArray<NSString* >*) jsonSerializablePropertyNames {
+    mergeJsonSerializablePropertyNames(array, @[@"siRemSize", @"siSize"]);
+    return array;
+}
+
++ (NSDictionary<NSString*, NSString* >*) propertyNameToJsonKeyMap {
+    mergePropertyNameToJsonKeyMap(dict, @{@"siRemSize":@"rem_size", @"siSize":@"size"});
+    return dict;
 }
 
 - (NSInteger) remSize {
